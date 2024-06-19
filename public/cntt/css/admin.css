@@ -1,0 +1,72 @@
+/* css page admin */
+.tab-pane {
+    padding-top: 25px;
+}
+/* css image */
+#holder {
+    margin: 15px;
+    max-height: 150px;
+}
+
+#holder img {
+    height: 150px !important;
+}
+#preview img {
+    max-height: 150px;
+}
+#preview-image {
+    display: none;
+    margin: 15px;
+    max-height: 150px;
+}
+
+/* sticky css */
+.table-responsive {
+    height: 400px; /* Chiều cao của bảng */
+    overflow-y: auto; /* Bật thanh cuộn dọc */
+}
+
+.table thead th {
+    position: sticky !important; /* Làm cho các tiêu đề cố định */
+    top: 0; /* Vị trí cố định ở trên cùng */
+    background-color: white; /* Đặt màu nền để tiêu đề không bị trong suốt */
+    z-index: 999; /* Đảm bảo tiêu đề luôn ở trên cùng */
+}
+/* end sticky css */
+
+/* css product_images */
+
+/* css image */
+#image-holder {
+    margin: 15px;
+    max-height: 150px;
+}
+
+#image-holder img {
+    height: 150px !important;
+}
+#pr img {
+    max-height: 150px;
+}
+#pr-image {
+    display: none;
+    margin: 15px;
+    max-height: 150px;
+}
+
+/* css tags */
+.bootstrap-tagsinput {
+    width: 100%;
+}
+.bootstrap-tagsinput input {
+    padding: 3px;
+}
+.label {
+    padding: .2em .6em .3em;
+    border-radius: .25em;
+}
+.label-info {
+    background-color: #5bc0de;
+}
+
+
