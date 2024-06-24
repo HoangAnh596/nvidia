@@ -103,14 +103,16 @@
         </li>
         <!-- Nav Item - Pages Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('cateMenu.index') }}" data-toggle="collapse" data-target="#collapseMenus" aria-expanded="true" aria-controls="collapseMenus">
+            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseMenus" aria-expanded="true" aria-controls="collapseMenus">
                 <i class="fa-solid fa-bars"></i>
-                <span>Menu</span>
+                <span>Quản lý Menu, Footer</span>
             </a>
             <div id="collapseMenus" class="collapse" aria-labelledby="headingMenus" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('cateMenu.index') }}">Danh sách</a>
-                    <a class="collapse-item" href="{{ route('cateMenu.create') }}">Thêm mới</a>
+                    <a class="collapse-item" href="{{ route('cateMenu.index') }}">Danh sách Menu</a>
+                    <a class="collapse-item" href="{{ route('cateMenu.create') }}">Thêm mới Menu</a>
+                    <a class="collapse-item" href="{{ route('cateFooter.index') }}">Danh sách Footer</a>
+                    <a class="collapse-item" href="{{ route('cateFooter.create') }}">Thêm mới Footer</a>
                 </div>
             </div>
         </li>

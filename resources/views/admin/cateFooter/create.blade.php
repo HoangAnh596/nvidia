@@ -16,11 +16,11 @@
     <!-- DataTales Example -->
 
     <div class="card shadow">
-        <form id="uploadImageFormCateMenu" action="{{ route('cateMenu.store') }}" method="post" enctype="multipart/form-data">
+        <form id="uploadImageFormCateFooter" action="{{ route('cateFooter.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div class="card-header d-flex justify-content-between">
-                <a href="{{ route('cateMenu.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
+                <a href="{{ route('cateFooter.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
                 <div>
                     <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
                     <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
@@ -89,7 +89,7 @@
                             <select name="parent_menu" id="parent_menu" class="form-select" size="10" style="width: 400px;">
                                 <option value="0">Gốc</option>
                                 @foreach($menuParents as $category)
-                                @include('admin.cateMenu.partials.category_add', ['category' => $category, 'level' => 0, 'prefix' => '|---'])
+                                @include('admin.cateFooter.partials.category_add', ['category' => $category, 'level' => 0, 'prefix' => '|---'])
                                 @endforeach
                             </select>
                         </div>
@@ -110,7 +110,7 @@
                             <input class="hiddenImg py-1" type="file" name="uploadImg" id="image" accept="image/*">
                             <input id="thumbnail" class="form-control" type="hidden" name="filepath">
                             <input type="hidden" name="current_url" id="current_url" value="" />
-                            <button class="btn btn-outline-dark" id="uploadBtnCateMenu" style="margin-right: 1rem;" onclick="uploadImage()">Upload</button>
+                            <button class="btn btn-outline-dark" id="uploadBtnCateFooter" style="margin-right: 1rem;" onclick="uploadImage()">Upload</button>
                             <span class="input-group-btn">
                                 <button id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-outline-dark hiddenButton">
                                     <i class="fa fa-picture-o"></i> Chọn ảnh từ thư viện
@@ -122,16 +122,6 @@
                             <img id="preview-image" src="#" alt="your image" />
                         </div>
                     </div>
-                </div>
-                <div class="row mt-3 mb-3">
-                    <div class="col-2 d-flex flex-row-reverse align-items-center">Vị trí :</div>
-                    <div class="col-1 d-flex align-items-center">
-                        <select class="form-select" aria-label="Default" name="location">
-                            <option value="1">Bên trái</option>
-                            <option value="0">Bên phải</option>
-                        </select>
-                    </div>
-                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Hiển thị :</div>
@@ -239,7 +229,7 @@
 
     $(document).ready(function() {
         // $('#current_url').val(window.location.href);
-        $("#uploadBtnCateMenu").click(function(e) {
+        $("#uploadBtnCateFooter").click(function(e) {
             e.preventDefault();
             let data = new FormData();
             console.log(data);

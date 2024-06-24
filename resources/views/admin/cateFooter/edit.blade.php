@@ -16,11 +16,14 @@
     <!-- DataTales Example -->
 
     <div class="card shadow">
-        <form id="uploadImageFormCateMenu" action="{{ route('cateMenu.store') }}" method="post" enctype="multipart/form-data">
+        <form id="uploadImageFormCateMenu" action="{{ route('cateFooter.update', ['cateFooter' => $category->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
-            @method('POST')
+            @method('PUT')
+            @if (!empty($category))
+            <input type="hidden" name="id" value="{{ $category->id }}">
+            @endif
             <div class="card-header d-flex justify-content-between">
-                <a href="{{ route('cateMenu.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
+                <a href="{{ route('cateFooter.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
                 <div>
                     <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
                     <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
@@ -33,7 +36,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" oninput="checkDuplicate()">
+                            <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $category->name ?? '') }}" oninput="checkDuplicate()">
                             <span id="name-error" style="color: red;"></span>
                             @error('name')
                             <span class="text-danger">{{ $message }}</span>
@@ -78,7 +81,7 @@
                     <div class="col-10">
                         <div id="input-url">
                             <label for="url">Đường dẫn :</label>
-                            <input type="text" name="url" id="url" placeholder="Đường dẫn">
+                            <input type="text" name="url" id="url" value="{{ old('url', $category->url ?? '') }}" placeholder="Đường dẫn">
                         </div>
                     </div>
                 </div>
@@ -88,8 +91,8 @@
                         <div class="form-group">
                             <select name="parent_menu" id="parent_menu" class="form-select" size="10" style="width: 400px;">
                                 <option value="0">Gốc</option>
-                                @foreach($menuParents as $category)
-                                @include('admin.cateMenu.partials.category_add', ['category' => $category, 'level' => 0, 'prefix' => '|---'])
+                                @foreach($categories as $val)
+                                @include('admin.cateMenu.partials.category_option', ['category' => $val, 'level' => 0, 'prefix' => '|---', 'selected' => $category->parent_menu])
                                 @endforeach
                             </select>
                         </div>
@@ -124,46 +127,16 @@
                     </div>
                 </div>
                 <div class="row mt-3 mb-3">
-                    <div class="col-2 d-flex flex-row-reverse align-items-center">Vị trí :</div>
-                    <div class="col-1 d-flex align-items-center">
-                        <select class="form-select" aria-label="Default" name="location">
-                            <option value="1">Bên trái</option>
-                            <option value="0">Bên phải</option>
-                        </select>
-                    </div>
-                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
-                </div>
-                <div class="row mt-3 mb-3">
-                    <div class="col-2 d-flex flex-row-reverse align-items-center">Hiển thị :</div>
-                    <div class="col-1 d-flex align-items-center">
-                        <select class="form-select" aria-label="Default" name="is_public">
-                            <option value="1">Có</option>
-                            <option value="0">Không</option>
-                        </select>
-                    </div>
-                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
-                </div>
-                <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Thứ tự hiển thị :</div>
                     <div class="col-1">
-                        <input type="number" style="width:60px" name="stt_menu">
-                    </div>
-                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
-                </div>
-                <div class="row mt-3 mb-3">
-                    <div class="col-2 d-flex flex-row-reverse">Click :</div>
-                    <div class="col-1">
-                        <select class="form-select" aria-label="Default" name="is_click">
-                            <option value="1">Có</option>
-                            <option value="0">Không</option>
-                        </select>
+                        <input type="number" style="width: 50px;" name="stt_menu" value="{{ old('stt_menu', $category->stt_menu ?? '') }}">
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Mở tab mới :</div>
                     <div class="col-1 d-flex align-items-center">
-                        <input type="checkbox" name="is_tab" value="1">
+                        <input type="checkbox" name="is_tab" value="1" {{ ($category->is_tab == 1) ? 'checked' : '' }}>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>

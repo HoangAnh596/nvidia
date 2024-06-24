@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CateFooterController;
 use App\Http\Controllers\CategoryNewController;
 use App\Http\Controllers\CateMenuController;
 use App\Http\Controllers\HomeController;
@@ -78,6 +79,11 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::resource('cateMenu', CateMenuController::class);
     Route::post('cateMenu/checkStt', [CateMenuController::class, 'checkStt'])->name('cateMenu.checkStt');
     Route::post('cateMenu/checkbox', [CateMenuController::class, 'isCheckbox'])->name('cateMenu.isCheckbox');
+
+    // Quản lý footer
+    Route::resource('cateFooter', CateFooterController::class);
+    Route::post('cateFooter/checkStt', [cateFooterController::class, 'checkStt'])->name('cateFooter.checkStt');
+    Route::post('cateFooter/checkbox', [cateFooterController::class, 'isCheckbox'])->name('cateFooter.isCheckbox');
 
     Route::post('upload', [ContentController::class, 'upload'])->name('upload.image');
 

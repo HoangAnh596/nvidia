@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CateMenu extends Model
+class CateFooter extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'cate_menu';
+    protected $table = 'cate_footer';
     
     protected $dates = ['deleted_at'];
 
@@ -24,19 +24,18 @@ class CateMenu extends Model
     protected $fillable = [
         'name', 'parent_menu',
         'image', 'url', 'stt_menu',
-        'location', 'is_click',
-        'is_tab', 'is_public'
+        'is_click', 'is_tab', 'is_public'
     ];
 
     public function children()
     {
 
-        return $this->hasMany(CateMenu::class, 'parent_menu')->with('children');
+        return $this->hasMany(CateFooter::class, 'parent_menu')->with('children');
     }
 
     public function parent()
     {
 
-        return $this->belongsTo(CateMenu::class, 'parent_menu')->with('parent');
+        return $this->belongsTo(CateFooter::class, 'parent_menu')->with('parent');
     }
 }

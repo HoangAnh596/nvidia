@@ -3,7 +3,7 @@
 @section('content')
 
 <!-- Start Banner Hero -->
-<div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+<div id="template-mo-zay-hero-carousel mt-44" class="carousel slide" data-bs-ride="carousel">
     <ol class="carousel-indicators">
         <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
         <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
@@ -162,9 +162,9 @@
                     <a class="text-cate" href="/bo-phat-wifi">Bộ Phát Wifi</a>
                 </h2>
                 <p>
-                    <strong>NASVN</strong> phân phối các bộ phát wifi cho doanh nghiệp chính hãng Cisco, Aruba, Cambium, Maipu... Giá Tốt. <br>
-                    Cung cấp đầy đủ các dòng Wifi 5, Wifi 6, Wifi 6E hoạt động ổn định, hiệu suất mạnh mẽ, chịu tải cao, bảo mật, <br />
-                    và khả năng quản lý tập trung dễ dàng.
+                <strong>NASVN</strong> phân phối các bộ phát wifi cho doanh nghiệp chính hãng Cisco, Aruba, Cambium, Maipu... Giá Tốt. <br>
+                Cung cấp đầy đủ các dòng Wifi 5, Wifi 6, Wifi 6E hoạt động ổn định, hiệu suất mạnh mẽ, chịu tải cao, bảo mật, <br/> 
+                và khả năng quản lý tập trung dễ dàng.
                 </p>
 
             </div>
