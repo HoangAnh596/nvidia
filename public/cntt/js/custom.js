@@ -11,6 +11,24 @@ $(document).ready(function() {
         $(this).toggleClass('underline-gr');
     });
 
+    // Sự kiện hover
+    // $('.nav-link-web').on("mouseenter", function() {
+    //     var id = $(this).data('id');
+    //     var $el = $('#dropdown-' + id);
+    //     $('.dropdown-content').not($el).hide(); // Đóng tất cả các dropdown khác
+    //     $el.show();
+    //     // Thêm lớp underline-blue khi hover
+    //     $(this).addClass('underline-gr');
+    // });
+
+    // $('.nav-link-web').on("mouseleave", function() {
+    //     var id = $(this).data('id');
+    //     var $el = $('#dropdown-' + id);
+    //     $el.hide();
+    //     // Xóa lớp underline-blue khi không hover
+    //     $(this).removeClass('underline-gr');
+    // });
+
     // Ngăn chặn sự kiện nhấp chuột trên các phần tử con nổi lên trên phần tử gốc
     $('.dropdown-sub').on('click', function(e) {
         e.stopPropagation();

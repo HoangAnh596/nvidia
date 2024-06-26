@@ -13,7 +13,7 @@ class MenuServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $menus = CateMenu::where('parent_menu', 0)
             ->with('children')
-            ->orderBy('stt_menu', 'ASC')->take(7)
+            ->orderBy('stt_menu', 'ASC')->take(10)
             ->get();
 
             $footers = CateFooter::where('parent_menu', 0)

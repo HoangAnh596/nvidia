@@ -18,7 +18,7 @@
                 @if($category->location == 1)
                     @if($category->children->isNotEmpty())
                     <div class="nav-item">
-                        <a class="nav-link nav-link-web" href="#" id="navbarDropdown{{ $category->id }}" data-id="{{ $category->id }}">
+                        <a class="nav-link nav-link-web" href="{{ $category->url }}" id="navbarDropdown{{ $category->id }}" data-id="{{ $category->id }}">
                             {{ $category->name }}
                         </a>
                         @if(count($category->children) > 0)
@@ -31,7 +31,7 @@
                     </div>
                     @else
                     <div class="nav-item">
-                        <a class="nav-link" href="#" id="navbarDropdown{{ $category->id }}" data-id="{{ $category->id }}">
+                        <a class="nav-link" href="{{ $category->url }}" id="navbarDropdown{{ $category->id }}" data-id="{{ $category->id }}">
                             {{ $category->name }}
                         </a>
                     </div>
@@ -109,7 +109,7 @@
                 @foreach ($menus as $item)
                 <li class="nav-item nav-item-mobile">
                     @if($item->children->isNotEmpty())
-                    <a class="active nav-link-mb" id="nav-link-mb-{{ $item->id }}" aria-current="page" href="#" data-id="{{ $item->id }}">
+                    <a class="active nav-link-mb" id="nav-link-mb-{{ $item->id }}" aria-current="page" href="{{ $item->url }}" data-id="{{ $item->id }}">
                         {{ $item->name }}
                         <i class="fa-solid fa-chevron-down icon-down"></i>
                         <i class="fa-solid fa-chevron-up icon-up"></i>
@@ -122,7 +122,7 @@
                     </ul>
                 </li>
                 @else
-                <a class="active nav-link-mb" id="nav-link-mb-{{ $item->id }}" aria-current="page" href="#" data-id="{{ $item->id }}">
+                <a class="active nav-link-mb" id="nav-link-mb-{{ $item->id }}" aria-current="page" href="{{ $item->url }}" data-id="{{ $item->id }}">
                     {{ $item->name }}
                 </a>
                 @endif

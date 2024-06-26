@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-md-3">
     <div class="card mb-4 product-wap rounded-0">
         <a class="a-img" href="{{ $val->slug }}">
             <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" class="img-fluid">

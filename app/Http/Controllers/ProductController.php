@@ -10,6 +10,7 @@ use App\Models\Maker;
 use App\Models\ProductImages;
 use App\Models\ProductTag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -127,14 +128,6 @@ class ProductController extends Controller
     {
         $product = empty($id) ? new Product() : Product::findOrFail($id);
 
-        if(!empty($id)) {
-            // Lấy danh sách các id news mới từ request
-            $proIds = $request->input('category', []);
-            // Cập nhật mối quan hệ belongsToMany
-            $product->category()->sync($proIds);
-            // Xóa các id của bảng trung gian khi không còn bản ghi news thuộc category
-            $product->category()->wherePivotNotIn('product_id', $proIds)->detach();
-        }
         if(!empty($request['related_pro'])) {
             $request['related_pro'] = json_encode($request->related_pro);
         }
@@ -173,13 +166,15 @@ class ProductController extends Controller
         $idPrImage = [];
         $pathPrImages = parse_url($request->filepathPrImages, PHP_URL_PATH);
         if ($request->hasFile('pr_image_ids') || !empty($pathPrImages)) {
+            
             if (strpos($pathPrImages, '/') === 0) {
                 $pathPrImages = substr($pathPrImages, 1);
             }
+        // dd($request->all());
             
             $productImage = ProductImages::create(
                 [
-                    'product_id' => $request->id,
+                    // 'product_id' => $request->id,
                     'title' => (isset($request->title_pr_images)) ? $request->title_pr_images : $request->name,
                     'alt' => (isset($request->alt_pr_images)) ? $request->alt_pr_images : $request->name,
                     'image' => $pathPrImages,
@@ -199,6 +194,15 @@ class ProductController extends Controller
         }
         if (!empty($idPrImage) && !isset($request->id)) {
             $product['image_ids'] = json_encode(array_map('strval', $idPrImage));
+        }
+        // dd($request->category);
+        if(!empty($id)) {
+            // Cập nhật mối quan hệ belongsToMany
+            $cate_current = DB::table('product_categories')->where('product_id', $id)->value('category_id');
+            $cate_new = (int)($request->category);
+            if($cate_new != $cate_current) {
+                $product->category()->detach();
+            }
         }
         
         $product->save();

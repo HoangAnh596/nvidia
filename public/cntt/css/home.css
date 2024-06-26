@@ -1,19 +1,6 @@
 /* Ví dụ trong app.css hoặc style.css */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
-/* Áp dụng font chữ cho toàn bộ trang */
-body {
-    font-family: 'Font Awesome 6 Sharp' !important;
-}
-
-/* Thêm các phong cách khác nếu cần thiết */
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Font Awesome 6 Sharp';
-}
-body, ul, li, p, a, label, input, div {
-    font-family: Arial, Helvetica, Sans-Serif;
-}
-
 /* css header */
 #templatemo_main_nav {
     padding-right: 4rem;
@@ -30,7 +17,9 @@ a:hover {
     color: #666;
 }
 /* Begin Menu */
-
+.f-h2 {
+    font-size: 35px !important;
+}
 /* Navbar dropdown */
 .global-nav {
     background-color: #fff;
@@ -371,6 +360,101 @@ hr {
 
 /* css carousel */
 
+/* --------------------Begin Css Danh mục sản phẩm------------------------ */
+.hp-category {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.hp-category a {
+    color: black;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+}
+.bg-cate {
+    background-color: #E0E0E0;
+    margin: 0;
+    padding: 12px 0;
+}
+.ft-sw {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+}
+.nav-mb li {
+    margin-right: 15px;
+}
+.btn-link {
+    text-decoration: none;
+    color: black;
+}
+.btn-link:hover {
+    color: #76b900;
+}
+
+/* Begin css categories */
+.breadcrumb a {
+    text-decoration: none;
+    color: #212529;
+} 
+
+.menu-left {
+    background: #fff;
+    padding: 0 15px;
+}
+.product-wap {
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.10);
+} 
+.menu-left h2 {
+    font-size: 25px !important;
+    font-weight: 500;  
+}
+#cate-menu-left {
+    padding: 0;
+    height: auto;
+}
+.menu-cate-prd ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+.menu-cate-prd ul li {
+    border-bottom: 1px solid #ddd;
+}
+.menu-cate-prd ul > li.show > a {
+    font-weight: 400 !important;
+}
+.menu-cate-prd ul > li.show > i.fa-caret-down {
+    display: none;
+}
+.menu-cate-prd ul > li > i {
+    float: right;
+    padding: 13px 16px;
+    color: #00a510;
+}
+.menu-cate-prd ul > li.show > i.fa-caret-up {
+    display: block;
+    background: #00a510;
+    color: #fff;
+}
+.menu-cate-prd ul > li > a {
+    padding: 9px 0;
+    display: inline-block;
+}
+.menu-cate-prd ul li a {
+    text-decoration: none;
+    color: #25292d;
+}
+
+.card-body {
+    padding: 10px;
+}
+.pt-44 {
+    margin-top: 50px;
+}
+/* --------------------End Css Danh mục sản phẩm------------------------ */
+/* --------------------Begin Css Footer------------------------ */
+
+
+
 /* --------------------Begin Css Footer------------------------ */
 .ft-black {
     background-color: #000;
@@ -396,6 +480,9 @@ hr {
 .ft-link {
     color: #76b900;
     line-height: 30px;
+}
+.ft-link:hover {
+    color: #76b900;
 }
 
 
@@ -614,6 +701,11 @@ hr {
 }
 @media (min-width: 992px) {
     .navbar-mobile {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    .nav-mb {
         display: none;
     }
 }

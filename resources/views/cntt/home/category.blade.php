@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container py-3">
+<div class="container pt-44">
     <div class="row">
         <div class="col-lg-12">
             <div id="breadcrumb">
@@ -18,7 +18,7 @@
         </div>
         <div class="col-lg-3">
             <div class="menu-left product-wap">
-                <h2 class="h2">Danh Mục Sản Phẩm</h2>
+                <h2 class="pt-2">Danh Mục Sản Phẩm</h2>
                 <div class="menu-cate-prd" id="cate-menu-left">
                     <ul id="category-menu">
                         @foreach ($cateMenu as $category)
@@ -31,7 +31,7 @@
         <div class="col-lg-9">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="h2 mb-3 mt-2">{{ $categoryParentFind->name }}</h1>
+                    <h2 class="mb-3 mt-2">{{ $categoryParentFind->name }}</h2>
                 </div>
                 <div class="desc">
                     {{ $categoryParentFind->slug }}

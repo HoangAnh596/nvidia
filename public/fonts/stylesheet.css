@@ -1,0 +1,104 @@
+@font-face {
+    font-family: 'NVIDIA Sans';
+    src: url('NVIDIASans-Regular.eot');
+    src: local('NVIDIA Sans Regular'), local('NVIDIASans-Regular'),
+        url('NVIDIASans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('NVIDIASans-Regular.woff2') format('woff2'),
+        url('NVIDIASans-Regular.woff') format('woff'),
+        url('NVIDIASans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NVIDIA Sans';
+    src: url('NVIDIASans-Light.eot');
+    src: local('NVIDIA Sans Light'), local('NVIDIASans-Light'),
+        url('NVIDIASans-Light.eot?#iefix') format('embedded-opentype'),
+        url('NVIDIASans-Light.woff2') format('woff2'),
+        url('NVIDIASans-Light.woff') format('woff'),
+        url('NVIDIASans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NVIDIA Sans';
+    src: url('NVIDIASans-Italic.eot');
+    src: local('NVIDIA Sans Italic'), local('NVIDIASans-Italic'),
+        url('NVIDIASans-Italic.eot?#iefix') format('embedded-opentype'),
+        url('NVIDIASans-Italic.woff2') format('woff2'),
+        url('NVIDIASans-Italic.woff') format('woff'),
+        url('NVIDIASans-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NVIDIA Sans';
+    src: url('NVIDIASans-Bold.eot');
+    src: local('NVIDIA Sans Bold'), local('NVIDIASans-Bold'),
+        url('NVIDIASans-Bold.eot?#iefix') format('embedded-opentype'),
+        url('NVIDIASans-Bold.woff2') format('woff2'),
+        url('NVIDIASans-Bold.woff') format('woff'),
+        url('NVIDIASans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NVIDIA Sans';
+    src: url('NVIDIASans-BoldItalic.eot');
+    src: local('NVIDIA Sans Bold Italic'), local('NVIDIASans-BoldItalic'),
+        url('NVIDIASans-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('NVIDIASans-BoldItalic.woff2') format('woff2'),
+        url('NVIDIASans-BoldItalic.woff') format('woff'),
+        url('NVIDIASans-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NVIDIA Sans';
+    src: url('NVIDIASans-LightItalic.eot');
+    src: local('NVIDIA Sans Light Italic'), local('NVIDIASans-LightItalic'),
+        url('NVIDIASans-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('NVIDIASans-LightItalic.woff2') format('woff2'),
+        url('NVIDIASans-LightItalic.woff') format('woff'),
+        url('NVIDIASans-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NVIDIA Sans';
+    src: url('NVIDIASans-Medium.eot');
+    src: local('NVIDIA Sans Medium'), local('NVIDIASans-Medium'),
+        url('NVIDIASans-Medium.eot?#iefix') format('embedded-opentype'),
+        url('NVIDIASans-Medium.woff2') format('woff2'),
+        url('NVIDIASans-Medium.woff') format('woff'),
+        url('NVIDIASans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NVIDIA Sans';
+    src: url('NVIDIASans-MediumItalic.eot');
+    src: local('NVIDIA Sans Medium Italic'), local('NVIDIASans-MediumItalic'),
+        url('NVIDIASans-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('NVIDIASans-MediumItalic.woff2') format('woff2'),
+        url('NVIDIASans-MediumItalic.woff') format('woff'),
+        url('NVIDIASans-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+

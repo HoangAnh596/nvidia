@@ -20,7 +20,7 @@
             <div class="form-group mb-3 col-xs-12">
                 <label for="parent_id">Danh mục cha:</label>
                 <select class="form-control" id="parent_id" name="parent_id">
-                    <option value="">Chọn danh mục</option>
+                    <option value="0">Chọn danh mục</option>
                     @foreach($categories as $cat)
                         @include('admin.category.partials.category-option', ['category' => $cat, 'level' => 0, 'selected' => $category->parent_id])
                     @endforeach

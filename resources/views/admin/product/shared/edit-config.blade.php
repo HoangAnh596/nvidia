@@ -58,7 +58,7 @@
             </div>
             <div class="mb-3">
             <label for="category">Danh mục</label>
-            <select name="category[]" id="category" class="form-control" multiple>
+            <select name="category" id="category" class="form-control">
                 <option value="">Chọn danh mục</option>
                 @foreach($categories as $val)
                     @include('admin.product.partials.category-option', ['category' => $val, 'selectedCategories' => $product->category])

@@ -3,34 +3,34 @@
         <div class="col">
             <div class="mb-3">
                 <label for="name" class="form-label">Tên sản phẩm</label>
-                <input type="text" id="name" class="form-control" name="name" oninput="checkDuplicate()">
+                <input type="text" id="name" class="form-control" name="name" value="{{ old('name') }}" oninput="checkDuplicate()">
                 <span id="name-error" style="color: red;"></span>
             </div>
             <div class="mb-3">
                 <label for="code" class="form-label">Mã sản phẩm</label>
-                <input type="text" id="code" class="form-control" name="code">
+                <input type="text" id="code" class="form-control" name="code" value="{{ old('code') }}">
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Giá sản phẩm</label>
-                <input class="form-control" id="price" type="text" name="price">
+                <input class="form-control" id="price" type="text" name="price" value="{{ old('price') }}">
                 <span class="text-danger" id="priceError"></span>
             </div>
             <div class="mb-3">
                 <label for="quantity" class="form-label">Số lượng sản phẩm</label>
-                <input class="form-control" id="quantity" type="text" name="quantity">
+                <input class="form-control" id="quantity" type="text" name="quantity" value="{{ old('quantity') }}">
                 <span class="text-danger" id="quantityError"></span>
             </div>
         </div>
         <div class="col">
             <div class="mb-3">
                 <label for="slug" class="form-label">slug</label>
-                <input type="text" id="slug" class="form-control" name="slug" oninput="checkDuplicate()">
+                <input type="text" id="slug" class="form-control" name="slug" value="{{ old('slug') }}" oninput="checkDuplicate()">
                 <span id="slug-error" style="color: red;"></span>
             </div>
             <div class="mb-3">
-                <label for="product_categories" class="form-label">Danh mục sản phẩm</label>
-                <select name="product_categories" id="parent_id" class="form-control">
-                    <option value="0">Chọn danh mục</option>
+                <label for="category" class="form-label">Danh mục sản phẩm</label>
+                <select name="category" id="parent_id" class="form-control">
+                    <option>Chọn danh mục</option>
                     @foreach($categories as $category)
                     @include('admin.category.partials.category_add', ['category' => $category, 'level' => 0])
                     @endforeach

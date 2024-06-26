@@ -35,7 +35,7 @@ class CateFooterController extends Controller
     {
         $this->insertOrUpdate($request);
 
-        return redirect(route('cateFooter.index'))->with(['message' => 'Create Success']);
+        return redirect(route('cateFooter.create'))->with(['message' => 'Create Success']);
     }
 
      /**

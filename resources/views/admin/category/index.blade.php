@@ -83,7 +83,7 @@
         $('.active-checkbox').change(function() {
             var cateId = $(this).data('id');
             var field = $(this).data('field');
-            var value = $(this).is(':checked') ? 0 : 1;
+            var value = $(this).is(':checked') ? 1 : 0;
 
             $.ajax({
                 url: '{{ route("categories.isCheckbox") }}',

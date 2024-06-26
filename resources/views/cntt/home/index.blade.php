@@ -110,93 +110,174 @@
 <!-- End Banner Hero -->
 
 <!-- Start Featured Product -->
-<!-- @yield('main') -->
-<section class="bg-light">
-    <div class="container py-5">
-        <div class="row text-center py-3">
-            <div class="col-lg-8 m-auto mb-0-title">
-                <h2>
-                    <a class="text-cate" href="/switch">Switch</a>
-                </h2>
-                <p>
-                    AS cung cấp các sản phẩm thiết bị chuyển mạch <trong>Switch</trong> các hãng <strong>Cisco, Aruba, Juniper ..vv</strong> <br>
-                    Số 1 Tại Việt Nam - Số Lượng Stock Lớn - Giá Tốt - Hỗ Trợ Kỹ Thuật và Bảo Hành Chu Đáo - Giao Hàng Nhanh Trên Toàn Quốc.
-                </p>
+<!-- Begin Danh mục sản phẩm -->
+<section class="container hp-category">
+    <div class="row">
+        @foreach($categories as $item)
+        <div class="col d-flex flex-wrap">
+            <a class="d-flex justify-content-center flex-fill p-2" href="{{ $item->slug }}">
+                <img src="{{ \App\Http\Helpers\Helper::getPath($item->image) }}" class="rounded-circle img-fluid border" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
+            </a>
+            <h2 class="mt-3 mb-3 d-flex flex-fill justify-content-center"><a href="{{ $item->slug }}">{{ $item->name }}</a></h2>
+        </div>
+        @endforeach
+    </div>
+</section>
+<!-- End Danh mục sản phẩm -->
 
+<!-- Begin Sản phẩm nổi bật -->
+<section>
+    <div class="container">
+        @if(!empty($cate1))
+        <div class="row bg-cate">
+            <div class="col-md-3">
+                <a class="btn-link ft-sw" href="{{ $cate1->slug }}">{{ $cate1->name }}</a>
+            </div>
+            <div class="col-md-9 d-flex align-items-center justify-content-end">
+                <ul class="nav nav-mb">
+                    @foreach($cate1->children as $child)
+                    <li class="nav-item">
+                        <a class="btn-link" aria-current="page" href="{{ $child->slug }}">{{ $child->name }}</a>
+                    </li>
+                    @endforeach
+                </ul>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-12">
-                <div class="li-cate">
-                    @foreach($categories as $item)
-                    @if($item->parent_id == 1)
-                    <a href="{{ $item->slug }}">
-                        {{ $item->name }}
-                    </a>
-                    @endif
-                    @endforeach
-                </div>
-            </div>
-            @foreach($products as $item)
-            <div class="col-12 col-md-3 mb-3">
+        @endif
+        <div class="row mt-3">
+            @if(!empty($pr1))
+            @foreach($pr1 as $val)
+            <div class="col-12 col-md-3 mb-4">
                 <div class="card h-100">
-                    <a class="p-3 a-img" href="{{ $item->slug }}">
-                        <img src="{{ \App\Http\Helpers\Helper::getPath($item->image) }}" class="card-img-top" alt="...">
+                    <a href="{{ $val->slug }}">
+                        <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" class="card-img-top" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
                     </a>
-                    <div class="card-body pt-0">
-                        <a href="{{ $item->slug }}" class="text-decoration-none text-dark">{{ $item->name }}</a>
+                    <div class="card-body">
+                        <ul class="list-unstyled d-flex justify-content-between">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                            <li class="text-muted text-right">{{ $val->price }}</li>
+                        </ul>
+                        <a href="{{ $val->slug }}" class="text-decoration-none text-dark">{{ $val->name }}</a>
+                        <!-- <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
+                            </p> -->
+                        <!-- <p class="text-muted">Reviews (24)</p> -->
                     </div>
                 </div>
             </div>
             @endforeach
+            @endif
         </div>
     </div>
 </section>
-
-<section class="bg-light">
-    <div class="container py-5">
-        <div class="row text-center py-3">
-            <div class="col-lg-8 m-auto mb-0-title">
-                <h2>
-                    <a class="text-cate" href="/bo-phat-wifi">Bộ Phát Wifi</a>
-                </h2>
-                <p>
-                    <strong>NASVN</strong> phân phối các bộ phát wifi cho doanh nghiệp chính hãng Cisco, Aruba, Cambium, Maipu... Giá Tốt. <br>
-                    Cung cấp đầy đủ các dòng Wifi 5, Wifi 6, Wifi 6E hoạt động ổn định, hiệu suất mạnh mẽ, chịu tải cao, bảo mật, <br />
-                    và khả năng quản lý tập trung dễ dàng.
-                </p>
-
+<section>
+    <div class="container">
+        @if(!empty($cate2))
+        <div class="row bg-cate">
+            <div class="col-md-3">
+                <a class="btn-link ft-sw" href="{{ $cate2->slug }}">{{ $cate2->name }}</a>
+            </div>
+            <div class="col-md-9 d-flex align-items-center justify-content-end">
+                <ul class="nav nav-mb">
+                    @foreach($cate2->children as $child)
+                    <li class="nav-item">
+                        <a class="btn-link" aria-current="page" href="{{ $child->slug }}">{{ $child->name }}</a>
+                    </li>
+                    @endforeach
+                </ul>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-12">
-                <div class="li-cate">
-                    @foreach($categories as $item)
-                    @if($item->parent_id == 2)
-                    <a href="{{$item->slug}}">
-                        {{ $item->name }}
-                    </a>
-                    @endif
-                    @endforeach
-                </div>
-            </div>
-            @foreach($proWifi as $item)
-            <div class="col-12 col-md-3 mb-3">
+        @endif
+        <div class="row mt-3">
+            @if(!empty($pr2))
+            @foreach($pr2 as $value)
+            <div class="col-12 col-md-3 mb-4">
                 <div class="card h-100">
-                    <a class="p-3 a-img" href="{{ $item->slug }}">
-                        <img src="{{ \App\Http\Helpers\Helper::getPath('products',$item->image) }}" class="card-img-top" alt="...">
+                    <a href="{{ $value->slug }}">
+                        <img src="{{ \App\Http\Helpers\Helper::getPath($value->image) }}" class="card-img-top" alt="{{ $value->alt_img }}" title="{{ $value->title_img }}">
                     </a>
-                    <div class="card-body pt-0">
-                        <a href="{{ $item->slug }}" class="text-decoration-none text-dark">{{ $item->name }}</a>
+                    <div class="card-body">
+                        <ul class="list-unstyled d-flex justify-content-between">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                            <li class="text-muted text-right">{{ $value->price }}</li>
+                        </ul>
+                        <a href="{{ $value->slug }}" class="text-decoration-none text-dark">{{ $value->name }}</a>
+                        <!-- <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
+                            </p> -->
+                        <!-- <p class="text-muted">Reviews (24)</p> -->
                     </div>
                 </div>
             </div>
             @endforeach
+            @endif
         </div>
     </div>
 </section>
+<section>
+    <div class="container">
+        @if(!empty($cate3))
+        <div class="row bg-cate">
+            <div class="col-md-3">
+                <a class="btn-link ft-sw" href="{{ $cate3->slug }}">{{ $cate3->name }}</a>
+            </div>
+            <div class="col-md-9 d-flex align-items-center justify-content-end">
+                <ul class="nav nav-mb">
+                    @foreach($cate3->children as $child)
+                    <li class="nav-item">
+                        <a class="btn-link" aria-current="page" href="{{ $child->slug }}">{{ $child->name }}</a>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        @endif
+        <div class="row mt-3">
+            @if(!empty($pr3))
+            @foreach($pr3 as $key)
+            <div class="col-12 col-md-3 mb-4">
+                <div class="card h-100">
+                    <a href="{{ $key->slug }}">
+                        <img src="{{ \App\Http\Helpers\Helper::getPath($key->image) }}" class="card-img-top" alt="{{ $key->alt_img }}" title="{{ $key->title_img }}">
+                    </a>
+                    <div class="card-body">
+                        <ul class="list-unstyled d-flex justify-content-between">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                            <li class="text-muted text-right">{{ $key->price }}</li>
+                        </ul>
+                        <a href="{{ $key->slug }}" class="text-decoration-none text-dark">{{ $key->name }}</a>
+                        <!-- <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
+                            </p> -->
+                        <!-- <p class="text-muted">Reviews (24)</p> -->
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            @endif
+        </div>
+    </div>
+</section>
+<!-- End Sản phẩm nổi bật -->
+
 <!-- End Featured Product -->
 
 @endsection

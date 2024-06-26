@@ -27,25 +27,32 @@ Table of contents
 
 
 
+@font-face {
+  font-family: 'Nvidia';
+  src: url('/fonts/NVIDIASans-Regular.woff') format('woff'),
+       url('/fonts/NVIDIASans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 /* Typography */
 body, ul, li, p, a, label, input, div {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Nvidia', sans-serif;
   font-size: 16px !important;
   font-weight: 400 !important;
 }
 .h1 {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Nvidia', sans-serif;
   font-size: 48px !important;
   font-weight: 200 !important;
 }
 .h2 {
-  font-family: 'Roboto', sans-serif;
-  font-size: 30px !important;
+  font-family: 'Nvidia', sans-serif;
+  font-size: 35px !important;
   font-weight: 300;
 }
 .h3 {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Nvidia', sans-serif;
   font-size: 22px !important;
 }
 /* General */
@@ -55,7 +62,7 @@ body, ul, li, p, a, label, input, div {
 .text-success { color: #59ab6e !important;}
 .text-light { color: #cfd6e1 !important;}
 .bg-dark { background-color: #212934 !important;}
-.bg-light { background-color: #e9eef5 !important;}
+.bg-light { background-color: #fff !important;}
 .bg-black { background-color: #1d242d !important;}
 .bg-success { background-color: #59ab6e !important;}
 .btn-success {

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container py-3">
+<div class="container pt-44">
     <div class="row">
         <div class="col-lg-12">
             <div id="breadcrumb">
@@ -16,80 +16,89 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="menu-left product-wap">
-                <h2 class="h2">Danh Mục Sản Phẩm</h2>
-                <div class="menu-cate-prd" id="cate-menu-left">
-                    <ul id="category-menu">
-                        @foreach ($cateMenu as $category)
-                        @include('cntt.home.partials.children', ['category' => $category])
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-9">
-            <div class="card">
-                <div class="card-body">
-                    <h1 class="h2">{{ $product->name }}</h1>
-                    <p class="py-2">
-                        <i class="fa fa-star text-warning"></i>
-                        <i class="fa fa-star text-warning"></i>
-                        <i class="fa fa-star text-warning"></i>
-                        <i class="fa fa-star text-warning"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
-                    </p>
-                    <figure class="text-center">
-                        <img class="card-img img-fluid" src="{{ \App\Http\Helpers\Helper::getPath($product->image) }}" alt="{{ $product->alt_img }}" title="{{ $product->title_img }}" style="width: 70%">
-                    </figure>
-                    <div class="row d-flex justify-content-center">
-                        @if(!empty($images))
-                        @foreach($images as $val)
-                        <div class="col text-center">
-                            <figure class="">
-                                <img class="card-img img-fluid" src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" alt="{{ $val->alt }}" title="{{ $val->title }}" style="width: 30%">
-                            </figure>
-                        </div>
-                        @endforeach
-                        @endif
-                    </div>
-                    <div class="mt-3 mb-3">
-                        <p>Slug: {{ $product->slug}}</p>
-                        <p>Tiêu đề SEO: {{ $product->title_seo}}</p>
-                        <p>Từ khóa SEO: {{ $product->keyword_seo}}</p>
-                        <p>Chi tiết SEO: {{ $product->des_seo}}</p>
-                    </div>
-                    <form action="" method="GET">
-                        <input type="hidden" name="product-title" value="Activewear">
+        <div class="col-xs-12">
+            <div class="desc-product">
+                <div class="row">
+                    <div class="col-lg-9">
                         <div class="row">
-                            <div class="col-auto">
-                                <p style="margin-top: 4px">✓ Giá List: <strong>${{$product->price}}</strong></p>
+                            <div class="col-lg-6">
+                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    @if(!empty($images))
+                                    @foreach($images as $val)
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100" src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" alt="{{ $val->alt }}" title="{{ $val->title }}">
+                                    </div>
+                                    @endforeach
+                                    @endif
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
                             </div>
-                            <div class="col-auto">
-                                <ul class="list-inline pb-3">
-                                    <li class="list-inline-item text-right">
-                                        ✓ Số lượng
-                                        <input type="hidden" name="product-quanity" id="product-quanity" value="1">
-                                    </li>
-                                    <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
-                                    <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
-                                    <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
-                                </ul>
+                                
+                            </div>
+                            <div class="col-lg-6">
+                            <h1 class="h2">{{ $product->name }}</h1>
+                                <p class="py-2">
+                                    <i class="fa fa-star text-warning"></i>
+                                    <i class="fa fa-star text-warning"></i>
+                                    <i class="fa fa-star text-warning"></i>
+                                    <i class="fa fa-star text-warning"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
+                                </p>
+                                <figure class="text-center">
+                                    <img class="card-img img-fluid" src="{{ \App\Http\Helpers\Helper::getPath($product->image) }}" alt="{{ $product->alt_img }}" title="{{ $product->title_img }}" style="width: 70%">
+                                </figure>
+                                <div class="mt-3 mb-3">
+                                    <p>Slug: {{ $product->slug}}</p>
+                                    <p>Tiêu đề SEO: {{ $product->title_seo}}</p>
+                                    <p>Từ khóa SEO: {{ $product->keyword_seo}}</p>
+                                    <p>Chi tiết SEO: {{ $product->des_seo}}</p>
+                                </div>
+                                <form action="" method="GET">
+                                    <input type="hidden" name="product-title" value="Activewear">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <p style="margin-top: 4px">✓ Giá List: <strong>${{$product->price}}</strong></p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <ul class="list-inline pb-3">
+                                                <li class="list-inline-item text-right">
+                                                    ✓ Số lượng
+                                                    <input type="hidden" name="product-quanity" id="product-quanity" value="1">
+                                                </li>
+                                                <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
+                                                <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
+                                                <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="row pb-3">
+                                        <div class="col d-grid">
+                                            <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Mua sản phẩm</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="mt-3 mb-3">
+                                    <p>{!! $product->content !!}</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="row pb-3">
-                            <div class="col d-grid">
-                                <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Mua sản phẩm</button>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="mt-3 mb-3">
-                        <p>{!! $product->content !!}</p>
+                    </div>
+                    <div class="col-lg-3">
+
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 <section class="py-3">
