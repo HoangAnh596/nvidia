@@ -40,16 +40,13 @@ class HomeController extends Controller
 
             return view('cntt.home.index', compact('categories'));
         } else {
-            // dd($ids);
             foreach ($ids as $index => $value) {
                 ${'idCate' . ($index + 1)} = $value;
             }
             $cate1 = $cate2 = $cate3 = null;
             // Lấy ra id categories đầu tiên 
             if (isset($idCate1)) {
-                // dd($idCate1);
                 $cate1 = Category::find($idCate1);
-                // dd($cate1->name);
                 // Lấy tất cả các id danh mục con bao gồm cả id gốc
                 $allCategoryIds = array_merge([$idCate1], $cate1->getAllChildrenIds());
                 // Lọc danh sách id dựa trên mảng $categoryIds
@@ -83,7 +80,9 @@ class HomeController extends Controller
             $pr2 = $pr2 ?? collect();
             $pr3 = $pr3 ?? collect();
 
-            return view('cntt.home.index', compact('categories', 'cate1', 'pr1', 'cate2', 'pr2', 'cate3', 'pr3'));
+            // Tin tức
+            $blogs = News::where('is_outstand', 1)->orderBy('created_at', 'DESC')->take(4)->get();
+            return view('cntt.home.index', compact('categories', 'blogs', 'cate1', 'pr1', 'cate2', 'pr2', 'cate3', 'pr3'));
         }
     }
     

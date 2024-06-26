@@ -1,6 +1,9 @@
 /* Ví dụ trong app.css hoặc style.css */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
+.container {
+
+}
 /* css header */
 #templatemo_main_nav {
     padding-right: 4rem;
@@ -364,29 +367,65 @@ hr {
 .hp-category {
     margin-top: 1rem;
     margin-bottom: 1rem;
+    background-color: #eee;
+    border-radius: 10px;
 }
 .hp-category a {
     color: black;
-    font-size: 18px !important;
+    /* font-size: 18px !important; */
     font-weight: 700 !important;
 }
 .bg-cate {
-    background-color: #E0E0E0;
     margin: 0;
     padding: 12px 0;
+}
+.btn-img {
+    padding: 0 1rem;
+}
+.btn-img-new {
+    padding: 6px;
+}
+.btn-img-new img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.card-new {
+    overflow: hidden;
+    transition: scale .5s ease;
+}
+.card-new:hover {
+    scale: 1.05;
+    transition: scale .5s ease;
 }
 .ft-sw {
     font-size: 20px !important;
     font-weight: 700 !important;
 }
 .nav-mb li {
-    margin-right: 15px;
+    padding-left: 15px;
+    /* background-color: #eee; */
+}
+.nav-mb a {
+    padding: 5px 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background-color: #eee;
 }
 .btn-link {
     text-decoration: none;
     color: black;
 }
 .btn-link:hover {
+    color: #76b900;
+}
+.card {
+    border-radius: 1rem;
+}
+.card-body ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+.icon-heart {
     color: #76b900;
 }
 
@@ -586,8 +625,7 @@ hr {
 .global-footer {
     background: #fff;
     margin: 0 auto;
-    max-width: 1290px;
-    padding: 30px;
+    padding: 30px 0;
 }
 .global-footer__logo {
     display: block;
@@ -651,6 +689,11 @@ hr {
 
 
 /* -------------------Begin Responsive ------------------- */
+@media (min-width: 1400px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1220px;
+    }
+}
 @media (min-width: 1023px) {
     /* .header {
         display: none;

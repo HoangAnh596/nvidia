@@ -4,30 +4,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div id="breadcrumb">
-                    <div itemscope="" itemtype="https://schema.org/BreadcrumbList">
-                        <span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
-                            <a itemprop="item" href="/" title="Trang chủ">
-                                <span itemprop="name">Trang chủ</span>
-                            </a>
-                            <meta itemprop="position" content="1">
-                        </span>
-                        &nbsp;»&nbsp;
-                        <span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
-                            <a itemscope="" itemtype="https://schema.org/WebPage" itemid="blogs" itemprop="item" href="/blogs" title="Blogs">
-                                <span itemprop="name">Blogs</span>
-                            </a>
-                            <meta itemprop="position" content="2">
-                        </span>
-                        &nbsp;»&nbsp;
-                        <span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
-                            <a itemscope="" itemtype="https://schema.org/WebPage" itemid="blogs/chuyen-muc-ve-cambium" itemprop="item" href="{{ asset('/blogs/'. $titleCate->slug) }}" title="✅ Chuyên mục về Cambium">
-                                <span itemprop="name">✅ {{ $titleCate->name }}</span>
-                            </a>
-                            <meta itemprop="position" content="3">
-                        </span>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -64,61 +40,16 @@
                 <div class="header">
                     <span>Chuyên mục chính</span>
                 </div>
-                <ul class="news_cate_hot">
-                    @foreach($cate as $val)
-                    <li>
-                        <a href="{{ $val->slug }}">✓ {{ $val->name }}</a>
-                    </li>
-                    @endforeach
-                </ul>
                 <!--  -->
                 <div class="header">
                     <span>Bài viết Xem nhiều nhất</span>
                 </div>
-                <ul class="most-view">
-                    @foreach($viewer as $item)
-                    <li>
-                        <a title="{{ $item->title }}" href="{{ asset('blogs/'.$item->slugParent.'/'.$item->slug) }}">{{ $item->name }}</a>
-                    </li>
-                    @endforeach
-                </ul>
                 <!--  -->
                 <div class="header">
                     <span>Bài viết nổi bật</span>
                 </div>
-                <div class="hot-news">
-                    @foreach($outstand as $val)
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="{{ asset('blogs/'.$val->slugParent.'/'.$val->slug) }}">
-                                <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
-                            </a>
-                        </div>
-                        <div class="media-right">
-                            <a href="{{ asset('blogs/'.$val->slugParent.'/'.$val->slug) }}">{{ $val->name }}</a>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
                 <div class="header bgeee">
                     <span>Sản phẩm liên quan</span>
-                </div>
-                <div class="related-products">
-                    @if(!empty($relatedPro))
-                    @foreach($relatedPro as $value)
-                    <div class="media-products">
-                        <div class="media-left">
-                            <a href="{{ asset('/'.$value->slug) }}">
-                                <img src="{{ \App\Http\Helpers\Helper::getPath($value->image) }}" alt="{{ $value->alt_img }}" title="{{ $value->title_img }}">
-                            </a>
-                        </div>
-                        <div class="media-right">
-                            <a href="{{ asset('/'.$value->slug) }}">{{ $value->name }}</a>
-                            <span class="new-price">Liên hệ</span>
-                        </div>
-                    </div>
-                    @endforeach
-                    @endif
                 </div>
             </div>
         </div>

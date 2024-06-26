@@ -20,8 +20,8 @@ class CreateProductsTable extends Migration
             $table->string('related_pro')->nullable();
             $table->string('tag_ids')->nullable();
             $table->char('code', 20);
-            $table->float('price', 8, 2);
-            $table->float('quantity', 8, 2);
+            $table->string('price')->nullable();
+            $table->float('quantity', 8, 2)->nullable();
             $table->string('image')->nullable();
             $table->string('image_ids')->nullable();
             // $table->unsignedBigInteger('maker_id');

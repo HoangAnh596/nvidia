@@ -38,14 +38,9 @@ class ProductFormRequest extends FormRequest
 
         return [
             'name' => (isset($ruleUpdateName)) ? $ruleUpdateName : 'required | unique:products',
-            // 'code' => [
-            //     'required',
-            //     // Rule::unique('products')->ignore($this->product)
-            // ],
-            // 'price' => 'required|numeric',
-            // 'product_image' => 'required|mimes:jpg,bmp,png,jpeg,gif|max:2048',
             'content'=>'required',
-            // 'category' => 'required|array',
+            'category' => 'required',
+            'code' => 'required',
         ];
     }
     /**
@@ -56,6 +51,8 @@ class ProductFormRequest extends FormRequest
         return [
             'name.required' => 'Tên sản phẩm không được bỏ trống.',
             'name.unique' => 'Tên sản phẩm không được trùng.',
+            'code.required' => 'Mã sản phẩm không được để trống',
+            'category.required' => 'Danh mục sản phẩm không được để trống',
             'content.required' => 'Mô tả không được để trống',
         ];
     }

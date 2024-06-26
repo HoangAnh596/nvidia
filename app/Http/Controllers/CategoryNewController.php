@@ -143,7 +143,7 @@ class CategoryNewController extends Controller
         }
         $category->title_img = (isset($request->title_img)) ? $request->title_img : $request->name;
         $category->alt_img = (isset($request->alt_img)) ? $request->alt_img : $request->name;
-        $category->stt_new = (isset($request->stt_new)) ? $request->stt_new : 999;
+        // $category->stt_new = (isset($request->stt_new)) ? $request->stt_new : 999;
 
         $category->save();
     }

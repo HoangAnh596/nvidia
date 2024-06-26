@@ -129,7 +129,7 @@ class NewController extends Controller
         }
         $new->title_img = (isset($request->title_img)) ? $request->title_img : $request->name;
         $new->alt_img = (isset($request->alt_img)) ? $request->alt_img : $request->name;
-        
+        // dd($new);
         $new->save();
     }
 

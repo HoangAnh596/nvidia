@@ -170,11 +170,9 @@ class ProductController extends Controller
             if (strpos($pathPrImages, '/') === 0) {
                 $pathPrImages = substr($pathPrImages, 1);
             }
-        // dd($request->all());
             
             $productImage = ProductImages::create(
                 [
-                    // 'product_id' => $request->id,
                     'title' => (isset($request->title_pr_images)) ? $request->title_pr_images : $request->name,
                     'alt' => (isset($request->alt_pr_images)) ? $request->alt_pr_images : $request->name,
                     'image' => $pathPrImages,
@@ -195,7 +193,7 @@ class ProductController extends Controller
         if (!empty($idPrImage) && !isset($request->id)) {
             $product['image_ids'] = json_encode(array_map('strval', $idPrImage));
         }
-        // dd($request->category);
+        
         if(!empty($id)) {
             // Cập nhật mối quan hệ belongsToMany
             $cate_current = DB::table('product_categories')->where('product_id', $id)->value('category_id');

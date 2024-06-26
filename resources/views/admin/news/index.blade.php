@@ -63,7 +63,7 @@
                             </td>
                             <td class="text-center">
                                 <div class="form-check">
-                                    <input type="checkbox" class="active-checkbox" data-id="{{ $new->id }}" data-field="is_outstand" {{ ($category->is_outstand == 1) ? 'checked' : '' }}>
+                                    <input type="checkbox" class="active-checkbox" data-id="{{ $new->id }}" data-field="is_outstand" {{ ($new->is_outstand == 1) ? 'checked' : '' }}>
                                 </div>
                             </td>
                             <td class="text-center">{{ $new->view_count }}</td>

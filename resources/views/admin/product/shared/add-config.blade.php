@@ -2,7 +2,7 @@
     <div class="form-row">
         <div class="col">
             <div class="mb-3">
-                <label for="name" class="form-label">Tên sản phẩm</label>
+                <label for="name" class="form-label">Tên sản phẩm <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
                 <input type="text" id="name" class="form-control" name="name" value="{{ old('name') }}" oninput="checkDuplicate()">
                 <span id="name-error" style="color: red;"></span>
             </div>
@@ -28,9 +28,9 @@
                 <span id="slug-error" style="color: red;"></span>
             </div>
             <div class="mb-3">
-                <label for="category" class="form-label">Danh mục sản phẩm</label>
+                <label for="category" class="form-label">Danh mục sản phẩm <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
                 <select name="category" id="parent_id" class="form-control">
-                    <option>Chọn danh mục</option>
+                    <option value="">Chọn danh mục</option>
                     @foreach($categories as $category)
                     @include('admin.category.partials.category_add', ['category' => $category, 'level' => 0])
                     @endforeach
@@ -87,7 +87,7 @@
     </div>
     <div class="form-row">
         <div class="col">
-            <label for="example-textarea" class="form-label">Mô tả chi tiết</label>
+            <label for="example-textarea" class="form-label">Mô tả chi tiết <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
             <textarea id="my-editor" name="content" class="form-control"></textarea>
         </div>
     </div>
