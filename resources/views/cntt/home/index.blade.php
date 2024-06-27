@@ -115,7 +115,7 @@
     <div class="row">
         @foreach($categories as $item)
         <div class="col d-flex flex-wrap">
-            <a class="d-flex justify-content-center flex-fill p-2" href="{{ $item->slug }}">
+            <a class="d-flex justify-content-center flex-fill mt-3" href="{{ $item->slug }}">
                 <img src="{{ \App\Http\Helpers\Helper::getPath($item->image) }}" class="rounded-circle img-fluid border" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
             </a>
             <h2 class="mt-3 mb-3 d-flex flex-fill justify-content-center">
@@ -172,10 +172,6 @@
                             </li>
                             <li class="text-muted text-right"><i class="fa-solid fa-heart icon-heart"></i></li>
                         </ul>
-                        <!-- <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
-                            </p> -->
-                        <!-- <p class="text-muted">Reviews (24)</p> -->
                     </div>
                 </div>
             </div>
@@ -228,10 +224,6 @@
                             </li>
                             <li class="text-muted text-right"><i class="fa-solid fa-heart icon-heart"></i></li>
                         </ul>
-                        <!-- <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
-                            </p> -->
-                        <!-- <p class="text-muted">Reviews (24)</p> -->
                     </div>
                 </div>
             </div>
@@ -282,7 +274,7 @@
                                 <i class="text-muted fa fa-star"></i>
                                 <i class="text-muted fa fa-star"></i>
                             </li>
-                            <li class="text-muted text-right"><i class="fa-solid fa-heart icon-heart"></i></li>
+                            <li class="text-muted text-right">Yêu thích <i class="fa-solid fa-heart icon-heart"></i></li>
                         </ul>
                         <!-- <p class="card-text">
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.

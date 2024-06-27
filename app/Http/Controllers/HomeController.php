@@ -96,7 +96,10 @@ class HomeController extends Controller
             $categoryParentFind = Category::where('slug', $slug)
                 ->with('children')
                 ->first();
-
+            // Lấy ra id của parent_id = 0 
+            $parentId = Category::findOrFail($categoryParentFind->id)->topLevelParent()->id;
+            $cateParent = Category::findOrFail($parentId);
+            
             $categoryIds = $category->getAllChildrenIds();
             array_unshift($categoryIds, $category->id); // Thêm ID danh mục chính vào danh sách
 
@@ -104,24 +107,31 @@ class HomeController extends Controller
                 $query->whereIn('category_id', $categoryIds);
             })->get();
 
-            return view('cntt.home.category', compact('cateMenu', 'category', 'categoryParentFind', 'products'));
+            $prOutstand = Product::where('is_outstand', 1)
+                ->whereHas('category', function ($query) use ($categoryIds) {
+                    $query->whereIn('category_id', $categoryIds);
+                })->get();
+            // Bộ lọc sản phẩm
+            // $filterCate = $cateParent->getFilterCates();
+
+            return view('cntt.home.category', compact('cateParent', 'category', 'categoryParentFind', 'products', 'prOutstand'));
         }
 
         $idPro = Product::where('slug', $slug)->value('id');
         $product = Product::with('category')->findOrFail($idPro);
         $images = Product::findOrFail($idPro)->getProductImages();
-        $cateMenu = Category::all();
-        $cateMenu = $this->buildTree($cateMenu);
+        // $cateMenu = Category::all();
+        // $cateMenu = $this->buildTree($cateMenu);
 
         $pro = Product::findOrFail($idPro);
 
         if (!empty($pro->related_pro)) {
             $relatedProducts = $pro->getRelatedProducts();
 
-            return view('cntt.home.show', compact('cateMenu', 'product', 'images', 'relatedProducts'));
+            return view('cntt.home.show', compact('product', 'images', 'relatedProducts'));
         }
 
-        return view('cntt.home.show', compact('cateMenu', 'product', 'images'));
+        return view('cntt.home.show', compact('product', 'images'));
     }
 
     private function buildTree($cateMenu, $parentId = 0)

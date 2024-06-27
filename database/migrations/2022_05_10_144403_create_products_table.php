@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('related_pro')->nullable();
             $table->string('tag_ids')->nullable();
             $table->char('code', 20);
+            $table->tinyInteger('is_outstand')->default(0)->comment('1: nổi bật, 0: không nổi bật');
             $table->string('price')->nullable();
             $table->float('quantity', 8, 2)->nullable();
             $table->string('image')->nullable();

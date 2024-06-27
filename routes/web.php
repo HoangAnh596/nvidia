@@ -10,6 +10,8 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CateFooterController;
 use App\Http\Controllers\CategoryNewController;
 use App\Http\Controllers\CateMenuController;
+use App\Http\Controllers\FilterCateController;
+use App\Http\Controllers\FilterProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MakerController;
 use App\Http\Controllers\ProductController;
@@ -57,15 +59,30 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('/products/check-name', [ProductController::class, 'checkName'])->name('products.checkName');
     Route::post('/products/tim-kiem', [ProductController::class, 'search'])->name('products.tim-kiem');
     Route::post('/products/search-tags', [ProductController::class, 'searchTags'])->name('products.searchTags');
+    Route::post('/products/checkbox', [ProductController::class, 'isCheckbox'])->name('products.isCheckbox');
+    
     Route::resource('product-tags', ProductTagController::class);
     Route::post('/product-images/checkStt', [ProductImagesController::class, 'checkStt'])->name('product-images.checkStt');
     Route::delete('product-images/{id}', [ProductImagesController::class, 'destroy'])->name('product-images.destroy');
+
+    // Quản lý bộ lọc danh mục
+    Route::get('/filters', [FilterCateController::class, 'index'])->name('filter.index');
+    Route::get('/filters/create', [FilterCateController::class, 'create'])->name('filter.create');
+    Route::post('/filters', [FilterCateController::class, 'store'])->name('filter.store');
+    Route::get('/filters/{id}/edit', [FilterCateController::class, 'edit'])->name('filter.edit');
+    Route::put('filters/{id}', [FilterCateController::class, 'update'])->name('filter.update');
+
+    // Quản lý bộ lọc của từng sản phẩm thuộc danh mục
+    Route::get('/filter-pro/create', [FilterProductController::class, 'create'])->name('filterPro.create');
+    Route::post('/filter-pro', [FilterProductController::class, 'store'])->name('filterPro.store');
+    Route::get('/filter-pro/{id}/edit', [FilterProductController::class, 'edit'])->name('filterPro.edit');
+    Route::put('filter-pro/{id}', [FilterProductController::class, 'update'])->name('filterPro.update');
 
     // Quản lý Tin tức
     Route::resource('news', NewController::class)->middleware('authorization:Admin');
     Route::post('/news/check-name', [NewController::class, 'checkName'])->name('news.checkName');
     Route::post('/news/checkbox', [NewController::class, 'isCheckbox'])->name('news.isCheckbox');
-    
+
     // Quản lý danh mục tin tức
     Route::resource('cateNews', CategoryNewController::class);
     Route::post('/cateNews/check-name', [CategoryNewController::class, 'checkName'])->name('cateNews.checkName');
@@ -112,5 +129,4 @@ Route::prefix('/')->group(function () {
     Route::get('/{slug}', [HomeController::class, 'category'])
         ->name('home.category')->where('slug', '[a-zA-Z0-9-_]+');
     Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
-    
 });

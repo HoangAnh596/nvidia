@@ -1,46 +1,140 @@
 @extends('cntt.layouts.app')
 
 @section('content')
-
-<div class="container pt-44">
-    <div class="row">
-        <div class="col-lg-12">
-            <div id="breadcrumb">
-                <div class="d-flex">
-                    <h6 aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-                            <li class="breadcrumb-item active">Switch</li>
-                        </ol>
-                    </h6>
-                </div>
+<div class="pt-44" id="breadcrumb">
+    <div class="container">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a href="{{ asset($cateParent->slug) }}">{{ $cateParent->name }}</a></li>
+                @if($categoryParentFind->id != $cateParent->id)
+                <li class="breadcrumb-item active">{{ $categoryParentFind->name }}</li>
+                @endif
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="filter-cate">
+    <div class="container">
+        <div class="row bg-cate">
+            <div style="padding-left: 0;">
+                <h1>{{ $cateParent->name }}</h1>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="menu-left product-wap">
-                <h2 class="pt-2">Danh Mục Sản Phẩm</h2>
-                <div class="menu-cate-prd" id="cate-menu-left">
-                    <ul id="category-menu">
-                        @foreach ($cateMenu as $category)
-                        @include('cntt.home.partials.children', ['category' => $category])
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-9">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="mb-3 mt-2">{{ $categoryParentFind->name }}</h2>
-                </div>
-                <div class="desc">
-                    {{ $categoryParentFind->slug }}
-                </div>
-            </div>
-            <div class="row">
-                @foreach($products as $val)
-                @include('cntt.home.partials.products', ['val' => $val])
+        @if(!empty($filterCate))
+        <div class="row d-flex align-items-center justify-content-end" style="padding-bottom:12px;">
+            <ul class="nav nav-mb">
+                @foreach($filterCate as $val)
+                <li class="nav-item">
+                    <a class="btn-link" aria-current="page" href="{{ $val->slug }}">{{ $val->name }}</a>
+                </li>
                 @endforeach
+            </ul>
+        </div>
+        @endif
+    </div>
+</div>
+<div class="container">
+    <div class="row mt-3">
+        @foreach($products as $val)
+        @include('cntt.home.partials.products', ['val' => $val])
+        @endforeach
+        <div class="d-flex align-items-center justify-content-center nav-mb" style="padding-bottom:12px;">
+            <a class="btn-link">Xem thêm sản phẩm</a>
+        </div>
+    </div>
+    <div class="cate-prod mt-3">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="content-cate">
+                    <div>
+                        {!! $categoryParentFind->content !!}
+                    </div>
+                    <div class="align-items-center justify-content-center btn-show-more show-more" style="padding-bottom:12px;">
+                        <a class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="outstand-prod">
+                    <div class="bg-prod d-flex align-items-center">
+                        <h2>Sản phẩm nổi bật</h2>
+                    </div>
+                    <div class="title-outstand-prod">
+                        @foreach($prOutstand as $data)
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <a class="btn-outstand" href="{{ $data->slug }}">
+                                    <img src="{{ \App\Http\Helpers\Helper::getPath($data->image) }}" class="card-img-top" alt="{{ $data->alt_img }}" title="{{ $data->title_img }}">
+                                </a>
+                            </div>
+                            <div class="col-md-8 d-flex flex-column bd-highlight" style="height: 100px;">
+                                <div class="bd-highlight">
+                                    <a class="btn-link" href="{{ $data->slug }}">{{ $data->name }}</a>
+                                </div>
+                                <div class="bd-highlight">
+                                    <a href="{{ $data->slug }}" class="text-decoration-none text-danger">{{ number_format($val->price, 0, ',', '.') }}đ</a>
+                                </div>
+                                <div class="mt-auto bd-highlight">
+                                    <ul class="list-unstyled d-flex justify-content-between">
+                                        <li>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-muted fa fa-star"></i>
+                                            <i class="text-muted fa fa-star"></i>
+                                        </li>
+                                        <li class="text-muted text-right">Yêu thích <i class="fa-solid fa-heart icon-heart"></i></li>
+                                    </ul>
+                                </div>                                
+                            </div>
+                        </div>
+                        @endforeach
+                        <div class="align-items-center justify-content-center nav-mb outstand-show-more btn-show-more" style="padding-bottom:12px;">
+                            <a class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Hotline -->
+                <div class="outstand-prod">
+                    <div class="bg-prod d-flex align-items-center">
+                        <h2>Bạn cần báo giá tốt nhất</h2>
+                    </div>
+                    <div class="title-outstand-prod">
+                        @foreach($prOutstand as $data)
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <a class="btn-outstand" href="{{ $data->slug }}">
+                                    <img src="{{ \App\Http\Helpers\Helper::getPath($data->image) }}" class="card-img-top" alt="{{ $data->alt_img }}" title="{{ $data->title_img }}">
+                                </a>
+                            </div>
+                            <div class="col-md-8 d-flex flex-column bd-highlight" style="height: 100px;">
+                                <div class="bd-highlight">
+                                    <a class="btn-link" href="{{ $data->slug }}">{{ $data->name }}</a>
+                                </div>
+                                <div class="bd-highlight">
+                                    <a href="{{ $data->slug }}" class="text-decoration-none text-danger">{{ number_format($val->price, 0, ',', '.') }}đ</a>
+                                </div>
+                                <div class="mt-auto bd-highlight">
+                                    <ul class="list-unstyled d-flex justify-content-between">
+                                        <li>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-muted fa fa-star"></i>
+                                            <i class="text-muted fa fa-star"></i>
+                                        </li>
+                                        <li class="text-muted text-right">Yêu thích <i class="fa-solid fa-heart icon-heart"></i></li>
+                                    </ul>
+                                </div>                                
+                            </div>
+                        </div>
+                        @endforeach
+                        <div class="align-items-center justify-content-center nav-mb outstand-show-more btn-show-more" style="padding-bottom:12px;">
+                            <a class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -243,4 +243,13 @@ class ProductController extends Controller
         }
         return response()->json($query);
     }
+
+    public function isCheckbox(Request $request)
+    {
+        $product = Product::findOrFail($request->id);
+        $product->is_outstand = $request->is_outstand;
+        $product->save();
+
+        return response()->json(['success' => true]);
+    }
 }

@@ -18,7 +18,7 @@ class Product extends Model
         'quantity', 'title_img', 'alt_img',
         'title_seo', 'keyword_seo', 'des_seo',
         'maker_id', 'image_ids', 'tag_ids',
-        'content'
+        'content', 'is_outstand'
     ];
 
     public function getRelatedProducts()

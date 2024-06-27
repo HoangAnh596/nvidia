@@ -56,6 +56,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('categories.index') }}">Danh sách danh mục</a>
                     <a class="collapse-item" href="{{ route('categories.create') }}">Thêm mới danh mục</a>
+                    <a class="collapse-item" href="{{ route('filter.index') }}">Danh sách bộ lọc</a>
                 </div>
             </div>
         </li>

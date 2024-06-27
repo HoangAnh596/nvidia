@@ -45,11 +45,12 @@
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="col-sm-1">No.</th>
+                            <th class="">No.</th>
                             <th class="col-sm-4">Name</th>
                             <th class="col-sm-3">Code</th>
                             <th class="col-sm-2">Image</th>
-                            <th class="col-sm-2">Action</th>
+                            <th class="text-center">Nổi bật</th>
+                            <th class="">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,6 +61,11 @@
                             <td>{{ $product->code }}</td>
                             <td>
                                 <img src="{{ \App\Http\Helpers\Helper::getPath($product->image) }}" class="img-fluid">
+                            </td>
+                            <td class="text-center">
+                                <div class="form-check">
+                                    <input type="checkbox" class="active-checkbox" data-id="{{ $product->id }}" data-field="is_outstand" {{ ($product->is_outstand == 1) ? 'checked' : '' }}>
+                                </div>
                             </td>
                             <td>
                                 <a href="{{ asset('admin/products/'.$product->id.'/edit') }}" class="btn-sm">Chỉnh sửa</a>
@@ -75,4 +81,44 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('.active-checkbox').change(function() {
+            var cateId = $(this).data('id');
+            var value = $(this).is(':checked') ? 1 : 0;
+
+            $.ajax({
+                url: '{{ route("products.isCheckbox") }}',
+                method: 'POST',
+                data: {
+                    id: cateId,
+                    is_outstand: value,
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function(response) {
+                    if (response.success) {
+                        alert('Trạng thái được cập nhật thành công.');
+                    } else {
+                        alert('Không thể cập nhật trạng thái.');
+                    }
+                },
+                error: function() {
+                    alert('Lỗi cập nhật trạng thái.');
+                }
+            });
+        });
+    });
+</script>
 @endsection

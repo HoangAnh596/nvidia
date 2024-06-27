@@ -1,5 +1,6 @@
+<div class="row">
 @foreach($subcategories as $subcategory)
-<div class="dropdown-submenu">
+<div class="col-2 dropdown-submenu">
     @if ($category->stt_menu == 1)
     <div class="dropdown-sub menu-title-{{ $category->stt_menu }}">
         <ul class="title-sub">
@@ -56,3 +57,4 @@
     @endif
 </div>
 @endforeach
+</div>

@@ -1,10 +1,27 @@
-<div class="col-md-3">
-    <div class="card mb-4 product-wap rounded-0">
-        <a class="a-img" href="{{ $val->slug }}">
-            <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" class="img-fluid">
+<div class="col-12 col-md-3 mb-4">
+    <div class="card h-100">
+        <a class="btn-img" href="{{ $val->slug }}">
+            <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" class="card-img-top" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
         </a>
         <div class="card-body">
-            <a href="{{ $val->slug }}" class="h3 text-decoration-none">{{ $val->name }}</a>
+            <div>
+                <a href="{{ $val->slug }}" class="text-decoration-none text-danger">{{ number_format($val->price, 0, ',', '.') }}đ</a>
+            </div>
+            <a href="{{ $val->slug }}" class="text-decoration-none text-dark">{{ $val->name }}</a>
+            <ul class="list-unstyled d-flex justify-content-between">
+                <li>
+                    <i class="text-warning fa fa-star"></i>
+                    <i class="text-warning fa fa-star"></i>
+                    <i class="text-warning fa fa-star"></i>
+                    <i class="text-muted fa fa-star"></i>
+                    <i class="text-muted fa fa-star"></i>
+                </li>
+                <li class="text-muted text-right"><i class="fa-solid fa-heart icon-heart"></i></li>
+            </ul>
+            <!-- <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
+                            </p> -->
+            <!-- <p class="text-muted">Reviews (24)</p> -->
         </div>
     </div>
 </div>

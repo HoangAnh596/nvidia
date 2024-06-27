@@ -81,4 +81,15 @@ $(document).ready(function() {
         $this.find('.icon-up').toggle();
         $dropdownContent.toggle();
     });
+
+    // Xem thêm 
+    $('.show-more').on('click', function() {
+        $(this).css('display', 'none'); // Ẩn nút show-more
+        $('.content-cate').css('max-height', '10000px'); // Thêm chiều cao cho content-cate
+    });
+
+    $('.outstand-show-more').on('click', function() {
+        $(this).css('display', 'none'); // Ẩn nút show-more
+        $('.outstand-prod').css('max-height', '10000px'); // Thêm chiều cao cho content-cate
+    });
 });

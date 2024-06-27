@@ -11,7 +11,7 @@ class Category extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'categories';
-    
+
     protected $dates = ['deleted_at'];
 
     const IS_SERVE = 1;
@@ -26,8 +26,9 @@ class Category extends Model
     const IS_NOT_PUBLIC = 0;
 
     protected $fillable = [
-        'name', 'slug', 'parent_id', 'image','title_img', 'alt_img',
-        'content', 'title_seo', 'keyword_seo', 'des_seo', 'stt_cate',
+        'name', 'slug', 'parent_id', 'filter_ids',
+        'image', 'title_img', 'alt_img', 'content',
+        'title_seo', 'keyword_seo', 'des_seo', 'stt_cate',
         'is_serve', 'is_parent', 'is_menu', 'is_outstand', 'is_public'
     ];
 
@@ -50,7 +51,30 @@ class Category extends Model
         foreach ($this->children as $child) {
             $childrenIds = array_merge($childrenIds, $child->getAllChildrenIds());
         }
-        
+
         return $childrenIds;
+    }
+
+    public function topLevelParent()
+    {
+        $category = $this;
+        while ($category->parent_id != 0) {
+            $category = $category->parent;
+        }
+        return $category;
+    }
+
+    // Thiết lập mối quan hệ với FilterCate
+    public function filters()
+    {
+        return $this->hasMany(FilterCate::class, 'cate_id', 'id');
+    }
+
+    public function getFilterCates()
+    {
+        if (!empty($this->filter_ids)) {
+            $filId = json_decode($this->filter_ids);
+            return FilterCate::whereIn('id', $filId)->get();
+        }
     }
 }
