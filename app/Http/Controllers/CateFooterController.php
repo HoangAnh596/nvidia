@@ -35,7 +35,7 @@ class CateFooterController extends Controller
     {
         $this->insertOrUpdate($request);
 
-        return redirect(route('cateFooter.create'))->with(['message' => 'Create Success']);
+        return redirect(route('cateFooter.create'))->with(['message' => 'Tạo mới thành công']);
     }
 
      /**
@@ -63,7 +63,7 @@ class CateFooterController extends Controller
     {
         $this->insertOrUpdate($request, $id);
 
-        return redirect(route('cateFooter.index'))->with(['message' => "Updated category successfully !"]);
+        return redirect(route('cateFooter.index'))->with(['message' => "Cập nhật thành công danh mục footer !"]);
     }
 
     public function insertOrUpdate(Request $request, $id = '')

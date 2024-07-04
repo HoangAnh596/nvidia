@@ -13,7 +13,7 @@ use App\Http\Controllers\CateMenuController;
 use App\Http\Controllers\FilterCateController;
 use App\Http\Controllers\FilterProductController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MakerController;
+use App\Http\Controllers\InforController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImagesController;
 use App\Http\Controllers\ProductTagController;
@@ -91,6 +91,10 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
 
     // Quản lý tài khoản đăng nhập
     Route::resource('users', UserController::class)->middleware('authorization:Admin');
+    // Quản lý thông tin hotline nhân viên
+    Route::resource('infors', InforController::class);
+    Route::post('/infors/checkStt', [InforController::class, 'checkStt'])->name('infors.checkStt');
+    Route::post('/infors/checkbox', [InforController::class, 'isCheckbox'])->name('infors.isCheckbox');
 
     // Quản lý danh mục menu
     Route::resource('cateMenu', CateMenuController::class);

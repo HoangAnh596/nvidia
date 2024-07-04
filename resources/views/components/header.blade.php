@@ -118,6 +118,20 @@
             </div>
         </li>
 
+        <!-- Nav Item - Pages Infors -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('infors.index') }}" data-toggle="collapse" data-target="#collapseInfors" aria-expanded="true" aria-controls="collapseInfors">
+                <i class="fa-solid fa-phone-volume"></i>
+                <span>Quản lý hotline</span>
+            </a>
+            <div id="collapseInfors" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('infors.index') }}">Danh sách</a>
+                    <a class="collapse-item" href="{{ route('infors.create') }}">Thêm mới</a>
+                </div>
+            </div>
+        </li>
+
         <!-- Nav Item - Pages Users Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('users.index') }}" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">

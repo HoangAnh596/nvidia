@@ -29,14 +29,14 @@
                 <div class="row list-news">
                     <div class="col-lg-5">
                         <div class="media-left">
-                            <a href="{{ asset('blogs/'.$item->slugParent.'/'.$item->slug) }}">
+                            <a href="{{ asset($item->slugParent.'/'.$item->slug) }}">
                                 <img src="{{ \App\Http\Helpers\Helper::getPath($item->image) }}" alt="{{ $item->alt_img }}" title="{{ $item->title_img }}">
                             </a>
                         </div>
                     </div>
                     <div class="col-lg-7 padding-left-0">
                         <div class="media-body">
-                            <a href="{{ asset('blogs/'.$item->slugParent.'/'.$item->slug) }}">{{ $item->name }}</a>
+                            <a href="{{ asset($item->slugParent.'/'.$item->slug) }}">{{ $item->name }}</a>
                             <span class="media-desc">{{ $item->desc }}</span>
                         </div>
                     </div>
@@ -77,12 +77,12 @@
                     @foreach($outstand as $val)
                     <div class="media">
                         <div class="media-left">
-                            <a href="{{ asset('blogs/'.$val->slugParent.'/'.$val->slug) }}">
+                            <a href="{{ asset('/'.$val->slugParent.'/'.$val->slug) }}">
                                 <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
                             </a>
                         </div>
                         <div class="media-right">
-                            <a href="{{ asset('blogs/'.$val->slugParent.'/'.$val->slug) }}">{{ $val->name }}</a>
+                            <a href="{{ asset('/'.$val->slugParent.'/'.$val->slug) }}">{{ $val->name }}</a>
                         </div>
                     </div>
                     @endforeach

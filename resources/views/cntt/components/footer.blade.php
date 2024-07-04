@@ -51,7 +51,7 @@
                     <i class="fa-brands fa-linkedin-in" title="LinkedIn"></i>
                 </a>
                 <a href="https://twitter.com/nvidia" class="page-footer__social__link" target="_blank" alt="<util:I18n key=&quot;Follow GeForce on Twitter&quot; />" title="<util:I18n key=&quot;Follow GeForce on Twitter&quot; />">
-                    <i class="fa-brands fa-x-twitter" title="Twitter"></i>
+                    <i class="fa-brands fa-twitter" title="Twitter"></i>
                 </a>
                 <a href="https://www.youtube.com/user/nvidia" class="page-footer__social__link" target="_blank">
                     <i class="fa-brands fa-youtube" title="YouTube"></i>
@@ -71,13 +71,6 @@
                 <path d="M103.9 462.8v-16.6c1.6-0.1 3.3-0.2 4.9-0.2 45.6-1.4 75.4 39.1 75.4 39.1s-32.2 44.8-66.8 44.8c-5 0-9.4-0.8-13.4-2.2v-50.5c17.7 2.2 21.3 10 32 27.7l23.7-20c0 0-17.3-22.7-46.5-22.7C110 462.3 106.9 462.5 103.9 462.8M103.9 407.8v24.8c1.6-0.1 3.3-0.2 4.9-0.3 63.3-2.2 104.6 51.9 104.6 51.9s-47.4 57.7-96.7 57.7c-4.5 0-8.7-0.4-12.7-1.1v15.4c3.4 0.4 7 0.7 10.6 0.7 46 0 79.2-23.5 111.4-51.2 5.3 4.3 27.2 14.7 31.7 19.2 -30.6 25.6-101.9 46.3-142.3 46.3 -3.9 0-7.6-0.2-11.3-0.6v21.6h174.7V407.8H103.9zM103.9 527.8v13.1c-42.5-7.6-54.3-51.8-54.3-51.8s20.4-22.6 54.3-26.3v14.4c0 0 0 0-0.1 0 -17.7-2.2-31.7 14.5-31.7 14.5S80 519.6 103.9 527.8M28.4 487.2c0 0 25.2-37.1 75.5-41v-13.5C48.2 437.2 0 484.4 0 484.4s27.3 79 103.9 86.3v-14.4C47.7 549.2 28.4 487.2 28.4 487.2z"></path>
             </g>
         </svg>
-        <div class="global-footer__region">
-            <a href="https://www.nvidia.com/en-us/location-selector/" target="_self">
-                <span class="global-footer__region__label">
-                    Việt Nam
-                </span>
-            </a>
-        </div>
 
         <ul class="global-footer__links">
             <li>

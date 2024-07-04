@@ -26,7 +26,7 @@
                                 The End-to-End Driving at Scale award showcases the use of <br>
                                 generative AI for comprehensive self-driving models.
                             </p>
-                            <a class="btn-carousel" href="">Read Blog</a>
+                            <a class="btn-carousel" href="/">Read Blog</a>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                                 data to speed AI development of autonomous vehicles, <br>
                                 robotic arms, mobile robots, humanoids, and smart spaces.
                             </p>
-                            <a class="btn-carousel" href="">Learn More</a>
+                            <a class="btn-carousel" href="/">Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                                 HPE’s CEO, live on stage for the HPE Discover keynote. <br>
                                 Tuesday, June 18, 9:00 a.m. PT.
                             </p>
-                            <a class="btn-carousel" href="">Save the Date</a>
+                            <a class="btn-carousel" href="/">Save the Date</a>
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                                 exceptional AI training performance in the latest MLPerf <br>
                                 Training benchmarks.
                             </p>
-                            <a class="btn-carousel" href="">Save the Date</a>
+                            <a class="btn-carousel" href="/">Save the Date</a>
                         </div>
                     </div>
                 </div>
@@ -115,11 +115,11 @@
     <div class="row">
         @foreach($categories as $item)
         <div class="col d-flex flex-wrap">
-            <a class="d-flex justify-content-center flex-fill mt-3" href="{{ $item->slug }}">
+            <a class="d-flex justify-content-center flex-fill mt-3" href="{{ $item->slug }}" title="{{ $item->name }}">
                 <img src="{{ \App\Http\Helpers\Helper::getPath($item->image) }}" class="rounded-circle img-fluid border" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
             </a>
             <h2 class="mt-3 mb-3 d-flex flex-fill justify-content-center">
-                <a href="{{ $item->slug }}">{{ $item->name }}</a>
+                <a href="{{ $item->slug }}" title="{{ $item->name }}">{{ $item->name }}</a>
             </h2>
         </div>
         @endforeach
@@ -133,17 +133,17 @@
         @if(!empty($cate1))
         <div class="row bg-cate">
             <div class="col-md-3" style="padding-left: 0;">
-                <a class="btn-link ft-sw" href="{{ $cate1->slug }}">{{ $cate1->name }}</a>
+                <a class="btn-link ft-sw" href="{{ $cate1->slug }}" title="{{ $cate1->name }}">{{ $cate1->name }}</a>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
                 <ul class="nav nav-mb">
                     @foreach($cate1->children as $child)
                     <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="{{ $child->slug }}">{{ $child->name }}</a>
+                        <a class="btn-link" aria-current="page" href="{{ $child->slug }}" title="{{ $cate1->name }}">{{ $child->name }}</a>
                     </li>
                     @endforeach
                     <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="{{ $cate1->slug }}">Xem thêm</a>
+                        <a class="btn-link" aria-current="page" href="{{ $cate1->slug }}" title="xem thêm">Xem thêm</a>
                     </li>
                 </ul>
             </div>
@@ -154,14 +154,14 @@
             @foreach($pr1 as $val)
             <div class="col-12 col-md-3 mb-4">
                 <div class="card h-100">
-                    <a class="btn-img" href="{{ $val->slug }}">
+                    <a class="btn-img" href="{{ $val->slug }}" title="{{ $val->name }}">
                         <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" class="card-img-top" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
                     </a>
                     <div class="card-body">
                         <div>
-                            <a href="{{ $val->slug }}" class="text-decoration-none text-danger">{{ number_format($val->price, 0, ',', '.') }}đ</a>
+                            <a href="{{ $val->slug }}" title="{{ $val->name }}" class="text-decoration-none text-danger">{{ number_format($val->price, 0, ',', '.') }}đ</a>
                         </div>
-                        <a href="{{ $val->slug }}" class="text-decoration-none text-dark">{{ $val->name }}</a>
+                        <a href="{{ $val->slug }}" title="{{ $val->name }}" class="text-decoration-none text-dark">{{ $val->name }}</a>
                         <ul class="list-unstyled d-flex justify-content-between">
                             <li>
                                 <i class="text-warning fa fa-star"></i>
@@ -185,17 +185,17 @@
         @if(!empty($cate2))
         <div class="row bg-cate">
             <div class="col-md-3" style="padding-left: 0;">
-                <a class="btn-link ft-sw" href="{{ $cate2->slug }}">{{ $cate2->name }}</a>
+                <a class="btn-link ft-sw" href="{{ $cate2->slug }}" title="{{ $cate2->name }}">{{ $cate2->name }}</a>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
                 <ul class="nav nav-mb">
                     @foreach($cate2->children as $child)
                     <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="{{ $child->slug }}">{{ $child->name }}</a>
+                        <a class="btn-link" aria-current="page" href="{{ $child->slug }}" title="{{ $cate2->name }}">{{ $child->name }}</a>
                     </li>
                     @endforeach
                     <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="{{ $cate2->slug }}">Xem thêm</a>
+                        <a class="btn-link" aria-current="page" href="{{ $cate2->slug }}" title="{{ $cate2->name }}">Xem thêm</a>
                     </li>
                 </ul>
             </div>
@@ -206,14 +206,14 @@
             @foreach($pr2 as $value)
             <div class="col-12 col-md-3 mb-4">
                 <div class="card h-100">
-                    <a class="btn-img" href="{{ $value->slug }}">
+                    <a class="btn-img" href="{{ $value->slug }}" title="{{ $value->name }}">
                         <img src="{{ \App\Http\Helpers\Helper::getPath($value->image) }}" class="card-img-top" alt="{{ $value->alt_img }}" title="{{ $value->title_img }}">
                     </a>
                     <div class="card-body">
                         <div>
                             <a href="{{ $value->slug }}" class="text-decoration-none text-danger">{{ number_format($value->price, 0, ',', '.') }}đ</a>
                         </div>
-                        <a href="{{ $value->slug }}" class="text-decoration-none text-dark">{{ $value->name }}</a>
+                        <a href="{{ $value->slug }}" class="text-decoration-none text-dark" title="{{ $value->name }}">{{ $value->name }}</a>
                         <ul class="list-unstyled d-flex justify-content-between">
                             <li>
                                 <i class="text-warning fa fa-star"></i>
@@ -237,17 +237,17 @@
         @if(!empty($cate3))
         <div class="row bg-cate">
             <div class="col-md-3" style="padding-left: 0;">
-                <a class="btn-link ft-sw" href="{{ $cate3->slug }}">{{ $cate3->name }}</a>
+                <a class="btn-link ft-sw" href="{{ $cate3->slug }}" title="{{ $cate3->name }}">{{ $cate3->name }}</a>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
                 <ul class="nav nav-mb">
                     @foreach($cate3->children as $child)
                     <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="{{ $child->slug }}">{{ $child->name }}</a>
+                        <a class="btn-link" aria-current="page" href="{{ $child->slug }}" title="{{ $child->name }}">{{ $child->name }}</a>
                     </li>
                     @endforeach
                     <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="{{ $cate3->slug }}">Xem thêm</a>
+                        <a class="btn-link" aria-current="page" href="{{ $cate3->slug }}" title="{{ $cate3->name }}">Xem thêm</a>
                     </li>
                 </ul>
             </div>
@@ -258,14 +258,14 @@
             @foreach($pr3 as $val)
             <div class="col-12 col-md-3 mb-4">
                 <div class="card h-100">
-                    <a class="btn-img" href="{{ $val->slug }}">
+                    <a class="btn-img" href="{{ $val->slug }}" title="{{ $val->name }}">
                         <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" class="card-img-top" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
                     </a>
                     <div class="card-body">
                         <div>
-                            <a href="{{ $val->slug }}" class="text-decoration-none text-danger">{{ number_format($val->price, 0, ',', '.') }}đ</a>
+                            <a href="{{ $val->slug }}" class="text-decoration-none text-danger" title="{{ $val->name }}">{{ number_format($val->price, 0, ',', '.') }}đ</a>
                         </div>
-                        <a href="{{ $val->slug }}" class="text-decoration-none text-dark">{{ $val->name }}</a>
+                        <a href="{{ $val->slug }}" class="text-decoration-none text-dark" title="{{ $val->name }}">{{ $val->name }}</a>
                         <ul class="list-unstyled d-flex justify-content-between">
                             <li>
                                 <i class="text-warning fa fa-star"></i>
@@ -296,12 +296,12 @@
     <div class="container">
         <div class="row bg-cate">
             <div class="col-md-3" style="padding-left: 0;">
-                <a class="btn-link ft-sw" href="">Tin Tức Công Nghệ</a>
+                <a class="btn-link ft-sw" href="/blogs">Tin Tức Công Nghệ</a>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
                 <ul class="nav nav-mb">
                     <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="">Xem thêm</a>
+                        <a class="btn-link" aria-current="page" href="/blogs">Xem thêm</a>
                     </li>
                 </ul>
             </div>

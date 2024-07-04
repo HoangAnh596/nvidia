@@ -19,7 +19,7 @@
         <div class="col-xs-12">
             <div class="desc-product">
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-md-8">
                         <div class="row">
                             <div class="col-lg-6">
                             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -92,8 +92,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-
+                    <div class="col-md-4">
+                        <div class="hot-list">Chủ đề hot</div>
+                        <div class="new-prod">Bài viết mới</div>
                     </div>
                 </div>
             </div>
@@ -148,6 +149,17 @@
     .active {
         display: block;
         color: blue;
+    }
+    .desc-product img {
+        width: 100%;
+    }
+    .new-prod {
+        position: sticky;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        height: 50px;
     }
 </style>
 @endsection

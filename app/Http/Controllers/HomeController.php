@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\CategoryNew;
 use App\Models\CateMenu;
+use App\Models\Infor;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -86,13 +88,14 @@ class HomeController extends Controller
         }
     }
     
-    public function category($slug)
+    public function category(Request $request, $slug)
     {
         $cateMenu = Category::all();
         $cateMenu = $this->buildTree($cateMenu);
-
+        
         $category = Category::where('slug', $slug)->first();
         if (!empty($category)) {
+            $phoneInfors = Infor::where('is_public', 1)->orderBy('stt', 'ASC')->get();
             $categoryParentFind = Category::where('slug', $slug)
                 ->with('children')
                 ->first();
@@ -103,18 +106,32 @@ class HomeController extends Controller
             $categoryIds = $category->getAllChildrenIds();
             array_unshift($categoryIds, $category->id); // Thêm ID danh mục chính vào danh sách
 
-            $products = Product::whereHas('category', function ($query) use ($categoryIds) {
-                $query->whereIn('category_id', $categoryIds);
-            })->get();
-
             $prOutstand = Product::where('is_outstand', 1)
                 ->whereHas('category', function ($query) use ($categoryIds) {
                     $query->whereIn('category_id', $categoryIds);
-                })->get();
+                })->orderBy('created_at', 'DESC')
+                ->take(10)->get();
             // Bộ lọc sản phẩm
-            // $filterCate = $cateParent->getFilterCates();
 
-            return view('cntt.home.category', compact('cateParent', 'category', 'categoryParentFind', 'products', 'prOutstand'));
+            $products = Product::whereHas('category', function ($query) use ($categoryIds) {
+                $query->whereIn('category_id', $categoryIds);
+            })->orderBy('created_at', 'DESC')->paginate(8);
+            // Tính toán số lượng trang hiện có
+            $currentPage = $request->input('page', 1);
+            $lastPage = $products->lastPage();
+
+            // Nếu trang yêu cầu vượt quá số trang hiện có, chuyển hướng đến trang cuối cùng
+            if ($currentPage > $lastPage) {
+                $products = Product::whereHas('category', function ($query) use ($categoryIds) {
+                    $query->whereIn('category_id', $categoryIds);
+                })->orderBy('created_at', 'DESC')
+                ->paginate(8, ['*'], 'page', $lastPage);
+            }
+            // if ($request->ajax()) {
+            //     return view('cntt.home.partials.products', compact('products'))->render();
+            // }
+
+            return view('cntt.home.category', compact('phoneInfors', 'cateParent', 'category', 'categoryParentFind', 'products', 'prOutstand'));
         }
 
         $idPro = Product::where('slug', $slug)->value('id');

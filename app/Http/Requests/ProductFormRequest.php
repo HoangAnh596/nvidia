@@ -26,6 +26,7 @@ class ProductFormRequest extends FormRequest
     public function rules()
     {
         $params = $this->request->all();
+        // dd($this->product);
         if (!empty($params['id'])) {
             $checkNameUpdate = DB::table('products')->select('id')
             ->where('name', '=', $params['name'])
@@ -40,7 +41,11 @@ class ProductFormRequest extends FormRequest
             'name' => (isset($ruleUpdateName)) ? $ruleUpdateName : 'required | unique:products',
             'content'=>'required',
             'category' => 'required',
-            'code' => 'required',
+            // 'code' => [
+            //     'required',
+            //     'regex:/[A-Z0-9]$/',
+            //     Rule::unique('products')->ignore($this->product)
+            // ],
         ];
     }
     /**
