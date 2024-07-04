@@ -14,26 +14,6 @@
         </nav>
     </div>
 </div>
-<div class="filter-cate">
-    <div class="container">
-        <div class="row bg-cate">
-            <div style="padding-left: 0;">
-                <h1>{{ $cateParent->name }}</h1>
-            </div>
-        </div>
-        @if(!empty($filterCate))
-        <div class="row d-flex align-items-center justify-content-end" style="padding-bottom:12px;">
-            <ul class="nav nav-mb">
-                @foreach($filterCate as $val)
-                <li class="nav-item">
-                    <a class="btn-link" aria-current="page" href="{{ $val->slug }}">{{ $val->name }}</a>
-                </li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
-    </div>
-</div>
 <div class="filter">
     <div class="container">
         <div class="row">
@@ -46,273 +26,66 @@
                 <div class="splide">
                     <div class="splide__track">
                         <div class="splide__list">
+                            @foreach ($filterCate as $filter)
                             <div class="splide__slide">
-                                <button class="filter-item show-filter" aria-current="page">Giá <i class="fa-solid fa-chevron-down"></i></button>
+                                <button class="filter-item show-filter" aria-current="page">{{ $filter->name }} <i class="fa-solid fa-chevron-down"></i></button>
                             </div>
-                            <div class="splide__slide">
-                                <button class="filter-item show-filter" aria-current="page">Thương hiệu <i class="fa-solid fa-chevron-down"></i></button>
-                            </div>
-                            <div class="splide__slide">
-                                <button class="filter-item show-filter" aria-current="page">Ram <i class="fa-solid fa-chevron-down"></i></button>
-                            </div>
-                            <div class="splide__slide">
-                                <button class="filter-item show-filter" aria-current="page">Nhu cầu sử dụng <i class="fa-solid fa-chevron-down"></i></button>
-                            </div>
-                            <div class="splide__slide">
-                                <button class="filter-item show-filter" aria-current="page">Dung lượng lưu trữ <i class="fa-solid fa-chevron-down"></i></button>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
+            @foreach ($filterCate as $filter)
             <div class="child-filter">
                 <ul>
+                    @foreach ($filter->valueFilters as $val)
                     <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">1000</button>
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">{{$val->key_word}}</button>
                     </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">2000</button>
-                    </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">5000</button>
-                    </li>
+                    @endforeach
                 </ul>
                 <div class="filter-button filter-button-sticky">
                     <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
                     <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
                 </div>
             </div>
-            <div class="child-filter">
-                <ul>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Iphone</button>
-                    </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Samsung</button>
-                    </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Vivo</button>
-                    </li>
-                </ul>
-                <div class="filter-button filter-button-sticky">
-                    <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
-                    <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
-                </div>
-            </div>
-            <div class="child-filter">
-                <ul>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">3G</button>
-                    </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">4G</button>
-                    </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">5G</button>
-                    </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">6G</button>
-                    </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">7G</button>
-                    </li>
-                </ul>
-                <div class="filter-button filter-button-sticky">
-                    <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
-                    <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
-                </div>
-            </div>
-            <div class="child-filter">
-                <ul>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Học tập văn phòng</button>
-                    </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Giải trí</button>
-                    </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Đồ họa - Sáng tạo</button>
-                    </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Chơi game</button>
-                    </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Cho trẻ em</button>
-                    </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Cho trẻ em</button>
-                    </li>
-                </ul>
-                <div class="filter-button filter-button-sticky">
-                    <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
-                    <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
-                </div>
-            </div>
-            <div class="child-filter">
-                <ul>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Iphone</button>
-                    </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Samsung</button>
-                    </li>
-                    <li class="nav-item child-nav">
-                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Vivo</button>
-                    </li>
-                </ul>
-                <div class="filter-button filter-button-sticky">
-                    <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
-                    <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
-                </div>
-            </div>
+            @endforeach
         </div>
         <div class="row web-filter" style="padding-bottom:12px;">
             <ul class="nav nav-filter ft-fixed">
                 <div class="container cont-fixed">
-                    <li class="nav-item">
-                        <button class="filter-item" aria-current="page"><i class="fa-solid fa-filter"></i> Bộ lọc</button>
-                    </li>
+                    @foreach ($filterCate as $fil)
                     <li class="nav-item">
                         <button class="filter-item show-filter" aria-current="page">
-                            <!-- <div class="arrow-filter"></div> -->
-                            Hãng <i class="fa-solid fa-chevron-down"></i>
+                            {{ $fil->name }} <i class="fa-solid fa-chevron-down"></i>
                         </button>
+                        @if ($fil->is_direction == 0)
                         <ul class="child-filter">
+                            @foreach ($fil->valueFilters as $item)
                             <li class="nav-item child-nav">
-                                <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Iphone</button>
+                                <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">{{ $item->key_word }}</button>
                             </li>
-                            <li class="nav-item child-nav">
-                                <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Samsung</button>
-                            </li>
-                            <li class="nav-item child-nav">
-                                <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Vivo</button>
-                            </li>
+                            @endforeach
                             <div class="filter-button filter-button-sticky">
                                 <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
                                 <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
                             </div>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <button class="filter-item show-filter" aria-current="page">Ram <i class="fa-solid fa-chevron-down"></i></button>
-                        <ul class="child-filter">
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page">3 GB</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page">4 GB</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page">5 GB</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page">6 GB</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">8 GB</a>
-                            </li>
-                            <div class="filter-button filter-button-sticky">
-                                <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                                <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
-                            </div>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <button class="filter-item show-filter" aria-current="page">Nhu cầu sử dụng <i class="fa-solid fa-chevron-down"></i></button>
-                        <ul class="child-filter">
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Học tập văn phòng</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Giải trí</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Đồ họa - Sáng tạo</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Chơi game</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Cho trẻ em</a>
-                            </li>
-                            <div class="filter-button filter-button-sticky">
-                                <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                                <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
-                            </div>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <button class="filter-item show-filter" aria-current="page">Dung lượng lưu trữ <i class="fa-solid fa-chevron-down"></i></button>
+                        @elseif ($fil->is_direction == 1)
                         <ul class="child-filter filter-show-right">
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Học tập văn phòng</a>
+                            @foreach ($fil->valueFilters as $item)
+                            <li class="nav-item child-nav">
+                                <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">{{ $item->key_word }}</button>
                             </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Giải trí</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Đồ họa - Sáng tạo</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Chơi game</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Cho trẻ em</a>
-                            </li>
+                            @endforeach
                             <div class="filter-button filter-button-sticky">
-                                <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                                <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
+                                <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
+                                <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
                             </div>
                         </ul>
+                        @endif
                     </li>
-                    <li class="nav-item">
-                        <button class="filter-item show-filter" aria-current="page">Màn hình <i class="fa-solid fa-chevron-down"></i></button>
-                        <ul class="child-filter filter-show-right">
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Học tập văn phòng</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Giải trí</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Đồ họa - Sáng tạo</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Chơi game</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Cho trẻ em</a>
-                            </li>
-                            <div class="filter-button filter-button-sticky">
-                                <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                                <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
-                            </div>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <button class="filter-item show-filter" aria-current="page">Tính năng đặc biệt <i class="fa-solid fa-chevron-down"></i></button>
-                        <ul class="child-filter filter-show-right">
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Học tập văn phòng</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Giải trí</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Đồ họa - Sáng tạo</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Chơi game</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn-child-filter" aria-current="page" href="">Cho trẻ em</a>
-                            </li>
-                            <div class="filter-button filter-button-sticky">
-                                <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                                <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
-                            </div>
-                        </ul>
-                    </li>
+                    @endforeach
                 </div>
             </ul>
         </div>

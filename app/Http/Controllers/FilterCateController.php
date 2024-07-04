@@ -48,7 +48,6 @@ class FilterCateController extends Controller
      */
     public function store(FilterCateFormRequest $request)
     {
-        // dd($request->all());
         $this->insertOrUpdate($request);
 
         return redirect(route('categories.index'))->with(['message' => 'Tạo mới bộ lọc thành công']);
@@ -110,19 +109,11 @@ class FilterCateController extends Controller
     public function insertOrUpdate(FilterCateFormRequest $request, $id = '')
     {
         $filter = empty($id) ? new FilterCate() : FilterCate::findOrFail($id);
-        
-        // $slugCate = Category::where('id', $request->cate_id)->value('slug');
-        // Tạo slug từ name
-        // $slug = $slugCate . '-' . Str::slug($request->name, '-');
         $slug = Str::slug($request->name, '-');
-        // $query = Str::slug($request->name);
-    
+        
         $filter->fill($request->all());
-        $filter->stt_filter = (isset($request->stt_filter)) ? $request->filter : 999;
+        $filter->stt_filter = (isset($request->stt_filter)) ? $request->stt_filter : 999;
         $filter->slug = $slug;
-        // $filter->query = $query;
-        // Lấy ra cate_id cha 
-
         $parentId = Category::find($request->cate_id)->topLevelParent();
         $idCategory = $parentId->id;
         $filter->cate_id = $idCategory;
@@ -172,5 +163,39 @@ class FilterCateController extends Controller
                 }
             }
         }
+    }
+
+    public function isCheckbox(Request $request)
+    {
+        $filter = FilterCate::find($request->id);
+        if ($filter) {
+            $field = $request->field;
+            $value = $request->value;
+            // Kiểm tra xem trường có tồn tại trong bảng user không
+            if (in_array($field, ['is_direction', 'is_public'])) {
+                $filter->$field = $value;
+
+                $filter->save();
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Field does not exist.']);
+            }
+        }
+        return response()->json(['success' => false]);
+    }
+
+    public function checkStt(Request $request){
+        $sttFilter = $request->input('stt_filter');
+        if (!empty($sttFilter)) {
+            $request->validate([
+                'stt_filter' => 'integer|min:0'
+            ]);
+        }
+        $id = $request->get('id');
+        $filter = FilterCate::findOrFail($id);
+        $filter->stt_filter = (isset($sttFilter)) ? $sttFilter : 999;
+        $filter->save();
+
+        return response()->json(['success' => true, 'message' => 'STT updated successfully.']);
     }
 }

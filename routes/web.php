@@ -71,6 +71,8 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('/filters', [FilterCateController::class, 'store'])->name('filter.store');
     Route::get('/filters/{id}/edit', [FilterCateController::class, 'edit'])->name('filter.edit');
     Route::put('filters/{id}', [FilterCateController::class, 'update'])->name('filter.update');
+    Route::post('/filters/checkbox', [FilterCateController::class, 'isCheckbox'])->name('filters.isCheckbox');
+    Route::post('/filters/checkStt', [FilterCateController::class, 'checkStt'])->name('filters.checkStt');
 
     // Quản lý bộ lọc của từng sản phẩm thuộc danh mục
     Route::get('/filter-pro/create', [FilterProductController::class, 'create'])->name('filterPro.create');

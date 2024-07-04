@@ -1102,6 +1102,9 @@ hr {
         border: 1px solid #e5e7eb;
         border-radius: 5px;
     }
+    .child-filter li {
+        padding: 10px;
+    }
 }
 
 @media (max-width: 1200px) {    

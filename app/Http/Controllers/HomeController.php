@@ -102,6 +102,7 @@ class HomeController extends Controller
             // Lấy ra id của parent_id = 0 
             $parentId = Category::findOrFail($categoryParentFind->id)->topLevelParent()->id;
             $cateParent = Category::findOrFail($parentId);
+            $filterCate = $cateParent->getFilterCates();
             
             $categoryIds = $category->getAllChildrenIds();
             array_unshift($categoryIds, $category->id); // Thêm ID danh mục chính vào danh sách
@@ -131,7 +132,7 @@ class HomeController extends Controller
             //     return view('cntt.home.partials.products', compact('products'))->render();
             // }
 
-            return view('cntt.home.category', compact('phoneInfors', 'cateParent', 'category', 'categoryParentFind', 'products', 'prOutstand'));
+            return view('cntt.home.category', compact('phoneInfors', 'cateParent', 'category', 'categoryParentFind', 'products', 'prOutstand', 'filterCate'));
         }
 
         $idPro = Product::where('slug', $slug)->value('id');

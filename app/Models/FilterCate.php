@@ -11,6 +11,8 @@ class FilterCate extends Model
 
     protected $table = 'filter_cate';
 
+    const IS_LEFT = 1;
+    const IS_RIGHT = 0;
     const IS_ONE = 1;
     const IS_MANY = 0;
     const IS_PUBLIC = 1;
@@ -18,8 +20,8 @@ class FilterCate extends Model
 
     protected $fillable = [
         'name', 'slug', 'query',
-        'cate_id','stt_filter',
-        'is_select', 'is_public'
+        'cate_id', 'is_direction',
+        'stt_filter', 'is_select', 'is_public'
     ];
 
     public function category()

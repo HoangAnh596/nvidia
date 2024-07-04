@@ -121,7 +121,7 @@
                             <td class="text-center">
                                 <input type="number" name="stt[]" style="width: 50px;text-align: center;" value="999">
                             </td>
-                            <td><a class="delete-filter">Xóa</a></td>
+                            <td><a class="btn-sm" href>Xóa</a></td>
                         </tr>`;
                     // Thêm dòng mới vào đầu tbody
                     $('#existing-items').prepend(newRow);
