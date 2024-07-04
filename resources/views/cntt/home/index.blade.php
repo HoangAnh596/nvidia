@@ -111,8 +111,8 @@
 
 <!-- Start Featured Product -->
 <!-- Begin Danh mục sản phẩm -->
-<section class="container hp-category">
-    <div class="row">
+<section class="container">
+    <div class="row hp-category">
         @foreach($categories as $item)
         <div class="col d-flex flex-wrap">
             <a class="d-flex justify-content-center flex-fill mt-3" href="{{ $item->slug }}" title="{{ $item->name }}">
@@ -132,7 +132,7 @@
     <div class="container">
         @if(!empty($cate1))
         <div class="row bg-cate">
-            <div class="col-md-3" style="padding-left: 0;">
+            <div class="col-md-3 text-cate" style="padding-left: 0;">
                 <a class="btn-link ft-sw" href="{{ $cate1->slug }}" title="{{ $cate1->name }}">{{ $cate1->name }}</a>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
@@ -184,7 +184,7 @@
     <div class="container">
         @if(!empty($cate2))
         <div class="row bg-cate">
-            <div class="col-md-3" style="padding-left: 0;">
+            <div class="col-md-3 text-cate" style="padding-left: 0;">
                 <a class="btn-link ft-sw" href="{{ $cate2->slug }}" title="{{ $cate2->name }}">{{ $cate2->name }}</a>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
@@ -236,7 +236,7 @@
     <div class="container">
         @if(!empty($cate3))
         <div class="row bg-cate">
-            <div class="col-md-3" style="padding-left: 0;">
+            <div class="col-md-3 text-cate" style="padding-left: 0;">
                 <a class="btn-link ft-sw" href="{{ $cate3->slug }}" title="{{ $cate3->name }}">{{ $cate3->name }}</a>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
@@ -295,7 +295,7 @@
 <section>
     <div class="container">
         <div class="row bg-cate">
-            <div class="col-md-3" style="padding-left: 0;">
+            <div class="col-md-3 text-cate" style="padding-left: 0;">
                 <a class="btn-link ft-sw" href="/blogs">Tin Tức Công Nghệ</a>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">

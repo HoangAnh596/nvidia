@@ -84,7 +84,7 @@
     <!-- begin navbar mobile -->
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-mobile">
-        <div class="container-fluid">
+        <div class="container-fluid nav-fixed">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="">
                     <i class="fa-solid fa-bars"></i>

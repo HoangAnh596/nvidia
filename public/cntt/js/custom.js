@@ -94,27 +94,29 @@ $(document).ready(function() {
     });
 
     // bộ lọc filter
-    
+    $(window).on('scroll', function() {
+        if ($(this).scrollTop() > 100) {
+            $('.ft-fixed').addClass('fixed-filter');
+        } else {
+            $('.ft-fixed').removeClass('fixed-filter');
+        }
+    });
     // Hiển thị/ẩn child-filter khi nhấp vào show-filter và thay đổi border
+    $('.child-filter').hide();
+
+    // Khi nút show-filter được nhấp
     $('.show-filter').on('click', function(e) {
         e.preventDefault();
-        // Ẩn tất cả các child-filter khác
-        $('.child-filter').not($(this).next('.child-filter')).slideUp();
-        
-        // Thay đổi border của show-filter hiện tại và loại bỏ border của các cái khác
-        $('.show-filter').not(this).css('border', '');
-        $(this).css('border', '1px solid #4a90e2');
-        
-        // Hiển thị/ẩn child-filter của show-filter hiện tại
-        $(this).next('.child-filter').slideToggle(function() {
-            if ($(this).is(':hidden')) {
-                // Ẩn height-fil khi child-filter bị ẩn
-                $('.height-fil').css('height', '');
-            } else {
-                // Hiển thị height-fil khi child-filter hiện
-                $('.height-fil').css('height', '200px');
-            }
-        });
+        var index = $('.show-filter').index(this); // Lấy chỉ số của nút được nhấp
+        var $childFilter = $('.child-filter').eq(index); // Lấy child-filter tương ứng
+
+        // Kiểm tra xem child-filter hiện đang hiển thị hay ẩn
+        if ($childFilter.is(':visible')) {
+            $childFilter.hide(); // Nếu đang hiển thị, thì ẩn đi
+        } else {
+            $('.child-filter').hide(); // Ẩn tất cả các child-filter khác
+            $childFilter.show(); // Hiển thị child-filter tương ứng
+        }
     });
 
     // Đóng menu thả xuống khi nhấp vào bên ngoài
@@ -123,34 +125,9 @@ $(document).ready(function() {
             $('.child-filter').slideUp();
             // Loại bỏ border khi nhấp bên ngoài
             $('.show-filter').css('border', '');
-            // Ẩn height-fil khi nhấp bên ngoài
-            $('.height-fil').css('height', '');
         }
     });
 
-
-    // Hiển thị div filter-button khi nhấp vào child-nav và thay đổi text của show-filter
-    // $('.child-nav a').on('click', function(e) {
-    //     e.preventDefault();
-    //     var text = $(this).text();
-    //     var parentShowFilter = $(this).closest('.child-filter').prev('.show-filter');
-    //     var currentText = parentShowFilter.text().split(' ')[0]; // Lấy text hiện tại trước dấu cách (không lấy phần sau dấu cách)
-        
-    //     if (currentText === 'Hãng' || currentText.includes('...')) {
-    //         parentShowFilter.text(text);
-    //     } else {
-    //         parentShowFilter.text(currentText + ',...');
-    //     }
-
-    //     var parentFilterButton = $(this).closest('.child-filter').find('.filter-button'); // Sử dụng 'closest(.child-filter)'
-    //     console.log(parentFilterButton);
-    //     if (parentFilterButton.is(':visible')) {
-    //         parentFilterButton.hide();
-    //     } else {
-    //         $('.filter-button').hide(); // Ẩn tất cả các filter-button khác
-    //         parentFilterButton.show();  // Hiển thị filter-button của show-filter hiện tại
-    //     }
-    // });
 
     // Ẩn filter-button khi nhấp vào btn-filter-close
     $('.btn-filter-close').on('click', function(e) {

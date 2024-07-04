@@ -362,8 +362,7 @@ hr {
 
 /* --------------------Begin Css Danh mục sản phẩm------------------------ */
 .hp-category {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
     background-color: #eee;
     border-radius: 7px;
 }
@@ -389,12 +388,28 @@ hr {
     padding-left: 15px;
     position: relative;
 }
+.fixed-filter {
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
+    left: 0;
+    padding: 10px 0;
+    position: fixed;
+    right: 0;
+    top: 44px;
+    width: 100%;
+    z-index: 9999;
+}
 
+.cont-fixed {
+    display: flex !important;
+    padding: 0;
+}
 .filter-item {
     padding: 8px 12px;
     border: 1px solid #e5e7eb;
     border-radius: 7px;
     background-color: #eee;
+    position: relative;
 }
 .btn-filter {
     text-decoration: none;
@@ -426,13 +441,11 @@ hr {
     list-style: none;
     position: absolute;
     margin-top: 20px;
-    max-width: 400px;
     width: 100vw;
     padding: 12px 0px;
     z-index: 999;
     background-color: white;
-    border: 1px solid #e5e7eb;;
-    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, .5);
 }
 
 .child-filter a {
@@ -513,34 +526,6 @@ hr {
 .splide__arrow,
 .splide__pagination {
     display: none;
-}
-
-@media (min-width: 1200px) {
-    .mobile-filter {
-        display: none !important;
-    }
-}
-
-@media (max-width: 1200px) {
-    .web-filter {
-        display: none;
-    }
-    .child-filter li {
-        margin: 5px 5px;
-    }
-}
-@media (max-width: 767px) {
-    .splide {
-        width: 100%;
-    }
-    .filter-total {
-        width: 26% !important;
-        left: 0;
-        position: absolute;
-        padding-left: 10px;
-        padding-bottom: 9px;
-        z-index: 3;
-    }
 }
 /* Bộ lọc */
 
@@ -1068,9 +1053,31 @@ hr {
     }
 }
 
+@media screen and (min-width: 639px) and (max-width: 1023px) {
+    .page-footer {
+        font-size: 20px !important;
+    }
+    .subscribe-container .center-content {
+        display: flex;
+        justify-content: center;
+    }
+}
+
 @media (max-width: 992px) {
     .global-nav {
         display: none;
+    }
+    #template-mo-zay-hero-carousel {
+        margin-top: 35px;
+    }
+    .nav-fixed {
+        position: fixed;
+        top: 0;
+        z-index: 9999;
+        background-color: white;
+    }
+    .new-prod {
+        top: 116px !important;
     }
 }
 @media (min-width: 992px) {
@@ -1082,10 +1089,61 @@ hr {
     .nav-mb {
         display: none;
     }
+    .text-cate {
+        display: contents;
+    }
 }
+@media (min-width: 1200px) {
+    .mobile-filter {
+        display: none !important;
+    }
+    .child-filter {
+        max-width: 400px !important;
+        border: 1px solid #e5e7eb;
+        border-radius: 5px;
+    }
+}
+
+@media (max-width: 1200px) {    
+    .web-filter {
+        display: none;
+    }
+    .child-filter {
+        margin-top: 10px !important;
+        right: 0;
+        border-top: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    .child-filter ul {
+        padding-right: 2rem;
+    }
+    .child-filter li {
+        margin: 5px 5px;
+    }
+    .fixed-filter {
+        top: 54px !important;
+    }
+}
+@media (max-width: 767px) {
+    .splide {
+        width: 100%;
+    }
+    .filter-total {
+        width: 26% !important;
+        left: 0;
+        position: absolute;
+        padding-left: 10px;
+        padding-bottom: 9px;
+        z-index: 3;
+    }
+}
+
 @media (max-width: 639px) {
     .ft-black {
         padding: 15px;
+    }
+    .hp-category {
+        margin: 1rem -12px;
     }
     .nv-button .btn-content {
         font-size: 11px !important;

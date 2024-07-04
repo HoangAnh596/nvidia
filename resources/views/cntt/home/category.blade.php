@@ -41,321 +41,279 @@
                 <h1>Chọn theo tiêu chí</h1>
             </div>
         </div>
-        <div class="mobile-filter">
-            <div class="splide">
-                <div class="splide__track">
-                    <div class="splide__list">
-                        <div class="splide__slide">
-                            <button class="filter-item show-filter" aria-current="page">Giá <i class="fa-solid fa-chevron-down"></i></button>
-                            
-                            <div class="child-filter ">
-                                <li class="nav-item child-nav">
-                                    <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Iphone</button>
-                                </li>
-                                <li class="nav-item child-nav">
-                                    <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Samsung</button>
-                                </li>
-                                <li class="nav-item child-nav">
-                                    <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Vivo</button>
-                                </li>
-                                <div class="filter-button filter-button-sticky">
-                                    <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
-                                    <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
-                                </div>
+        <div class="mobile-filter ft-fixed">
+            <div class="container" style="padding: 0;">
+                <div class="splide">
+                    <div class="splide__track">
+                        <div class="splide__list">
+                            <div class="splide__slide">
+                                <button class="filter-item show-filter" aria-current="page">Giá <i class="fa-solid fa-chevron-down"></i></button>
                             </div>
-                            <div class="height-fil"></div>
-                        </div>
-                        <div class="splide__slide">
-                            <button class="filter-item show-filter" aria-current="page">Hãng <i class="fa-solid fa-chevron-down"></i></button>
-                            
-                            <div class="child-filter">
-                                <li class="nav-item child-nav">
-                                    <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Iphone</button>
-                                </li>
-                                <li class="nav-item child-nav">
-                                    <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Samsung</button>
-                                </li>
-                                <li class="nav-item child-nav">
-                                    <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Vivo</button>
-                                </li>
-                                <div class="filter-button filter-button-sticky">
-                                    <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
-                                    <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
-                                </div>
+                            <div class="splide__slide">
+                                <button class="filter-item show-filter" aria-current="page">Thương hiệu <i class="fa-solid fa-chevron-down"></i></button>
                             </div>
-                            <div class="height-fil"></div>
-                        </div>
-                        <div class="splide__slide">
-                            <button class="filter-item show-filter" aria-current="page">Ram <i class="fa-solid fa-chevron-down"></i></button>
-                            <div class="child-filter" id="btn-f2">
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">3 GB</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">4 GB</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">5 GB</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">6 GB</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">8 GB</button>
-                                </li>
-                                <div class="filter-button filter-button-sticky">
-                                    <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                                    <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
-                                </div>
+                            <div class="splide__slide">
+                                <button class="filter-item show-filter" aria-current="page">Ram <i class="fa-solid fa-chevron-down"></i></button>
                             </div>
-                            <div class="height-fil"></div>
-                        </div>
-                        <div class="splide__slide">
-                            <button class="filter-item show-filter" aria-current="page">Nhu cầu sử dụng <i class="fa-solid fa-chevron-down"></i></button>
-                            <div class="child-filter">
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Học tập văn phòng</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Giải trí</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Đồ họa - Sáng tạo</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Chơi game</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Cho trẻ em</button>
-                                </li>
-                                <div class="filter-button filter-button-sticky">
-                                    <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                                    <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
-                                </div>
+                            <div class="splide__slide">
+                                <button class="filter-item show-filter" aria-current="page">Nhu cầu sử dụng <i class="fa-solid fa-chevron-down"></i></button>
                             </div>
-                            <div class="height-fil"></div>
-                        </div>
-                        <div class="splide__slide">
-                            <button class="filter-item show-filter" aria-current="page">Dung lượng sử dụng <i class="fa-solid fa-chevron-down"></i></button>
-                            <div class="child-filter">
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Học tập văn phòng</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Giải trí</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Đồ họa - Sáng tạo</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Chơi game</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Cho trẻ em</button>
-                                </li>
-                                <div class="filter-button filter-button-sticky">
-                                    <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                                    <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
-                                </div>
+                            <div class="splide__slide">
+                                <button class="filter-item show-filter" aria-current="page">Dung lượng lưu trữ <i class="fa-solid fa-chevron-down"></i></button>
                             </div>
-                        </div>
-                        <div class="splide__slide splide-right">
-                            <button class="filter-item show-filter" aria-current="page">Màn hình <i class="fa-solid fa-chevron-down"></i></button>
-                            <div class="child-filter filter-show-right">
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Học tập văn phòng</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Giải trí</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Đồ họa - Sáng tạo</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Chơi game</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Cho trẻ em</button>
-                                </li>
-                                <div class="filter-button filter-button-sticky">
-                                    <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                                    <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
-                                </div>
-                            </div>
-                            <div class="height-fil"></div>
-                        </div>
-                        <div class="splide__slide splide-right">
-                            <button class="filter-item show-filter" aria-current="page">Tính năng đặc biệt<i class="fa-solid fa-chevron-down"></i></button>
-                            <div class="child-filter filter-show-right">
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Kháng nước, bụi</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Hỗ trợ 5G</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Công nghệ NFC</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="btn-child-filter" aria-current="page">Bảo mật khuôn mặt</button>
-                                </li>
-                                <div class="filter-button filter-button-sticky">
-                                    <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                                    <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
-                                </div>
-                            </div>
-                            <div class="height-fil"></div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="child-filter">
+                <ul>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">1000</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">2000</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">5000</button>
+                    </li>
+                </ul>
+                <div class="filter-button filter-button-sticky">
+                    <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
+                    <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
+                </div>
+            </div>
+            <div class="child-filter">
+                <ul>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Iphone</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Samsung</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Vivo</button>
+                    </li>
+                </ul>
+                <div class="filter-button filter-button-sticky">
+                    <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
+                    <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
+                </div>
+            </div>
+            <div class="child-filter">
+                <ul>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">3G</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">4G</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">5G</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">6G</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">7G</button>
+                    </li>
+                </ul>
+                <div class="filter-button filter-button-sticky">
+                    <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
+                    <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
+                </div>
+            </div>
+            <div class="child-filter">
+                <ul>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Học tập văn phòng</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Giải trí</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Đồ họa - Sáng tạo</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Chơi game</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Cho trẻ em</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Cho trẻ em</button>
+                    </li>
+                </ul>
+                <div class="filter-button filter-button-sticky">
+                    <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
+                    <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
+                </div>
+            </div>
+            <div class="child-filter">
+                <ul>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Iphone</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Samsung</button>
+                    </li>
+                    <li class="nav-item child-nav">
+                        <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Vivo</button>
+                    </li>
+                </ul>
+                <div class="filter-button filter-button-sticky">
+                    <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
+                    <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
+                </div>
+            </div>
         </div>
         <div class="row web-filter" style="padding-bottom:12px;">
-            <ul class="nav nav-filter">
-                <li class="nav-item">
-                    <button class="filter-item" aria-current="page"><i class="fa-solid fa-filter"></i> Bộ lọc</button>
-                </li>
-                <li class="nav-item">
-                    <button class="filter-item show-filter" aria-current="page">
-                        <!-- <div class="arrow-filter"></div> -->
-                        Hãng <i class="fa-solid fa-chevron-down"></i>
-                    </button>
-                    <ul class="child-filter">
-                        <li class="nav-item child-nav">
-                            <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Iphone</button>
-                        </li>
-                        <li class="nav-item child-nav">
-                            <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Samsung</button>
-                        </li>
-                        <li class="nav-item child-nav">
-                            <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Vivo</button>
-                        </li>
-                        <div class="filter-button filter-button-sticky">
-                            <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
-                            <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
-                        </div>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <button class="filter-item show-filter" aria-current="page">Ram <i class="fa-solid fa-chevron-down"></i></button>
-                    <ul class="child-filter">
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page">3 GB</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page">4 GB</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page">5 GB</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page">6 GB</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">8 GB</a>
-                        </li>
-                        <div class="filter-button filter-button-sticky">
-                            <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                            <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
-                        </div>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <button class="filter-item show-filter" aria-current="page">Nhu cầu sử dụng <i class="fa-solid fa-chevron-down"></i></button>
-                    <ul class="child-filter">
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Học tập văn phòng</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Giải trí</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Đồ họa - Sáng tạo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Chơi game</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Cho trẻ em</a>
-                        </li>
-                        <div class="filter-button filter-button-sticky">
-                            <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                            <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
-                        </div>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <button class="filter-item show-filter" aria-current="page">Dung lượng lưu trữ <i class="fa-solid fa-chevron-down"></i></button>
-                    <ul class="child-filter filter-show-right">
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Học tập văn phòng</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Giải trí</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Đồ họa - Sáng tạo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Chơi game</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Cho trẻ em</a>
-                        </li>
-                        <div class="filter-button filter-button-sticky">
-                            <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                            <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
-                        </div>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <button class="filter-item show-filter" aria-current="page">Màn hình <i class="fa-solid fa-chevron-down"></i></button>
-                    <ul class="child-filter filter-show-right">
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Học tập văn phòng</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Giải trí</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Đồ họa - Sáng tạo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Chơi game</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Cho trẻ em</a>
-                        </li>
-                        <div class="filter-button filter-button-sticky">
-                            <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                            <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
-                        </div>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <button class="filter-item show-filter" aria-current="page">Tính năng đặc biệt <i class="fa-solid fa-chevron-down"></i></button>
-                    <ul class="child-filter filter-show-right">
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Học tập văn phòng</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Giải trí</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Đồ họa - Sáng tạo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Chơi game</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn-child-filter" aria-current="page" href="">Cho trẻ em</a>
-                        </li>
-                        <div class="filter-button filter-button-sticky">
-                            <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
-                            <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
-                        </div>
-                    </ul>
-                </li>
+            <ul class="nav nav-filter ft-fixed">
+                <div class="container cont-fixed">
+                    <li class="nav-item">
+                        <button class="filter-item" aria-current="page"><i class="fa-solid fa-filter"></i> Bộ lọc</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="filter-item show-filter" aria-current="page">
+                            <!-- <div class="arrow-filter"></div> -->
+                            Hãng <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <ul class="child-filter">
+                            <li class="nav-item child-nav">
+                                <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Iphone</button>
+                            </li>
+                            <li class="nav-item child-nav">
+                                <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Samsung</button>
+                            </li>
+                            <li class="nav-item child-nav">
+                                <button class="btn-child-filter" aria-current="page" href="javascript:void(0)">Vivo</button>
+                            </li>
+                            <div class="filter-button filter-button-sticky">
+                                <button href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</button>
+                                <button href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</button>
+                            </div>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="filter-item show-filter" aria-current="page">Ram <i class="fa-solid fa-chevron-down"></i></button>
+                        <ul class="child-filter">
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page">3 GB</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page">4 GB</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page">5 GB</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page">6 GB</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">8 GB</a>
+                            </li>
+                            <div class="filter-button filter-button-sticky">
+                                <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
+                                <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
+                            </div>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="filter-item show-filter" aria-current="page">Nhu cầu sử dụng <i class="fa-solid fa-chevron-down"></i></button>
+                        <ul class="child-filter">
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Học tập văn phòng</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Giải trí</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Đồ họa - Sáng tạo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Chơi game</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Cho trẻ em</a>
+                            </li>
+                            <div class="filter-button filter-button-sticky">
+                                <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
+                                <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
+                            </div>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="filter-item show-filter" aria-current="page">Dung lượng lưu trữ <i class="fa-solid fa-chevron-down"></i></button>
+                        <ul class="child-filter filter-show-right">
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Học tập văn phòng</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Giải trí</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Đồ họa - Sáng tạo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Chơi game</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Cho trẻ em</a>
+                            </li>
+                            <div class="filter-button filter-button-sticky">
+                                <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
+                                <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
+                            </div>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="filter-item show-filter" aria-current="page">Màn hình <i class="fa-solid fa-chevron-down"></i></button>
+                        <ul class="child-filter filter-show-right">
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Học tập văn phòng</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Giải trí</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Đồ họa - Sáng tạo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Chơi game</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Cho trẻ em</a>
+                            </li>
+                            <div class="filter-button filter-button-sticky">
+                                <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
+                                <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
+                            </div>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="filter-item show-filter" aria-current="page">Tính năng đặc biệt <i class="fa-solid fa-chevron-down"></i></button>
+                        <ul class="child-filter filter-show-right">
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Học tập văn phòng</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Giải trí</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Đồ họa - Sáng tạo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Chơi game</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn-child-filter" aria-current="page" href="">Cho trẻ em</a>
+                            </li>
+                            <div class="filter-button filter-button-sticky">
+                                <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
+                                <a href="javascript:filterPros();" class="btn-filter-readmore">Xem <b class="total-reloading">15</b> kết quả</a>
+                            </div>
+                        </ul>
+                    </li>
+                </div>
             </ul>
         </div>
     </div>
@@ -506,7 +464,7 @@
 
     .new-prod {
         position: sticky;
-        top: 50px;
+        top: 106px;
         left: 0;
         width: 100%;
         z-index: 999;
