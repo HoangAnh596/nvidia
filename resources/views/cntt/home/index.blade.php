@@ -152,7 +152,7 @@
         <div class="row mt-3">
             @if(!empty($pr1))
             @foreach($pr1 as $val)
-            <div class="col-12 col-md-3 mb-4">
+            <div class="col-lg-5 col-xs-6 col-md-6 mb-20">
                 <div class="card h-100">
                     <a class="btn-img" href="{{ $val->slug }}" title="{{ $val->name }}">
                         <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" class="card-img-top" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
@@ -161,7 +161,9 @@
                         <div>
                             <a href="{{ $val->slug }}" title="{{ $val->name }}" class="text-decoration-none text-danger">{{ number_format($val->price, 0, ',', '.') }}đ</a>
                         </div>
-                        <a href="{{ $val->slug }}" title="{{ $val->name }}" class="text-decoration-none text-dark">{{ $val->name }}</a>
+                        <div class="text-dark">
+                            <a href="{{ $val->slug }}" title="{{ $val->name }}" class="text-decoration-none">{{ $val->name }}</a>
+                        </div>
                         <ul class="list-unstyled d-flex justify-content-between">
                             <li>
                                 <i class="text-warning fa fa-star"></i>
@@ -204,7 +206,7 @@
         <div class="row mt-3">
             @if(!empty($pr2))
             @foreach($pr2 as $value)
-            <div class="col-12 col-md-3 mb-4">
+            <div class="col-lg-5 col-xs-6 col-md-6 mb-20">
                 <div class="card h-100">
                     <a class="btn-img" href="{{ $value->slug }}" title="{{ $value->name }}">
                         <img src="{{ \App\Http\Helpers\Helper::getPath($value->image) }}" class="card-img-top" alt="{{ $value->alt_img }}" title="{{ $value->title_img }}">
@@ -213,7 +215,9 @@
                         <div>
                             <a href="{{ $value->slug }}" class="text-decoration-none text-danger">{{ number_format($value->price, 0, ',', '.') }}đ</a>
                         </div>
-                        <a href="{{ $value->slug }}" class="text-decoration-none text-dark" title="{{ $value->name }}">{{ $value->name }}</a>
+                        <div class="text-dark">
+                            <a href="{{ $value->slug }}" class="text-decoration-none" title="{{ $value->name }}">{{ $value->name }}</a>
+                        </div>
                         <ul class="list-unstyled d-flex justify-content-between">
                             <li>
                                 <i class="text-warning fa fa-star"></i>
@@ -256,7 +260,7 @@
         <div class="row mt-3">
             @if(!empty($pr3))
             @foreach($pr3 as $val)
-            <div class="col-12 col-md-3 mb-4">
+            <div class="col-lg-5 col-xs-6 col-md-6 mb-20">
                 <div class="card h-100">
                     <a class="btn-img" href="{{ $val->slug }}" title="{{ $val->name }}">
                         <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" class="card-img-top" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
@@ -265,7 +269,9 @@
                         <div>
                             <a href="{{ $val->slug }}" class="text-decoration-none text-danger" title="{{ $val->name }}">{{ number_format($val->price, 0, ',', '.') }}đ</a>
                         </div>
-                        <a href="{{ $val->slug }}" class="text-decoration-none text-dark" title="{{ $val->name }}">{{ $val->name }}</a>
+                        <div class="text-dark">
+                            <a href="{{ $val->slug }}" class="text-decoration-none text-dark" title="{{ $val->name }}">{{ $val->name }}</a>
+                        </div>
                         <ul class="list-unstyled d-flex justify-content-between">
                             <li>
                                 <i class="text-warning fa fa-star"></i>
@@ -276,10 +282,6 @@
                             </li>
                             <li class="text-muted text-right">Yêu thích <i class="fa-solid fa-heart icon-heart"></i></li>
                         </ul>
-                        <!-- <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
-                            </p> -->
-                        <!-- <p class="text-muted">Reviews (24)</p> -->
                     </div>
                 </div>
             </div>

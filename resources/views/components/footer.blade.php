@@ -38,6 +38,7 @@
   };
 
   CKEDITOR.replace('my-editor', options);
+  CKEDITOR.replace('des-editor', options);
 
   function uploadImage() {
     const fileInput = document.getElementById('image');

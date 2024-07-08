@@ -21,6 +21,7 @@
                 <h1>Chọn theo tiêu chí</h1>
             </div>
         </div>
+        @if(!empty($filterCate))
         <div class="mobile-filter ft-fixed">
             <div class="container" style="padding: 0;">
                 <div class="splide">
@@ -89,6 +90,7 @@
                 </div>
             </ul>
         </div>
+        @endif
     </div>
 </div>
 <div class="container">
@@ -108,7 +110,7 @@
                         {!! $categoryParentFind->content !!}
                     </div>
                     <div class="align-items-center justify-content-center btn-show-more show-more" style="padding-bottom:12px;">
-                        <a class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></a>
+                        <button class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
@@ -148,7 +150,7 @@
                         </div>
                         @endforeach
                         <div class="align-items-center justify-content-center nav-mb outstand-show-more btn-show-more" style="padding-bottom:12px;">
-                            <a class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></a>
+                            <button class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
                         </div>
                     </div>
                 </div>
@@ -259,5 +261,13 @@
             });
         }
     });
+    var splide = new Splide('.splide', {
+        perPage: 1,
+        rewind: true,
+        pagination : false,
+        arrows     : false,
+    });
+
+    splide.mount();
 </script>
 @endsection

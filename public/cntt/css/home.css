@@ -1,6 +1,9 @@
 /* Ví dụ trong app.css hoặc style.css */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
+body {
+    color: #333;
+}
 /* css header */
 #templatemo_main_nav {
     padding-right: 4rem;
@@ -27,6 +30,7 @@ a:hover {
     padding: 1rem;
     display: flex;
     align-items: center;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
 }
 
 .navbar-brand {
@@ -574,6 +578,13 @@ hr {
 }
 .card {
     border-radius: 7px;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
+}
+.text-dark {
+    height: 66px;
+}
+.mb-20 {
+    margin-bottom: 20px;
 }
 .card-body ul {
     margin-top: 0.5rem;
@@ -641,13 +652,11 @@ hr {
     padding: 10px;
 }
 .pt-44 {
-    margin-top: 50px;
+    margin-top: 44px;
     background-color: #eee;
-}
-.breadcrumb {
+    height: 40px;
     padding: 8px 0;
 }
-
 
 .page-item.active .page-link {
     background-color: #76b900;
@@ -783,7 +792,7 @@ hr {
     text-align: center;
     width: 100%;
 }
-.btn-show-more a{
+.btn-show-more button{
     padding: 5px 10px;
     border: 1px solid #e5e7eb;
     border-radius: 7px;
@@ -803,10 +812,9 @@ hr {
     width: 100%;
 }
 /* --------------------End Css Danh mục sản phẩm------------------------ */
-/* --------------------Begin Css Footer------------------------ */
-
-
-
+.mt-15 {
+    margin-top: 15px;
+}
 /* --------------------Begin Css Footer------------------------ */
 .ft-black {
     background-color: #000;
@@ -1006,8 +1014,49 @@ hr {
 
 /* -------------------Begin Responsive ------------------- */
 @media (min-width: 1400px) {
-    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    /* .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
         max-width: 1220px;
+    }
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1300px;
+    } */
+}
+@media (min-width: 1200px) {
+    /* .container-xl, .container-lg, .container-md, .container-sm,.container 
+    {
+        max-width: 1200px;
+    } */
+    .mobile-filter {
+        display: none !important;
+    }
+    .child-filter {
+        max-width: 400px !important;
+        border: 1px solid #e5e7eb;
+        border-radius: 5px;
+    }
+    .child-filter li {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 1200px) {    
+    .web-filter {
+        display: none;
+    }
+    .child-filter {
+        margin-top: 10px !important;
+        right: 0;
+        border-top: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    .child-filter ul {
+        padding-right: 2rem;
+    }
+    .child-filter li {
+        margin: 5px 5px;
+    }
+    .fixed-filter {
+        top: 54px !important;
     }
 }
 @media (min-width: 1023px) {
@@ -1084,6 +1133,10 @@ hr {
     .navbar-mobile {
         display: none;
     }
+    .col-lg-5 {
+        flex: 0 0 auto;
+        width: 20%;
+    }
 }
 @media (max-width: 768px) {
     .nav-mb {
@@ -1091,40 +1144,6 @@ hr {
     }
     .text-cate {
         display: contents;
-    }
-}
-@media (min-width: 1200px) {
-    .mobile-filter {
-        display: none !important;
-    }
-    .child-filter {
-        max-width: 400px !important;
-        border: 1px solid #e5e7eb;
-        border-radius: 5px;
-    }
-    .child-filter li {
-        padding: 10px;
-    }
-}
-
-@media (max-width: 1200px) {    
-    .web-filter {
-        display: none;
-    }
-    .child-filter {
-        margin-top: 10px !important;
-        right: 0;
-        border-top: 1px solid #e5e7eb;
-        border-bottom: 1px solid #e5e7eb;
-    }
-    .child-filter ul {
-        padding-right: 2rem;
-    }
-    .child-filter li {
-        margin: 5px 5px;
-    }
-    .fixed-filter {
-        top: 54px !important;
     }
 }
 @media (max-width: 767px) {

@@ -19,15 +19,15 @@ class ContentController extends Controller
             $imageName = uniqid() . '-' . $request->uploadImg->getClientOriginalName();
 
             if (strpos($current_url, 'categories') !== false) {
-                $originalPath = $request->uploadImg->storeAs('public/images/9/danh-muc', $imageName);
+                $originalPath = $request->uploadImg->storeAs('public/images/danh-muc', $imageName);
             } elseif (strpos($current_url, 'products') !== false) {
-                $originalPath = $request->uploadImg->storeAs('public/images/9/san-pham', $imageName);
+                $originalPath = $request->uploadImg->storeAs('public/images/san-pham', $imageName);
             } elseif (strpos($current_url, 'cateNews') !== false) {
-                $originalPath = $request->uploadImg->storeAs('public/images/9/danh-muc-tin-tuc', $imageName);
+                $originalPath = $request->uploadImg->storeAs('public/images/danh-muc-tin-tuc', $imageName);
             } elseif (strpos($current_url, 'news') !== false) {
-                $originalPath = $request->uploadImg->storeAs('public/images/9/tin-tuc', $imageName);
+                $originalPath = $request->uploadImg->storeAs('public/images/tin-tuc', $imageName);
             } elseif (strpos($current_url, 'cateMenu') !== false) {
-                $originalPath = $request->uploadImg->storeAs('public/images/9/menu', $imageName);
+                $originalPath = $request->uploadImg->storeAs('public/images/menu', $imageName);
             }
             $newPath = str_replace('public', 'storage', $originalPath);
 
@@ -42,7 +42,7 @@ class ContentController extends Controller
             $current_url = $request->input('current_url');
             $imageName = uniqid() . '-' . $request->pr_image_ids->getClientOriginalName();
 
-            $originalPath = $request->pr_image_ids->storeAs('public/images/9/san-pham/anh-chi-tiet', $imageName);
+            $originalPath = $request->pr_image_ids->storeAs('public/images/san-pham/anh-chi-tiet', $imageName);
             
             $newPath = str_replace('public', 'storage', $originalPath);
 

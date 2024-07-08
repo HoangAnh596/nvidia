@@ -25,7 +25,7 @@ class CreateProductsTable extends Migration
             $table->float('quantity', 8, 2)->nullable();
             $table->string('image')->nullable();
             $table->string('image_ids')->nullable();
-            // $table->unsignedBigInteger('maker_id');
+            $table->text('des')->nullable();
             $table->text('content')->nullable();
             $table->string('title_img')->nullable();
             $table->string('alt_img')->nullable();
@@ -34,7 +34,6 @@ class CreateProductsTable extends Migration
             $table->string('des_seo')->nullable();
             $table->softdeletes();
             $table->timestamps();
-            // $table->foreign('maker_id')->references('id')->on('makers');
         });
     }
 

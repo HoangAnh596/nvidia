@@ -1,5 +1,5 @@
 @foreach($products as $product)
-<div class="col-12 col-md-3 mb-4">
+<div class="col-lg-5 col-xs-6 col-md-6 mb-20">
     <div class="card h-100">
         <a class="btn-img" href="{{ $product->slug }}">
             <img src="{{ \App\Http\Helpers\Helper::getPath($product->image) }}" class="card-img-top" alt="{{ $product->alt_img }}" title="{{ $product->title_img }}">
@@ -8,7 +8,9 @@
             <div>
                 <a href="{{ $product->slug }}" class="text-decoration-none text-danger">{{ number_format($product->price, 0, ',', '.') }}đ</a>
             </div>
-            <a href="{{ $product->slug }}" class="text-decoration-none text-dark">{{ $product->name }}</a>
+            <div class="text-dark">
+                <a href="{{ $product->slug }}" class="text-decoration-none text-dark">{{ $product->name }}</a>
+            </div>
             <ul class="list-unstyled d-flex justify-content-between">
                 <li>
                     <i class="text-warning fa fa-star"></i>

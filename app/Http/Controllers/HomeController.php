@@ -56,7 +56,7 @@ class HomeController extends Controller
                 // Lấy tất cả sản phẩm thuộc các danh mục đó
                 $pr1 = Product::whereHas('category', function ($query) use ($allCategoryIds) {
                     $query->whereIn('category_id', $allCategoryIds);
-                })->take(8)->orderBy('created_at', 'DESC')->get();
+                })->take(10)->orderBy('created_at', 'DESC')->get();
             }
             //Lấy ra id categories thứ 2
             if(isset($idCate2)) {
@@ -65,7 +65,7 @@ class HomeController extends Controller
                 $filteredCategory2 = array_intersect($allCategory2, $categoryIds);
                 $pr2 = Product::whereHas('category', function ($query) use ($allCategory2) {
                     $query->whereIn('category_id', $allCategory2);
-                })->take(8)->orderBy('created_at', 'DESC')->get();
+                })->take(10)->orderBy('created_at', 'DESC')->get();
     
             }
             //Lấy ra id categories thứ 3
@@ -75,7 +75,7 @@ class HomeController extends Controller
                 $filteredCategory3 = array_intersect($allCategory3, $categoryIds);
                 $pr3 = Product::whereHas('category', function ($query) use ($allCategory3) {
                     $query->whereIn('category_id', $allCategory3);
-                })->take(8)->orderBy('created_at', 'DESC')->get();
+                })->take(10)->orderBy('created_at', 'DESC')->get();
     
             }
             $pr1 = $pr1 ?? collect();
@@ -93,9 +93,9 @@ class HomeController extends Controller
         $cateMenu = Category::all();
         $cateMenu = $this->buildTree($cateMenu);
         
+        $phoneInfors = Infor::where('is_public', 1)->orderBy('stt', 'ASC')->get();
         $category = Category::where('slug', $slug)->first();
         if (!empty($category)) {
-            $phoneInfors = Infor::where('is_public', 1)->orderBy('stt', 'ASC')->get();
             $categoryParentFind = Category::where('slug', $slug)
                 ->with('children')
                 ->first();
@@ -116,7 +116,7 @@ class HomeController extends Controller
 
             $products = Product::whereHas('category', function ($query) use ($categoryIds) {
                 $query->whereIn('category_id', $categoryIds);
-            })->orderBy('created_at', 'DESC')->paginate(8);
+            })->orderBy('created_at', 'DESC')->paginate(10);
             // Tính toán số lượng trang hiện có
             $currentPage = $request->input('page', 1);
             $lastPage = $products->lastPage();
@@ -126,7 +126,7 @@ class HomeController extends Controller
                 $products = Product::whereHas('category', function ($query) use ($categoryIds) {
                     $query->whereIn('category_id', $categoryIds);
                 })->orderBy('created_at', 'DESC')
-                ->paginate(8, ['*'], 'page', $lastPage);
+                ->paginate(10, ['*'], 'page', $lastPage);
             }
             // if ($request->ajax()) {
             //     return view('cntt.home.partials.products', compact('products'))->render();
@@ -137,19 +137,24 @@ class HomeController extends Controller
 
         $idPro = Product::where('slug', $slug)->value('id');
         $product = Product::with('category')->findOrFail($idPro);
-        $images = Product::findOrFail($idPro)->getProductImages();
-        // $cateMenu = Category::all();
-        // $cateMenu = $this->buildTree($cateMenu);
+        $relatedProducts = $product->getRelatedProducts();
+        $images = $product->getProductImages();
+        $product->load('category.parent.parent.parent');
+        // $category = Category::where('id', $id)->with('children')->first();
+        $allCategories = collect();
 
-        $pro = Product::findOrFail($idPro);
-
-        if (!empty($pro->related_pro)) {
-            $relatedProducts = $pro->getRelatedProducts();
-
-            return view('cntt.home.show', compact('product', 'images', 'relatedProducts'));
+        foreach ($product->category as $category) {
+            $currentCategory = $category;
+            while ($currentCategory) {
+                $allCategories->push($currentCategory);
+                $currentCategory = $currentCategory->parent;
+            }
         }
 
-        return view('cntt.home.show', compact('product', 'images'));
+        // Loại bỏ các danh mục trùng lặp
+        $uniqueCategories = $allCategories->unique('id')->sortBy('id');
+
+        return view('cntt.home.show', compact('phoneInfors', 'product', 'images', 'relatedProducts', 'uniqueCategories'));
     }
 
     private function buildTree($cateMenu, $parentId = 0)

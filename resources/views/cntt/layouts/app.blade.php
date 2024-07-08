@@ -9,7 +9,6 @@
     <link rel="apple-touch-icon" href="{{asset('cntt/img/apple-icon.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('cntt/img/favicon.ico')}}">
 
-    <link rel="stylesheet" href="{{asset('cntt/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/templatemo.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/custom.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/slick.min.css')}}">
@@ -22,6 +21,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{asset('cntt/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/home.css')}}">
     @yield('css')
 
@@ -44,7 +44,7 @@
     <script src="{{asset('cntt/js/jquery-migrate-1.2.1.min.js')}}"></script>
     <script src="{{asset('cntt/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('cntt/js/templatemo.js')}}"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="{{asset('cntt/js/custom.js')}}"></script>
     <script src="{{asset('cntt/js/slick.min.js')}}"></script>

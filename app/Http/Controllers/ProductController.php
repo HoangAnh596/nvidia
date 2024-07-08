@@ -127,7 +127,7 @@ class ProductController extends Controller
     public function insertOrUpdate(ProductFormRequest $request, $id = '')
     {
         $product = empty($id) ? new Product() : Product::findOrFail($id);
-
+        
         if(!empty($request['related_pro'])) {
             $request['related_pro'] = json_encode($request->related_pro);
         }
@@ -166,13 +166,13 @@ class ProductController extends Controller
         $idPrImage = [];
         $pathPrImages = parse_url($request->filepathPrImages, PHP_URL_PATH);
         if ($request->hasFile('pr_image_ids') || !empty($pathPrImages)) {
-            
             if (strpos($pathPrImages, '/') === 0) {
                 $pathPrImages = substr($pathPrImages, 1);
             }
             
             $productImage = ProductImages::create(
                 [
+                    'product_id' => $request->id,
                     'title' => (isset($request->title_pr_images)) ? $request->title_pr_images : $request->name,
                     'alt' => (isset($request->alt_pr_images)) ? $request->alt_pr_images : $request->name,
                     'image' => $pathPrImages,
@@ -193,17 +193,12 @@ class ProductController extends Controller
         if (!empty($idPrImage) && !isset($request->id)) {
             $product['image_ids'] = json_encode(array_map('strval', $idPrImage));
         }
-        
+            
+        $product->save();
         if(!empty($id)) {
             // Cập nhật mối quan hệ belongsToMany
-            $cate_current = DB::table('product_categories')->where('product_id', $id)->value('category_id');
-            $cate_new = (int)($request->category);
-            if($cate_new != $cate_current) {
-                $product->category()->detach();
-            }
+            $product->category()->detach();
         }
-        
-        $product->save();
         $product->category()->attach($request->category);
     }
 

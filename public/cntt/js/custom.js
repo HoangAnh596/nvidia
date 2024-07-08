@@ -141,12 +141,4 @@ $(document).ready(function() {
         $(this).toggleClass('border-blue');
         $(this).closest('.child-filter').find('.filter-button').show();
     });
-    var splide = new Splide('.splide', {
-        perPage: 1,
-        rewind: true,
-        pagination : false,
-        arrows     : false,
-    });
-
-    splide.mount();
 });

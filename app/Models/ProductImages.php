@@ -16,7 +16,6 @@ class ProductImages extends Model
         'image',
         'title',
         'alt',
-        'product_id',
         'stt_img'
     ];
 

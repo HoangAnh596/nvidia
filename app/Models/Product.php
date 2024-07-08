@@ -18,7 +18,7 @@ class Product extends Model
         'quantity', 'title_img', 'alt_img',
         'title_seo', 'keyword_seo', 'des_seo',
         'maker_id', 'image_ids', 'tag_ids',
-        'content', 'is_outstand'
+        'des', 'content', 'is_outstand'
     ];
 
     public function getRelatedProducts()
@@ -43,12 +43,6 @@ class Product extends Model
             $imgId = json_decode($this->image_ids);
             return ProductImages::whereIn('id', $imgId)->get();
         }
-    }
-
-    public function maker()
-    {
-
-        return $this->belongsTo(Maker::class, 'maker_id');
     }
 
     public function category()

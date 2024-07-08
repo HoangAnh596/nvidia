@@ -87,6 +87,12 @@
     </div>
     <div class="form-row">
         <div class="col">
+            <label for="example-textarea" class="form-label">Mô tả ngắn <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
+            <textarea id="des-editor" name="des" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-row pt-4">
+        <div class="col">
             <label for="example-textarea" class="form-label">Mô tả chi tiết <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
             <textarea id="my-editor" name="content" class="form-control"></textarea>
         </div>
