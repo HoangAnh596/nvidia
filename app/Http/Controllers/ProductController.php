@@ -23,12 +23,18 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
+        // Tìm kiếm theo tên, mã code, danh mục sản phẩm
         $keyword = $request->keyword;
-        $products = Product::where('name', 'like', "%" . Helper::escape_like($keyword) . "%");
+        $categoryId = $request->cate;
 
-        if ($request->get('cate')) {
-            // $products->where('ca_id', $request->cate);
-        }
+        $products = Product::where(function ($query) use ($keyword) {
+            $query->where('name', 'like', "%" . $keyword . "%")
+                  ->orWhere('code', 'like', "%" . $keyword . "%");
+        })->when($categoryId, function ($query) use ($categoryId) {
+            $query->whereHas('category', function ($q) use ($categoryId) {
+                $q->where('category_id', $categoryId);
+            });
+        });
 
         $products = $products->latest()->paginate(config('common.default_page_size'))->appends($request->except('page'));
 

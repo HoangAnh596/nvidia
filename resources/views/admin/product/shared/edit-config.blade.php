@@ -22,9 +22,17 @@
                 <span class="font-italic text-danger" id="priceError"></span>
             </div>
             <div class="mb-3">
-                <label for="quantity" class="form-label">Số lượng sản phẩm</label>
-                <input class="form-control" id="quantity" type="text" name="quantity" oninput="validateQuantity()" value="{{ old('quantity', $product->quantity ?? '') }}">
-                <span class="font-italic text-danger" id="quantityError"></span>
+                <label for="status" class="form-label">Tình trạng :</label>
+                <select class="form-select" aria-label="Default" name="status">
+                    <option value="1"
+                        @if(!empty($product) && $product->status == 1) selected @endif>
+                        Còn hàng
+                    </option>
+                    <option value="0"
+                        @if(!empty($product) && $product->status == 0) selected @endif>
+                        Hết hàng
+                    </option>
+                </select>
             </div>
         </div>
         <div class="col">
@@ -112,6 +120,15 @@
                     @enderror
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            <label for="example-textarea" class="form-label">Mô tả ngắn</label>
+            <textarea class="form-control" id="des-editor" name="des">{{ old('des', $product->des ?? '') }}</textarea>
+            @error('des')
+            <span class="font-italic text-danger ">{{ $message }}</span>
+            @enderror
         </div>
     </div>
     <div class="form-row">

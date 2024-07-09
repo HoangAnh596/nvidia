@@ -1,4 +1,28 @@
 /* --------------------Begin Css Product------------------------ */
+.equal-height {
+    display: flex;
+}
+.equal-height > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
+.chi-tiet-sp, .cam-ket-sp {
+    flex: 1;
+}
+
+.chi-tiet-sp {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 7px;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
+}
+.cam-ket-sp {
+    border-radius: 7px;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
+    display: block;
+    padding: 10px;
+}
 .prod-img {
     width: 100%;
     height: auto;
@@ -61,8 +85,8 @@ button.pop-gallery {
 
 /* Hình ảnh trong modal */
 .modal-image {
-    max-width: 100%;
-    max-height: 100%;
+    width: 35%;
+    max-height: 30%;
     margin: 5px;
 }
 
@@ -71,8 +95,8 @@ button.pop-gallery {
     position: fixed;
     top: 54px;
     right: 35px;
-    background-color: white;
-    font-size: 20px;
+    background-color: #76b900;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     z-index: 99999;
@@ -88,7 +112,7 @@ button.pop-gallery {
     cursor: pointer;
 }
 .col-viewmore-item:hover svg, .col-viewmore-item:hover a {
-    color: #0068d9;
+    color: #76b900;
 }
 .col-viewmore-item svg {
     color: #ff6903;
@@ -151,7 +175,7 @@ button.pop-gallery {
 .contact-price {
     border: none;
     padding: 5px 40px 7px;
-    background: #0068d9;
+    background: #76b900;
     color: #fff;
     font-weight: 500;
     font-size: 1.2rem;
@@ -191,15 +215,15 @@ button.pop-gallery {
     text-align: center;
     font-weight: 700 !important;
     position: relative;
-    color: #0d6efd;
+    color: #76b900;
     margin-bottom: 10px;
 }
 .datasheet-prd:hover {
-    color: #0a58ca;
+    color: #76b900;
 }
 .product-note p.cam_ket {
     font-size: 1.1rem !important;
-    color: #0068d9;
+    color: #76b900;
     margin-bottom: 10px;
     font-weight: 700 !important;
     line-height: 20px;
@@ -298,10 +322,9 @@ button.pop-gallery {
 
 #chi-tiet {
     border: 1px solid #ddd;
-    border-radius: 5px;
     padding: 10px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    border-radius: 7px;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
 }
 #chi-tiet h1 {
     line-height: 35px;
@@ -349,7 +372,7 @@ button.pop-gallery {
     border-radius: 5px;
 }
 .panel-heading {
-    background-color: #0052AD;
+    background-color: #76b900;
     padding: 8px 10px;
     font-weight: 500;
     color: #fff;
@@ -381,7 +404,7 @@ button.pop-gallery {
 }
 .prd_di_kem .panel-subheading svg {
     margin-right: 7px;
-    color: #0052AD;
+    color: #76b900;
 }
 .pricing .panel-subheading h4 {
     font-size: 16px;
@@ -411,7 +434,7 @@ button.pop-gallery {
     line-height: 23px;
 }
 .pricing ul li a:hover h4 {
-    color: #0068d9;
+    color: #76b900;
     text-decoration: underline;
 }
 
@@ -438,8 +461,8 @@ button.pop-gallery {
 }
 .view-more-option button:hover {
     cursor: pointer;
-    background-color: #0068d9;
-    border-color: #0068d9;
+    background-color: #76b900;
+    border-color: #76b900;
     color: #fff;
 }
 .prd-view-more {
@@ -485,8 +508,8 @@ button.pop-gallery {
     margin-top: 1rem;
 }
 .link-close {
-    border: 1px solid #0068d9;
-    background-color: #0068d9;
+    border: 1px solid #76b900;
+    background-color: #76b900;
     border-radius: 3px;
     color: #fff;
     cursor: pointer;
@@ -616,7 +639,50 @@ button.pop-gallery {
 /* --------------------End Css Product------------------------ */
 
 /* Custom CSS for Swiper */
-.swiper-slide {
+.swiper {
+    width: 100%;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .swiper-slide {
+    background-size: cover;
+    background-position: center;
+  }
+
+  .mySwiper2 {
+    height: 358px;
+    width: 100%;
+  }
+
+  .mySwiper {
+    height: 20%;
+    box-sizing: border-box;
+    padding: 10px 0;
+  }
+
+  .mySwiper .swiper-slide {
+    width: 25%;
+    height: 100%;
+    opacity: 0.4;
+  }
+
+  .mySwiper .swiper-slide-thumb-active {
+    opacity: 1;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .swiper-button-next,
+.swiper-button-prev {
+    color: #76b900;
+}
+/* .swiper-slide {
     background-color: #fff;
     display: flex;
     align-items: center;
@@ -628,35 +694,18 @@ button.pop-gallery {
 }
 
 .swiper-pagination-bullet {
-    background: #007aff;
+    background: #76b900;
 }
 
 .swiper-button-next,
 .swiper-button-prev {
-    color: #007aff;
+    color: #76b900;
 }
 
-
-
-.nested {
-    display: none;
-    margin-left: 1rem;
-}
-
-.caret {
-    cursor: pointer;
-    user-select: none;
-    float: right;
-}
-
-.caret-down::before {
-    transform: rotate(90deg);
-    /* Down-pointing triangle */
-}
 
 .active {
     display: block;
-    color: blue;
+    color: #76b900;
 }
 
 .desc-product img {
@@ -664,10 +713,8 @@ button.pop-gallery {
 }
 .swiper-wrapper {
     height: auto;
-}
-.swiper-slide {
-    padding: 0;
-}
+} */
+
 :root {
     --swiper-navigation-size: 38px;
 }
@@ -675,7 +722,7 @@ button.pop-gallery {
 /* Số điện thoại liên hệ */
 .new-prod {
     position: sticky;
-    top: 44px;
+    top: 54px;
     left: 0;
     width: 100%;
     z-index: 999;
@@ -683,7 +730,7 @@ button.pop-gallery {
 
 .check-list-btn {
     padding: 5px 40px;
-    background: #0068d9;
+    background: #76b900;
     color: #fff;
     font-weight: 500 !important;
     font-size: 1.2rem !important;
@@ -719,13 +766,6 @@ button.pop-gallery {
 }
 
 @media (min-width: 992px) {
-    .description-prd {
-        border: 1px solid #ddd;
-        padding: 10px;
-        position: relative;
-        border-radius: 5px;
-    }
-
     .compare .tcpr {
         position: relative;
         display: flex;
@@ -744,14 +784,14 @@ button.pop-gallery {
 }
 
 @media (min-width: 1200px) {
-    .description-prd {
+    /* .description-prd {
         border: 1px solid #ddd;
         padding: 10px;
         position: relative;
         border-radius: 5px;
-    }
+    } */
 
-    .description-prd:after {
+    /* .description-prd:after {
         height: 100%;
         display: block;
         width: 1px;
@@ -761,7 +801,7 @@ button.pop-gallery {
         z-index: 4;
         top: 0;
         right: 25%;
-    }
+    } */
 
     .col-viewmore-item {
         padding: 5px 10px;

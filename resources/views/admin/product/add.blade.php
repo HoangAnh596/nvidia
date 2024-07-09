@@ -86,18 +86,6 @@
         }
     });
 
-    document.getElementById('quantity').addEventListener('input', function(e) {
-        const value = e.target.value;
-        const quantityError = document.getElementById('quantityError');
-
-        if (!/^\d*$/.test(value)) {
-            quantityError.textContent = 'Vui lòng chỉ nhập số nguyên.';
-            e.target.value = value.replace(/\D/g, '');
-        } else {
-            quantityError.textContent = '';
-        }
-    });
-
     let timeout = null;
 
     function checkDuplicate() {

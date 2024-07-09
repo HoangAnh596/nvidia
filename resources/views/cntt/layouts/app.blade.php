@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="{{asset('cntt/img/apple-icon.png')}}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('cntt/img/favicon.ico')}}">
+    <link rel="apple-touch-icon" href="{{ asset('cntt/img/favi.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('cntt/img/favi.png') }}">
 
     <link rel="stylesheet" href="{{asset('cntt/css/templatemo.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/custom.css')}}">

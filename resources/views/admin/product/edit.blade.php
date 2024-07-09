@@ -110,19 +110,6 @@
             priceError.textContent = '';
         }
     }
-
-    function validateQuantity() {
-        const quantityField = document.getElementById('quantity');
-        const quantityError = document.getElementById('quantityError');
-        const value = quantityField.value;
-        
-        if (!/^\d*$/.test(value)) {
-            quantityError.textContent = 'Vui lòng chỉ nhập số nguyên.';
-            quantityField.value = value.replace(/\D/g, '');
-        } else {
-            quantityError.textContent = '';
-        }
-    }
     
     $(document).ready(function() {
         // Xử lý sản phẩm liên quan select2

@@ -1,5 +1,5 @@
 @foreach($products as $product)
-<div class="col-lg-5 col-xs-6 col-md-6 mb-20">
+<div class="col-lg-5 col-xs-6 col-md-6 mb-4">
     <div class="card h-100">
         <a class="btn-img" href="{{ $product->slug }}">
             <img src="{{ \App\Http\Helpers\Helper::getPath($product->image) }}" class="card-img-top" alt="{{ $product->alt_img }}" title="{{ $product->title_img }}">

@@ -16,9 +16,11 @@
                 <span class="text-danger" id="priceError"></span>
             </div>
             <div class="mb-3">
-                <label for="quantity" class="form-label">Số lượng sản phẩm</label>
-                <input class="form-control" id="quantity" type="text" name="quantity" value="{{ old('quantity') }}">
-                <span class="text-danger" id="quantityError"></span>
+                <label for="status" class="form-label">Tình trạng</label>
+                <select class="form-select" id="status" aria-label="Default" name="status">
+                    <option value="1">Còn hàng</option>
+                    <option value="0">Hết hàng</option>
+                </select>
             </div>
         </div>
         <div class="col">

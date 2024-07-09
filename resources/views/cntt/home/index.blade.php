@@ -115,10 +115,10 @@
     <div class="row hp-category">
         @foreach($categories as $item)
         <div class="col d-flex flex-wrap">
-            <a class="d-flex justify-content-center flex-fill mt-3" href="{{ $item->slug }}" title="{{ $item->name }}">
+            <a class="d-flex justify-content-center flex-fill mt-4" href="{{ $item->slug }}" title="{{ $item->name }}">
                 <img src="{{ \App\Http\Helpers\Helper::getPath($item->image) }}" class="rounded-circle img-fluid border" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
             </a>
-            <h2 class="mt-3 mb-3 d-flex flex-fill justify-content-center">
+            <h2 class="mt-4 mb-3 d-flex flex-fill justify-content-center">
                 <a href="{{ $item->slug }}" title="{{ $item->name }}">{{ $item->name }}</a>
             </h2>
         </div>
@@ -149,10 +149,10 @@
             </div>
         </div>
         @endif
-        <div class="row mt-3">
+        <div class="row mt-4">
             @if(!empty($pr1))
             @foreach($pr1 as $val)
-            <div class="col-lg-5 col-xs-6 col-md-6 mb-20">
+            <div class="col-lg-5 col-xs-6 col-md-6 mb-4">
                 <div class="card h-100">
                     <a class="btn-img" href="{{ $val->slug }}" title="{{ $val->name }}">
                         <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" class="card-img-top" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
@@ -203,10 +203,10 @@
             </div>
         </div>
         @endif
-        <div class="row mt-3">
+        <div class="row mt-4">
             @if(!empty($pr2))
             @foreach($pr2 as $value)
-            <div class="col-lg-5 col-xs-6 col-md-6 mb-20">
+            <div class="col-lg-5 col-xs-6 col-md-6 mb-4">
                 <div class="card h-100">
                     <a class="btn-img" href="{{ $value->slug }}" title="{{ $value->name }}">
                         <img src="{{ \App\Http\Helpers\Helper::getPath($value->image) }}" class="card-img-top" alt="{{ $value->alt_img }}" title="{{ $value->title_img }}">
@@ -257,10 +257,10 @@
             </div>
         </div>
         @endif
-        <div class="row mt-3">
+        <div class="row mt-4">
             @if(!empty($pr3))
             @foreach($pr3 as $val)
-            <div class="col-lg-5 col-xs-6 col-md-6 mb-20">
+            <div class="col-lg-5 col-xs-6 col-md-6 mb-4">
                 <div class="card h-100">
                     <a class="btn-img" href="{{ $val->slug }}" title="{{ $val->name }}">
                         <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" class="card-img-top" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
@@ -280,7 +280,7 @@
                                 <i class="text-muted fa fa-star"></i>
                                 <i class="text-muted fa fa-star"></i>
                             </li>
-                            <li class="text-muted text-right">Yêu thích <i class="fa-solid fa-heart icon-heart"></i></li>
+                            <li class="text-muted text-right"><i class="fa-solid fa-heart icon-heart"></i></li>
                         </ul>
                     </div>
                 </div>
@@ -308,7 +308,7 @@
                 </ul>
             </div>
         </div>
-        <div class="row mt-3">
+        <div class="row mt-4">
             @if(!empty($blogs))
             @foreach($blogs as $val)
             <div class="col-12 col-md-3 mb-4">

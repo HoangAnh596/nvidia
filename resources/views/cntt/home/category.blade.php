@@ -3,7 +3,7 @@
 @section('content')
 <div class="pt-44" id="breadcrumb">
     <div class="container">
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <nav style="--bs-breadcrumb-divider: '»';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
                 <li class="breadcrumb-item"><a href="{{ asset($cateParent->slug) }}">{{ $cateParent->name }}</a></li>
@@ -16,10 +16,8 @@
 </div>
 <div class="filter">
     <div class="container">
-        <div class="row">
-            <div>
-                <h1>Chọn theo tiêu chí</h1>
-            </div>
+        <div class="row mt-4">
+            <h1>Chọn theo tiêu chí</h1>
         </div>
         @if(!empty($filterCate))
         <div class="mobile-filter ft-fixed">
@@ -52,7 +50,7 @@
             </div>
             @endforeach
         </div>
-        <div class="row web-filter" style="padding-bottom:12px;">
+        <div class="row web-filter mt-4">
             <ul class="nav nav-filter ft-fixed">
                 <div class="container cont-fixed">
                     @foreach ($filterCate as $fil)
@@ -95,27 +93,28 @@
 </div>
 <div class="container">
     <div class="show-prod-cate">
-        <div class="row mt-3" id="product-data">
+        <div class="row mt-4" id="product-data">
             @include('cntt.home.partials.products', ['products' => $products])
         </div>
         <nav class="d-flex justify-content-center">
             {{ $products->links() }}
         </nav>
     </div>
-    <div class="cate-prod mt-3">
+    <div class="cate-prod mt-2">
         <div class="row">
             <div class="col-md-9">
-                <div class="content-cate">
+                <div class="content-cate mb-4">
                     <div>
                         {!! $categoryParentFind->content !!}
                     </div>
-                    <div class="align-items-center justify-content-center btn-show-more show-more" style="padding-bottom:12px;">
+                    <div class="align-items-center justify-content-center btn-show-more show-more pb-4">
                         <button class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="outstand-prod">
+                @if(!$prOutstand->isEmpty())
+                <div class="outstand-prod mb-4">
                     <div class="bg-prod d-flex align-items-center">
                         <h2>Sản phẩm nổi bật</h2>
                     </div>
@@ -149,13 +148,14 @@
                             </div>
                         </div>
                         @endforeach
-                        <div class="align-items-center justify-content-center nav-mb outstand-show-more btn-show-more" style="padding-bottom:12px;">
+                        <div class="align-items-center justify-content-center nav-mb outstand-show-more btn-show-more pb-4">
                             <button class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
                         </div>
                     </div>
                 </div>
+                @endif
                 <!-- Hotline -->
-                <div class="support-prod new-prod">
+                <div class="support-prod new-prod mb-4">
                     <div class="bg-prod d-flex align-items-center">
                         <h2>Bạn cần báo giá tốt nhất</h2>
                     </div>
@@ -239,7 +239,7 @@
 
     .new-prod {
         position: sticky;
-        top: 106px;
+        top: 116px;
         left: 0;
         width: 100%;
         z-index: 999;

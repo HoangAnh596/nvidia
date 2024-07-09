@@ -128,9 +128,6 @@ class HomeController extends Controller
                 })->orderBy('created_at', 'DESC')
                 ->paginate(10, ['*'], 'page', $lastPage);
             }
-            // if ($request->ajax()) {
-            //     return view('cntt.home.partials.products', compact('products'))->render();
-            // }
 
             return view('cntt.home.category', compact('phoneInfors', 'cateParent', 'category', 'categoryParentFind', 'products', 'prOutstand', 'filterCate'));
         }

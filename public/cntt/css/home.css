@@ -366,7 +366,7 @@ hr {
 
 /* --------------------Begin Css Danh mục sản phẩm------------------------ */
 .hp-category {
-    margin: 1rem 0;
+    margin: 1.5rem 0;
     background-color: #eee;
     border-radius: 7px;
 }
@@ -383,6 +383,7 @@ hr {
 .filter h1{
     font-size: 1.5rem;
     font-weight: 700;
+    margin: 0;
 }
 .bg-filter {
     margin: 0;
@@ -504,11 +505,11 @@ hr {
     color: #dd1c1a;
 }
 .btn-filter-readmore {
-    background-color: #288ad6;
+    background-color: #76b900;
     color: #fff;
 }
 .border-blue {
-    border: 1px solid #4a90e2;
+    border: 1px solid #76b900;
 }
 
 .filter-total {
@@ -535,7 +536,6 @@ hr {
 
 .bg-cate {
     margin: 0;
-    padding: 12px 0;
 }
 .btn-img {
     padding: 0 1rem;
@@ -583,9 +583,7 @@ hr {
 .text-dark {
     height: 66px;
 }
-.mb-20 {
-    margin-bottom: 20px;
-}
+
 .card-body ul {
     margin-top: 0.5rem;
     margin-bottom: 0.25rem;
@@ -595,6 +593,10 @@ hr {
 }
 
 /* Begin css categories */
+.breadcrumb {
+    margin-bottom: 0;
+    padding: 10px 0;
+}
 .breadcrumb a {
     text-decoration: none;
     color: #212529;
@@ -654,8 +656,6 @@ hr {
 .pt-44 {
     margin-top: 44px;
     background-color: #eee;
-    height: 40px;
-    padding: 8px 0;
 }
 
 .page-item.active .page-link {
@@ -670,7 +670,6 @@ hr {
     border-radius: 7px;
     box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
     display: block;
-    margin-bottom: 15px;
     margin-right: auto;
     max-height: 500px;
     min-height: 0;
@@ -699,7 +698,6 @@ hr {
     border-radius: 7px;
     box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
     display: block;
-    margin-bottom: 15px;
     margin-right: auto;
     max-height: 500px;
     min-height: 0;
@@ -716,11 +714,10 @@ hr {
     border-radius: 7px;
     box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
     display: block;
-    margin-bottom: 15px;
     margin-right: auto;
     min-height: 0;
     overflow: hidden;
-    padding: 15px;
+    padding: 10px;
     position: relative;
     width: 100%;
 }
@@ -783,7 +780,7 @@ hr {
     background: linear-gradient(180deg, hsla(0, 0%, 100%, 0), hsla(0, 0%, 100%, .91) 50%, #fff 55%);
     border-radius: 7px;
     bottom: 0;
-    display: block;
+    display: none;
     left: 0;
     margin-bottom: 0;
     padding-top: 50px;
@@ -802,7 +799,7 @@ hr {
     background: linear-gradient(180deg, hsla(0, 0%, 100%, 0), hsla(0, 0%, 100%, .91) 50%, #fff 55%);
     border-radius: 7px;
     bottom: 0;
-    display: block;
+    display: none;
     left: 0;
     margin-bottom: 0;
     padding-top: 50px;
@@ -812,18 +809,16 @@ hr {
     width: 100%;
 }
 /* --------------------End Css Danh mục sản phẩm------------------------ */
-.mt-15 {
-    margin-top: 15px;
-}
+
 /* --------------------Begin Css Footer------------------------ */
 .ft-black {
     background-color: #000;
-    padding: 60px 30px;
+    padding: 40px 30px;
 }
 .page-footer {
     border-bottom: 1px solid #747474;
     color: #eee;
-    font-size: 24px !important;
+    font-size: 26px !important;
     font-weight: 700 !important;
     line-height: 26px;
     padding-bottom: 9pt;

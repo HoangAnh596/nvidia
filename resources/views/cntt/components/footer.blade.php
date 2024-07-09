@@ -1,5 +1,5 @@
 <!-- Start Footer -->
-<footer class="ft-black mt-3" id="tempaltemo_footer">
+<footer class="ft-black" id="tempaltemo_footer">
     <div class="container">
         <div class="row">
             @foreach ($footers as $val)

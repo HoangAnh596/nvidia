@@ -83,11 +83,21 @@ $(document).ready(function() {
     });
 
     // Xem thêm 
+    $('.content-cate').each(function() {
+        if ($(this).height() > 350) {
+            $(this).find('.show-more').show();
+        }
+    });
     $('.show-more').on('click', function() {
         $(this).css('display', 'none'); // Ẩn nút show-more
         $('.content-cate').css('max-height', '10000px'); // Thêm chiều cao cho content-cate
     });
 
+    $('.outstand-prod').each(function() {
+        if ($(this).height() > 350) {
+            $(this).find('.outstand-show-more').show();
+        }
+    });
     $('.outstand-show-more').on('click', function() {
         $(this).css('display', 'none'); // Ẩn nút show-more
         $('.outstand-prod').css('max-height', '10000px'); // Thêm chiều cao cho content-cate
