@@ -151,4 +151,12 @@ $(document).ready(function() {
         $(this).toggleClass('border-blue');
         $(this).closest('.child-filter').find('.filter-button').show();
     });
+
+    // Ẩn hiện menu trong màn hình blogs
+    $('.highlight_topic li').on('click', function(e) {
+        if ($(this).find('.subtopic').length) {
+            $(this).find('.subtopic').toggleClass('hide');
+            e.stopPropagation();
+        }
+    });
 });

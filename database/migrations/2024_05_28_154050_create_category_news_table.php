@@ -26,11 +26,11 @@ class CreateCategoryNewsTable extends Migration
             $table->string('title_seo')->nullable();
             $table->string('keyword_seo')->nullable();
             $table->string('des_seo')->nullable();
-            $table->tinyInteger('is_serve')->default(0)->comment('1: hiển thị serve, 0: không');
-            $table->tinyInteger('is_parent')->default(0)->comment('1: hiển thị cha, 0: không');
-            $table->tinyInteger('is_menu')->default(0)->comment('1: hiển thị menu, 0: không menu');
-            $table->tinyInteger('is_outstand')->default(0)->comment('1: nổi bật, 0: không nổi bật');
-            $table->tinyInteger('is_public')->default(0)->comment('1: hiển thị, 0: không hiển thị');
+            $table->tinyInteger('is_serve')->default(1)->comment('1: hiển thị serve, 0: không');
+            $table->tinyInteger('is_parent')->default(1)->comment('1: hiển thị cha, 0: không');
+            $table->tinyInteger('is_menu')->default(1)->comment('1: hiển thị menu, 0: không menu');
+            $table->tinyInteger('is_outstand')->default(1)->comment('1: nổi bật, 0: không nổi bật');
+            $table->tinyInteger('is_public')->default(1)->comment('1: hiển thị, 0: không hiển thị');
             $table->softDeletes();
             $table->timestamps();
         });

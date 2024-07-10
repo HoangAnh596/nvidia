@@ -617,39 +617,6 @@ hr {
     padding: 0;
     height: auto;
 }
-.menu-cate-prd ul {
-    list-style: none;
-    padding-left: 0;
-    margin-bottom: 0;
-}
-.menu-cate-prd ul li {
-    border-bottom: 1px solid #ddd;
-}
-.menu-cate-prd ul > li.show > a {
-    font-weight: 400 !important;
-}
-.menu-cate-prd ul > li.show > i.fa-caret-down {
-    display: none;
-}
-.menu-cate-prd ul > li > i {
-    float: right;
-    padding: 13px 16px;
-    color: #00a510;
-}
-.menu-cate-prd ul > li.show > i.fa-caret-up {
-    display: block;
-    background: #00a510;
-    color: #fff;
-}
-.menu-cate-prd ul > li > a {
-    padding: 9px 0;
-    display: inline-block;
-}
-.menu-cate-prd ul li a {
-    text-decoration: none;
-    color: #25292d;
-}
-
 .card-body {
     padding: 10px;
 }
@@ -809,7 +776,52 @@ hr {
     width: 100%;
 }
 /* --------------------End Css Danh mục sản phẩm------------------------ */
-
+/* Css content */
+#chi-tiet h1 {
+    line-height: 35px;
+    font-size: 25px;
+    font-weight: bold;
+}
+#chi-tiet table p {
+    margin: 0;
+}
+#chi-tiet h2 {
+    font-size: 22px;
+    font-weight: bold;
+}
+#chi-tiet p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-bottom: 10px;
+}
+#chi-tiet table {
+    --bs-table-bg: transparent;
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: #212529;
+    --bs-table-striped-bg: rgba(0,0,0,0.05);
+    --bs-table-active-color: #212529;
+    --bs-table-active-bg: rgba(0,0,0,0.1);
+    --bs-table-hover-color: #212529;
+    --bs-table-hover-bg: rgba(0,0,0,0.075);
+    width: 100% !important;
+    margin-bottom: 1rem;
+    color: #212529;
+    vertical-align: top;
+    border-color: #dee2e6;
+}
+#chi-tiet table>:not(caption)>* {
+    border-width: 1px 0;
+}
+#chi-tiet table tbody tr td:first-child {
+    word-break: initial;
+}
+#chi-tiet table>:not(caption)>*>* {
+    border-width: 0 1px;
+    padding: .3rem .5rem;
+}
+#chi-tiet img {
+    border-radius: 5px;
+}
 /* --------------------Begin Css Footer------------------------ */
 .ft-black {
     background-color: #000;

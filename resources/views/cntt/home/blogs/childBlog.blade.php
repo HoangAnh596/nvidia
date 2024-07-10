@@ -1,27 +1,5 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('cntt/css/blog.css') }}">
-<style>
-    .nested {
-        display: none;
-        margin-left: 1rem;
-    }
-
-    .caret {
-        cursor: pointer;
-        user-select: none;
-        float: right;
-    }
-
-    .caret-down::before {
-        transform: rotate(90deg);
-        /* Down-pointing triangle */
-    }
-
-    .active {
-        display: block;
-        color: blue;
-    }
-</style>
 @endsection
 
 @extends('cntt.layouts.app')
@@ -32,6 +10,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
                 <li class="breadcrumb-item"><a href="{{ asset('blogs') }}">Blogs</a></li>
+                <li class="breadcrumb-item"><a href="{{ asset($parentIds->slug) }}">{{ $parentIds->name }}</a></li>
                 <li class="breadcrumb-item"><a href="{{ asset($titleCate->slug) }}">{{ $titleCate->name }}</a></li>
             </ol>
         </nav>
@@ -50,14 +29,14 @@
                 <div class="row list-news mb-4">
                     <div class="col-md-5">
                         <div class="media-left">
-                            <a href="{{ asset('blogs/'.$item->slugParent.'/'.$item->slug) }}">
+                            <a href="{{ asset('blogs/'.$item->slug) }}">
                                 <img src="{{ \App\Http\Helpers\Helper::getPath($item->image) }}" alt="{{ $item->alt_img }}" title="{{ $item->title_img }}">
                             </a>
                         </div>
                     </div>
                     <div class="col-md-7 padding-left-0">
                         <div class="media-body">
-                            <a href="{{ asset('blogs/'.$item->slugParent.'/'.$item->slug) }}">{{ $item->name }}</a>
+                            <a href="{{ asset('blogs/'.$item->slug) }}">{{ $item->name }}</a>
                             <span class="media-desc">{{ $item->desc }}</span>
                         </div>
                     </div>

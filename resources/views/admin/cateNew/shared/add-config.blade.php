@@ -14,7 +14,7 @@
                 <select name="parent_id" id="parent_id" class="form-control">
                     <option value="0">Chọn danh mục</option>
                     @foreach($cateNewParents as $category)
-                    @include('admin.category.partials.category_add', ['category' => $category, 'level' => 0])
+                    @include('admin.cateNew.partials.category_add', ['category' => $category, 'level' => 0])
                     @endforeach
                 </select>
             </div>
