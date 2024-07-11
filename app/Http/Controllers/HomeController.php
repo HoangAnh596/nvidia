@@ -3,17 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\CategoryNew;
-use App\Models\CateMenu;
 use App\Models\Infor;
 use App\Models\News;
 use App\Models\Product;
-use App\Models\User;
+use App\Services\CategorySrc;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+    const TEXT_SEO = "CNTT Shop";
+    protected $categorySrc;
+
+    public function __construct(CategorySrc $categorySrc)
+    {
+        $this->categorySrc = $categorySrc;
+    }
     /**
      * Create a new controller instance.
      *
@@ -21,81 +26,74 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Seo Website
+        $titleSeo = config('common.title_seo');
+        $keywordSeo = config('common.keyword_seo');
+        $descriptionSeo = config('common.des_seo');
+
         // Trang chủ ngoài
-        $categories = Category::where('parent_id', 0)
-        ->with('children')
-        ->where('is_public', 1)
-        ->orderBy('stt_cate', 'ASC')->take(5)
+        // Lấy tất cả các danh mục có parent_id = 0
+        $categories = Category::where('is_public', 1)
+        ->orderBy('stt_cate', 'ASC')
         ->get();
 
-        // Lấy tất cả các danh mục có parent_id = 0
-        $rootCategories = Category::where('parent_id', 0)->get();
+        // Lấy 3 danh mục có parent_id = 0 có stt_cate từ nhỏ tới lớn 
+        $cate = $categories->load('children')->take(3);
+        $ids = $cate->pluck('id');
+        // dd($ids);
+        if ($ids->isEmpty()) {
 
-        // Lấy tất cả các id của danh mục root và danh mục con của chúng
-        $categoryIds  = [];
-        foreach ($rootCategories as $category) {
-            $categoryIds  = array_merge($categoryIds, [$category->id]);
-        }
-        // Lấy tất cả các danh mục có parent_id = 0
-        $ids = Category::where('is_outstand', 1)->where('parent_id', 0)->pluck('id');
-        if($ids->isEmpty()) {
-
-            return view('cntt.home.index', compact('categories'));
+            return view('cntt.home.index', compact('titleSeo', 'keywordSeo', 'descriptionSeo', 'categories'));
         } else {
-            foreach ($ids as $index => $value) {
-                ${'idCate' . ($index + 1)} = $value;
-            }
-            $cate1 = $cate2 = $cate3 = null;
-            // Lấy ra id categories đầu tiên 
-            if (isset($idCate1)) {
-                $cate1 = Category::find($idCate1);
-                // Lấy tất cả các id danh mục con bao gồm cả id gốc
-                $allCategoryIds = array_merge([$idCate1], $cate1->getAllChildrenIds());
-                // Lọc danh sách id dựa trên mảng $categoryIds
-                $filteredCategoryIds = array_intersect($allCategoryIds, $categoryIds);
-                // Lấy tất cả sản phẩm thuộc các danh mục đó
-                $pr1 = Product::whereHas('category', function ($query) use ($allCategoryIds) {
-                    $query->whereIn('category_id', $allCategoryIds);
-                })->take(10)->orderBy('created_at', 'DESC')->get();
-            }
-            //Lấy ra id categories thứ 2
-            if(isset($idCate2)) {
-                $cate2 = Category::find($idCate2);
-                $allCategory2 = array_merge([$idCate2], $cate2->getAllChildrenIds());
-                $filteredCategory2 = array_intersect($allCategory2, $categoryIds);
-                $pr2 = Product::whereHas('category', function ($query) use ($allCategory2) {
-                    $query->whereIn('category_id', $allCategory2);
-                })->take(10)->orderBy('created_at', 'DESC')->get();
-    
-            }
-            //Lấy ra id categories thứ 3
-            if(isset($idCate3)) {
-                $cate3 = Category::find($idCate3);
-                $allCategory3 = array_merge([$idCate3], $cate3->getAllChildrenIds());
-                $filteredCategory3 = array_intersect($allCategory3, $categoryIds);
-                $pr3 = Product::whereHas('category', function ($query) use ($allCategory3) {
-                    $query->whereIn('category_id', $allCategory3);
-                })->take(10)->orderBy('created_at', 'DESC')->get();
-    
-            }
-            $pr1 = $pr1 ?? collect();
-            $pr2 = $pr2 ?? collect();
-            $pr3 = $pr3 ?? collect();
+            $categoriesWithProducts = collect();
+            foreach ($ids as $idCate) {
+                $category = Category::find($idCate);
+                // dd($category);
+                // $category = Category::with('products')->find($idCate);
+                
+                if ($category) {
+                    // Lấy tất cả các id danh mục con bao gồm cả id gốc
+                    $allCategoryIds = array_merge([$idCate], $category->getAllChildrenIds());
+                    // dd($allCategoryIds);
+            
+                    // Lấy tất cả sản phẩm thuộc các danh mục đó
+                    $products = Product::whereHas('category', function ($query) use ($allCategoryIds) {
+                        $query->whereIn('category_id', $allCategoryIds);
+                    })->select('name')->take(10)->orderBy('created_at', 'DESC')->get();
 
+                    // dd($products);
+            
+                    // tách sản phẩm nào thì thuộc danh mục sản phẩm đó
+                    $categoriesWithProducts->push([
+                        'category' => $category,
+                        'products' => $products
+                    ]);
+                    // dd($categoriesWithProducts);
+                }
+            }
+            // dd($products);
             // Tin tức
             $blogs = News::where('is_outstand', 1)->orderBy('created_at', 'DESC')->take(4)->get();
-            return view('cntt.home.index', compact('categories', 'blogs', 'cate1', 'pr1', 'cate2', 'pr2', 'cate3', 'pr3'));
+            return view('cntt.home.index', compact(
+                'titleSeo', 'keywordSeo', 'descriptionSeo',
+                'categories', 'blogs', 'categoriesWithProducts'
+            ));
         }
     }
-    
+
     public function category(Request $request, $slug)
     {
         $cateMenu = Category::all();
         $cateMenu = $this->buildTree($cateMenu);
-        
+
         $phoneInfors = Infor::where('is_public', 1)->orderBy('stt', 'ASC')->get();
         $category = Category::where('slug', $slug)->first();
+
         if (!empty($category)) {
+            // Seo Website
+            $titleSeo = (!empty($category->title_seo)) ? $category->title_seo : config('common.title_seo');
+            $keywordSeo = (!empty($category->keyword_seo)) ? $category->keyword_seo : config('common.keyword_seo');
+            $descriptionSeo = (!empty($category->des_seo)) ? $category->des_seo : config('common.des_seo');
             $categoryParentFind = Category::where('slug', $slug)
                 ->with('children')
                 ->first();
@@ -103,7 +101,7 @@ class HomeController extends Controller
             $parentId = Category::findOrFail($categoryParentFind->id)->topLevelParent()->id;
             $cateParent = Category::findOrFail($parentId);
             $filterCate = $cateParent->getFilterCates();
-            
+
             $categoryIds = $category->getAllChildrenIds();
             array_unshift($categoryIds, $category->id); // Thêm ID danh mục chính vào danh sách
 
@@ -126,14 +124,22 @@ class HomeController extends Controller
                 $products = Product::whereHas('category', function ($query) use ($categoryIds) {
                     $query->whereIn('category_id', $categoryIds);
                 })->orderBy('created_at', 'DESC')
-                ->paginate(10, ['*'], 'page', $lastPage);
+                    ->paginate(10, ['*'], 'page', $lastPage);
             }
 
-            return view('cntt.home.category', compact('phoneInfors', 'cateParent', 'category', 'categoryParentFind', 'products', 'prOutstand', 'filterCate'));
+            return view('cntt.home.category', compact(
+                'titleSeo', 'keywordSeo', 'descriptionSeo',
+                'phoneInfors', 'cateParent', 'category',
+                'categoryParentFind', 'products', 'prOutstand', 'filterCate'));
         }
 
         $idPro = Product::where('slug', $slug)->value('id');
         $product = Product::with('category')->findOrFail($idPro);
+        // Seo Website
+        $titleSeo = (!empty($product->title_seo)) ? $product->title_seo : config('common.title_seo');
+        $keywordSeo = (!empty($product->keyword_seo)) ? $product->keyword_seo : config('common.keyword_seo');
+        $descriptionSeo = (!empty($product->des_seo)) ? $product->des_seo : config('common.des_seo');
+
         $relatedProducts = $product->getRelatedProducts();
         $images = $product->getProductImages();
         $product->load('category.parent.parent.parent');
@@ -151,7 +157,10 @@ class HomeController extends Controller
         // Loại bỏ các danh mục trùng lặp
         $uniqueCategories = $allCategories->unique('id')->sortBy('id');
 
-        return view('cntt.home.show', compact('phoneInfors', 'product', 'images', 'relatedProducts', 'uniqueCategories'));
+        return view('cntt.home.show', compact(
+            'titleSeo', 'keywordSeo', 'descriptionSeo',
+            'phoneInfors', 'product',
+            'images', 'relatedProducts', 'uniqueCategories'));
     }
 
     private function buildTree($cateMenu, $parentId = 0)
@@ -169,5 +178,78 @@ class HomeController extends Controller
         }
 
         return $branch;
+    }
+
+    // Xử lý tìm kiếm
+    public function search(Request $request)
+    {
+        // Seo Website
+        $titleSeo = config('common.title_seo');
+        $keywordSeo = config('common.keyword_seo');
+        $descriptionSeo = config('common.des_seo');
+        $phoneInfors = Infor::where('is_public', 1)->orderBy('stt', 'ASC')->get();
+
+        $keyword = $request->keyword;
+        $categoryId = $request->cate;
+
+        $nameCate = null;
+        if ($categoryId != 0) {
+            $nameCate = Category::where('id', $categoryId)->value('name');
+        }
+        // Lấy ra các id con của nó
+        if (!empty($categoryId)) {
+            $childrenIds = $this->categorySrc->getAllChildrenIds($categoryId);
+            $newArray = array_merge([$categoryId], $childrenIds);
+
+            // Tìm kiếm sản phẩm theo tên hoặc mã sản phẩm
+            $productsQuery = Product::where(function ($query) use ($keyword) {
+                $query->where('name', 'like', "%" . $keyword . "%")
+                    ->orWhere('code', 'like', "%" . $keyword . "%");
+            })->when($newArray, function ($query) use ($newArray) {
+                $query->whereHas('category', function ($q) use ($newArray) {
+                    $q->whereIn('category_id', $newArray);
+                });
+            });
+
+            $total = $productsQuery->count();
+            $products = $productsQuery->orderBy('created_at', 'DESC')->paginate(16);
+            // Tính toán số lượng trang hiện có
+            $currentPage = $request->input('page', 1);
+            $lastPage = $products->lastPage();
+
+            // Nếu trang yêu cầu vượt quá số trang hiện có, chuyển hướng đến trang cuối cùng
+            if ($currentPage > $lastPage) {
+                $products = $productsQuery->orderBy('created_at', 'DESC')
+                    ->paginate(16, ['*'], 'page', $lastPage);
+            }
+
+            return view('cntt.home.search', compact(
+                'titleSeo', 'keywordSeo', 'descriptionSeo',
+                'keyword', 'nameCate',
+                'products', 'phoneInfors', 'total'));
+        } else {
+            // Tìm kiếm sản phẩm theo tên hoặc mã sản phẩm
+            $productsQuery = Product::where(function ($query) use ($keyword) {
+                $query->where('name', 'like', "%" . $keyword . "%")
+                    ->orWhere('code', 'like', "%" . $keyword . "%");
+            });
+
+            $total = $productsQuery->count();
+            $products = $productsQuery->orderBy('created_at', 'DESC')->paginate(16);
+            // Tính toán số lượng trang hiện có
+            $currentPage = $request->input('page', 1);
+            $lastPage = $products->lastPage();
+
+            // Nếu trang yêu cầu vượt quá số trang hiện có, chuyển hướng đến trang cuối cùng
+            if ($currentPage > $lastPage) {
+                $products = $productsQuery->orderBy('created_at', 'DESC')
+                    ->paginate(16, ['*'], 'page', $lastPage);
+            }
+
+            return view('cntt.home.search', compact(
+                'titleSeo', 'keywordSeo', 'descriptionSeo',
+                'keyword', 'nameCate',
+                'products', 'phoneInfors', 'total'));
+        }
     }
 }

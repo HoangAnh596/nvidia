@@ -32,7 +32,6 @@ class CreateProductsTable extends Migration
             $table->string('title_seo')->nullable();
             $table->string('keyword_seo')->nullable();
             $table->string('des_seo')->nullable();
-            $table->softdeletes();
             $table->timestamps();
         });
     }

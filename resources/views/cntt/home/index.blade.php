@@ -114,9 +114,8 @@
 <section class="container">
     <div class="row hp-category">
         @foreach($categories as $item)
-        <div class="col d-flex flex-wrap">
+        <div class="col-lg-5 col-xs-6 col-md-6">
             <a class="d-flex justify-content-center flex-fill mt-4" href="{{ $item->slug }}" title="{{ $item->name }}">
-                <img src="{{ \App\Http\Helpers\Helper::getPath($item->image) }}" class="rounded-circle img-fluid border" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
             </a>
             <h2 class="mt-4 mb-3 d-flex flex-fill justify-content-center">
                 <a href="{{ $item->slug }}" title="{{ $item->name }}">{{ $item->name }}</a>
@@ -128,84 +127,30 @@
 <!-- End Danh mục sản phẩm -->
 
 <!-- Begin Sản phẩm nổi bật -->
+@if(!empty($categoriesWithProducts))
+@foreach ($categoriesWithProducts as $data)
 <section>
     <div class="container">
-        @if(!empty($cate1))
         <div class="row bg-cate">
             <div class="col-md-3 text-cate" style="padding-left: 0;">
-                <a class="btn-link ft-sw" href="{{ $cate1->slug }}" title="{{ $cate1->name }}">{{ $cate1->name }}</a>
+                <a class="btn-link ft-sw" href="" title="{{ $data['category']->name }}">{{ $data['category']->name }}</a>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
                 <ul class="nav nav-mb">
-                    @foreach($cate1->children as $child)
+                    @foreach($data['category']->children as $child)
                     <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="{{ $child->slug }}" title="{{ $cate1->name }}">{{ $child->name }}</a>
+                        <a class="btn-link" aria-current="page" href="{{ $child->slug }}">{{ $child->name }}</a>
                     </li>
                     @endforeach
                     <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="{{ $cate1->slug }}" title="xem thêm">Xem thêm</a>
+                        <a class="btn-link" aria-current="page" href="" title="xem thêm">Xem thêm</a>
                     </li>
                 </ul>
             </div>
         </div>
-        @endif
         <div class="row mt-4">
-            @if(!empty($pr1))
-            @foreach($pr1 as $val)
-            <div class="col-lg-5 col-xs-6 col-md-6 mb-4">
-                <div class="card h-100">
-                    <a class="btn-img" href="{{ $val->slug }}" title="{{ $val->name }}">
-                        <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" class="card-img-top" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
-                    </a>
-                    <div class="card-body">
-                        <div>
-                            <a href="{{ $val->slug }}" title="{{ $val->name }}" class="text-decoration-none text-danger">{{ number_format($val->price, 0, ',', '.') }}đ</a>
-                        </div>
-                        <div class="text-dark">
-                            <a href="{{ $val->slug }}" title="{{ $val->name }}" class="text-decoration-none">{{ $val->name }}</a>
-                        </div>
-                        <ul class="list-unstyled d-flex justify-content-between">
-                            <li>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                            </li>
-                            <li class="text-muted text-right"><i class="fa-solid fa-heart icon-heart"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-            @endif
-        </div>
-    </div>
-</section>
-<section>
-    <div class="container">
-        @if(!empty($cate2))
-        <div class="row bg-cate">
-            <div class="col-md-3 text-cate" style="padding-left: 0;">
-                <a class="btn-link ft-sw" href="{{ $cate2->slug }}" title="{{ $cate2->name }}">{{ $cate2->name }}</a>
-            </div>
-            <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
-                <ul class="nav nav-mb">
-                    @foreach($cate2->children as $child)
-                    <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="{{ $child->slug }}" title="{{ $cate2->name }}">{{ $child->name }}</a>
-                    </li>
-                    @endforeach
-                    <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="{{ $cate2->slug }}" title="{{ $cate2->name }}">Xem thêm</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        @endif
-        <div class="row mt-4">
-            @if(!empty($pr2))
-            @foreach($pr2 as $value)
+            @if(!empty($data['products']))
+            @foreach($data['products'] as $value)
             <div class="col-lg-5 col-xs-6 col-md-6 mb-4">
                 <div class="card h-100">
                     <a class="btn-img" href="{{ $value->slug }}" title="{{ $value->name }}">
@@ -236,60 +181,8 @@
         </div>
     </div>
 </section>
-<section>
-    <div class="container">
-        @if(!empty($cate3))
-        <div class="row bg-cate">
-            <div class="col-md-3 text-cate" style="padding-left: 0;">
-                <a class="btn-link ft-sw" href="{{ $cate3->slug }}" title="{{ $cate3->name }}">{{ $cate3->name }}</a>
-            </div>
-            <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
-                <ul class="nav nav-mb">
-                    @foreach($cate3->children as $child)
-                    <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="{{ $child->slug }}" title="{{ $child->name }}">{{ $child->name }}</a>
-                    </li>
-                    @endforeach
-                    <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="{{ $cate3->slug }}" title="{{ $cate3->name }}">Xem thêm</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        @endif
-        <div class="row mt-4">
-            @if(!empty($pr3))
-            @foreach($pr3 as $val)
-            <div class="col-lg-5 col-xs-6 col-md-6 mb-4">
-                <div class="card h-100">
-                    <a class="btn-img" href="{{ $val->slug }}" title="{{ $val->name }}">
-                        <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" class="card-img-top" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
-                    </a>
-                    <div class="card-body">
-                        <div>
-                            <a href="{{ $val->slug }}" class="text-decoration-none text-danger" title="{{ $val->name }}">{{ number_format($val->price, 0, ',', '.') }}đ</a>
-                        </div>
-                        <div class="text-dark">
-                            <a href="{{ $val->slug }}" class="text-decoration-none text-dark" title="{{ $val->name }}">{{ $val->name }}</a>
-                        </div>
-                        <ul class="list-unstyled d-flex justify-content-between">
-                            <li>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                            </li>
-                            <li class="text-muted text-right"><i class="fa-solid fa-heart icon-heart"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-            @endif
-        </div>
-    </div>
-</section>
+@endforeach
+@endif
 <!-- End Sản phẩm nổi bật -->
 
 <!-- End Featured Product -->

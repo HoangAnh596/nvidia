@@ -32,7 +32,6 @@ class CreateCategoriesTable extends Migration
             $table->tinyInteger('is_menu')->default(0)->comment('1: hiển thị menu, 0: không menu');
             $table->tinyInteger('is_outstand')->default(0)->comment('1: nổi bật, 0: không nổi bật');
             $table->tinyInteger('is_public')->default(0)->comment('1: hiển thị, 0: không hiển thị');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

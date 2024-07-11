@@ -17,6 +17,12 @@
     width: 100%;
 }
 
+.news-body h1 {
+    font-size: 1.75rem;
+    font-weight: bold;
+    line-height: 35px;
+}
+
 .header span {
     font-size: 18px;
     color: #333;

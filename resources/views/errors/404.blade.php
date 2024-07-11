@@ -1,25 +1,11 @@
+<!-- resources/views/errors/404.blade.php -->
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 
 <head>
-    <title>{{ $titleSeo }}</title>
-    <meta name="ROBOTS" content="INDEX, FOLLOW">
-    <meta name="robots" content="index, follow">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="canonical" href="{{ $canonical_url ?? url()->full() }}">
-    <meta name="theme-color" content="#76b900">
-    <meta name="keywords" content="{{ $keywordSeo }}">
-    <meta name="description" content="{{ $descriptionSeo }}">
-    <meta property="og:url" content="{{ $canonical_url ?? url()->full() }}">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="{{ $titleSeo }}">
-    <meta property="og:description" content="{{ $descriptionSeo }}">
-    <meta property="og:image" content="{{ asset('cntt/img/favi.png') }}">
-    <meta name="author" content="cnttshop">
-
-    <link rel="apple-touch-icon" href="{{ asset('cntt/img/favi.png') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('cntt/img/favi.png') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found</title>
 
     <link rel="stylesheet" href="{{asset('cntt/css/templatemo.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/custom.css')}}">
@@ -36,15 +22,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{asset('cntt/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/home.css')}}">
+    <link rel="stylesheet" href="{{asset('cntt/css/errors.css')}}">
     @yield('css')
-
 </head>
 
 <body>
     <div id="app">
         @include('cntt.components.header')
         <main>
-            @yield('content')
+            <div class="container">
+                <div class="hp-error">
+                    <h1 class="title text-center">Xin lỗi, chúng tôi không tìm thấy trang mà bạn cần!</h1>
+                    <div class="img-404">
+                        <img src="{{ asset('cntt/img/web-404-robot-ud.png') }}" alt="404" title="404">
+                    </div>
+                    <div class="list-contact">
+                        <div class="itemct">
+                            <p class="text-center">Trở về trang chủ<br>Nvidia</p>
+                            <a href="/" class="link link--yellow">
+                                Nvidia
+                            </a>
+                        </div>
+                        <div class="itemct">
+                            <p class="text-center">Gọi hỗ trợ<br>(8h00 - 21h30)</p>
+                            <a href="tel:1900232460" class="link link--yellow link-tel">1900 123 456</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
         @include('cntt.components.footer')
     </div>
@@ -64,7 +69,6 @@
     <script src="{{asset('cntt/js/slick.min.js')}}"></script>
     @yield('js')
     <!-- End Script -->
-
 </body>
 
 </html>

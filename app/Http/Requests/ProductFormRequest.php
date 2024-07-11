@@ -26,7 +26,8 @@ class ProductFormRequest extends FormRequest
     public function rules()
     {
         $params = $this->request->all();
-        // dd($this->product);
+        // $productId = $params['id'] ?? null;
+        // dd($this->product
         if (!empty($params['id'])) {
             $checkNameUpdate = DB::table('products')->select('id')
             ->where('name', '=', $params['name'])
@@ -44,7 +45,7 @@ class ProductFormRequest extends FormRequest
             // 'code' => [
             //     'required',
             //     'regex:/[A-Z0-9]$/',
-            //     Rule::unique('products')->ignore($this->product)
+            //     Rule::unique('products')->ignore($productId)
             // ],
         ];
     }
@@ -57,6 +58,7 @@ class ProductFormRequest extends FormRequest
             'name.required' => 'Tên sản phẩm không được bỏ trống.',
             'name.unique' => 'Tên sản phẩm không được trùng.',
             'code.required' => 'Mã sản phẩm không được để trống',
+            // 'code.unique' => 'Mã sản phẩm không được trùng.',
             'category.required' => 'Danh mục sản phẩm không được để trống',
             'content.required' => 'Mô tả không được để trống',
         ];

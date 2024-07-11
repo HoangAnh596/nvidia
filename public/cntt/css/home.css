@@ -12,6 +12,9 @@ body {
     padding-right: 1rem;
 }
 
+.bg-gr {
+    background-color: #76b900;
+}
 a {
     color: #666;
     text-decoration: none;
@@ -79,7 +82,14 @@ a:hover {
 .dropdown-sub {
     position: static;
 }
-
+.btn-xmark button {
+    width: 30px;
+    height: 30px;
+    background-color: #76b900;
+}
+.btn-xmark i {
+    color: white;
+}
 .list-sub {
     display: none;
     position: fixed;
@@ -1018,6 +1028,12 @@ hr {
 }
 /* --------------------End Css Footer------------------------ */
 
+/* search */
+.modal {
+    z-index: 999999999;
+    top: 62px;
+}
+
 
 /* -------------------Begin Responsive ------------------- */
 @media (min-width: 1400px) {
@@ -1123,9 +1139,9 @@ hr {
     .global-nav {
         display: none;
     }
-    #template-mo-zay-hero-carousel {
+    /* #template-mo-zay-hero-carousel {
         margin-top: 35px;
-    }
+    } */
     .nav-fixed {
         position: fixed;
         top: 0;

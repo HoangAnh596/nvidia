@@ -159,4 +159,35 @@ $(document).ready(function() {
             e.stopPropagation();
         }
     });
+
+
+    // Xử lý task tìm kiếm ngoài trang hcur
+    // $('#inputModalSearch').select2({
+    //     placeholder: 'select',
+    //     allowClear: true,
+    // });
+    // $("#inputModalSearch").select2({
+    //     ajax: {
+    //         url: "{{ route('home.search') }}",
+    //         type: "POST",
+    //         delay: 250,
+    //         dataType: 'json',
+    //         data: function(params) {
+    //             return {
+    //                 name: params.term,
+    //                 _token: "{{ csrf_token() }}",
+    //             };
+    //         },
+    //         processResults: function(data) {
+    //             return {
+    //                 results: $.map(data, function(item) {
+    //                     return {
+    //                         id: item.id,
+    //                         text: item.name,
+    //                     }
+    //                 })
+    //             }
+    //         }
+    //     },
+    // });
 });

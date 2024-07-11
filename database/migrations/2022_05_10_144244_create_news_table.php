@@ -30,7 +30,6 @@ class CreateNewsTable extends Migration
             $table->string('title_seo')->nullable();
             $table->string('keyword_seo')->nullable();
             $table->string('des_seo')->nullable();
-            $table->softdeletes();
             $table->timestamps();
             // $table->foreign('cate_id')->references('id')->on('category_news');
         });

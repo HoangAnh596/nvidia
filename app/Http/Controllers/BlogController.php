@@ -21,6 +21,11 @@ class BlogController extends Controller
      */
     public function blog()
     {
+        // Seo website
+        $titleSeo = config('common.title_seo_blog');
+        $keywordSeo = config('common.keyword_seo_blog');
+        $descriptionSeo = config('common.des_seo_blog');
+        
         $cateMenu = CategoryNew::where('parent_id', 0)
         ->where('is_public', 1)
         ->with('children')
@@ -30,7 +35,10 @@ class BlogController extends Controller
         $viewer = News::orderBy('view_count', 'DESC')->take(10)->get();
         $outstand = News::where('is_outstand', 1)->orderBy('created_at', 'DESC')->take(10)->get();
 
-        return view('cntt.home.blogs.blog', compact('cateMenu', 'viewer', 'outstand', 'newAll'));
+        return view('cntt.home.blogs.blog', compact(
+            'titleSeo', 'keywordSeo', 'descriptionSeo',
+            'cateMenu', 'viewer', 'outstand', 'newAll'
+        ));
     }
 
     public function cateBlog($slug)
@@ -42,6 +50,10 @@ class BlogController extends Controller
         // Tin tức bài viết 
         $newArt = News::where('slug',$slug)->first();
         if(!empty($newArt)) {
+            $titleSeo = (!empty($newArt->title_seo)) ? $newArt->title_seo : config('common.title_seo_blog');
+            $keywordSeo = (!empty($newArt->keyword_seo)) ? $newArt->keyword_seo : config('common.keyword_seo_blog');
+            $descriptionSeo = (!empty($newArt->des_seo)) ? $newArt->des_seo : config('common.des_seo_blog');
+
             $sameCate = News::where('cate_id', $newArt->cate_id)
             ->orderBy('created_at', 'DESC')->take(10)
             ->get();
@@ -52,16 +64,26 @@ class BlogController extends Controller
             if(empty($newArt)) {
                 abort(404);
             }
-            return view('cntt.home.blogs.detail', compact('cateMenu', 'newArt', 'sameCate', 'parentIds', 'titleCate'));
+            return view('cntt.home.blogs.detail', compact(
+                'titleSeo', 'keywordSeo', 'descriptionSeo',
+                'cateMenu', 'newArt',
+                'sameCate', 'parentIds', 'titleCate'
+            ));
         }
 
         // Danh mục tin tức bài viết
         $cateNew = CategoryNew::where('slug', $slug)->value('id');
-
+        if(empty($cateNew   )) {
+            abort(404);
+        }
         $childrenIds = $this->categoryNewSrc->getAllChildrenIds($cateNew);
         $newArray = array_merge([$cateNew], $childrenIds);
 
         $titleCate = CategoryNew::where('slug', $slug)->first();
+        $titleSeo = (!empty($titleCate->title_seo)) ? $titleCate->title_seo : config('common.title_seo_blog');
+        $keywordSeo = (!empty($titleCate->keyword_seo)) ? $titleCate->keyword_seo : config('common.keyword_seo_blog');
+        $descriptionSeo = (!empty($titleCate->des_seo)) ? $titleCate->des_seo : config('common.des_seo_blog');
+
         $news = News::whereIn('cate_id', $newArray)->latest()->paginate(10);
         $viewer = News::whereIn('cate_id', $newArray)->orderBy('view_count', 'DESC')->take(10)->get();
         $outstand = News::whereIn('cate_id', $newArray)->where('is_outstand', 1)->orderBy('created_at', 'DESC')->take(10)->get();
@@ -70,10 +92,18 @@ class BlogController extends Controller
         if (!empty($related->related_pro)) {
             $relatedPro = $related->getRelatedPro();
 
-            return view('cntt.home.blogs.cateBlog', compact('cateMenu', 'titleCate', 'news', 'viewer', 'outstand', 'relatedPro'));
+            return view('cntt.home.blogs.cateBlog', compact(
+                'titleSeo', 'keywordSeo', 'descriptionSeo',
+                'cateMenu', 'titleCate', 'news',
+                'viewer', 'outstand', 'relatedPro'
+            ));
         }
 
-        return view('cntt.home.blogs.cateBlog', compact('cateMenu', 'titleCate', 'news', 'viewer', 'outstand'));
+        return view('cntt.home.blogs.cateBlog', compact(
+            'titleSeo', 'keywordSeo', 'descriptionSeo',
+            'cateMenu', 'titleCate',
+            'news', 'viewer', 'outstand'
+        ));
     }
 
     public function detailBlog($slugParent, $slug)
@@ -88,8 +118,12 @@ class BlogController extends Controller
         $newArray = array_merge([$cateNew], $childrenIds);
 
         $parentIds = $this->categoryNewSrc->getRootParentCategory($cateNew);
-        // dd($parentIds);
+        
         $titleCate = CategoryNew::where('slug', $slug)->first();
+        $titleSeo = (!empty($titleCate->title_seo)) ? $titleCate->title_seo : config('common.title_seo_blog');
+        $keywordSeo = (!empty($titleCate->keyword_seo)) ? $titleCate->keyword_seo : config('common.keyword_seo_blog');
+        $descriptionSeo = (!empty($titleCate->des_seo)) ? $titleCate->des_seo : config('common.des_seo_blog');
+        
         $news = News::where('cate_id', $newArray)->latest()->paginate(10);
         $viewer = News::where('cate_id', $newArray)->orderBy('view_count', 'DESC')->take(10)->get();
         $outstand = News::where('cate_id', $newArray)->where('is_outstand', 1)->orderBy('created_at', 'DESC')->take(10)->get();
@@ -98,9 +132,17 @@ class BlogController extends Controller
         if (!empty($related->related_pro)) {
             $relatedPro = $related->getRelatedPro();
 
-            return view('cntt.home.blogs.childBlog', compact('cateMenu', 'titleCate', 'news', 'viewer', 'outstand', 'relatedPro', 'parentIds'));
+            return view('cntt.home.blogs.childBlog', compact(
+                'titleSeo', 'keywordSeo', 'descriptionSeo',
+                'cateMenu', 'titleCate', 'news', 'viewer',
+                'outstand', 'relatedPro', 'parentIds'
+            ));
         }
 
-        return view('cntt.home.blogs.childBlog', compact('cateMenu', 'titleCate', 'news', 'viewer', 'outstand', 'parentIds'));
+        return view('cntt.home.blogs.childBlog', compact(
+            'titleSeo', 'keywordSeo', 'descriptionSeo',
+            'cateMenu', 'titleCate', 'news',
+            'viewer', 'outstand', 'parentIds'
+        ));
     }
 }

@@ -4,15 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $table = 'categories';
-
-    protected $dates = ['deleted_at'];
 
     const IS_SERVE = 1;
     const IS_NOT_SERVE = 0;
@@ -28,9 +25,14 @@ class Category extends Model
     protected $fillable = [
         'name', 'slug', 'parent_id', 'filter_ids',
         'image', 'title_img', 'alt_img', 'content',
-        'title_seo', 'keyword_seo', 'des_seo', 'stt_cate',
+        'title_seo', 'keyword_seo', 'des_seo', 'stt_cate', 'is_home',
         'is_serve', 'is_parent', 'is_menu', 'is_outstand', 'is_public'
     ];
+
+    public function products()
+    {
+        return $this->belongsToMany('App\Models\Product', 'product_categories', 'category_id', 'product_id');
+    }
 
     public function children()
     {

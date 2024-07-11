@@ -4,15 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CateFooter extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $table = 'cate_footer';
-    
-    protected $dates = ['deleted_at'];
 
     const IS_CLICK = 1;
     const IS_NOT_CLICK = 0;

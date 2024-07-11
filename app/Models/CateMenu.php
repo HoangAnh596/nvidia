@@ -8,11 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CateMenu extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $table = 'cate_menu';
-    
-    protected $dates = ['deleted_at'];
 
     const IS_CLICK = 1;
     const IS_NOT_CLICK = 0;

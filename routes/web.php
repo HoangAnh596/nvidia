@@ -117,6 +117,8 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
+// Tìm kiếm
+Route::get('/tim-kiem', [HomeController::class, 'search'])->name('home.search');
 // Trang chủ phía người dùng
 Route::prefix('/')->group(function () {
     Route::prefix('/blogs')->group(function () {
