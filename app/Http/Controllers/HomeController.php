@@ -34,46 +34,43 @@ class HomeController extends Controller
         // Trang chủ ngoài
         // Lấy tất cả các danh mục có parent_id = 0
         $categories = Category::where('is_public', 1)
-        ->orderBy('stt_cate', 'ASC')
-        ->get();
+            ->select('id', 'name', 'slug', 'image', 'title_img', 'alt_img', 'is_serve')
+            ->orderBy('stt_cate', 'ASC')
+            ->get();
 
-        // Lấy 3 danh mục có parent_id = 0 có stt_cate từ nhỏ tới lớn 
-        $cate = $categories->load('children')->take(3);
+        // Lấy danh mục có is_serve = 1 có stt_cate từ nhỏ tới lớn 
+        $cate = $categories->where('is_serve', 1)->load('children');
         $ids = $cate->pluck('id');
-        // dd($ids);
+        // Tin tức
+        $blogs = News::where('is_outstand', 1)->select('id', 'name', 'image', 'slug', 'alt_img', 'title_img')
+            ->orderBy('created_at', 'DESC')->get();
         if ($ids->isEmpty()) {
 
-            return view('cntt.home.index', compact('titleSeo', 'keywordSeo', 'descriptionSeo', 'categories'));
+            return view('cntt.home.index', compact('titleSeo', 'keywordSeo', 'descriptionSeo', 'categories', 'blogs'));
         } else {
             $categoriesWithProducts = collect();
             foreach ($ids as $idCate) {
                 $category = Category::find($idCate);
-                // dd($category);
-                // $category = Category::with('products')->find($idCate);
                 
                 if ($category) {
                     // Lấy tất cả các id danh mục con bao gồm cả id gốc
                     $allCategoryIds = array_merge([$idCate], $category->getAllChildrenIds());
-                    // dd($allCategoryIds);
             
                     // Lấy tất cả sản phẩm thuộc các danh mục đó
                     $products = Product::whereHas('category', function ($query) use ($allCategoryIds) {
                         $query->whereIn('category_id', $allCategoryIds);
-                    })->select('name')->take(10)->orderBy('created_at', 'DESC')->get();
+                    })->select('name', 'slug', 'image', 'alt_img', 'title_img', 'price')
+                        ->where('is_outstand', 1)
+                        ->orderBy('created_at', 'DESC')->get();
 
-                    // dd($products);
-            
                     // tách sản phẩm nào thì thuộc danh mục sản phẩm đó
                     $categoriesWithProducts->push([
                         'category' => $category,
                         'products' => $products
                     ]);
-                    // dd($categoriesWithProducts);
                 }
             }
-            // dd($products);
-            // Tin tức
-            $blogs = News::where('is_outstand', 1)->orderBy('created_at', 'DESC')->take(4)->get();
+            
             return view('cntt.home.index', compact(
                 'titleSeo', 'keywordSeo', 'descriptionSeo',
                 'categories', 'blogs', 'categoriesWithProducts'
@@ -143,7 +140,7 @@ class HomeController extends Controller
         $relatedProducts = $product->getRelatedProducts();
         $images = $product->getProductImages();
         $product->load('category.parent.parent.parent');
-        // $category = Category::where('id', $id)->with('children')->first();
+        
         $allCategories = collect();
 
         foreach ($product->category as $category) {

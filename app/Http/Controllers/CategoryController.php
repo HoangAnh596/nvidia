@@ -165,6 +165,9 @@ class CategoryController extends Controller
 
         $category->title_img = (isset($request->title_img)) ? $request->title_img : $request->name;
         $category->alt_img = (isset($request->alt_img)) ? $request->alt_img : $request->name;
+        $category->title_seo = (isset($request->title_seo)) ? $request->title_seo : $request->name;
+        $category->keyword_seo = (isset($request->keyword_seo)) ? $request->keyword_seo : $request->name;
+        $category->des_seo = (isset($request->des_seo)) ? $request->des_seo : $request->name;
         $category->stt_cate = (isset($request->stt_cate)) ? $request->stt_cate : 999;
 
         $category->save();

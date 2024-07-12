@@ -1,7 +1,18 @@
 <!-- Start Footer -->
 <footer class="ft-black" id="tempaltemo_footer">
     <div class="container">
-        
+        <div class="row">
+            @foreach ($footers as $val)
+            <div class="col-md-4">
+                <div class="page-footer">{{ $val->name }}</div>
+                <ul class="list-unstyled footer-link">
+                    @foreach ($val->children as $child)
+                    <li><a class="text-decoration-none ft-link" href="{{ $child->url }}" target="@if($child->is_tab == 1) _blank @endif">{{ $child->name }}</a></li>
+                    @endforeach
+                </ul>
+            </div>
+            @endforeach
+        </div>
 
         <div class="row">
             <div class="page-footer__subscribe">

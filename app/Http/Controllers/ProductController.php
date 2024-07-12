@@ -167,6 +167,9 @@ class ProductController extends Controller
         $product->image = $path;
         $product->title_img = (isset($request->title_img)) ? $request->title_img : $request->name;
         $product->alt_img = (isset($request->alt_img)) ? $request->alt_img : $request->name;
+        $product->title_seo = (isset($request->title_seo)) ? $request->title_seo : $request->name;
+        $product->keyword_seo = (isset($request->keyword_seo)) ? $request->keyword_seo : $request->name;
+        $product->des_seo = (isset($request->des_seo)) ? $request->des_seo : $request->name;
         
         // Thêm mới images con vào bảng Product_Images
         $idPrImage = [];

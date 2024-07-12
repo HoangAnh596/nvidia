@@ -38,28 +38,43 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         // đảm bảo sql chỉ chạy 1 lần
         $this->app->singleton('menus', function () {
-            return CateMenu::where('parent_menu', 0)
-                ->with('children')
+            return CateMenu::select('id', 'name', 'location', 'url', 'stt_menu')
+                ->where('parent_menu', 0)
+                ->where('is_public', 1)
                 ->orderBy('stt_menu', 'ASC')
-                ->take(10)
                 ->get();
         });
 
         $this->app->singleton('footers', function () {
-            return CateFooter::where('parent_menu', 0)
-                ->with('children')
+            // Lấy danh mục cha
+            $parents = CateFooter::select('id', 'name', 'url', 'is_tab')
+                ->where('is_public', 1)
+                ->where('parent_menu', 0)
                 ->orderBy('stt_menu', 'ASC')
-                ->take(3)
                 ->get();
+
+            // Lấy danh mục con trực tiếp của các danh mục cha
+            $children = CateFooter::whereIn('parent_menu', $parents->pluck('id'))
+                ->select('id', 'name', 'url', 'is_tab', 'parent_menu')
+                ->orderBy('stt_menu', 'ASC')
+                ->get();
+
+            // Gắn các danh mục con trực tiếp vào danh mục cha tương ứng
+            foreach ($parents as $parent) {
+                $parent->children = $children->where('parent_menu', $parent->id);
+            }
+
+            return $parents;
         });
 
         $this->app->singleton('searchCate', function () {
-            return Category::where('parent_id', 0)->get();
+            return Category::where('parent_id', 0)->select('id', 'name')->get();
         });
 
         View::composer('*', function ($view) {
             $menus = $this->app->make('menus');
             $footers = $this->app->make('footers');
+            // dd($footers);
             $searchCate = $this->app->make('searchCate');
             
             $view->with('menus', $menus)->with('footers', $footers)->with('searchCate', $searchCate);

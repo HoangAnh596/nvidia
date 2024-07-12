@@ -5,11 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found</title>
+    <title>ERROR 404</title>
 
     <link rel="stylesheet" href="{{asset('cntt/css/templatemo.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/custom.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/slick.min.css')}}">
+    <link rel="apple-touch-icon" href="{{ asset('cntt/img/favi.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('cntt/img/favi.png') }}">
 
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">

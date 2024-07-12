@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Chi tiết danh mục menu</h3>
+        <h3 class="mb-2 text-gray-800">Chi tiết danh mục Footer</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
                 <li class="breadcrumb-item"><a href="javascript: void(0);">Danh mục Menu</a></li>
@@ -23,7 +23,7 @@
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="col-sm-3 position-relative">Tên Danh Mục Menu</th>
+                            <th class="col-sm-3 position-relative">Tên Danh Mục Footer</th>
                             <th class="col-sm-3 position-relative">Địa chỉ đường dẫn</th>
                             <th class="col-sm-1 position-relative">Hình ảnh</th>
                             <th class="position-relative text-center">Thứ tự</th>

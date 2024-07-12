@@ -113,15 +113,18 @@
 <!-- Begin Danh mục sản phẩm -->
 <section class="container">
     <div class="row hp-category">
+        @if(!empty($categories))
         @foreach($categories as $item)
         <div class="col-lg-5 col-xs-6 col-md-6">
             <a class="d-flex justify-content-center flex-fill mt-4" href="{{ $item->slug }}" title="{{ $item->name }}">
+                <img src="{{ asset($item->image) }}" class="rounded-circle img-fluid border" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
             </a>
             <h2 class="mt-4 mb-3 d-flex flex-fill justify-content-center">
                 <a href="{{ $item->slug }}" title="{{ $item->name }}">{{ $item->name }}</a>
             </h2>
         </div>
         @endforeach
+        @endif
     </div>
 </section>
 <!-- End Danh mục sản phẩm -->
@@ -132,8 +135,9 @@
 <section>
     <div class="container">
         <div class="row bg-cate">
+            @if(!empty($data['products']))
             <div class="col-md-3 text-cate" style="padding-left: 0;">
-                <a class="btn-link ft-sw" href="" title="{{ $data['category']->name }}">{{ $data['category']->name }}</a>
+                <a class="btn-link ft-sw" href="{{ asset($data['category']->slug) }}" title="{{ $data['category']->name }}">{{ $data['category']->name }}</a>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
                 <ul class="nav nav-mb">
@@ -143,10 +147,11 @@
                     </li>
                     @endforeach
                     <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="" title="xem thêm">Xem thêm</a>
+                        <a class="btn-link" aria-current="page" href="{{ asset($data['category']->slug) }}" title="xem thêm">Xem thêm</a>
                     </li>
                 </ul>
             </div>
+            @endif
         </div>
         <div class="row mt-4">
             @if(!empty($data['products']))
@@ -154,7 +159,7 @@
             <div class="col-lg-5 col-xs-6 col-md-6 mb-4">
                 <div class="card h-100">
                     <a class="btn-img" href="{{ $value->slug }}" title="{{ $value->name }}">
-                        <img src="{{ \App\Http\Helpers\Helper::getPath($value->image) }}" class="card-img-top" alt="{{ $value->alt_img }}" title="{{ $value->title_img }}">
+                        <img src="{{ asset($value->image) }}" class="card-img-top" alt="{{ $value->alt_img }}" title="{{ $value->title_img }}">
                     </a>
                     <div class="card-body">
                         <div>
@@ -207,7 +212,7 @@
             <div class="col-12 col-md-3 mb-4">
                 <div class="card h-100 card-new">
                     <a class="btn-img-new" href="/blogs/{{ $val->slug }}">
-                        <img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" class="card-img-top" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
+                        <img src="{{ asset($val->image) }}" class="card-img-top" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
                     </a>
                     <div class="card-body">
                         <a href="/blogs/{{ $val->slug }}" class="text-decoration-none text-dark">{{ $val->name }}</a>

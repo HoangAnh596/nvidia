@@ -15,9 +15,7 @@
         {{ $category->url }}
     </td>
     <td class="text-center">
-        @if (!empty($category->image))
-        <img src="{{ \App\Http\Helpers\Helper::getPath($category->image) }}" class="img-fluid">
-        @endif
+        @if($category->location == 1) Css Trái @else Css Phải @endif
     </td>
     <td class="text-center">
         <input type="text" class="check-stt" name="stt_menu" data-id="{{ $category->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_menu', $category->stt_menu) }}">
