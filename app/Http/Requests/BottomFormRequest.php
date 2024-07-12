@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class InforFormRequest extends FormRequest
+class BottomFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,14 +26,14 @@ class InforFormRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'phone' => 'required'
+            'url' => 'required',
         ];
     }
     public function messages()
     {
         return [
             'name.required' => 'Name không được để trống',
-            'phone.required' => 'Số điện thoại không được để trống',
+            'url.required' => 'Đường dẫn không được để trống',
         ];
     }
 }

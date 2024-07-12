@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Bottom;
 use App\Models\CateFooter;
 use App\Models\Category;
 use App\Models\CateMenu;
+use App\Models\Favicon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -71,13 +73,24 @@ class AppServiceProvider extends ServiceProvider
             return Category::where('parent_id', 0)->select('id', 'name')->get();
         });
 
+        $this->app->singleton('favicon', function () {
+            return Favicon::where('id', 1)->select('id', 'image')->get();
+        });
+
+        $this->app->singleton('bottom', function () {
+            return Bottom::where('is_public', 1)->orderBy('stt', 'ASC')->select('id', 'name', 'url')->get();
+        });
+
         View::composer('*', function ($view) {
             $menus = $this->app->make('menus');
             $footers = $this->app->make('footers');
-            // dd($footers);
             $searchCate = $this->app->make('searchCate');
-            
-            $view->with('menus', $menus)->with('footers', $footers)->with('searchCate', $searchCate);
+            $favi = $this->app->make('favicon');
+            $ft_bottom = $this->app->make('bottom');
+
+            $view->with('menus', $menus)->with('footers', $footers)
+                ->with('searchCate', $searchCate)->with('favi', $favi)
+                ->with('ft_bottom', $ft_bottom);
         });
     }
 }

@@ -120,14 +120,15 @@
 
         <!-- Nav Item - Pages Infors -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('infors.index') }}" data-toggle="collapse" data-target="#collapseInfors" aria-expanded="true" aria-controls="collapseInfors">
+            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseInfors" aria-expanded="true" aria-controls="collapseInfors">
                 <i class="fa-solid fa-phone-volume"></i>
-                <span>Quản lý hotline</span>
+                <span>Quản lý</span>
             </a>
             <div id="collapseInfors" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('infors.index') }}">Danh sách</a>
-                    <a class="collapse-item" href="{{ route('infors.create') }}">Thêm mới</a>
+                    <a class="collapse-item" href="{{ route('infors.index') }}">Danh sách hotline</a>
+                    <a class="collapse-item" href="{{ route('infors.create') }}">Thêm mới hotline</a>
+                    <a class="collapse-item" href="{{ route('favicon.edit', ['favicon' => 1]) }}">Cập nhật favicon</a>
                 </div>
             </div>
         </li>
@@ -142,6 +143,19 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('users.index') }}">Danh sách</a>
                     <a class="collapse-item" href="{{ route('users.create') }}">Thêm mới</a>
+                </div>
+            </div>
+        </li>
+        <!-- Nav Item - Pages Infors -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseBottoms" aria-expanded="true" aria-controls="collapseBottoms">
+                <i class="fa-solid fa-phone-volume"></i>
+                <span>Quản lý footer</span>
+            </a>
+            <div id="collapseBottoms" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('bottoms.index') }}">Danh sách hotline</a>
+                    <a class="collapse-item" href="{{ route('bottoms.create') }}">Thêm mới hotline</a>
                 </div>
             </div>
         </li>

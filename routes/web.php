@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\BottomController;
 use App\Http\Controllers\CateFooterController;
 use App\Http\Controllers\CategoryNewController;
 use App\Http\Controllers\CateMenuController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\FilterCateController;
 use App\Http\Controllers\FilterProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InforController;
+use App\Http\Controllers\ManageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImagesController;
 use App\Http\Controllers\ProductTagController;
@@ -97,6 +99,13 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::resource('infors', InforController::class);
     Route::post('/infors/checkStt', [InforController::class, 'checkStt'])->name('infors.checkStt');
     Route::post('/infors/checkbox', [InforController::class, 'isCheckbox'])->name('infors.isCheckbox');
+    // Quản lý 
+    Route::resource('bottoms', BottomController::class);
+    Route::post('/bottoms/checkStt', [BottomController::class, 'checkStt'])->name('bottoms.checkStt');
+    Route::post('/bottoms/checkbox', [BottomController::class, 'isCheckbox'])->name('bottoms.isCheckbox');
+    Route::resource('favicon', ManageController::class)->only([
+        'edit', 'update'
+    ]);
 
     // Quản lý danh mục menu
     Route::resource('cateMenu', CateMenuController::class);

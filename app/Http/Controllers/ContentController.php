@@ -28,11 +28,13 @@ class ContentController extends Controller
                 $originalPath = $request->uploadImg->storeAs('public/images/tin-tuc', $imageName);
             } elseif (strpos($current_url, 'cateMenu') !== false) {
                 $originalPath = $request->uploadImg->storeAs('public/images/menu', $imageName);
+            } elseif (strpos($current_url, 'favicon') !== false) {
+                $originalPath = $request->uploadImg->storeAs('public/images/favicon', $imageName);
             }
             $newPath = str_replace('public', 'storage', $originalPath);
 
             return response()->json([
-                'success' => 'Image uploaded successfully!',
+                'success' => 'Cập nhật hình ảnh thành công!',
                 'image_name' => $newPath
             ]);
         }

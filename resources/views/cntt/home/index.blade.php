@@ -16,7 +16,7 @@
                 <div class="h-90"></div>
                 <div class="row">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="{{asset('img/banner_img_01.jpg')}}" alt="">
+                        <img class="img-fluid" src="" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left align-self-center">
@@ -37,7 +37,7 @@
                 <div class="h-90"></div>
                 <div class="row">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="{{asset('img/banner_img_02.jpg')}}" alt="">
+                        <img class="img-fluid" src="" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left">
@@ -59,7 +59,7 @@
                 <div class="h-90"></div>
                 <div class="row">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="{{asset('img/banner_img_03.jpg')}}" alt="">
+                        <img class="img-fluid" src="" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left">
@@ -81,7 +81,7 @@
                 <div class="h-90"></div>
                 <div class="row">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="{{asset('img/banner_img_03.jpg')}}" alt="">
+                        <img class="img-fluid" src="" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left">

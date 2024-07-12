@@ -1015,10 +1015,10 @@ hr {
     top: 5px;
     width: 1px;
 }
-/* .global-footer__links>li:last-child {
+.global-footer__links>li:last-child:after {
     margin-right: 0;
-    padding-right: 0;
-} */
+    display: none;
+}
 
 .global-footer__copyright {
     clear: both;

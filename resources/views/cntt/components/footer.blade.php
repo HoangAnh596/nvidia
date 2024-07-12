@@ -73,37 +73,11 @@
         </svg>
 
         <ul class="global-footer__links">
+            @foreach ($ft_bottom as $ft)
             <li>
-                <a href="https://www.nvidia.com/en-au/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+                <a href="{{ asset($ft->url) }}" target="_blank">{{ $ft->name}}</a>
             </li>
-
-            <li>
-                <a href="https://www.nvidia.com/en-au/privacy-center/" target="_blank">Manage My Privacy</a>
-            </li>
-
-            <li>
-                <a href="https://www.nvidia.com/en-au/preferences/email-preferences/" target="_blank">Do Not Sell or Share My Data</a>
-            </li>
-
-            <li>
-                <a href="https://www.nvidia.com/en-au/legal-info/" target="_blank">Legal</a>
-            </li>
-
-            <li>
-                <a href="https://www.nvidia.com/en-au/about-nvidia/accessibility/" target="_blank">Accessibility</a>
-            </li>
-
-            <li>
-                <a href="https://www.nvidia.com/en-au/about-nvidia/company-policies/" target="_self">Corporate Policies</a>
-            </li>
-
-            <li>
-                <a href="https://www.nvidia.com/en-us/security" target="_blank">Product Security</a>
-            </li>
-
-            <li>
-                <a href="https://www.nvidia.com/en-au/contact/" target="_blank">Contact</a>
-            </li>
+            @endforeach
         </ul>
         <div class="global-footer__copyright">Copyright © 2024 NVIDIA Corporation</div>
     </div>

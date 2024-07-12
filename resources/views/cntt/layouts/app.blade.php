@@ -15,11 +15,11 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ $titleSeo }}">
     <meta property="og:description" content="{{ $descriptionSeo }}">
-    <meta property="og:image" content="{{ asset('cntt/img/favi.png') }}">
+    <meta property="og:image" content="{{ asset($favi[0]->image) }}">
     <meta name="author" content="cnttshop">
 
-    <link rel="apple-touch-icon" href="{{ asset('cntt/img/favi.png') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('cntt/img/favi.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset($favi[0]->image) }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset($favi[0]->image) }}">
 
     <link rel="stylesheet" href="{{asset('cntt/css/templatemo.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/custom.css')}}">
