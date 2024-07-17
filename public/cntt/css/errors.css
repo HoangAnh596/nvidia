@@ -5,6 +5,9 @@
     margin: 3rem 0;
     font-size: 2rem;
 }
+.c-500 {
+    color: #76b900;
+}
 .img-404 {
     display: flex;
     justify-content: center;

@@ -56,7 +56,7 @@ class Category extends Model
 
         return $childrenIds;
     }
-
+    // Lấy ra id của cha có parent_id = 0
     public function topLevelParent()
     {
         $category = $this;
@@ -66,6 +66,17 @@ class Category extends Model
         return $category;
     }
 
+    public function getAllParents()
+    {
+        $parents = collect();
+        $parent = $this->parent;
+        while ($parent) {
+            $parents->prepend($parent);
+            $parent = $parent->parent;
+        }
+        return $parents;
+    }
+    
     // Thiết lập mối quan hệ với FilterCate
     public function filters()
     {

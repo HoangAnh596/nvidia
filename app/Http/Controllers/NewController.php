@@ -62,12 +62,12 @@ class NewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $news = News::findOrFail($id);
+    // public function show($id)
+    // {
+    //     $news = News::findOrFail($id);
 
-        return view('admin.news.show', compact('news'));
-    }
+    //     return view('admin.news.show', compact('news'));
+    // }
 
     /**
      * Show the form for editing the specified resource.

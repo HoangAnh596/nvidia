@@ -6,10 +6,10 @@
         <nav style="--bs-breadcrumb-divider: '»';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-                <li class="breadcrumb-item"><a href="{{ asset($cateParent->slug) }}">{{ $cateParent->name }}</a></li>
-                @if($categoryParentFind->id != $cateParent->id)
-                <li class="breadcrumb-item active">{{ $categoryParentFind->name }}</li>
-                @endif
+                @foreach ($allParents as $parent)
+                <li class="breadcrumb-item"><a href="{{ asset($parent->slug) }}">{{ $parent->name }}</a></li>
+                @endforeach
+                <li class="breadcrumb-item">{{ $category->name }}</li>
             </ol>
         </nav>
     </div>
@@ -19,8 +19,14 @@
         <div class="row mt-4">
             <h1>Chọn theo tiêu chí</h1>
         </div>
+        @php
+        $agent = new Jenssegers\Agent\Agent();
+        @endphp
+        <!-- Header -->
+        <!-- begin navbar mobile -->
+        @if($agent->isMobile())
         @if(!empty($filterCate))
-        <div class="mobile-filter ft-fixed">
+        <div class="mobile-filter ft-fixed mt-4">
             <div class="container" style="padding: 0;">
                 <div class="splide">
                     <div class="splide__track">
@@ -50,6 +56,9 @@
             </div>
             @endforeach
         </div>
+        @endif
+        @else
+        @if(!empty($filterCate))
         <div class="row web-filter mt-4">
             <ul class="nav nav-filter ft-fixed">
                 <div class="container cont-fixed">
@@ -89,6 +98,7 @@
             </ul>
         </div>
         @endif
+        @endif
     </div>
 </div>
 <div class="container">
@@ -102,17 +112,17 @@
     </div>
     <div class="cate-prod mt-2">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-9 res-w100">
                 <div class="content-cate mb-4">
                     <div>
-                        {!! $categoryParentFind->content !!}
+                        {!! $category->content !!}
                     </div>
                     <div class="align-items-center justify-content-center btn-show-more show-more pb-4">
                         <button class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 res-dnone">
                 @if(!$prOutstand->isEmpty())
                 <div class="outstand-prod mb-4">
                     <div class="bg-prod d-flex align-items-center">
@@ -121,12 +131,12 @@
                     <div class="title-outstand-prod">
                         @foreach($prOutstand as $data)
                         <div class="row mt-3">
-                            <div class="col-md-4" style="padding:0;">
+                            <div class="col-md-4 col-4" style="padding:0;">
                                 <a class="btn-outstand" href="{{ $data->slug }}">
                                     <img src="{{ \App\Http\Helpers\Helper::getPath($data->image) }}" class="card-img-top" alt="{{ $data->alt_img }}" title="{{ $data->title_img }}">
                                 </a>
                             </div>
-                            <div class="col-md-8 d-flex flex-column bd-highlight" style="height: 100px;">
+                            <div class="col-md-8 col-8 d-flex flex-column bd-highlight" style="height: 100px; overflow: hidden;">
                                 <div class="bd-highlight">
                                     <a class="btn-link" href="{{ $data->slug }}">{{ $data->name }}</a>
                                 </div>
@@ -216,27 +226,6 @@
 <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
 
 <style>
-    .nested {
-        display: none;
-        margin-left: 1rem;
-    }
-
-    .caret {
-        cursor: pointer;
-        user-select: none;
-        float: right;
-    }
-
-    .caret-down::before {
-        transform: rotate(90deg);
-        /* Down-pointing triangle */
-    }
-
-    .active {
-        display: block;
-        color: blue;
-    }
-
     .new-prod {
         position: sticky;
         top: 116px;
@@ -264,8 +253,8 @@
     var splide = new Splide('.splide', {
         perPage: 1,
         rewind: true,
-        pagination : false,
-        arrows     : false,
+        pagination: false,
+        arrows: false,
     });
 
     splide.mount();

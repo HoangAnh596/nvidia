@@ -26,7 +26,6 @@
                 <a href="{{ route('cateMenu.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
                 <div>
                     <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
-                    <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
                 </div>
             </div>
 
@@ -143,9 +142,13 @@
             </div>
 
             <div class="mt-4 pb-4 mr-4 float-right">
-                <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-                <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
+                <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
             </div>
+        </form>
+        <form action="{{ route('cateMenu.destroy', ['cateMenu' => $category->id]) }}" method="post">
+            @csrf
+            @method( 'Delete' )
+            <button class="btn btn-danger btn-sm" type="delete" value="Delete" onclick="return confirm('Bạn chắc chắn muốn xóa chứ?')" style="float: right; margin-right: 20px;"><i class="fa-solid fa-eraser"></i> Xóa</button>
         </form>
     </div>
 </div>

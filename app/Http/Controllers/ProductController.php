@@ -127,7 +127,7 @@ class ProductController extends Controller
     {
         Product::findOrFail($id)->delete();
 
-        return redirect(route('product.index'))->with(['message' => 'Delete product success']);
+        return redirect(route('product.index'))->with(['message' => 'Xóa sản phẩm thành công']);
     }
 
     public function insertOrUpdate(ProductFormRequest $request, $id = '')

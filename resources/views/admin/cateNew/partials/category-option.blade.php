@@ -4,6 +4,6 @@
 </option>
 @if($category->children)
     @foreach($category->children as $child)
-        @include('admin.cateNew.partials.category-option', ['category' => $child, 'level' => $level + 1, 'selected' => $selected])
+        @include('admin.category.partials.category-option', ['category' => $child, 'level' => $level + 1, 'selected' => $selected])
     @endforeach
 @endif

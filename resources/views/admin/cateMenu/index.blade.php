@@ -25,7 +25,6 @@
                         <tr>
                             <th class="col-sm-3 position-relative">Tên Danh Mục Menu</th>
                             <th class="col-sm-3 position-relative">Địa chỉ đường dẫn</th>
-                            <th class="col-sm-1 position-relative">Vị trí đặt</th>
                             <th class="position-relative text-center">Thứ tự</th>
                             <th class="position-relative text-center">Hiển thị</th>
                             <th class="position-relative text-center">Click</th>

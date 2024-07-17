@@ -25,10 +25,8 @@
                         <tr>
                             <th class="col-sm-3 position-relative">Tên Danh Mục Tin Tức</th>
                             <th class="col-sm-3 position-relative">Địa chỉ đường dẫn</th>
-                            <th class="col-sm-1 position-relative">Hình ảnh</th>
                             <th class="position-relative text-center">Thứ tự</th>
                             <th class="position-relative text-center">Hiển thị</th>
-                            <th class="position-relative text-center">Click</th>
                             <th class="col-sm-2 position-relative"></th>
                         </tr>
                     </thead>

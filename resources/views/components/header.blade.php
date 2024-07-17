@@ -92,7 +92,7 @@
         <!-- Nav Item - Pages News Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('news.index') }}" data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
-                <i class="fa-solid fa-newspaper"></i>
+                <i class="fa-solid fa-radio"></i>
                 <span>Tin tức</span>
             </a>
             <div id="collapseNews" class="collapse" aria-labelledby="headingNews" data-parent="#accordionSidebar">
@@ -122,12 +122,14 @@
         <li class="nav-item">
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseInfors" aria-expanded="true" aria-controls="collapseInfors">
                 <i class="fa-solid fa-phone-volume"></i>
-                <span>Quản lý</span>
+                <span>Hotline, favicon, icon</span>
             </a>
             <div id="collapseInfors" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('infors.index') }}">Danh sách hotline</a>
                     <a class="collapse-item" href="{{ route('infors.create') }}">Thêm mới hotline</a>
+                    <a class="collapse-item" href="{{ route('icons.index') }}">Danh sách icon</a>
+                    <a class="collapse-item" href="{{ route('icons.create') }}">Thêm mới icon</a>
                     <a class="collapse-item" href="{{ route('favicon.edit', ['favicon' => 1]) }}">Cập nhật favicon</a>
                 </div>
             </div>
@@ -149,7 +151,7 @@
         <!-- Nav Item - Pages Infors -->
         <li class="nav-item">
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseBottoms" aria-expanded="true" aria-controls="collapseBottoms">
-                <i class="fa-solid fa-phone-volume"></i>
+                <i class="fa-solid fa-list-check"></i>
                 <span>Quản lý footer</span>
             </a>
             <div id="collapseBottoms" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
@@ -181,18 +183,6 @@
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
-
-                <!-- Topbar Search -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">

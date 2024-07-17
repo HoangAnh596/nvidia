@@ -112,10 +112,10 @@
 <!-- Start Featured Product -->
 <!-- Begin Danh mục sản phẩm -->
 <section class="container">
-    <div class="row hp-category">
+    <div class="row hp-category justify-content-center">
         @if(!empty($categories))
         @foreach($categories as $item)
-        <div class="col-lg-5 col-xs-6 col-md-6">
+        <div class="col-lg-5 col-xs-6 col-md-4 col-sm-6">
             <a class="d-flex justify-content-center flex-fill mt-4" href="{{ $item->slug }}" title="{{ $item->name }}">
                 <img src="{{ asset($item->image) }}" class="rounded-circle img-fluid border" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
             </a>
@@ -156,17 +156,17 @@
         <div class="row mt-4">
             @if(!empty($data['products']))
             @foreach($data['products'] as $value)
-            <div class="col-lg-5 col-xs-6 col-md-6 mb-4">
+            <div class="col-lg-5 col-xs-6 col-md-3 col-sm-6 mb-4">
                 <div class="card h-100">
-                    <a class="btn-img" href="{{ $value->slug }}" title="{{ $value->name }}">
+                    <a class="btn-img" href="{{ $value->slug }}">
                         <img src="{{ asset($value->image) }}" class="card-img-top" alt="{{ $value->alt_img }}" title="{{ $value->title_img }}">
                     </a>
                     <div class="card-body">
                         <div>
                             <a href="{{ $value->slug }}" class="text-decoration-none text-danger">{{ number_format($value->price, 0, ',', '.') }}đ</a>
                         </div>
-                        <div class="text-dark">
-                            <a href="{{ $value->slug }}" class="text-decoration-none" title="{{ $value->name }}">{{ $value->name }}</a>
+                        <div class="text-dark hover-gr">
+                            <a href="{{ $value->slug }}" class="text-decoration-none">{{ $value->name }}</a>
                         </div>
                         <ul class="list-unstyled d-flex justify-content-between">
                             <li>
@@ -209,7 +209,7 @@
         <div class="row mt-4">
             @if(!empty($blogs))
             @foreach($blogs as $val)
-            <div class="col-12 col-md-3 mb-4">
+            <div class="col-12 col-md-3 col-sm-6 mb-4">
                 <div class="card h-100 card-new">
                     <a class="btn-img-new" href="/blogs/{{ $val->slug }}">
                         <img src="{{ asset($val->image) }}" class="card-img-top" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">

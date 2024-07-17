@@ -13,10 +13,9 @@
 <!-- <script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script> -->
 <!-- <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script> -->
 <script src="{{ asset('cntt/ckeditor/ckeditor.js') }}"></script>
-<!-- <script src="{{ asset('cntt/ckfinder/ckfinder.js') }}"></script> -->
 
 <script>
-  var route_prefix = "http://localhost:8000/laravel-filemanager";
+  var route_prefix = "{{ asset('/laravel-filemanager') }}";
   $('#lfm').filemanager('image', {
     prefix: route_prefix
   });

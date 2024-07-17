@@ -7,6 +7,7 @@ use App\Models\CateFooter;
 use App\Models\Category;
 use App\Models\CateMenu;
 use App\Models\Favicon;
+use App\Models\Icon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -40,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         // đảm bảo sql chỉ chạy 1 lần
         $this->app->singleton('menus', function () {
-            return CateMenu::select('id', 'name', 'location', 'url', 'stt_menu')
+            return CateMenu::select('id', 'name', 'url', 'stt_menu')
                 ->where('parent_menu', 0)
                 ->where('is_public', 1)
                 ->orderBy('stt_menu', 'ASC')
@@ -72,11 +73,15 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('searchCate', function () {
             return Category::where('parent_id', 0)->select('id', 'name')->get();
         });
-
+        // favicon
         $this->app->singleton('favicon', function () {
             return Favicon::where('id', 1)->select('id', 'image')->get();
         });
-
+        // Icon footer
+        $this->app->singleton('icon', function () {
+            return Icon::where('is_public', 1)->orderBy('stt', 'ASC')->select('id', 'url', 'name', 'icon')->get();
+        });
+        // Chân trang dưới footer
         $this->app->singleton('bottom', function () {
             return Bottom::where('is_public', 1)->orderBy('stt', 'ASC')->select('id', 'name', 'url')->get();
         });
@@ -86,10 +91,12 @@ class AppServiceProvider extends ServiceProvider
             $footers = $this->app->make('footers');
             $searchCate = $this->app->make('searchCate');
             $favi = $this->app->make('favicon');
+            $iconGlobal = $this->app->make('icon');
             $ft_bottom = $this->app->make('bottom');
 
             $view->with('menus', $menus)->with('footers', $footers)
                 ->with('searchCate', $searchCate)->with('favi', $favi)
+                ->with('iconGlobal', $iconGlobal)
                 ->with('ft_bottom', $ft_bottom);
         });
     }

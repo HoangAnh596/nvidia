@@ -36,7 +36,7 @@ class CateMenuController extends Controller
     {
         $this->insertOrUpdate($request);
 
-        return redirect(route('cateMenu.index'))->with(['message' => 'Create Success']);
+        return redirect(route('cateMenu.index'))->with(['message' => 'Tạo mới thành công']);
     }
 
      /**
@@ -64,7 +64,20 @@ class CateMenuController extends Controller
     {
         $this->insertOrUpdate($request, $id);
 
-        return redirect(route('cateMenu.index'))->with(['message' => "Updated category successfully !"]);
+        return redirect(route('cateMenu.index'))->with(['message' => "Cập nhật danh mục menu thành công !"]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        CateMenu::findOrFail($id)->delete();
+
+        return redirect(route('cateMenu.index'))->with(['message' => 'Xóa thành công']);
     }
 
     public function insertOrUpdate(CateMenuFormRequest $request, $id = '')
@@ -108,7 +121,7 @@ class CateMenuController extends Controller
         $category->stt_menu = (isset($sttMenu)) ? $sttMenu : 999;
         $category->save();
 
-        return response()->json(['success' => true, 'message' => 'STT updated successfully.']);
+        return response()->json(['success' => true, 'message' => 'Cập nhật Stt thành công.']);
     }
 
     public function isCheckbox(Request $request)
@@ -125,7 +138,7 @@ class CateMenuController extends Controller
                 $category->save();
                 return response()->json(['success' => true]);
             } else {
-                return response()->json(['success' => false, 'message' => 'Field does not exist.']);
+                return response()->json(['success' => false, 'message' => 'Không tồn tại.']);
             }
         }
         return response()->json(['success' => false]);

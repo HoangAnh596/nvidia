@@ -1,86 +1,40 @@
 $(document).ready(function() {
-    $('.nav-link-web').on("click", function(e) {
-        e.preventDefault();
-        var id = $(this).data('id');
-        console.log(id);
-        var $el = $('#dropdown-' + id);
-        $('.dropdown-content').not($el).hide(); // Đóng tất cả các dropdown khác
-        $el.toggle();
-        // Thêm hoặc xóa lớp underline-blue
-        $('.nav-link-web').not(this).removeClass('underline-gr');
-        $(this).toggleClass('underline-gr');
-    });
-
-    // Sự kiện hover
-    // $('.nav-link-web').on("mouseenter", function() {
-    //     var id = $(this).data('id');
-    //     var $el = $('#dropdown-' + id);
-    //     $('.dropdown-content').not($el).hide(); // Đóng tất cả các dropdown khác
-    //     $el.show();
-    //     // Thêm lớp underline-blue khi hover
-    //     $(this).addClass('underline-gr');
-    // });
-
-    // $('.nav-link-web').on("mouseleave", function() {
-    //     var id = $(this).data('id');
-    //     var $el = $('#dropdown-' + id);
-    //     $el.hide();
-    //     // Xóa lớp underline-blue khi không hover
-    //     $(this).removeClass('underline-gr');
-    // });
-
-    // Ngăn chặn sự kiện nhấp chuột trên các phần tử con nổi lên trên phần tử gốc
-    $('.dropdown-sub').on('click', function(e) {
-        e.stopPropagation();
-    });
-
-    // Ẩn dropdown menu khi click ra ngoài
-    $(document).on("click", function(e) {
-        if (!$(e.target).closest('.nav-item').length) {
-            $('.dropdown-content').hide();
-            $('.nav-link-web').removeClass('underline-gr'); // Xóa gạch chân khi click ra ngoài
-        }
-    });
-
-
-    $('.dropdown-sub .title-sub').on('click', function(e) {
-        e.preventDefault();
-
-        // Chuyển đổi lớp đang hoạt động trên phần tử .dropdown-sub gốc
-        var parentDropdownSub = $(this).closest('.dropdown-sub');
-        parentDropdownSub.toggleClass('active');
-        // Thêm hoặc xóa lớp underline-blue
-        $('.menu-lg-item').toggleClass('underline-green');
-
-        $('.list-sub').on('click', function(e) {
-            e.stopPropagation();
-        });
-        // Hide all other .list-sub elements
-        $('.dropdown-sub').not(parentDropdownSub).removeClass('active');
-    });
-
-    // Đóng menu thả xuống khi nhấp vào bên ngoài
-    $(document).on('click', function(e) {
-        if (!$(e.target).closest('.dropdown-sub').length) {
-            $('.dropdown-sub').removeClass('active');
-            $('.menu-lg-item').removeClass('underline-green');
-        }
-    });
-
     // Css reponsive mobile nav
     $('.nav-link-mb').click(function(e){
         e.preventDefault();
         var $this = $(this);
         var id = $this.data('id');
         var $dropdownContent = $('#dropdown-content-' + id);
-        // Hide all dropdowns except the clicked one
+        // Ẩn tất cả các danh sách thả xuống ngoại trừ danh sách được nhấp
         $this.closest('li').siblings().find('.dropdown-content-mobile').hide();
 
-        // Toggle the dropdown content and icons
+        // Chuyển đổi nội dung và icon thả xuống
         $this.find('.icon-down').toggle();
         $this.find('.icon-up').toggle();
         $dropdownContent.toggle();
     });
+
+    // var $searchToggle = $('#searchToggle');
+    // var $faSearch = $('#faSearch');
+    // var $faXmark = $('#faXmark');
+    // var $modal = $('#templatemo_search');
+
+    // $searchToggle.on('click', function(e) {
+    //     console.log($searchToggle);
+    //     e.preventDefault();
+    //     if ($faSearch.css('display') !== 'none') {
+    //         $faSearch.css('display', 'none');
+    //         $faXmark.css('display', 'inline');
+    //         $modal.modal('show'); // Hiển thị modal
+    //     }
+    // });
+
+    // // Reset icons when the modal is hidden
+    // $modal.on('hidden.bs.modal', function() {
+    //     $faSearch.css('display', 'inline');
+    //     $faXmark.css('display', 'none');
+    // });
+
 
     // Xem thêm 
     $('.content-cate').each(function() {
@@ -151,43 +105,91 @@ $(document).ready(function() {
         $(this).toggleClass('border-blue');
         $(this).closest('.child-filter').find('.filter-button').show();
     });
+});
 
-    // Ẩn hiện menu trong màn hình blogs
-    $('.highlight_topic li').on('click', function(e) {
-        if ($(this).find('.subtopic').length) {
-            $(this).find('.subtopic').toggleClass('hide');
-            e.stopPropagation();
+document.addEventListener("DOMContentLoaded", function() {
+
+    // Xử lý menu ở website
+    const navLinks = document.querySelectorAll('.nav-link-web');
+    const dropdownContents = document.querySelectorAll('.dropdown-content');
+    const submenus = document.querySelectorAll('.dropdown-sub');
+    const defaultActive = document.querySelector('.dropdown-sub[data-default="true"]');
+
+    navLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            const dropdown = this.nextElementSibling;
+            if (dropdown && dropdown.classList.contains('dropdown-content')) {
+                dropdown.style.display = 'block';
+            }
+        });
+
+        link.addEventListener('mouseleave', function() {
+            const dropdown = this.nextElementSibling;
+            if (dropdown && dropdown.classList.contains('dropdown-content')) {
+                dropdown.style.display = 'none';
+                resetActiveSubmenu();
+            }
+        });
+
+        const dropdownContent = link.nextElementSibling;
+        if (dropdownContent && dropdownContent.classList.contains('dropdown-content')) {
+            dropdownContent.addEventListener('mouseenter', function() {
+                this.style.display = 'block';
+            });
+
+            dropdownContent.addEventListener('mouseleave', function() {
+                this.style.display = 'none';
+                resetActiveSubmenu();
+            });
         }
     });
 
+    submenus.forEach(submenu => {
+        submenu.addEventListener('mouseenter', function() {
+            this.classList.add('active');
+        });
 
-    // Xử lý task tìm kiếm ngoài trang hcur
-    // $('#inputModalSearch').select2({
-    //     placeholder: 'select',
-    //     allowClear: true,
-    // });
-    // $("#inputModalSearch").select2({
-    //     ajax: {
-    //         url: "{{ route('home.search') }}",
-    //         type: "POST",
-    //         delay: 250,
-    //         dataType: 'json',
-    //         data: function(params) {
-    //             return {
-    //                 name: params.term,
-    //                 _token: "{{ csrf_token() }}",
-    //             };
-    //         },
-    //         processResults: function(data) {
-    //             return {
-    //                 results: $.map(data, function(item) {
-    //                     return {
-    //                         id: item.id,
-    //                         text: item.name,
-    //                     }
-    //                 })
-    //             }
-    //         }
-    //     },
-    // });
+        submenu.addEventListener('mouseleave', function() {
+            this.classList.remove('active');
+        });
+    });
+
+    function resetActiveSubmenu() {
+        submenus.forEach(submenu => {
+            submenu.classList.remove('active');
+        });
+        if (defaultActive) {
+            defaultActive.classList.add('active');
+        }
+    }
+
+    // Js search
+    var searchToggle = document.getElementById('searchToggleMenu');
+    var faSearch = document.getElementById('faSearch');
+    var faXmark = document.getElementById('faXmark');
+    var modal = new bootstrap.Modal(document.getElementById('templatemo_search'));
+
+    if (searchToggle && faSearch && faXmark) {
+        searchToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (faSearch.style.display !== 'none') {
+                faSearch.style.display = 'none';
+                faXmark.style.display = 'inline';
+                modal.show(); // Hiển thị modal
+            } else {
+                faSearch.style.display = 'inline';
+                faXmark.style.display = 'none';
+                modal.hide(); // Hiển thị modal
+            }
+        });
+
+        // Reset icons when the modal is hidden
+        document.getElementById('templatemo_search').addEventListener('hidden.bs.modal', function() {
+            faSearch.style.display = 'inline';
+            faXmark.style.display = 'none';
+        });
+    } else {
+        console.error('One or more elements are not found in the DOM.');
+    }
+
 });

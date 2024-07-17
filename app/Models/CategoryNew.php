@@ -28,7 +28,7 @@ class CategoryNew extends Model
     protected $fillable = [
         'name', 'slug', 'image','title_img', 'alt_img',
         'related_pro', 'content', 'parent_id',
-        'title_seo', 'keyword_seo', 'des_seo',
+        'title_seo', 'keyword_seo', 'des_seo', 'stt_new',
         'is_serve', 'is_parent', 'is_menu', 'is_outstand', 'is_public'
     ];
 
@@ -56,5 +56,16 @@ class CategoryNew extends Model
     public function news()
     {
         return $this->hasMany(News::class, 'id', 'cate_id');
+    }
+    // Lấy tất cả các bậc cha
+    public function getAllParents()
+    {
+        $parents = collect();
+        $parent = $this->parent;
+        while ($parent) {
+            $parents->prepend($parent);
+            $parent = $parent->parent;
+        }
+        return $parents;
     }
 }

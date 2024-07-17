@@ -12,9 +12,10 @@
         <nav style="--bs-breadcrumb-divider: '»';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-                @foreach($uniqueCategories as $category)
-                <li class="breadcrumb-item"><a href="{{ asset($category->slug) }}">{{ $category->name }}</a></li>
+                @foreach ($allParents as $parent)
+                    <li class="breadcrumb-item"><a href="{{ asset($parent->slug) }}">{{ $parent->name }}</a></li>
                 @endforeach
+                <li class="breadcrumb-item">{{ $product->name }}</li>
             </ol>
         </nav>
     </div>
@@ -66,57 +67,6 @@
                                     @endif
                                 </div>
                             </div>
-                            <!-- <div class="containerwiper">
-                                @if(!empty($images))
-                                <div class="swiper mySwiper">
-                                    <div class="swiper-wrapper">
-                                        @foreach ($images as $val)
-                                        <div class="swiper-slide gallery-trigger">
-                                            <img class="prod-img" src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" alt="{{ $val->alt }}" title="{{ $val->title }}">
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="swiper-button-next"></div>
-                                    <div class="swiper-button-prev"></div>
-                                </div>
-                                @if(!empty($images->first()))
-                                <div class="view-more-image">
-                                    <button href="#" class="pop-gallery">
-                                        <img alt="Xem {{ $images->count() }} ảnh sản phẩm" width="96" height="72" src="{{ $images->first()->image }}" data-src="{{ $images->first()->image }}" data-srcset="{{ $images->first()->image }}" srcset="{{ $images->first()->image }}">
-                                        <div class="over-gallery gallery-trigger">Xem {{ $images->count() }} hình</div>
-                                    </button>
-                                </div>
-                                @endif
-                                <div id="imageModal" class="modal">
-                                    <button class="close">x Đóng</button>
-                                    <div class="modal-content">
-                                        @foreach($images as $image)
-                                            <img src="{{ $image->image }}" alt="Hình ảnh sản phẩm" class="modal-image">
-                                        @endforeach
-                                    </div>
-                                </div>
-                                @endif
-                                <div class="col-viewmore-item">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
-                                        <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"></path>
-                                        <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"></path>
-                                    </svg>
-                                    <div class="title-spec">
-                                        <a href="#comment-box">
-                                            49 bình luận <br> sản phẩm. </a>
-                                    </div>
-                                </div>
-                                <div class="col-viewmore-item">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
-                                    </svg>
-                                    <div class="title-spec">
-                                        <a href="#comment-box">
-                                            49 đánh giá <br> sản phẩm. </a>
-                                    </div>
-                                </div>
-                            </div> -->
-
                         </div>
                         <div class="col-lg-6">
                             <div class="content-des">
@@ -130,11 +80,6 @@
                                     <span>✓ Tình trạng:</span>
                                     <span>@if($product->status == 1) Còn hàng @else Hết hàng @endif</span>
                                 </div>
-                                <!-- <div class="more-info">
-                                    <a title="Video Cấu hình {{ $product->code }}" target="_blank" class="video_cauhinh" href="https://youtube.com/playlist?list=PLjFKMySyUTMwjBQLLVF_xoLtBvO2To2Au">Video Cấu Hình</a>
-                                    <a title="Hướng Dẫn Cấu Hình {{ $product->code }}" target="_blank" class="huong_dan_cau_hinh" href="blogs">Hướng Dẫn Cấu Hình</a>
-                                    <a title="Hỏi đáp sản phẩm {{ $product->code }}" target="_blank" class="hoi_dap_san_pham" href="https://www.facebook.com/groups/cnttshop.community">Hỏi Đáp Sản Phẩm</a>
-                                </div> -->
                                 <div class="price">
                                     <button title="Liên hệ để để được báo giá bán tốt nhất!" class="contact-price" onclick="showmodal('C9300-48P-E');">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-hand-index-thumb" viewBox="0 0 16 16">
@@ -158,22 +103,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="compare">
-                        <div class="tcpr">
-                            <p>So sánh với các sản phẩm Switch khác:</p>
-                            <div class="sggProd">
-                                <form action="javascript:void(0)">
-                                    <input id="searchSggCP" value="" type="text" placeholder="Nhập Tên hoặc Mã sản phẩm để so sánh" onkeyup="SuggestCompare(421)">
-                                    <button title="So sánh với sản phẩm khác" type="submit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
-                                        </svg>
-                                    </button>
-                                    <div class="autoSuggestionsList_l" id="autoSggList"></div>
-                                </form>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
             <div class="col-lg-3">

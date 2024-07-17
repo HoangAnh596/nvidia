@@ -29,6 +29,20 @@
                     @endif
                 </select>
             </div>
+            <div class="form-group mb-3 col-xs-12">
+                <label for="parent_id">Danh mục cha:</label>
+                <select class="form-control" id="parent_id" name="parent_id">
+                    <option value="0">Chọn danh mục</option>
+                    @foreach($categories as $cat)
+                        @include('admin.cateNew.partials.category-option', ['category' => $cat, 'level' => 0, 'selected' => $category->parent_id])
+                    @endforeach
+                </select>
+                @if ($errors->has('parent_id'))
+                <div class="invalid-feedback" style="display: block;">
+                    {{ $errors->first('parent_id') }}
+                </div>
+                @endif
+            </div>
         </div>
     </div>
     <div class="row">

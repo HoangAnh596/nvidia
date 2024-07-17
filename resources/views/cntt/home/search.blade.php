@@ -16,7 +16,7 @@
         <h2 class="text-center search-h2 mt-4">Tìm thấy <strong>{{ $total }}</strong> sản phẩm cho từ khoá <strong>@if(!empty($nameCate)) {{$nameCate}}</strong>@else <strong>tất cả sản phẩm</strong> @endif @if(!empty($keyword)) -- <strong>{{ $keyword }}</strong> @endif</h2>
     </div>
     <div class="row">
-        <div class="col-md-9 mt-4">
+        <div class="col-md-9 mt-4 res-w100">
             <div class="row" id="product-data">
                 @include('cntt.home.partials.search', ['products' => $products])
             </div>
@@ -24,7 +24,7 @@
                 {{ $products->links() }}
             </nav>
         </div>
-        <div class="col-md-3 mt-4">
+        <div class="col-md-3 mt-4 res-dnone">
             <!-- Hotline -->
             <div class="support-prod src-fixed mb-4">
                 <div class="bg-prod d-flex align-items-center">

@@ -85,7 +85,7 @@ class InforController extends Controller
     {
         Infor::findOrFail($id)->delete();
 
-        return redirect('/infors')->with(['message' => 'Delete Success']);
+        return redirect('/infors')->with(['message' => 'Xóa hotline thành công']);
     }
 
     public function insertOrUpdate(Request $request, $id = '')

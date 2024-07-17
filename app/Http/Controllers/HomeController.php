@@ -84,19 +84,16 @@ class HomeController extends Controller
         $cateMenu = $this->buildTree($cateMenu);
 
         $phoneInfors = Infor::where('is_public', 1)->orderBy('stt', 'ASC')->get();
-        $category = Category::where('slug', $slug)->first();
-
+        $category = Category::where('slug', $slug)->with('children')->first();
         if (!empty($category)) {
             // Seo Website
             $titleSeo = (!empty($category->title_seo)) ? $category->title_seo : config('common.title_seo');
             $keywordSeo = (!empty($category->keyword_seo)) ? $category->keyword_seo : config('common.keyword_seo');
             $descriptionSeo = (!empty($category->des_seo)) ? $category->des_seo : config('common.des_seo');
-            $categoryParentFind = Category::where('slug', $slug)
-                ->with('children')
-                ->first();
+
             // Lấy ra id của parent_id = 0 
-            $parentId = Category::findOrFail($categoryParentFind->id)->topLevelParent()->id;
-            $cateParent = Category::findOrFail($parentId);
+            $cateParent = $category->topLevelParent();
+            $allParents = $category->getAllParents();
             $filterCate = $cateParent->getFilterCates();
 
             $categoryIds = $category->getAllChildrenIds();
@@ -126,12 +123,17 @@ class HomeController extends Controller
 
             return view('cntt.home.category', compact(
                 'titleSeo', 'keywordSeo', 'descriptionSeo',
-                'phoneInfors', 'cateParent', 'category',
-                'categoryParentFind', 'products', 'prOutstand', 'filterCate'));
+                'phoneInfors', 'cateParent', 'category', 'allParents',
+                'products', 'prOutstand', 'filterCate'));
         }
 
         $idPro = Product::where('slug', $slug)->value('id');
         $product = Product::with('category')->findOrFail($idPro);
+
+        $categoryId = $product->category->pluck('id')->first();
+        $parent = Category::where('id', $categoryId)->first();
+        $allParents = $parent->getAllParents();
+        
         // Seo Website
         $titleSeo = (!empty($product->title_seo)) ? $product->title_seo : config('common.title_seo');
         $keywordSeo = (!empty($product->keyword_seo)) ? $product->keyword_seo : config('common.keyword_seo');
@@ -139,25 +141,11 @@ class HomeController extends Controller
 
         $relatedProducts = $product->getRelatedProducts();
         $images = $product->getProductImages();
-        $product->load('category.parent.parent.parent');
-        
-        $allCategories = collect();
-
-        foreach ($product->category as $category) {
-            $currentCategory = $category;
-            while ($currentCategory) {
-                $allCategories->push($currentCategory);
-                $currentCategory = $currentCategory->parent;
-            }
-        }
-
-        // Loại bỏ các danh mục trùng lặp
-        $uniqueCategories = $allCategories->unique('id')->sortBy('id');
 
         return view('cntt.home.show', compact(
             'titleSeo', 'keywordSeo', 'descriptionSeo',
-            'phoneInfors', 'product',
-            'images', 'relatedProducts', 'uniqueCategories'));
+            'phoneInfors', 'product', 'allParents',
+            'images', 'relatedProducts'));
     }
 
     private function buildTree($cateMenu, $parentId = 0)

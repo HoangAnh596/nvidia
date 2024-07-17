@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helpers\Helper;
-use App\Http\Requests\BottomFormRequest;
-use App\Models\Bottom;
+use App\Http\Requests\IconFormRequest;
+use App\Models\Icon;
 use Illuminate\Http\Request;
 
-class BottomController extends Controller
+class IconController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +16,11 @@ class BottomController extends Controller
     public function index(Request $request)
     {
         $keyWord = $request->input('keyword');
-        $bottoms = Bottom::where('name', 'like', "%" . Helper::escape_like($keyWord) . "%")
+        $icons = Icon::where('name', 'like', "%$keyWord%")
             ->latest()
             ->paginate(config('common.default_page_size'));
 
-        return view('admin.bottom.index', compact('bottoms', 'keyWord'));
+        return view('admin.icon.index', compact('icons', 'keyWord'));
     }
 
     /**
@@ -31,7 +30,7 @@ class BottomController extends Controller
      */
     public function create()
     {
-        return view('admin.bottom.add');
+        return view('admin.icon.add');
     }
 
     /**
@@ -40,13 +39,18 @@ class BottomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BottomFormRequest $request)
+    public function store(IconFormRequest $request)
     {
-        $this->insertOrUpdate($request);
-
-        return redirect(route('bottoms.create'))->with(['message' => 'Tạo mới thành công']);
+        try {
+            $this->insertOrUpdate($request);
+            // Lưu thông báo thành công vào session
+            return redirect(route('icons.create'))->with('success', 'Cập nhật thành công!');
+        } catch (\Exception $e) {
+            // Có lỗi xảy ra
+            // Lưu thông báo lỗi vào session
+            return redirect(route('icons.create'))->with('error', 'Cập nhật thất bại!');
+        }
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -56,9 +60,9 @@ class BottomController extends Controller
      */
     public function edit($id)
     {
-        $bottom = Bottom::findOrFail($id);
+        $icon = Icon::findOrFail($id);
 
-        return view('admin.bottom.edit', compact('bottom'));
+        return view('admin.icon.edit', compact('icon'));
     }
 
     /**
@@ -68,11 +72,11 @@ class BottomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BottomFormRequest $request, $id)
+    public function update(IconFormRequest $request, $id)
     {
         $this->insertOrUpdate($request, $id);
 
-        return redirect(route('bottoms.index'))->with(['message' => "Cập nhật thành công hotline !"]);
+        return redirect(route('icons.index'))->with(['message' => "Cập nhật thành công Icon !"]);
     }
 
     /**
@@ -83,42 +87,42 @@ class BottomController extends Controller
      */
     public function destroy($id)
     {
-        Bottom::findOrFail($id)->delete();
+        Icon::findOrFail($id)->delete();
 
-        return redirect('/bottoms')->with(['message' => 'Xóa thành công']);
+        return redirect('/icons')->with(['message' => 'Xóa thành công']);
     }
 
-    public function insertOrUpdate(Request $request, $id = '')
+    public function insertOrUpdate(IconFormRequest $request, $id = '')
     {
-        $infor = empty($id) ? new Bottom() : Bottom::findOrFail($id);
+        $icon = empty($id) ? new Icon() : Icon::findOrFail($id);
 
-        $infor->fill($request->all());
+        $icon->fill($request->all());
         
-        $infor->stt = (isset($request->stt)) ? $request->stt : 999;
+        $icon->stt = (isset($request->stt)) ? $request->stt : 999;
 
-        $infor->save();
+        $icon->save();
     }
 
     public function checkStt(Request $request){
-        $sttInfor = $request->input('stt');
-        if (!empty($sttInfor)) {
+        $sttIcon = $request->input('stt');
+        if (!empty($sttIcon)) {
             $request->validate([
                 'stt' => 'integer|min:0'
             ]);
         }
         $id = $request->get('id');
-        $infor = Bottom::findOrFail($id);
-        $infor->stt = (isset($sttInfor)) ? $sttInfor : 999;
-        $infor->save();
+        $icon = Icon::findOrFail($id);
+        $icon->stt = (isset($sttIcon)) ? $sttIcon : 999;
+        $icon->save();
 
         return response()->json(['success' => true, 'message' => 'Cập nhật stt thành công.']);
     }
 
     public function isCheckbox(Request $request)
     {
-        $infor = Bottom::findOrFail($request->id);
-        $infor->is_public = $request->is_public;
-        $infor->save();
+        $icon = Icon::findOrFail($request->id);
+        $icon->is_public = $request->is_public;
+        $icon->save();
 
         return response()->json(['success' => true]);
     }

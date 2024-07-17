@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class ProductTagController extends Controller
 {
-    public function index()
-    {
-
-    }
-
     public function store(Request $request)
     {
         $name = $request->input('name');

@@ -196,6 +196,6 @@ class FilterCateController extends Controller
         $filter->stt_filter = (isset($sttFilter)) ? $sttFilter : 999;
         $filter->save();
 
-        return response()->json(['success' => true, 'message' => 'STT updated successfully.']);
+        return response()->json(['success' => true, 'message' => 'Cập nhật Stt thành công.']);
     }
 }

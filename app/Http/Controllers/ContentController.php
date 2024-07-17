@@ -54,7 +54,7 @@ class ContentController extends Controller
             ]);
         }
 
-        return response()->json(['error' => 'Image upload failed!'], 500);
+        return response()->json(['error' => 'Tải ảnh lên bị lỗi!'], 500);
     }
 
     public function checkSlug(Request $request)

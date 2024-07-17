@@ -39,7 +39,7 @@ class CategoryController extends Controller
                 $category->save();
                 return response()->json(['success' => true]);
             } else {
-                return response()->json(['success' => false, 'message' => 'Field does not exist.']);
+                return response()->json(['success' => false, 'message' => 'Không tồn tại.']);
             }
         }
         return response()->json(['success' => false]);
@@ -88,7 +88,7 @@ class CategoryController extends Controller
     {
         $this->insertOrUpdate($request);
 
-        return redirect(route('categories.index'))->with(['message' => 'Create Success']);
+        return redirect(route('categories.index'))->with(['message' => 'Tạo mới thành công']);
     }
 
     /**
@@ -129,7 +129,7 @@ class CategoryController extends Controller
     {
         $this->insertOrUpdate($request, $id);
 
-        return redirect(route('categories.index'))->with(['message' => "Updated category successfully !"]);
+        return redirect(route('categories.index'))->with(['message' => "Cập nhật danh mục thành công !"]);
     }
 
     /**
@@ -142,7 +142,7 @@ class CategoryController extends Controller
     {
         Category::findOrFail($id)->delete();
 
-        return redirect(route('categories.index'))->with(['message' => 'Delete Success']);
+        return redirect(route('categories.index'))->with(['message' => 'Xóa thành công !']);
     }
 
     public function insertOrUpdate(CategoryFormRequest $request, $id = '')

@@ -26,6 +26,7 @@ class CreateCategoryNewsTable extends Migration
             $table->string('title_seo')->nullable();
             $table->string('keyword_seo')->nullable();
             $table->string('des_seo')->nullable();
+            $table->integer('stt_new')->nullable();
             $table->tinyInteger('is_serve')->default(1)->comment('1: hiển thị serve, 0: không');
             $table->tinyInteger('is_parent')->default(1)->comment('1: hiển thị cha, 0: không');
             $table->tinyInteger('is_menu')->default(1)->comment('1: hiển thị menu, 0: không menu');

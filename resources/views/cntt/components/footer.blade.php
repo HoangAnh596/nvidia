@@ -41,21 +41,11 @@
 
             <div class="page-footer__social">
                 <div class="page-footer__social__label">Follow NVIDIA </div>
-                <a href="https://www.facebook.com/NVIDIA" class="page-footer__social__link facebook" target="_blank" alt="<util:I18n key=&quot;Follow GeForce on Facebook&quot; />" title="<util:I18n key=&quot;Follow GeForce on Facebook&quot; />">
-                    <i class="fa-brands fa-facebook-f" title="Facebook"></i>
+                @foreach ($iconGlobal as $i)
+                <a href="{{ $i->url }}" class="page-footer__social__link" target="_blank" alt="Theo dõi trên {{ $i->name }}" title="Theo dõi trên {{ $i->name }}">
+                    <i class="{{ $i->icon }}"></i>
                 </a>
-                <a href="https://www.instagram.com/nvidia/?hl=en" class="page-footer__social__link" target="_blank">
-                    <i class="fa-brands fa-instagram" title="Instagram"></i>
-                </a>
-                <a href="https://www.linkedin.com/company/nvidia/" class="page-footer__social__link" target="_blank">
-                    <i class="fa-brands fa-linkedin-in" title="LinkedIn"></i>
-                </a>
-                <a href="https://twitter.com/nvidia" class="page-footer__social__link" target="_blank" alt="<util:I18n key=&quot;Follow GeForce on Twitter&quot; />" title="<util:I18n key=&quot;Follow GeForce on Twitter&quot; />">
-                    <i class="fa-brands fa-twitter" title="Twitter"></i>
-                </a>
-                <a href="https://www.youtube.com/user/nvidia" class="page-footer__social__link" target="_blank">
-                    <i class="fa-brands fa-youtube" title="YouTube"></i>
-                </a>
+                @endforeach
             </div>
         </div>
     </div>

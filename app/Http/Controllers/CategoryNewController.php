@@ -96,14 +96,15 @@ class CategoryNewController extends Controller
     public function edit($id)
     {
         $category = CategoryNew::findOrFail($id);
+        $categories = CategoryNew::with('children')->where('parent_id', 0)->get();
         // Lấy ra sản phẩm liên quan
         if (!empty($category->related_pro)) {
             $relatedPro = $category->getRelatedPro();
 
-            return view('admin.cateNew.edit', compact('category', 'relatedPro'));
+            return view('admin.cateNew.edit', compact('category', 'categories', 'relatedPro'));
         }
         
-        return view('admin.cateNew.edit', compact('category'));
+        return view('admin.cateNew.edit', compact('category', 'categories'));
     }
 
     /**
@@ -143,7 +144,7 @@ class CategoryNewController extends Controller
         }
         $category->title_img = (isset($request->title_img)) ? $request->title_img : $request->name;
         $category->alt_img = (isset($request->alt_img)) ? $request->alt_img : $request->name;
-        // $category->stt_new = (isset($request->stt_new)) ? $request->stt_new : 999;
+        $category->stt_new = (isset($request->stt_new)) ? $request->stt_new : 999;
 
         $category->save();
     }

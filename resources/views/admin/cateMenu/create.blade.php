@@ -124,16 +124,6 @@
                     </div>
                 </div>
                 <div class="row mt-3 mb-3">
-                    <div class="col-2 d-flex flex-row-reverse align-items-center">Vị trí :</div>
-                    <div class="col-1 d-flex align-items-center">
-                        <select class="form-select" aria-label="Default" name="location">
-                            <option value="1">Bên trái</option>
-                            <option value="0">Bên phải</option>
-                        </select>
-                    </div>
-                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
-                </div>
-                <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Hiển thị :</div>
                     <div class="col-1 d-flex align-items-center">
                         <select class="form-select" aria-label="Default" name="is_public">

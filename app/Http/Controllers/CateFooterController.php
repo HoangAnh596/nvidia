@@ -107,7 +107,7 @@ class CateFooterController extends Controller
         $category->stt_menu = (isset($sttMenu)) ? $sttMenu : 999;
         $category->save();
 
-        return response()->json(['success' => true, 'message' => 'STT updated successfully.']);
+        return response()->json(['success' => true, 'message' => 'Cập nhật Stt thành công.']);
     }
 
     public function isCheckbox(Request $request)

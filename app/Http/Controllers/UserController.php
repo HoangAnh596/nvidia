@@ -60,7 +60,7 @@ class UserController extends Controller
         $user->save();
         event(new Registered($user));
 
-        return redirect('admin/users')->with(['message' => 'Add Success']);
+        return redirect('admin/users')->with(['message' => 'Tạo mới thành công']);
     }
 
     /**
@@ -112,7 +112,7 @@ class UserController extends Controller
         }
         $user->save();
 
-        return redirect('admin/users')->with(['message' => 'Update Success']);
+        return redirect('admin/users')->with(['message' => 'Cập nhật thành công']);
     }
 
     /**
@@ -125,6 +125,6 @@ class UserController extends Controller
     {
         User::findOrFail($id)->delete();
 
-        return redirect()->back()->with(['message' => 'Delete Success']);
+        return redirect()->back()->with(['message' => 'Xóa tài khoản thành công']);
     }
 }
