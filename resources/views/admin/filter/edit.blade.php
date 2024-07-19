@@ -23,7 +23,7 @@
             <input type="hidden" name="id" value="{{ $filter->id }}">
             @endif
             <div class="card-header d-flex justify-content-between">
-                <a href="" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Back</a>
+                <a href="{{ route('filter.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Back</a>
                 <div>
                     <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
                     <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>

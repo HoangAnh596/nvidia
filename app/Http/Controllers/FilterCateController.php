@@ -172,7 +172,7 @@ class FilterCateController extends Controller
             $field = $request->field;
             $value = $request->value;
             // Kiểm tra xem trường có tồn tại trong bảng user không
-            if (in_array($field, ['is_direction', 'is_public'])) {
+            if (in_array($field, ['is_public'])) {
                 $filter->$field = $value;
 
                 $filter->save();

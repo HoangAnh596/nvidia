@@ -15,7 +15,7 @@
 <script src="{{ asset('cntt/ckeditor/ckeditor.js') }}"></script>
 
 <script>
-  var route_prefix = "{{ asset('/laravel-filemanager') }}";
+  var route_prefix = "{{ asset('laravel-filemanager') }}";
   $('#lfm').filemanager('image', {
     prefix: route_prefix
   });

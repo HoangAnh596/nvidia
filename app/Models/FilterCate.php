@@ -20,8 +20,8 @@ class FilterCate extends Model
 
     protected $fillable = [
         'name', 'slug', 'query',
-        'cate_id', 'is_direction',
-        'stt_filter', 'is_select', 'is_public'
+        'cate_id', 'stt_filter',
+        'is_select', 'is_public'
     ];
 
     public function category()

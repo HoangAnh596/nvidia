@@ -59,22 +59,6 @@
         <div class="d-flex align-items-center" style="height: 38px; color: red; padding-left: 50px;"><i class="fa-solid fa-circle-info"></i></div>
     </div>
     <div class="row mt-3 mb-3">
-        <div class="col-2 d-flex flex-row-reverse">Trái/Phải :</div>
-        <div class="col-1">
-            <select class="form-select" aria-label="Default" name="is_direction">
-                <option value="1"
-                    @if(!empty($filter) && $filter->is_direction == \App\Models\FilterCate::IS_LEFT) selected @endif>
-                    Bên Trái
-                </option>
-                <option value="0"
-                    @if(!empty($filter) && $filter->is_direction == \App\Models\FilterCate::IS_RIGHT) selected @endif>
-                    Bên Phải
-                </option>
-            </select>
-        </div>
-        <div class="d-flex align-items-center" style="height: 38px; color: red; padding-left: 50px;"><i class="fa-solid fa-circle-info"></i></div>
-    </div>
-    <div class="row mt-3 mb-3">
         <div class="col-2 d-flex flex-row-reverse align-items-center">Thứ tự hiển thị :</div>
         <div class="col-1">
             <input type="number" style="width:60px" name="stt_filter" value="{{ old('stt_filter', $filter->stt_filter ?? '') }}">

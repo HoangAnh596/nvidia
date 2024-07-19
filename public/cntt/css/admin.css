@@ -69,4 +69,6 @@
     background-color: #5bc0de;
 }
 
-
+.table-responsive img {
+    max-width: 50%;
+}

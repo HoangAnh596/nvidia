@@ -11,13 +11,19 @@ class Product extends Model
 
     protected $table = 'products';
 
-    protected $fillable = [ 
+    protected $fillable = [
         'name', 'code', 'slug',
         'price', 'image', 'related_pro',
         'status', 'title_img', 'alt_img',
         'title_seo', 'keyword_seo', 'des_seo',
         'maker_id', 'image_ids', 'tag_ids',
         'des', 'content', 'is_outstand'
+    ];
+
+    protected $casts = [
+        'images_id' => 'array',
+        'tag_id' => 'array',
+        'related_id' => 'array',
     ];
 
     public function getRelatedProducts()
@@ -48,12 +54,11 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\Category', 'product_categories', 'product_id', 'category_id');
     }
-
-    protected $casts = [
-        'images_id' => 'array',
-        'tag_id' => 'array',
-        'related_id' => 'array',
-    ];
+    // relation tới filter
+    public function filters()
+    {
+        return $this->belongsToMany('App\Models\Filter', 'filters_products', 'product_id', 'filter_id');
+    }
 
     public function images()
     {

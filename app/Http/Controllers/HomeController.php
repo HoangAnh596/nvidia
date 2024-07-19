@@ -104,11 +104,48 @@ class HomeController extends Controller
                     $query->whereIn('category_id', $categoryIds);
                 })->orderBy('created_at', 'DESC')
                 ->take(10)->get();
-            // Bộ lọc sản phẩm
 
+            // Bộ lọc sản phẩm
+            $filters = $request->all();
+            if(!empty($filters)) {
+                $products = Product::query();
+                $filterConditions = [];
+
+                foreach ($filters as $key => $value) {
+                    $filterIds = explode(',', $value);
+
+                    if (count($filterIds) > 0) {
+                        $filterConditions[] = $filterIds;
+                    }
+                }
+
+                if (count($filterConditions) == 1) {
+                    // Nếu chỉ có 1 bộ lọc, sử dụng whereIn trực tiếp
+                    $products->whereHas('filters', function ($query) use ($filterConditions) {
+                        $query->whereIn('filters_products.filter_id', $filterConditions[0]);
+                    });
+                } else {
+                    // Nếu có nhiều bộ lọc, sử dụng where với nhiều whereIn bên trong whereHas
+                    $products->where(function ($query) use ($filterConditions) {
+                        foreach ($filterConditions as $filterIds) {
+                            $query->whereHas('filters', function ($subQuery) use ($filterIds) {
+                                $subQuery->whereIn('filters_products.filter_id', $filterIds);
+                            });
+                        }
+                    });
+                }
+                
+                $products = $products->orderBy('created_at', 'DESC')->paginate(10);
+                
+                return view('cntt.home.category', compact(
+                    'titleSeo', 'keywordSeo', 'descriptionSeo',
+                    'phoneInfors', 'cateParent', 'category', 'allParents',
+                    'products', 'prOutstand', 'filterCate'));
+            }
             $products = Product::whereHas('category', function ($query) use ($categoryIds) {
                 $query->whereIn('category_id', $categoryIds);
             })->orderBy('created_at', 'DESC')->paginate(10);
+
             // Tính toán số lượng trang hiện có
             $currentPage = $request->input('page', 1);
             $lastPage = $products->lastPage();
@@ -120,7 +157,7 @@ class HomeController extends Controller
                 })->orderBy('created_at', 'DESC')
                     ->paginate(10, ['*'], 'page', $lastPage);
             }
-
+            
             return view('cntt.home.category', compact(
                 'titleSeo', 'keywordSeo', 'descriptionSeo',
                 'phoneInfors', 'cateParent', 'category', 'allParents',
@@ -133,7 +170,7 @@ class HomeController extends Controller
         $categoryId = $product->category->pluck('id')->first();
         $parent = Category::where('id', $categoryId)->first();
         $allParents = $parent->getAllParents();
-        
+
         // Seo Website
         $titleSeo = (!empty($product->title_seo)) ? $product->title_seo : config('common.title_seo');
         $keywordSeo = (!empty($product->keyword_seo)) ? $product->keyword_seo : config('common.keyword_seo');
@@ -144,7 +181,7 @@ class HomeController extends Controller
 
         return view('cntt.home.show', compact(
             'titleSeo', 'keywordSeo', 'descriptionSeo',
-            'phoneInfors', 'product', 'allParents',
+            'phoneInfors', 'product', 'allParents', 'parent',
             'images', 'relatedProducts'));
     }
 

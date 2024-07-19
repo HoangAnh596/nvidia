@@ -39,7 +39,6 @@
                             <th class="col-sm-3 text-center">Tên bộ lọc</th>
                             <th class="col-sm-3 text-center">Tên danh mục sản phẩm</th>
                             <th class="col-sm-2 text-center">Số thứ tự</th>
-                            <th class="col-sm-1 text-center">Trái/Phải</th>
                             <th class="col-sm-1 text-center">Ẩn/Hiện</th>
                             <th class="">Action</th>
                         </tr>
@@ -54,11 +53,6 @@
                             </td>
                             <td class="text-center">
                                 <input type="text" class="check-stt" name="stt_filter" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_filter', $val->stt_filter) }}">
-                            </td>
-                            <td class="text-center">
-                                <div class="form-check">
-                                    <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_direction" {{ ($val->is_direction == 1) ? 'checked' : '' }}>
-                                </div>
                             </td>
                             <td class="text-center">
                                 <div class="form-check">

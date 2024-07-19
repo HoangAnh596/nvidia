@@ -19,7 +19,6 @@ class CreateFilterCateTable extends Migration
             $table->string('slug');
             $table->bigInteger('cate_id');
             $table->integer('stt_filter')->nullable();
-            $table->tinyInteger('is_direction')->default(0)->comment('1: css trái, 0: css phải');
             $table->tinyInteger('is_select')->default(0)->comment('1: chọn nhiều, 0: chọn một');
             $table->tinyInteger('is_public')->default(0)->comment('1: hiển thị, 0: không hiển thị');
             $table->timestamps();

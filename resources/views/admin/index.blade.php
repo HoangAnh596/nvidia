@@ -21,7 +21,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $item->price }}</div>
                         </div>
                         <div class="col-auto">
-                            <img src="{{ \App\Http\Helpers\Helper::getPath($item->image) }}" width="120">
+                            <img src="{{ asset($item->image) }}" width="120">
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $item->role($item->role) }}</div>
                         </div>
                         <div class="col-auto">
-                            <img src="{{ \App\Http\Helpers\Helper::getPath('users',$item->image) }}" width="120">
+                            <img src="{{ asset('users',$item->image) }}" width="120">
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $item->role($item->role) }}</div>
                         </div>
                         <div class="col-auto">
-                            <img src="{{ \App\Http\Helpers\Helper::getPath('users',$item->image) }}" width="120">
+                            <img src="{{ asset('users',$item->image) }}" width="120">
                         </div>
                     </div>
                 </div>

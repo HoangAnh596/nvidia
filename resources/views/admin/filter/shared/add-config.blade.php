@@ -48,16 +48,6 @@
         <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
     </div>
     <div class="row mt-3 mb-3">
-        <div class="col-2 d-flex flex-row-reverse">Hiển thị Trái/Phải :</div>
-        <div class="col-1">
-            <select class="form-select" aria-label="Default" name="is_direction">
-                <option value="0">Bên phải</option>
-                <option value="1">Bên trái</option>
-            </select>
-        </div>
-        <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
-    </div>
-    <div class="row mt-3 mb-3">
         <div class="col-2 d-flex flex-row-reverse align-items-center">Thứ tự hiển thị :</div>
         <div class="col-1">
             <input type="number" style="width:60px" name="stt_filter">

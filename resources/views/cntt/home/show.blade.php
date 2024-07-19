@@ -12,9 +12,10 @@
         <nav style="--bs-breadcrumb-divider: '»';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-                @foreach ($allParents as $parent)
-                    <li class="breadcrumb-item"><a href="{{ asset($parent->slug) }}">{{ $parent->name }}</a></li>
+                @foreach ($allParents as $key)
+                <li class="breadcrumb-item"><a href="{{ asset($key->slug) }}">{{ $key->name }}</a></li>
                 @endforeach
+                <li class="breadcrumb-item"><a href="{{ asset($parent->slug) }}">{{ $parent->name }}</a></li>
                 <li class="breadcrumb-item">{{ $product->name }}</li>
             </ol>
         </nav>
@@ -29,12 +30,12 @@
                             <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide gallery-trigger">
-                                        <img class="prod-img" src="{{ \App\Http\Helpers\Helper::getPath($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
+                                        <img class="prod-img" src="{{ asset($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
                                     </div>
                                     @if(!empty($images))
                                     @foreach ($images as $val)
                                     <div class="swiper-slide gallery-trigger">
-                                        <img class="prod-img" src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}" alt="{{ $val->alt }}" title="{{ $val->title }}">
+                                        <img class="prod-img" src="{{ asset($val->image) }}" alt="{{ $val->alt }}" title="{{ $val->title }}">
                                     </div>
                                     @endforeach
                                     @endif
@@ -45,12 +46,12 @@
                             <div thumbsSlider="" class="swiper mySwiper">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide gallery-trigger">
-                                        <img class="prod-img" src="{{ \App\Http\Helpers\Helper::getPath($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
+                                        <img class="prod-img" src="{{ asset($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
                                     </div>
                                     @if(!empty($images))
                                     @foreach ($images as $img)
                                     <div class="swiper-slide">
-                                        <img class="prod-img" src="{{ \App\Http\Helpers\Helper::getPath($img->image) }}" alt="{{ $img->alt }}" title="{{ $img->title }}">
+                                        <img class="prod-img" src="{{ asset($img->image) }}" alt="{{ $img->alt }}" title="{{ $img->title }}">
                                     </div>
                                     @endforeach
                                     @endif
@@ -59,10 +60,10 @@
                             <div id="imageModal" class="modal">
                                 <button class="close btn btn-success">x Đóng</button>
                                 <div class="modal-content">
-                                    <img class="modal-image" src="{{ \App\Http\Helpers\Helper::getPath($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
+                                    <img class="modal-image" src="{{ asset($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
                                     @if(!empty($images))
                                     @foreach($images as $image)
-                                        <img class="modal-image" src="{{ \App\Http\Helpers\Helper::getPath($image->image) }}" alt="{{ $image->alt }}" title="{{ $image->title }}">
+                                        <img class="modal-image" src="{{ asset($image->image) }}" alt="{{ $image->alt }}" title="{{ $image->title }}">
                                     @endforeach
                                     @endif
                                 </div>

@@ -2,7 +2,7 @@
 <div class="col-lg-3 col-xs-6 col-md-3 col-sm-6 mb-4">
     <div class="card h-100">
         <a class="btn-img" href="{{ $product->slug }}">
-            <img src="{{ \App\Http\Helpers\Helper::getPath($product->image) }}" class="card-img-top" alt="{{ $product->alt_img }}" title="{{ $product->title_img }}">
+            <img src="{{ asset($product->image) }}" class="card-img-top" alt="{{ $product->alt_img }}" title="{{ $product->title_img }}">
         </a>
         <div class="card-body">
             <div>

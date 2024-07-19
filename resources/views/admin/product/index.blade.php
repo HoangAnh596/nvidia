@@ -49,7 +49,7 @@
                             <th class="col-sm-4">Name</th>
                             <th class="col-sm-3">Code</th>
                             <th class="col-sm-2">Image</th>
-                            <th class="text-center">Nổi bật</th>
+                            <th class="col-sm-1 text-center">Nổi bật</th>
                             <th class="">Action</th>
                         </tr>
                     </thead>
@@ -68,7 +68,8 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ asset('admin/products/'.$product->id.'/edit') }}" class="btn-sm">Chỉnh sửa</a>
+                                <a href="{{ asset('admin/products/'.$product->id.'/edit') }}" class="btn-sm">Chỉnh sửa</a> |
+                                <a href="{{ asset('admin/filter-pro/create/?pro_id=' . $product->id) }}" class="btn-sm">Thêm bộ lọc</a>
                             </td>
                         </tr>
                         @endforeach

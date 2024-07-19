@@ -14,28 +14,6 @@ $(document).ready(function() {
         $dropdownContent.toggle();
     });
 
-    // var $searchToggle = $('#searchToggle');
-    // var $faSearch = $('#faSearch');
-    // var $faXmark = $('#faXmark');
-    // var $modal = $('#templatemo_search');
-
-    // $searchToggle.on('click', function(e) {
-    //     console.log($searchToggle);
-    //     e.preventDefault();
-    //     if ($faSearch.css('display') !== 'none') {
-    //         $faSearch.css('display', 'none');
-    //         $faXmark.css('display', 'inline');
-    //         $modal.modal('show'); // Hiển thị modal
-    //     }
-    // });
-
-    // // Reset icons when the modal is hidden
-    // $modal.on('hidden.bs.modal', function() {
-    //     $faSearch.css('display', 'inline');
-    //     $faXmark.css('display', 'none');
-    // });
-
-
     // Xem thêm 
     $('.content-cate').each(function() {
         if ($(this).height() > 350) {
@@ -65,21 +43,28 @@ $(document).ready(function() {
             $('.ft-fixed').removeClass('fixed-filter');
         }
     });
-    // Hiển thị/ẩn child-filter khi nhấp vào show-filter và thay đổi border
-    $('.child-filter').hide();
 
+    var selectedFilters = {};   
     // Khi nút show-filter được nhấp
     $('.show-filter').on('click', function(e) {
         e.preventDefault();
-        var index = $('.show-filter').index(this); // Lấy chỉ số của nút được nhấp
-        var $childFilter = $('.child-filter').eq(index); // Lấy child-filter tương ứng
-
+        var $showFilter = $(this); // Lấy nút show-filter được nhấp
+        var $childFilter = $showFilter.next('.child-filter'); // Lấy child-filter tương ứng
         // Kiểm tra xem child-filter hiện đang hiển thị hay ẩn
         if ($childFilter.is(':visible')) {
             $childFilter.hide(); // Nếu đang hiển thị, thì ẩn đi
         } else {
-            $('.child-filter').hide(); // Ẩn tất cả các child-filter khác
+            // Ẩn tất cả các child-filter khác và xóa border-blue từ các show-filter không có btn-child-filter nào được chọn
+            $('.child-filter').not($childFilter).hide().each(function() {
+                var $siblingChildFilter = $(this);
+                var $siblingShowFilter = $siblingChildFilter.prev('.show-filter');
+                if ($siblingChildFilter.find('.btn-child-filter.border-blue').length === 0) {
+                    $siblingShowFilter.removeClass('border-blue');
+                }
+            });
+
             $childFilter.show(); // Hiển thị child-filter tương ứng
+            $showFilter.addClass('border-blue'); // Thêm border-blue cho nút hiện tại
         }
     });
 
@@ -87,24 +72,111 @@ $(document).ready(function() {
     $(document).on('click', function(e) {
         if (!$(e.target).closest('.show-filter, .child-filter').length) {
             $('.child-filter').slideUp();
-            // Loại bỏ border khi nhấp bên ngoài
-            $('.show-filter').css('border', '');
+            $('.show-filter').each(function() {
+                var $showFilter = $(this);
+                var $childFilter = $showFilter.next('.child-filter');
+                if ($childFilter.find('.btn-child-filter.border-blue').length === 0) {
+                    $showFilter.removeClass('border-blue'); // Xóa border-blue nếu không có btn-child-filter nào được chọn
+                }
+            });
         }
     });
 
-
-    // Ẩn filter-button khi nhấp vào btn-filter-close
-    $('.btn-filter-close').on('click', function(e) {
-        e.preventDefault();
-        $(this).closest('.filter-button').hide();
-    });
-
-    // Thêm hoặc loại bỏ lớp border-red khi nhấp vào btn-child-filter
+    // Thêm hoặc loại bỏ lớp border-blue khi nhấp vào btn-child-filter
     $('.btn-child-filter').on('click', function(e) {
         e.preventDefault();
-        $(this).toggleClass('border-blue');
+        var $btnChildFilter = $(this);
+        $btnChildFilter.toggleClass('border-blue');
         $(this).closest('.child-filter').find('.filter-button').show();
+        var $showFilter = $btnChildFilter.closest('.child-filter').prev('.show-filter');
+        
+        var filterName = $showFilter.attr('name');
+        var filterValue = $btnChildFilter.attr('id');
+
+        if ($btnChildFilter.hasClass('border-blue')) {
+            // Nếu được chọn, thêm giá trị vào danh sách các bộ lọc đã chọn
+            if (!selectedFilters[filterName]) {
+                selectedFilters[filterName] = [];
+            }
+            selectedFilters[filterName].push(filterValue);
+        } else {
+            // Nếu bị bỏ chọn, xóa giá trị khỏi danh sách các bộ lọc đã chọn
+            var index = selectedFilters[filterName].indexOf(filterValue);
+            if (index > -1) {
+                selectedFilters[filterName].splice(index, 1);
+            }
+            if (selectedFilters[filterName].length === 0) {
+                delete selectedFilters[filterName]; // Xóa bộ lọc nếu không còn giá trị nào
+            }
+        }
     });
+
+    // Ẩn tất cả các child-filter khi người dùng cuộn trang
+    $(window).on('scroll', function() {
+        $('.child-filter').hide();
+        $('.show-filter').each(function() {
+            var $showFilter = $(this);
+            var $childFilter = $showFilter.next('.child-filter');
+            if ($childFilter.find('.btn-child-filter.border-blue').length === 0) {
+                $showFilter.removeClass('border-blue'); // Xóa border-blue nếu không có btn-child-filter nào được chọn
+            }
+        });
+    });
+
+    // Xử lý nút "Bỏ chọn"
+    $('.btn-filter-close').on('click', function() {
+        var $childFilter = $(this).closest('.child-filter');
+        var $showFilter = $childFilter.prev('.show-filter');
+        var filterName = $showFilter.attr('name');
+        delete selectedFilters[filterName]; // Xóa bộ lọc đã chọn
+        $childFilter.find('.btn-child-filter').removeClass('border-blue'); // Xóa border-blue từ tất cả btn-child-filter
+        $childFilter.hide();
+        $showFilter.removeClass('border-blue'); // Xóa border-blue từ show-filter tương ứng
+        // Cập nhật URL
+        var queryParams = Object.keys(selectedFilters).map(function(key) {
+            return key + '=' + selectedFilters[key].join(',');
+        }).join('&');
+
+        var currentUrl = window.location.href.split('?')[0]; // Lấy URL hiện tại mà không có query parameters
+        var newUrl = currentUrl + (queryParams ? '?' + queryParams : '');
+        window.location.href = newUrl;
+    });
+    // Xử lý nút "Xem kết quả"
+    $('.btn-filter-readmore').on('click', function() {
+        var queryParams = Object.keys(selectedFilters).map(function(key) {
+            return key + '=' + selectedFilters[key].join(',');
+        }).join('&');// Chuyển đổi đối tượng bộ lọc đã chọn thành chuỗi query parameters
+        
+        var currentUrl = window.location.href.split('?')[0];
+        var newUrl = currentUrl + '?' + queryParams;
+        window.location.href = newUrl; // Chuyển hướng đến URL mới
+    });
+
+    // Khởi tạo trạng thái ban đầu từ query parameters
+    function initFiltersFromUrl() {
+        var queryParams = new URLSearchParams(window.location.search);
+
+        queryParams.forEach(function(value, key) {
+            var values = value.split(',');
+            selectedFilters[key] = values;
+
+            var $showFilter = $('.show-filter[name="' + key + '"]');
+            $showFilter.addClass('border-blue');
+
+            values.forEach(function(id) {
+                var $btnChildFilter = $('.btn-child-filter[id="' + id + '"]');
+                $btnChildFilter.addClass('border-blue');
+            });
+            // Hiển thị filter-button nếu có bất kỳ btn-child-filter nào được chọn
+            var $childFilter = $showFilter.next('.child-filter');
+            // $childFilter.show();
+            if (values.length > 0) {
+                $childFilter.find('.filter-button').show();
+            }
+        });
+    }
+
+    initFiltersFromUrl(); // Khởi tạo trạng thái từ URL khi trang được tải
 });
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -112,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Xử lý menu ở website
     const navLinks = document.querySelectorAll('.nav-link-web');
     const dropdownContents = document.querySelectorAll('.dropdown-content');
-    const submenus = document.querySelectorAll('.dropdown-sub');
+    
     const defaultActive = document.querySelector('.dropdown-sub[data-default="true"]');
 
     navLinks.forEach(link => {
@@ -143,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
     });
-
+    const submenus = document.querySelectorAll('.dropdown-sub');
     submenus.forEach(submenu => {
         submenu.addEventListener('mouseenter', function() {
             this.classList.add('active');
