@@ -21,6 +21,16 @@
                     <div class="form-group">
                         <input type="search" class="form-control" placeholder="Tìm kiếm tên bộ lọc" aria-label="Search" name="keyword" value="{{ $keyword }}">
                     </div>
+                    <div class="form-group">
+                        <select name="cate" class="form-control">
+                            <option value="">Danh mục bộ lọc</option>
+                            @if(isset($categories))
+                            @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ \Request::get('cate') == $category->id ? "selected ='selected'" : "" }}> {{ $category->name }} </option>
+                            @endforeach
+                            @endif
+                        </select>
+                    </div>
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit"> <i class="fas fa-search fa-sm"></i> </button>
                     </div>
@@ -36,9 +46,11 @@
                     <thead>
                         <tr>
                             <th class="">No.</th>
-                            <th class="col-sm-3 text-center">Tên bộ lọc</th>
+                            <th class="col-sm-2 text-center">Tên bộ lọc</th>
                             <th class="col-sm-3 text-center">Tên danh mục sản phẩm</th>
-                            <th class="col-sm-2 text-center">Số thứ tự</th>
+                            <th class="col-sm-1 text-center">Đầu tiên</th>
+                            <th class="col-sm-1 text-center">Đặc biệt</th>
+                            <th class="col-sm-1 text-center">Số thứ tự</th>
                             <th class="col-sm-1 text-center">Ẩn/Hiện</th>
                             <th class="">Action</th>
                         </tr>
@@ -50,6 +62,16 @@
                             <td>{{ $val->name }}</td>
                             <td class="text-center">
                                 {{ $val->category->name }}
+                            </td>
+                            <td class="text-center">
+                                <div class="form-check">
+                                    <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="top_filter" {{ ($val->top_filter == 1) ? 'checked' : '' }}>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="form-check">
+                                    <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="special" {{ ($val->special == 1) ? 'checked' : '' }}>
+                                </div>
                             </td>
                             <td class="text-center">
                                 <input type="text" class="check-stt" name="stt_filter" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_filter', $val->stt_filter) }}">

@@ -50,6 +50,7 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('/categories/check-name', [CategoryController::class, 'checkName'])->name('categories.checkName');
     Route::post('/categories/checkbox', [CategoryController::class, 'isCheckbox'])->name('categories.isCheckbox');
     Route::post('/categories/checkStt', [CategoryController::class, 'checkStt'])->name('categories.checkStt');
+    Route::get('/categories/slugs', [CategoryController::class, 'getSlugs'])->name('categories.getSlugs');
 
     // Quản lý Sản phẩm
     Route::get('/products', [ProductController::class, 'index'])->name('product.index');
@@ -74,9 +75,12 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('/filters', [FilterCateController::class, 'store'])->name('filter.store');
     Route::get('/filters/{id}/edit', [FilterCateController::class, 'edit'])->name('filter.edit');
     Route::put('filters/{id}', [FilterCateController::class, 'update'])->name('filter.update');
+    Route::post('/filters/check-name', [FilterCateController::class, 'checkName'])->name('filters.checkName');
     Route::post('/filters/checkbox', [FilterCateController::class, 'isCheckbox'])->name('filters.isCheckbox');
     Route::post('/filters/checkStt', [FilterCateController::class, 'checkStt'])->name('filters.checkStt');
-
+    Route::delete('/filters/{id}', [FilterCateController::class, 'destroy'])->name('filters.destroy');
+    
+    Route::post('/detailFilter/checkStt', [FilterCateController::class, 'sttDetail'])->name('detailFilter.checkStt');
     // Quản lý bộ lọc của từng sản phẩm thuộc danh mục
     Route::get('/filter-pro/create', [FilterProductController::class, 'create'])->name('filterPro.create');
     Route::post('/filter-pro', [FilterProductController::class, 'store'])->name('filterPro.store');
@@ -136,6 +140,7 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 
 // Tìm kiếm
 Route::get('/tim-kiem', [HomeController::class, 'search'])->name('home.search');
+Route::get('/filters', [HomeController::class, 'filters'])->name('home.filters');
 // Trang chủ phía người dùng
 Route::prefix('/')->group(function () {
     Route::prefix('/blogs')->group(function () {

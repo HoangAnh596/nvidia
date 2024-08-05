@@ -4,7 +4,7 @@
         </div>
         <div class="col-6">
             <div class="form-group">
-                <input type="text" name="key_word" id="keyword" class="form-control" value="{{ old('key_word', $filter->key_word ?? '') }}" oninput="checkDuplicate()">
+                <input type="text" name="key_word" id="keyword" class="form-control" value="{{ old('key_word', $filter->key_word ?? '') }}">
                 <span id="keyword-error" style="color: red;"></span>
                 @error('keyword')
                 <span class="text-danger">{{ $message }}</span>
@@ -38,10 +38,10 @@
                                 {{ $item->key_word }}
                             </td>
                             <td class="text-center">
-                                <input type="text" class="check-stt" name="stt_menu" data-id="{{ $item->id }}" style="width: 50px;text-align: center;" value="{{ old('stt', $item->stt) }}">
+                                <input type="text" class="check-stt" data-id="{{ $item->id }}" style="width: 50px;text-align: center;" value="{{ old('stt', $item->stt) }}">
                             </td>
                             <td>
-                                <a href="" class="btn-sm">Xóa</a>
+                                <a href="{{ asset('/admin/filters/' . $item->id) }}" class="btn-sm btn-destroy">Xóa</a>
                             </td>
                         </tr>
                         @endforeach

@@ -87,7 +87,9 @@ class Category extends Model
     {
         if (!empty($this->filter_ids)) {
             $filId = json_decode($this->filter_ids);
-            return FilterCate::select('id', 'name', 'slug', 'cate_id')->whereIn('id', $filId)->where('is_public', 1)->orderBy('stt_filter', 'ASC')->get();
+            return FilterCate::select('id', 'name', 'slug', 'cate_id', 'top_filter', 'special')->whereIn('id', $filId)
+                ->where('is_public', 1)
+                ->orderBy('stt_filter', 'ASC')->get();
         }
     }
 }

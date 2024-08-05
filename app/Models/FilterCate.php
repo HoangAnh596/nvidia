@@ -32,6 +32,6 @@ class FilterCate extends Model
     // Thiết lập mối quan hệ với Filter
     public function valueFilters()
     {
-        return $this->hasMany(Filter::class, 'filter_id','id');
+        return $this->hasMany(Filter::class, 'filter_id', 'id')->orderBy('stt', 'ASC');
     }
 }

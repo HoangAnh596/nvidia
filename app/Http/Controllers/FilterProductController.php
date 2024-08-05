@@ -14,6 +14,7 @@ class FilterProductController extends Controller
     {
         $id = $request->pro_id;
         $products = Product::findOrFail($id);
+        
         // Lấy ra ID của các categories
         $categoryIds = $products->category()->pluck('categories.id')->toArray();
         // Kiểm tra nếu mảng không rỗng và lấy giá trị đầu tiên
@@ -44,7 +45,6 @@ class FilterProductController extends Controller
         $filter = empty($id) ? new Filter() : Filter::findOrFail($id);
 
         $arr = $request->all();
-        // dd($arr);
         function flatArray($array) {
             $result = [];
         
@@ -66,7 +66,6 @@ class FilterProductController extends Controller
         }, ARRAY_FILTER_USE_KEY);
 
         $filter_new = flatArray($filteredArr);
-        // dd($filter_new);
         $productId = $request->product_id;
          // Xóa các bản ghi trong bảng product_categories có product_id = id cũ
         DB::table('filters_products')->where('product_id', $productId)->delete();

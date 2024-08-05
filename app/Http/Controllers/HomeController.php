@@ -30,7 +30,9 @@ class HomeController extends Controller
         $titleSeo = config('common.title_seo');
         $keywordSeo = config('common.keyword_seo');
         $descriptionSeo = config('common.des_seo');
-
+        // Tin tức
+        $blogs = News::where('is_outstand', 1)->select('id', 'name', 'image', 'slug', 'alt_img', 'title_img')
+        ->orderBy('created_at', 'DESC')->get();
         // Trang chủ ngoài
         // Lấy tất cả các danh mục có parent_id = 0
         $categories = Category::where('is_public', 1)
@@ -39,11 +41,8 @@ class HomeController extends Controller
             ->get();
 
         // Lấy danh mục có is_serve = 1 có stt_cate từ nhỏ tới lớn 
-        $cate = $categories->where('is_serve', 1)->load('children');
+        $cate = $categories->where('is_serve', 1);
         $ids = $cate->pluck('id');
-        // Tin tức
-        $blogs = News::where('is_outstand', 1)->select('id', 'name', 'image', 'slug', 'alt_img', 'title_img')
-            ->orderBy('created_at', 'DESC')->get();
         if ($ids->isEmpty()) {
 
             return view('cntt.home.index', compact('titleSeo', 'keywordSeo', 'descriptionSeo', 'categories', 'blogs'));
@@ -51,14 +50,12 @@ class HomeController extends Controller
             $categoriesWithProducts = collect();
             foreach ($ids as $idCate) {
                 $category = Category::find($idCate);
-                
                 if ($category) {
                     // Lấy tất cả các id danh mục con bao gồm cả id gốc
                     $allCategoryIds = array_merge([$idCate], $category->getAllChildrenIds());
-            
                     // Lấy tất cả sản phẩm thuộc các danh mục đó
                     $products = Product::whereHas('category', function ($query) use ($allCategoryIds) {
-                        $query->whereIn('category_id', $allCategoryIds);
+                        $query->whereIn('product_categories.category_id', $allCategoryIds);
                     })->select('name', 'slug', 'image', 'alt_img', 'title_img', 'price')
                         ->where('is_outstand', 1)
                         ->orderBy('created_at', 'DESC')->get();
@@ -84,27 +81,27 @@ class HomeController extends Controller
         $cateMenu = $this->buildTree($cateMenu);
 
         $phoneInfors = Infor::where('is_public', 1)->orderBy('stt', 'ASC')->get();
-        $category = Category::where('slug', $slug)->with('children')->first();
-        if (!empty($category)) {
+        $slugs = explode('-', $slug);
+        $mainCate = Category::where('slug', $slug)->with('children')->first(); // Lấy ra danh mục chính
+        if (!empty($mainCate)) {
             // Seo Website
-            $titleSeo = (!empty($category->title_seo)) ? $category->title_seo : config('common.title_seo');
-            $keywordSeo = (!empty($category->keyword_seo)) ? $category->keyword_seo : config('common.keyword_seo');
-            $descriptionSeo = (!empty($category->des_seo)) ? $category->des_seo : config('common.des_seo');
+            $titleSeo = (!empty($mainCate->title_seo)) ? $mainCate->title_seo : config('common.title_seo');
+            $keywordSeo = (!empty($mainCate->keyword_seo)) ? $mainCate->keyword_seo : config('common.keyword_seo');
+            $descriptionSeo = (!empty($mainCate->des_seo)) ? $mainCate->des_seo : config('common.des_seo');
 
             // Lấy ra id của parent_id = 0 
-            $cateParent = $category->topLevelParent();
-            $allParents = $category->getAllParents();
+            $cateParent = $mainCate->topLevelParent();
+            $allParents = $mainCate->getAllParents();
             $filterCate = $cateParent->getFilterCates();
-
-            $categoryIds = $category->getAllChildrenIds();
-            array_unshift($categoryIds, $category->id); // Thêm ID danh mục chính vào danh sách
+            $categoryIds = $mainCate->getAllChildrenIds();
+            array_unshift($categoryIds, $mainCate->id); // Thêm ID danh mục chính vào danh sách
 
             $prOutstand = Product::where('is_outstand', 1)
                 ->whereHas('category', function ($query) use ($categoryIds) {
                     $query->whereIn('category_id', $categoryIds);
                 })->orderBy('created_at', 'DESC')
                 ->take(10)->get();
-
+            
             // Bộ lọc sản phẩm
             $filters = $request->all();
             if(!empty($filters)) {
@@ -134,22 +131,32 @@ class HomeController extends Controller
                         }
                     });
                 }
-                
+                $total = $products->count();
                 $products = $products->orderBy('created_at', 'DESC')->paginate(10);
-                
+                // dd($filterCate);
                 return view('cntt.home.category', compact(
-                    'titleSeo', 'keywordSeo', 'descriptionSeo',
-                    'phoneInfors', 'cateParent', 'category', 'allParents',
-                    'products', 'prOutstand', 'filterCate'));
+                    'titleSeo', 'keywordSeo', 'descriptionSeo', 'total',
+                    'phoneInfors', 'cateParent', 'mainCate', 'allParents',
+                    'products', 'prOutstand', 'filterCate', 'slugs'));
             }
-            $products = Product::whereHas('category', function ($query) use ($categoryIds) {
-                $query->whereIn('category_id', $categoryIds);
-            })->orderBy('created_at', 'DESC')->paginate(10);
 
+            $products = Product::where(function ($query) use ($categoryIds) {
+                // Truy vấn các sản phẩm thuộc danh mục chính
+                $query->whereHas('category', function ($query) use ($categoryIds) {
+                    $query->whereIn('category_id', $categoryIds);
+                });
+                // Truy vấn các sản phẩm có danh mục phụ nằm trong danh sách các danh mục con của danh mục chính
+                $query->orWhere(function ($query) use ($categoryIds) {
+                    foreach ($categoryIds as $categoryId) {
+                        $query->orWhereJsonContains('subCategory', (string)$categoryId);
+                    }
+                });
+            })->orderBy('created_at', 'DESC')->paginate(10);
+            // dd($products);
             // Tính toán số lượng trang hiện có
             $currentPage = $request->input('page', 1);
             $lastPage = $products->lastPage();
-
+            // dd($products);
             // Nếu trang yêu cầu vượt quá số trang hiện có, chuyển hướng đến trang cuối cùng
             if ($currentPage > $lastPage) {
                 $products = Product::whereHas('category', function ($query) use ($categoryIds) {
@@ -160,8 +167,8 @@ class HomeController extends Controller
             
             return view('cntt.home.category', compact(
                 'titleSeo', 'keywordSeo', 'descriptionSeo',
-                'phoneInfors', 'cateParent', 'category', 'allParents',
-                'products', 'prOutstand', 'filterCate'));
+                'phoneInfors', 'cateParent', 'mainCate', 'allParents',
+                'products', 'prOutstand', 'filterCate', 'slugs'));
         }
 
         $idPro = Product::where('slug', $slug)->value('id');
@@ -272,6 +279,39 @@ class HomeController extends Controller
                 'titleSeo', 'keywordSeo', 'descriptionSeo',
                 'keyword', 'nameCate',
                 'products', 'phoneInfors', 'total'));
+        }
+    }
+
+    public function filters(Request $request) {
+        $filters = $request->all();
+        if(!empty($filters)) {
+            $products = Product::query();
+            $filterConditions = [];
+
+            foreach ($filters['filters'] as $key => $values) {
+                if (is_array($values) && count($values) > 0) {
+                    $filterConditions[] = $values;
+                }
+            }
+            if (count($filterConditions) == 1) {
+                // Lấy mảng giá trị từ $filterConditions[0]
+                $filterValues = $filterConditions[0];
+                // Nếu chỉ có 1 bộ lọc, sử dụng whereIn trực tiếp
+                $products->whereHas('filters', function ($query) use ($filterValues) {
+                    $query->whereIn('filters_products.filter_id', $filterValues);
+                });
+            } else {
+                // Nếu có nhiều bộ lọc, sử dụng where với nhiều whereIn bên trong whereHas
+                $products->where(function ($query) use ($filterConditions) {
+                    foreach ($filterConditions as $filterIds) {
+                        $query->whereHas('filters', function ($subQuery) use ($filterIds) {
+                            $subQuery->whereIn('filters_products.filter_id', $filterIds);
+                        });
+                    }
+                });
+            }
+            $total = $products->count();
+            return response()->json([ 'count' => $total ]);
         }
     }
 }

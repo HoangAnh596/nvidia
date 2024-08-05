@@ -17,7 +17,6 @@ class CategoryNewController extends Controller
         $cateNew = CategoryNew::where('parent_id', 0)
             ->with('children')
             ->get();
-        // $cateNew = CategoryNew::latest()->paginate(10)->appends($request->except('page'));
 
         return view('admin.cateNew.index', compact('cateNew'));
     }
@@ -147,6 +146,22 @@ class CategoryNewController extends Controller
         $category->stt_new = (isset($request->stt_new)) ? $request->stt_new : 999;
 
         $category->save();
+    }
+
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $category = CategoryNew::where('id', $id)->with('children')->first();
+        $childIds = $category->getAllChildrenIds();
+        $allCategoryIds = array_merge([$id], $childIds);
+        CategoryNew::whereIn('id', $allCategoryIds)->delete();
+
+        return redirect(route('cateNews.index'))->with(['message' => 'Xóa thành công !']);
     }
 
     public function search(Request $request)

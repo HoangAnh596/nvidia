@@ -16,6 +16,15 @@
                 <span class="text-danger" id="priceError"></span>
             </div>
             <div class="mb-3">
+                <label for="category" class="form-label">Danh mục chính <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
+                <select name="category" id="parent_id" class="form-control" style="min-height: 300px;" multiple>
+                    <option value="">Chọn danh mục</option>
+                    @foreach($categories as $category)
+                    @include('admin.category.partials.category_add', ['category' => $category, 'level' => 0])
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="status" class="form-label">Tình trạng</label>
                 <select class="form-select" id="status" aria-label="Default" name="status">
                     <option value="1">Còn hàng</option>
@@ -30,21 +39,21 @@
                 <span id="slug-error" style="color: red;"></span>
             </div>
             <div class="mb-3">
-                <label for="category" class="form-label">Danh mục sản phẩm <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
-                <select name="category" id="parent_id" class="form-control">
-                    <option value="">Chọn danh mục</option>
-                    @foreach($categories as $category)
-                    @include('admin.category.partials.category_add', ['category' => $category, 'level' => 0])
-                    @endforeach
-                </select>
-            </div>
-            <div class="mb-3">
                 <label for="related_pro" class="form-label">Sản phẩm liên quan: </label>
                 <select class="related_pro form-control" name="related_pro[]" id="related_pro" multiple="multiple"></select>
             </div>
             <div class="mb-3">
                 <label for="tags" class="form-label">Thẻ Tags</label>
                 <select class="form-control searchTags" name="tag_ids[]" id="searchTags" multiple="multiple"></select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="category" class="form-label">Danh mục phụ <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
+                <select name="subCategory[]" id="parent_id" class="form-control" style="min-height: 300px;" multiple="multiple">
+                    @foreach($categories as $category)
+                    @include('admin.product.partials.category_add', ['category' => $category, 'level' => 0])
+                    @endforeach
+                </select>
             </div>
         </div>
     </div>

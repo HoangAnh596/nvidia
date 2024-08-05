@@ -79,6 +79,39 @@
         });
     });
 
+    // let timeout = null;
+    // function checkDuplicate() {
+    //     clearTimeout(timeout);
+    //     timeout = setTimeout(function() {
+    //         const name = document.getElementById('name').value;
+    //         const slug = document.getElementById('slug').value;
+    //         // Xóa thông báo lỗi trước đó
+    //         document.getElementById('name-error').innerText = "";
+    //         document.getElementById('slug-error').innerText = "";
+
+    //         $.ajax({
+    //             url: " {{ route('filters.checkName') }} ",
+    //             type: 'POST',
+    //             data: {
+    //                 name: name,
+    //                 slug: slug,
+    //                 _token: "{{ csrf_token() }}"
+    //             },
+    //             success: function(data) {
+    //                 if (data.name_exists) {
+    //                     document.getElementById('name-error').innerText = 'Tên bộ lọc đã tồn tại';
+    //                 }
+    //                 if (data.slug_exists) {
+    //                     document.getElementById('slug-error').innerText = 'Tên tìm kiếm trên url đã tồn tại';
+    //                 }
+    //             },
+    //             error: function(xhr, status, error) {
+    //                 console.error('Error:', error);
+    //             }
+    //         });
+    //     }, 1000);
+    // }
+
     $(document).ready(function() {
         // Hàm để cập nhật số thứ tự
         function updateIndex() {
@@ -118,7 +151,7 @@
                             <td class="text-center">
                                 <input type="number" name="stt[]" style="width: 50px;text-align: center;" value="999">
                             </td>
-                            <td><button type="button" class="delete-filter">Xóa</button></td>
+                            <td><a href class="btn-sm delete-filter">Xóa</a></td>
                         </tr>`;
                     $('#filters-table tbody').append(newRow);
 
@@ -132,9 +165,10 @@
                 alert('Vui lòng nhập tên bộ lọc');
             }
         });
-        // Event delegation for dynamically added elements
+        // Xử lý sự kiện click cho nút xóa
         $('#filters-table').on('click', '.delete-filter', function() {
             $(this).closest('tr').remove();
+            // Cập nhật số thứ tự sau khi xóa
             updateIndex();
         });
     });

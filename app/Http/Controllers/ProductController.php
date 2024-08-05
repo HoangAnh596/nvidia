@@ -26,13 +26,24 @@ class ProductController extends Controller
         // Tìm kiếm theo tên, mã code, danh mục sản phẩm
         $keyword = $request->keyword;
         $categoryId = $request->cate;
+        $categoryIds = [];
+        if (!empty($categoryId)) {
+            $category = Category::where('id', $categoryId)->with('children')->first();
+            $categoryIds = $category->getAllChildrenIds();
+            array_unshift($categoryIds, $category->id); // Thêm ID danh mục chính vào danh sách
+        }
 
         $products = Product::where(function ($query) use ($keyword) {
             $query->where('name', 'like', "%" . $keyword . "%")
                   ->orWhere('code', 'like', "%" . $keyword . "%");
-        })->when($categoryId, function ($query) use ($categoryId) {
-            $query->whereHas('category', function ($q) use ($categoryId) {
-                $q->where('category_id', $categoryId);
+        })->when(!empty($categoryIds), function ($query) use ($categoryIds) {
+            $query->whereHas('category', function ($q) use ($categoryIds) {
+                $q->whereIn('category_id', $categoryIds);
+            });
+            $query->orWhere(function ($query) use ($categoryIds) {
+                foreach ($categoryIds as $categoryId) {
+                    $query->orWhereJsonContains('subCategory', (string)$categoryId);
+                }
             });
         });
 
@@ -134,10 +145,13 @@ class ProductController extends Controller
     {
         $product = empty($id) ? new Product() : Product::findOrFail($id);
         
+        if(!empty($request['subCategory'])) {
+            $request->merge(['subCategory' => $request->subCategory]);
+        }
         if(!empty($request['related_pro'])) {
             $request['related_pro'] = json_encode($request->related_pro);
         }
-        
+
         if(!empty($request['tag_ids'])) {
             $inputArray = $request->tag_ids;
             $numericArray = array_filter($inputArray, function($value) {
@@ -202,13 +216,9 @@ class ProductController extends Controller
         if (!empty($idPrImage) && !isset($request->id)) {
             $product['image_ids'] = json_encode(array_map('strval', $idPrImage));
         }
-            
+        
         $product->save();
-        if(!empty($id)) {
-            // Cập nhật mối quan hệ belongsToMany
-            $product->category()->detach();
-        }
-        $product->category()->attach($request->category);
+        $product->category()->sync($request->category);
     }
 
     public function checkName(Request $request)

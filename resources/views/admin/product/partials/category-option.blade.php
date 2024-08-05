@@ -1,5 +1,5 @@
 <option value="{{ $category->id }}" {{ $selectedCategories->contains($category->id) ? 'selected' : '' }}>
-    {{ str_repeat('--', $level ?? 0) . $category->name }}
+    {{ str_repeat('--| ', $level ?? 0) . $category->name }}
 </option>
 @if ($category->children)
     @foreach ($category->children as $child)

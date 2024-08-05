@@ -20,11 +20,17 @@ class FilterCateController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        $filter = FilterCate::where('name', 'like', "%" . Helper::escape_like($keyword) . "%");
-        
+        $filterId = $request->cate;
+        $filter = FilterCate::where(function ($query) use ($keyword) {
+            $query->where('name', 'like', "%" . $keyword . "%");
+        })->when($filterId, function ($query) use ($filterId) {
+            $query->where('cate_id',$filterId);
+        });
+    
         $filter = $filter->latest()->paginate(config('common.default_page_size'))->appends($request->except('page'));
+        $categories = Category::where('parent_id',0)->get();
 
-        return view('admin.filter.index', compact('filter', 'keyword'));
+        return view('admin.filter.index', compact('filter', 'keyword', 'categories'));
     }
 
     /**
@@ -103,7 +109,16 @@ class FilterCateController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            // $filter = FilterCate::findOrFail($id);
+            $filter = Filter::findOrFail($id);
+            $filter->delete();
+            // dd($filter);
+            
+            return response()->json(['success' => 'Xóa thành công']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Có lỗi xảy ra, vui lòng thử lại111.'], 500);
+        }
     }
 
     public function insertOrUpdate(FilterCateFormRequest $request, $id = '')
@@ -113,7 +128,7 @@ class FilterCateController extends Controller
         
         $filter->fill($request->all());
         $filter->stt_filter = (isset($request->stt_filter)) ? $request->stt_filter : 999;
-        $filter->slug = $slug;
+        $filter->slug = (isset($request->slug)) ? $request->slug : $slug;
         $parentId = Category::find($request->cate_id)->topLevelParent();
         $idCategory = $parentId->id;
         $filter->cate_id = $idCategory;
@@ -145,9 +160,8 @@ class FilterCateController extends Controller
             }
         }
 
-        // $idFilter = [];
         $data = $request->only(['key_word', 'stt']);
-        
+
         if (!empty($filter->id) && !empty($request->key_word)) {
             // Kiểm tra xem cả hai mảng có cùng kích thước hay không
             if (count($data['key_word']) === count($data['stt'])) {
@@ -156,13 +170,32 @@ class FilterCateController extends Controller
                     Filter::create([
                         'filter_id' => $filter->id,
                         'key_word' => $data['key_word'][$i],
-                        'search' => $slug . '-' . Str::slug($data['key_word'][$i], '-'),
-                        // 'search' => Helper::convertToCamelCase($request->name),
+                        'search' => Str::slug($data['key_word'][$i], '-'),
                         'stt' => $data['stt'][$i]
                     ]);
                 }
             }
         }
+    }
+
+    public function checkName(Request $request)
+    {
+        $name = $request->input('name');
+        $slug = $request->input('slug');
+        $id = $request->get('id');
+
+        // Kiểm tra xem tên có tồn tại không, ngoại trừ id danh mục hiện tại
+        $nameExists = FilterCate::where('name', $name)
+            ->where('id', '!=', $id)
+            ->exists();
+        $slugExists = FilterCate::where('slug', $slug)
+            ->where('id', '!=', $id)
+            ->exists();
+        
+        return response()->json([
+            'name_exists' => $nameExists,
+            'slug_exists' => $slugExists,
+        ]);
     }
 
     public function isCheckbox(Request $request)
@@ -172,7 +205,7 @@ class FilterCateController extends Controller
             $field = $request->field;
             $value = $request->value;
             // Kiểm tra xem trường có tồn tại trong bảng user không
-            if (in_array($field, ['is_public'])) {
+            if (in_array($field, ['is_public', 'top_filter', 'special'])) {
                 $filter->$field = $value;
 
                 $filter->save();
@@ -194,6 +227,21 @@ class FilterCateController extends Controller
         $id = $request->get('id');
         $filter = FilterCate::findOrFail($id);
         $filter->stt_filter = (isset($sttFilter)) ? $sttFilter : 999;
+        $filter->save();
+
+        return response()->json(['success' => true, 'message' => 'Cập nhật Stt thành công.']);
+    }
+
+    public function sttDetail(Request $request){
+        $stt = $request->input('stt');
+        if (!empty($stt)) {
+            $request->validate([
+                'stt' => 'integer|min:0'
+            ]);
+        }
+        $id = $request->get('id');
+        $filter = Filter::findOrFail($id);
+        $filter->stt = (isset($stt)) ? $stt : 999;
         $filter->save();
 
         return response()->json(['success' => true, 'message' => 'Cập nhật Stt thành công.']);

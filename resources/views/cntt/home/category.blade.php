@@ -9,7 +9,7 @@
                 @foreach ($allParents as $parent)
                 <li class="breadcrumb-item"><a href="{{ asset($parent->slug) }}">{{ $parent->name }}</a></li>
                 @endforeach
-                <li class="breadcrumb-item">{{ $category->name }}</li>
+                <li class="breadcrumb-item">{{ $mainCate->name }}</li>
             </ol>
         </nav>
     </div>
@@ -26,7 +26,7 @@
         <!-- begin navbar mobile -->
         @if($agent->isMobile())
         @if(!empty($filterCate))
-        <div class="mobile-filter ft-fixed mt-4">
+        <div class="mobile-filter ft-fixed mt-4" data-url="{{ route('home.filters') }}">
             <div class="container" style="padding: 0;">
                 <div class="splide">
                     <div class="splide__track">
@@ -50,7 +50,7 @@
                     @endforeach
                     <div class="filter-button-mb filter-button-sticky">
                         <button href="javascript:void(0)" class="btn-filter-close-mb">Bỏ chọn</button>
-                        <button href="javascript:filterPros();" class="btn-filter-readmore-mb">Xem <b class="total-reloading">15</b> kết quả</button>
+                        <button href="javascript:filterPros();" class="btn-filter-readmore-mb">Xem <b class="total-reloading"> @if(!empty($total)) {{ $total }} @endif</b> kết quả</button>
                     </div>
                 </ul>
             </div>
@@ -59,7 +59,7 @@
         @endif
         @else
         @if(!empty($filterCate))
-        <div class="row web-filter mt-4">
+        <div class="row web-filter mt-4" data-url="{{ route('home.filters') }}">
             <ul class="nav nav-filter ft-fixed">
                 <div class="container cont-fixed">
                     <?php $countFilter = 0 ?>
@@ -67,33 +67,58 @@
                     <?php $countFilter++;
                     $countFilter ?>
                     <li class="nav-item">
+                        @if($fil->top_filter == 1)
+                        <button class="filter-item show-filter top-filter" name="{{ $fil->slug }}" aria-current="page">
+                            {{ $fil->name }} <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        @elseif($fil->special == 1)
+                        <button class="filter-item show-filter special-filter" name="{{ $fil->slug }}" aria-current="page">
+                            {{ $fil->name }} <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        @else
                         <button class="filter-item show-filter" name="{{ $fil->slug }}" aria-current="page">
                             {{ $fil->name }} <i class="fa-solid fa-chevron-down"></i>
                         </button>
+                        @endif
                         @if ($countFilter > 4 && $countFilter < 8)
                         <ul class="child-filter filter-show-right">
                             <div class="arrow-filter-right"></div>
+                            @if($fil->special == 1)
                             @foreach ($fil->valueFilters as $item)
                             <li class="nav-item child-nav">
-                                <button class="btn-child-filter" id="{{ $item->id }}" aria-current="page" href="javascript:void(0)">{{ $item->key_word }}</button>
+                                <a class="btn-child-filter" id="{{ $item->id }}" data-href="{{ $item->search }}" href="{{ $cateParent->slug }}?{{ $fil->slug }}={{ $item->id }}" data-type="filters">{{ $item->key_word }}</a>
+                            </li>
+                            @endforeach
+                            @endif
+                            @foreach ($fil->valueFilters as $item)
+                            <li class="nav-item child-nav">
+                                <a class="btn-child-filter" id="{{ $item->id }}" data-href="{{ $item->search }}" href="{{ $cateParent->slug }}-{{ $item->search }}" data-type="filters">{{ $item->key_word }}</a>
                             </li>
                             @endforeach
                             <div class="filter-button filter-button-sticky">
                                 <button href="javascript:void(0)" id="{{ $fil->id }}" class="btn-filter-close">Bỏ chọn</button>
-                                <button href="javascript:filterPros();" id="{{ $fil->id }}" class="btn-filter-readmore">Xem kết quả</button>
+                                <button href="javascript:filterPros();" id="{{ $fil->id }}" class="btn-filter-readmore">Xem <b class="total-reloading"> @if(!empty($total)) {{ $total }} @endif</b> kết quả</button>
                             </div>
                         </ul>
                         @else
                         <ul class="child-filter">
                             <div class="arrow-filter"></div>
+                            @if($fil->special == 1)
                             @foreach ($fil->valueFilters as $item)
                             <li class="nav-item child-nav">
-                                <button class="btn-child-filter" id="{{ $item->id }}" aria-current="page" href="javascript:void(0)">{{ $item->key_word }}</button>
+                                <a class="btn-child-filter" id="{{ $item->id }}" data-href="{{ $item->search }}" href="{{ $cateParent->slug }}?{{ $fil->slug }}={{ $item->id }}" data-type="filters">{{ $item->key_word }}</a>
                             </li>
                             @endforeach
+                            @else
+                            @foreach ($fil->valueFilters as $item)
+                            <li class="nav-item child-nav">
+                                <a class="btn-child-filter" id="{{ $item->id }}" data-href="{{ $item->search }}" href="{{ $cateParent->slug }}-{{ $item->search }}" data-type="filters">{{ $item->key_word }}</a>
+                            </li>
+                            @endforeach
+                            @endif
                             <div class="filter-button filter-button-sticky">
                                 <button href="javascript:void(0)" id="{{ $fil->id }}" class="btn-filter-close">Bỏ chọn</button>
-                                <button href="javascript:filterPros();" id="{{ $fil->id }}" class="btn-filter-readmore">Xem kết quả</button>
+                                <button href="javascript:filterPros();" id="{{ $fil->id }}" class="btn-filter-readmore">Xem <b class="total-reloading"> @if(!empty($total)) {{ $total }} @endif</b> kết quả</button>
                             </div>
                         </ul>
                         @endif
@@ -120,7 +145,7 @@
             <div class="col-md-9 res-w100">
                 <div class="content-cate mb-4">
                     <div>
-                        {!! $category->content !!}
+                        {!! $mainCate->content !!}
                     </div>
                     <div class="align-items-center justify-content-center btn-show-more show-more pb-4">
                         <button class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
@@ -245,16 +270,20 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-        var toggler = document.getElementsByClassName("caret");
-        for (var i = 0; i < toggler.length; i++) {
-            toggler[i].addEventListener("click", function(e) {
-                e.preventDefault();
-                this.parentElement.querySelector(".nested").classList.toggle("active");
-                this.classList.toggle("caret-down");
-            });
+    // Nhúng danh sách slugs từ backend vào frontend
+    var validSlugs = <?php echo json_encode($slugs); ?>;
+    function getValidSlugFromUrl(validSlugs) {
+            var currentUrl = window.location.href.split('?')[0];
+            for (var i = 0; i < validSlugs.length; i++) {
+                if (currentUrl.includes(validSlugs[i])) {
+                    return validSlugs[i];
+                }
+            }
+            return null;
         }
-
+    // Lấy slug hợp lệ từ URL
+    var slug = getValidSlugFromUrl(validSlugs);
+    document.addEventListener('DOMContentLoaded', function() {
         // Kiểm tra kích thước màn hình khi trang tải
         if (window.innerWidth < 1200) {
             // Tìm phần tử Splide
@@ -343,6 +372,35 @@
                     delete selectedFiltersMb[filterName]; // Xóa bộ lọc nếu không còn giá trị nào
                 }
             }
+
+            // Gọi AJAX để gửi các bộ lọc đã chọn tới backend
+            var filterUrlMb = $('.mobile-filter').data('url');
+            $.ajax({
+                url: filterUrlMb, // Đổi URL thành route xử lý filter của bạn
+                type: 'GET',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    filters: selectedFiltersMb
+                },
+                success: function(response) {
+                    // Xử lý phản hồi từ backend (ví dụ: cập nhật danh sách sản phẩm)
+                    var $resultCount = $('.total-reloading');
+                    var $readMoreButton = $('.btn-filter-readmore-mb');
+                    
+                    $resultCount.text(response.count);
+                    
+                    if (response.count === 0) {
+                        $readMoreButton.prop('disabled', true); // Vô hiệu hóa nút nếu total bằng 0
+                        $readMoreButton.addClass('disabled'); // Thêm lớp 'disabled' để áp dụng CSS
+                    } else {
+                        $readMoreButton.prop('disabled', false); // Kích hoạt nút nếu total khác 0
+                        $readMoreButton.removeClass('disabled'); // Xóa lớp 'disabled' nếu có
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
         });
         
         // Ẩn tất cả các child-filter khi người dùng cuộn trang

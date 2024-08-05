@@ -14,6 +14,20 @@
         <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
     </div>
     <div class="row">
+        <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Tên tìm kiếm url :<div class="warningMenu">*</div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug', $filter->slug ?? '') }}" oninput="checkDuplicate()">
+                <span id="slug-error" style="color: red;"></span>
+                @error('slug')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
+        <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
+    </div>
+    <div class="row">
         <div class="col-2 d-flex flex-row-reverse align-items-center">Danh mục sản phẩm :</div>
         <div class="col-6">
             <div class="form-group">

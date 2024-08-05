@@ -36,9 +36,20 @@ class FilterCateFormRequest extends FormRequest
         if (!empty($params['id']) && ($params['id'] == $checkNameUpdate)) {
             $ruleUpdateName = "required";
         }
+        
+        if (!empty($params['id'])) {
+            $checkSlugUpdate = DB::table('filter_cate')->select('id')
+            ->where('slug', '=', $params['slug'])
+            ->where('id', '=', $params['id'])
+            ->value('id');
+        }
+        if (!empty($params['id']) && ($params['id'] == $checkSlugUpdate)) {
+            $ruleUpdateSlug = "required";
+        }
 
         return [
-            'name' => (isset($ruleUpdateName)) ? $ruleUpdateName : 'required | unique:filter_cate',
+            'name' => (isset($ruleUpdateName)) ? $ruleUpdateName : 'required',
+            'slug' => (isset($ruleUpdateSlug)) ? $ruleUpdateSlug : 'required | unique:filter_cate',
             'cate_id' => 'required',
             'stt_filter' => (!empty($params['stt_filter'])) ? 'integer|min:0' : ''
         ];
@@ -52,6 +63,8 @@ class FilterCateFormRequest extends FormRequest
         return [
             'name.required' => 'Tên bộ lọc không được bỏ trống.',
             'name.unique' => 'Tên bộ lọc không được trùng.',
+            'slug.required' => 'Tên bộ lọc không được bỏ trống.',
+            'slug.unique' => 'Tên bộ lọc không được trùng.',
             'cate_id.required' => 'Danh mục sản phẩm không được bỏ trống.',
             'stt_filter.integer' => 'Số thứ tự phải là số nguyên.',
             'stt_filter.min' => 'Số thứ tự phải lớn 0',

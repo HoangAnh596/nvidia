@@ -142,9 +142,11 @@
             <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
                 <ul class="nav nav-mb">
                     @foreach($data['category']->children as $child)
+                    @if($child->is_menu == 1)
                     <li class="nav-item">
                         <a class="btn-link" aria-current="page" href="{{ $child->slug }}">{{ $child->name }}</a>
                     </li>
+                    @endif
                     @endforeach
                     <li class="nav-item">
                         <a class="btn-link" aria-current="page" href="{{ asset($data['category']->slug) }}" title="xem thêm">Xem thêm</a>

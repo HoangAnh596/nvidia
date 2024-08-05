@@ -72,3 +72,14 @@
 .table-responsive img {
     max-width: 50%;
 }
+
+.warningMenu {
+    color: red;
+    margin-right: 5px;
+}
+.deleteForm {
+    position: absolute;
+    top: 12px;
+    right: 60px;
+    z-index: 99;
+}

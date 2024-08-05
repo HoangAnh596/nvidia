@@ -22,6 +22,15 @@
                 <span class="font-italic text-danger" id="priceError"></span>
             </div>
             <div class="mb-3">
+                <label for="category">Danh mục chính</label>
+                <select name="category" id="category" class="form-control">
+                    <option value="">Chọn danh mục</option>
+                    @foreach($categories as $val)
+                        @include('admin.product.partials.category-option', ['category' => $val, 'selectedCategories' => $product->category])
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="status" class="form-label">Tình trạng :</label>
                 <select class="form-select" aria-label="Default" name="status">
                     <option value="1"
@@ -65,13 +74,12 @@
                 </select>
             </div>
             <div class="mb-3">
-            <label for="category">Danh mục</label>
-            <select name="category" id="category" class="form-control">
-                <option value="">Chọn danh mục</option>
-                @foreach($categories as $val)
-                    @include('admin.product.partials.category-option', ['category' => $val, 'selectedCategories' => $product->category])
-                @endforeach
-            </select>
+                <label for="category">Danh mục phụ</label>
+                <select name="subCategory[]" id="category" multiple class="form-control" style="min-height: 300px;">
+                    @foreach($categories as $val)
+                        @include('admin.product.partials.sub-category', ['category' => $val, 'selectedCategories' => $product->subCategory])
+                    @endforeach
+                </select>
             </div>
         </div>
     </div>

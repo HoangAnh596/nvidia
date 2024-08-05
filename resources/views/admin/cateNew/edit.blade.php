@@ -25,7 +25,7 @@
                 <a href="{{ route('cateNews.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
                 <div>
                     <button class="btn btn-primary btn-sm " type="submit" id="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
-                    <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Xóa</button>
+                    <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Xóa</button> -->
                 </div>
             </div>
             <div class="card-body border-top p-9">
@@ -56,8 +56,12 @@
 
             <div class="mt-4 pb-4 mr-4 float-right">
                 <button class="btn btn-primary btn-sm " type="submit" id="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-                <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
             </div>
+        </form>
+        <form action="{{ route('cateNews.destroy', ['cateNews' => $category->id]) }}" method="post" class="deleteForm">
+            @csrf
+            @method( 'Delete' )
+            <button class="btn btn-danger btn-sm" type="delete" value="Delete" onclick="return confirm('Bạn chắc chắn muốn xóa chứ?')" style="float: right; margin-right: 20px; margin-left:5px"><i class="fa-solid fa-eraser"></i> Xóa</button>
         </form>
     </div>
 </div>

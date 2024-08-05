@@ -187,4 +187,10 @@ class CategoryController extends Controller
 
         return response()->json(['success' => true, 'message' => 'STT updated successfully.']);
     }
+
+    public function getSlugs()
+    {
+        $slugs = Category::pluck('slug')->toArray();
+        return response()->json($slugs);
+    }
 }

@@ -12,7 +12,7 @@ class Product extends Model
     protected $table = 'products';
 
     protected $fillable = [
-        'name', 'code', 'slug',
+        'name', 'code', 'slug', 'subCategory',
         'price', 'image', 'related_pro',
         'status', 'title_img', 'alt_img',
         'title_seo', 'keyword_seo', 'des_seo',
@@ -24,6 +24,7 @@ class Product extends Model
         'images_id' => 'array',
         'tag_id' => 'array',
         'related_id' => 'array',
+        'subCategory' => 'array'
     ];
 
     public function getRelatedProducts()

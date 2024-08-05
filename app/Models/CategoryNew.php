@@ -68,4 +68,15 @@ class CategoryNew extends Model
         }
         return $parents;
     }
+
+    public function getAllChildrenIds()
+    {
+        $childrenIds = $this->children()->pluck('id')->toArray();
+
+        foreach ($this->children as $child) {
+            $childrenIds = array_merge($childrenIds, $child->getAllChildrenIds());
+        }
+
+        return $childrenIds;
+    }
 }

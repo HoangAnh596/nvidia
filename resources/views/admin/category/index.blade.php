@@ -23,7 +23,7 @@
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="col-sm-5 position-relative">Tên Danh Mục</th>
+                            <th class="col-sm-4 position-relative">Tên Danh Mục</th>
                             <th class="col-sm-2 position-relative">Bộ lọc</th>
                             <th class="position-relative">Server</th>
                             <th class="position-relative">Cha</th>

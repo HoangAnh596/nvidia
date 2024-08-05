@@ -149,14 +149,6 @@
 
 @endsection
 
-@section('css')
-<style>
-    .warningMenu {
-        color: red;
-        padding-right: 10px;
-    }
-</style>
-@endsection
 @section('js')
 <script>
 $(document).ready(function() {

@@ -524,7 +524,7 @@ hr {
     display: none;
     list-style: none;
     position: absolute;
-    margin-top: 20px;
+    margin-top: 13px;
     width: 100vw;
     padding: 12px 0px;
     z-index: 999;
@@ -624,6 +624,7 @@ hr {
 }
 .btn-filter-readmore, .btn-filter-readmore-mb {
     background-color: #76b900;
+    border: 1px solid #76b900;
     color: #fff;
 }
 button:focus {

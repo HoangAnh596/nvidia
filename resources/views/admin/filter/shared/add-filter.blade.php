@@ -31,8 +31,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        </tr>
                     </tbody>
                 </table>
                 <nav class="float-right">

@@ -19,8 +19,8 @@ class CreateFiltersProductsTable extends Migration
             $table->unsignedBigInteger('product_id');
             // $table->softdeletes();
             $table->timestamps();
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('filter_id')->references('id')->on('filter');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('filter_id')->references('id')->on('filter')->onDelete('cascade');
         });
     }
 

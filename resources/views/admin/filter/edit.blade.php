@@ -121,7 +121,7 @@
                             <td class="text-center">
                                 <input type="number" name="stt[]" style="width: 50px;text-align: center;" value="999">
                             </td>
-                            <td><a class="btn-sm" href>Xóa</a></td>
+                            <td><a href class="btn-sm delete-filter">Xóa</a></td>
                         </tr>`;
                     // Thêm dòng mới vào đầu tbody
                     $('#existing-items').prepend(newRow);
@@ -140,6 +140,57 @@
         $('#filters-table').on('click', '.delete-filter', function() {
             $(this).closest('tr').remove();
             updateIndex();
+        });
+
+        $('.btn-destroy').on('click', function(e) {
+            e.preventDefault();
+            
+            if(confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                var url = $(this).attr('href');
+                var row = $(this).closest('tr'); // Lấy hàng chứa nút "Xóa"
+                
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(result) {
+                        // Xóa hàng khỏi bảng nếu xóa thành công
+                        row.remove();
+                    },
+                    error: function(xhr) {
+                        alert('Có lỗi xảy ra, vui lòng thử lại.');
+                    }
+                });
+            }
+        });
+
+        $('.check-stt').change(function() {
+            var idCate = $(this).data('id');
+            var stt = $(this).val();
+            console.log(stt);
+            $.ajax({
+                url: '{{ route("detailFilter.checkStt") }}',
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    id: idCate,
+                    stt: stt,
+                },
+                success: function(response) {
+                    if (response.success) {
+                        alert('Trạng thái được cập nhật thành công.');
+                    } else {
+                        alert('Không thể cập nhật trạng thái.');
+                    }
+                },
+                error: function() {
+                    alert('Lỗi cập nhật trạng thái.');
+                }
+            });
         });
     });
 </script>

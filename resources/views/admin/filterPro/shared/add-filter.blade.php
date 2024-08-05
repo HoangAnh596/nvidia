@@ -4,22 +4,10 @@
     <div class="col" style="color: black;">{{ $val->name }} :</div>
     <div class="col mt-3">
         @foreach($val->valueFilters as $item)
-            @if(!empty($val) && $val->is_select == \App\Models\FilterCate::IS_ONE)
+            @if(!empty($val))
             <div class="form-check form-check-inline mr-3 ml-3">
                 <input class="form-check-input" type="radio" name="{{ $val->name }}" id="{{ $item->id }}" 
                     value="{{ $item->id }}" 
-                    @foreach($filterProducts as $fil)
-                    @if($item->id == $fil->filter_id) checked @endif
-                    @endforeach
-                    />
-                <label class="form-check-label" for="">
-                    {{ $item->key_word }}
-                </label>
-            </div>
-            @elseif(!empty($val) && $val->is_select == \App\Models\FilterCate::IS_MANY)
-            <div class="form-check form-check-inline mr-3 ml-3">
-                <input class="form-check-input" type="checkbox" name="{{ $val->name }}[]" id="{{ $item->id }}" 
-                    value="{{ $item->id }}"
                     @foreach($filterProducts as $fil)
                     @if($item->id == $fil->filter_id) checked @endif
                     @endforeach

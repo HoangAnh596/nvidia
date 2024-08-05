@@ -161,11 +161,6 @@
         display: none;
     }
 
-    .warningMenu {
-        color: red;
-        padding-right: 10px;
-    }
-
     #url {
         width: 500px;
     }
