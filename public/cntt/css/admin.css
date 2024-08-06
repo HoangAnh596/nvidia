@@ -1,6 +1,18 @@
 /* css page admin */
+body {
+    color: #080808;
+}
+.text-gray-800 {
+    color: #000 !important;
+}
+.text-dark {
+    color: black !important;
+}
 .tab-pane {
     padding-top: 25px;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active, .btn-outline-dark, .form-control {
+    color: black;
 }
 /* css image */
 #holder {
@@ -82,4 +94,7 @@
     top: 12px;
     right: 60px;
     z-index: 99;
+}
+.sr-product .form-control {
+    width: 350px;
 }

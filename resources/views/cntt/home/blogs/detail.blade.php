@@ -48,7 +48,7 @@
                     <div class="media">
                         <div class="media-left">
                             <a href="{{ asset('blogs/'.$val->slug) }}">
-                                <img src="{{ asset($val->image) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
+                                <img class="lazyload" src="{{ asset($val->image) }}" data-src="{{ asset($val->image) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
                             </a>
                         </div>
                         <div class="media-right">

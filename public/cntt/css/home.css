@@ -670,9 +670,11 @@ button:focus {
 }
 .btn-img {
     padding: 0 1rem;
+    height: 200px;
 }
 .btn-img-new {
     padding: 6px;
+    height: 200px;
 }
 .btn-img-new img {
     border-top-left-radius: 10px;
@@ -689,6 +691,23 @@ button:focus {
 .ft-sw {
     font-size: 20px !important;
     font-weight: 700 !important;
+}
+.hover-gr {
+    margin-top: 6px;
+}
+.h-30 {
+    height: 30px;
+}
+.lien-he-price {
+    font-size: .9rem;
+    padding: 2px 15px;
+    background: #76b900;
+    border-radius: 3px;
+    color: black;
+    display: inline-block;
+    text-align: center;
+    margin-top: 5px;
+    font-weight: 600;
 }
 .nav-mb li {
     padding-left: 15px;

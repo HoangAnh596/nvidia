@@ -12,14 +12,18 @@
 <div class="col-lg-5 col-xs-6 col-md-3 col-sm-6 mb-4">
     <div class="card h-100">
         <a class="btn-img" href="{{ $product->slug }}">
-            <img src="{{ asset($product->image) }}" class="card-img-top" alt="{{ $product->alt_img }}" title="{{ $product->title_img }}">
+            <img class="card-img-top lazyload img-size" src="{{ asset($product->image) }}" data-src="{{ asset($product->image) }}" alt="{{ $product->alt_img }}" title="{{ $product->title_img }}">
         </a>
         <div class="card-body">
-            <div>
-                <a href="{{ $product->slug }}" class="text-decoration-none text-danger">{{ number_format($product->price, 0, ',', '.') }}đ</a>
+            <div class="text-center h-30">
+                @if($product->price == 0)
+                <span class="lien-he-price">Liên hệ</span>
+                @else
+                <a href="{{ $product->slug }}" class="text-decoration-none text-danger">{{ number_format($product->price, 0, ',', '.') }}đ </a>
+                @endif
             </div>
-            <div class="text-dark">
-                <a href="{{ $product->slug }}" class="text-decoration-none text-dark">{{ $product->name }}</a>
+            <div class="text-dark hover-gr">
+                <a href="{{ $product->slug }}" class="text-decoration-none btn-link">{{ $product->name }}</a>
             </div>
             <ul class="list-unstyled d-flex justify-content-between">
                 <li>

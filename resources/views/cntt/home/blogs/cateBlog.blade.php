@@ -53,7 +53,7 @@
                     <div class="col-md-5">
                         <div class="media-left">
                             <a href="{{ asset('blogs/'.$item->slug) }}">
-                                <img src="{{ asset($item->image) }}" alt="{{ $item->alt_img }}" title="{{ $item->title_img }}">
+                                <img class="lazyload" src="{{ asset($item->image) }}" data-src="{{ asset($item->image) }}" alt="{{ $item->alt_img }}" title="{{ $item->title_img }}">
                             </a>
                         </div>
                     </div>
@@ -101,7 +101,7 @@
                     <div class="media">
                         <div class="media-left">
                             <a href="{{ asset('blogs/'.$val->slug) }}">
-                                <img src="{{ asset($val->image) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
+                                <img class="lazyload" src="{{ asset($val->image) }}" data-src="{{ asset($val->image) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
                             </a>
                         </div>
                         <div class="media-right">
@@ -121,7 +121,7 @@
                     <div class="media-products">
                         <div class="media-left">
                             <a href="{{ asset('/'.$value->slug) }}">
-                                <img src="{{ asset($value->image) }}" alt="{{ $value->alt_img }}" title="{{ $value->title_img }}">
+                                <img class="lazyload" src="{{ asset($value->image) }}" data-src="{{ asset($value->image) }}" alt="{{ $value->alt_img }}" title="{{ $value->title_img }}">
                             </a>
                         </div>
                         <div class="media-right">

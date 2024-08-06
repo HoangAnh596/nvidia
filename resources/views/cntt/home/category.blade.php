@@ -163,7 +163,7 @@
                         <div class="row mt-3">
                             <div class="col-md-4 col-4" style="padding:0;">
                                 <a class="btn-outstand" href="{{ $data->slug }}">
-                                    <img src="{{ asset($data->image) }}" class="card-img-top" alt="{{ $data->alt_img }}" title="{{ $data->title_img }}">
+                                    <img class="card-img-top lazyload" src="{{ asset($data->image) }}" data-src="{{ asset($data->image) }}" alt="{{ $data->alt_img }}" title="{{ $data->title_img }}">
                                 </a>
                             </div>
                             <div class="col-md-8 col-8 d-flex flex-column bd-highlight" style="height: 100px; overflow: hidden;">

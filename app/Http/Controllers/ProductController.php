@@ -49,7 +49,9 @@ class ProductController extends Controller
 
         $products = $products->latest()->paginate(config('common.default_page_size'))->appends($request->except('page'));
 
-        $categories = Category::all();
+        $categories = Category::where('parent_id', 0)
+        ->with('children')
+        ->get();
 
         return view('admin.product.index', compact('products', 'keyword', 'categories'));
     }

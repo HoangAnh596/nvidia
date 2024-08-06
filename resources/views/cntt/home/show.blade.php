@@ -30,12 +30,12 @@
                             <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide gallery-trigger">
-                                        <img class="prod-img" src="{{ asset($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
+                                        <img class="prod-img lazyload" src="{{ asset($product->image) }}" data-src="{{ asset($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
                                     </div>
                                     @if(!empty($images))
                                     @foreach ($images as $val)
                                     <div class="swiper-slide gallery-trigger">
-                                        <img class="prod-img" src="{{ asset($val->image) }}" alt="{{ $val->alt }}" title="{{ $val->title }}">
+                                        <img class="prod-img lazyload" src="{{ asset($val->image) }}" data-src="{{ asset($val->image) }}" alt="{{ $val->alt }}" title="{{ $val->title }}">
                                     </div>
                                     @endforeach
                                     @endif
@@ -46,12 +46,12 @@
                             <div thumbsSlider="" class="swiper mySwiper">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide gallery-trigger">
-                                        <img class="prod-img" src="{{ asset($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
+                                        <img class="prod-img lazyload" src="{{ asset($product->image) }}" data-src="{{ asset($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
                                     </div>
                                     @if(!empty($images))
                                     @foreach ($images as $img)
                                     <div class="swiper-slide">
-                                        <img class="prod-img" src="{{ asset($img->image) }}" alt="{{ $img->alt }}" title="{{ $img->title }}">
+                                        <img class="prod-img lazyload" src="{{ asset($img->image) }}" data-src="{{ asset($img->image) }}" alt="{{ $img->alt }}" title="{{ $img->title }}">
                                     </div>
                                     @endforeach
                                     @endif
@@ -60,10 +60,10 @@
                             <div id="imageModal" class="modal">
                                 <button class="close btn btn-success">x Đóng</button>
                                 <div class="modal-content">
-                                    <img class="modal-image" src="{{ asset($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
+                                    <img class="modal-image lazyload" src="{{ asset($product->image) }}" data-src="{{ asset($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
                                     @if(!empty($images))
                                     @foreach($images as $image)
-                                        <img class="modal-image" src="{{ asset($image->image) }}" alt="{{ $image->alt }}" title="{{ $image->title }}">
+                                        <img class="modal-image lazyload" src="{{ asset($image->image) }}" data-src="{{ asset($image->image) }}" alt="{{ $image->alt }}" title="{{ $image->title }}">
                                     @endforeach
                                     @endif
                                 </div>

@@ -10,7 +10,7 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="code" class="form-label">Mã code sản phẩm</label>
+                <label for="code" class="form-label">Mã sản phẩm</label>
                 <input type="text" id="code" class="form-control" name="code" value="{{ old('code', $product->code ?? '') }}">
                 @error('code')
                 <span class="font-italic text-danger ">{{ $message }}</span>
@@ -46,7 +46,7 @@
         </div>
         <div class="col">
             <div class="mb-3">
-                <label for="slug" class="form-label">Slug sản phẩm</label>
+                <label for="slug" class="form-label">Địa chỉ Url</label>
                 <input class="form-control" id="slug" type="name" name="slug" value="{{ old('slug', $product->slug ?? '') }}" disabled>
             </div>
             <div class="mb-3">

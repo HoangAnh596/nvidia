@@ -156,8 +156,8 @@
             </a>
             <div id="collapseBottoms" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('bottoms.index') }}">Danh sách hotline</a>
-                    <a class="collapse-item" href="{{ route('bottoms.create') }}">Thêm mới hotline</a>
+                    <a class="collapse-item" href="{{ route('bottoms.index') }}">Danh sách chân trang</a>
+                    <a class="collapse-item" href="{{ route('bottoms.create') }}">Thêm mới chân trang</a>
                 </div>
             </div>
         </li>

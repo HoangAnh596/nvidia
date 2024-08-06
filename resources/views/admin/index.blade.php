@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container-fluid">
-    <marquee direction="right">HNA_CMS</marquee>
+    <!-- <marquee direction="right">HNA_CMS</marquee> -->
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Top 10 Products</h1>

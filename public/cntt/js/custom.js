@@ -174,7 +174,7 @@ $(document).ready(function() {
             type: 'GET',
             data: {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                filters: selectedValues
+                filters: JSON.stringify(selectedValues)
             },
             success: function(response) {
                 // Xử lý phản hồi từ backend (ví dụ: cập nhật danh sách sản phẩm)
@@ -615,9 +615,13 @@ document.addEventListener("DOMContentLoaded", function() {
     var searchToggle = document.getElementById('searchToggleMenu');
     var faSearch = document.getElementById('faSearch');
     var faXmark = document.getElementById('faXmark');
-    var modal = new bootstrap.Modal(document.getElementById('templatemo_search'));
+    // var modal = new bootstrap.Modal(document.getElementById('templatemo_search'));
+    var modalElement = document.getElementById('templatemo_search');
+    var modal = null;
 
-    if (searchToggle && faSearch && faXmark) {
+    if (searchToggle && faSearch && faXmark && modalElement) {
+        modal = new bootstrap.Modal(modalElement);
+
         searchToggle.addEventListener('click', function(e) {
             e.preventDefault();
             if (faSearch.style.display !== 'none') {
@@ -632,11 +636,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         // Reset icons when the modal is hidden
-        document.getElementById('templatemo_search').addEventListener('hidden.bs.modal', function() {
+        modalElement.addEventListener('hidden.bs.modal', function() {
             faSearch.style.display = 'inline';
             faXmark.style.display = 'none';
         });
-    } else {
-        console.error('One or more elements are not found in the DOM.');
+    // } else {
+    //     console.error('One or more elements are not found in the DOM.');
     }
 });

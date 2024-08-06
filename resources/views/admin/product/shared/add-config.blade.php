@@ -34,7 +34,7 @@
         </div>
         <div class="col">
             <div class="mb-3">
-                <label for="slug" class="form-label">slug</label>
+                <label for="slug" class="form-label">Địa chỉ Url</label>
                 <input type="text" id="slug" class="form-control" name="slug" value="{{ old('slug') }}" oninput="checkDuplicate()">
                 <span id="slug-error" style="color: red;"></span>
             </div>

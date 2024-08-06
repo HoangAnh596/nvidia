@@ -10,7 +10,7 @@
             <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
                 <div class="input-group">
                     <div class="form-group">
-                        <input type="search" class="form-control form-outline" placeholder="Tìm kiếm hotline" aria-label="Search" name="keyword" value="">
+                        <input type="search" class="form-control form-outline" placeholder="Tìm kiếm icon" aria-label="Search" name="keyword" value="">
                     </div>
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit"> <i class="fas fa-search fa-sm"></i> </button>
