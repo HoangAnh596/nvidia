@@ -34,7 +34,7 @@ body {
 
 /* sticky css */
 .table-responsive {
-    height: 400px; /* Chiều cao của bảng */
+    height: 500px; /* Chiều cao của bảng */
     overflow-y: auto; /* Bật thanh cuộn dọc */
 }
 
@@ -97,4 +97,26 @@ body {
 }
 .sr-product .form-control {
     width: 350px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px; /* Khoảng cách giữa các nút, tùy chỉnh theo ý muốn */
+    /* border-bottom: 1px solid white !important; */
+}
+
+.action-buttons form {
+    margin: 0;
+}
+.btn-cntt {
+    color: black;
+    background-color: #76b900;
+    border-color: #76b900;
+}
+.btn-cntt:hover {
+    color: white;
+    text-decoration: none;
+}
+.cke_notification_warning {
+    display: none;
 }

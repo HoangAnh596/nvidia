@@ -8,10 +8,6 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-<!-- <script src="https://cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script> -->
-
-<!-- <script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script> -->
-<!-- <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script> -->
 <script src="{{ asset('cntt/ckeditor/ckeditor.js') }}"></script>
 
 <script>

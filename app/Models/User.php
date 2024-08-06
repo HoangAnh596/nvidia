@@ -22,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'image',
         'role'
     ];
 
@@ -46,6 +47,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function role($role)
     {
-        return ($role == User::ADMIN_ROLE) ? "Admin" : "User";
+        return ($role == User::ADMIN_ROLE) ? "Quản trị viên" : "Người dùng";
     }
 }

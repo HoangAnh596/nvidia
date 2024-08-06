@@ -36,7 +36,7 @@ class RegisterController extends Controller
         if (auth()->user()->role == 1) {
             return '/admin';
         }
-        return '/home';
+        return RouteServiceProvider::HOME;
     }
 
     /**
@@ -61,6 +61,12 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'name.required' => 'Họ tên không được để trống.',
+            'email.required' => 'Email không được để trống.',
+            'email.unique' => 'Email đã tồn tại.',
+            'password.required' => 'Mật khẩu không được để trống.',
+            'password.min' => 'Mật khẩu ít nhất 8 ký tự .',
         ]);
     }
 
@@ -72,11 +78,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        return $user;
     }
 
     /**

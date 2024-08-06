@@ -38,7 +38,7 @@
                                     <button class="btn btn-google btn-user btn-block" type="reset"><i class="fab fa-google fa-fw"></i> Đăng nhập bằng Google </button>
                                 </form>
                                 <div class="text-center mt-2">
-                                    <a class="small" href="#">Quên mật khẩu?</a>
+                                    <a class="small" href="{{ route('password.request') }}">Quên mật khẩu?</a>
                                 </div>
                                 <div class="text-center">
                                     <a class="small" href="{{ route('register') }}">Tạo tài khoản mới!</a>

@@ -20,7 +20,7 @@ class AdminController extends Controller
     
     public function index()
     {
-        $category = Category::latest();
+        $category = Category::latest()->paginate(config('common.default_show_new'));
         $users = User::latest()->paginate(config('common.default_show_new'));
         $products = Product::latest()->paginate(config('common.default_show_new'));
 

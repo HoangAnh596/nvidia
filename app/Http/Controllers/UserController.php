@@ -94,23 +94,29 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserFormRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
 
-        $user->fill([
-            'email' => $request->email,
-            'name' => $request->name,
-            'role' => $request->role,
-            'password' => Hash::make($request->password)
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
+        ], [
+
         ]);
 
+        $data = $request->only(['name', 'email', 'role']);
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
         if ($request->hasFile('image')) {
             $newFileName = uniqid() . '-' . $request->image->getClientOriginalName();
-            $imagePath = $request->image->storeAs(config('common.default_image_path') . 'users', $newFileName);
-            $user->image = str_replace(config('common.default_image_path') . 'users', '', $imagePath);
+            $imagePath = $request->image->storeAs(config('common.default_image_user') . 'public/images/tai-khoan', $newFileName);
+            $data['image'] = str_replace('public', 'storage', $imagePath);
         }
-        $user->save();
+
+        $user->update($data);
 
         return redirect('admin/users')->with(['message' => 'Cập nhật thành công']);
     }
