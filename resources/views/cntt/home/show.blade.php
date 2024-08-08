@@ -29,9 +29,6 @@
                         <div class="col-lg-6">
                             <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide gallery-trigger">
-                                        <img class="prod-img lazyload" src="{{ asset($product->image) }}" data-src="{{ asset($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
-                                    </div>
                                     @if(!empty($images))
                                     @foreach ($images as $val)
                                     <div class="swiper-slide gallery-trigger">
@@ -45,9 +42,6 @@
                             </div>
                             <div thumbsSlider="" class="swiper mySwiper">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide gallery-trigger">
-                                        <img class="prod-img lazyload" src="{{ asset($product->image) }}" data-src="{{ asset($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
-                                    </div>
                                     @if(!empty($images))
                                     @foreach ($images as $img)
                                     <div class="swiper-slide">
@@ -60,7 +54,6 @@
                             <div id="imageModal" class="modal">
                                 <button class="close btn btn-success">x Đóng</button>
                                 <div class="modal-content">
-                                    <img class="modal-image lazyload" src="{{ asset($product->image) }}" data-src="{{ asset($product->image) }}" alt="{{ $product->alt }}" title="{{ $product->title }}">
                                     @if(!empty($images))
                                     @foreach($images as $image)
                                         <img class="modal-image lazyload" src="{{ asset($image->image) }}" data-src="{{ asset($image->image) }}" alt="{{ $image->alt }}" title="{{ $image->title }}">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ContentController extends Controller
 {
@@ -22,6 +23,29 @@ class ContentController extends Controller
                 $originalPath = $request->uploadImg->storeAs('public/images/danh-muc', $imageName);
             } elseif (strpos($current_url, 'products') !== false) {
                 $originalPath = $request->uploadImg->storeAs('public/images/san-pham', $imageName);
+                // Đường dẫn tuyệt đối đến ảnh gốc
+                $originalAbsolutePath = storage_path('app/' . $originalPath);
+                // Đường dẫn tuyệt đối đến thư mục lưu ảnh nhỏ
+                $smallPath = public_path('storage/images/san-pham/small/');
+                $mediumPath = public_path('storage/images/san-pham/medium/');
+                // Kiểm tra xem tệp ảnh gốc đã tồn tại chưa
+                if (file_exists($originalAbsolutePath)) {
+                    // Tạo ảnh nhỏ
+                    $smallImage = Image::make($originalAbsolutePath)->resize(150, 150)->sharpen(10);; // Tạo ảnh nhỏ
+                    $mediumImage = Image::make($originalAbsolutePath)->resize(300, 300)->sharpen(10);; // Tạo ảnh trung bình
+                    
+                    // dd($smallPath);
+                    // Kiểm tra và tạo thư mục nếu chưa tồn tại
+                    if (!file_exists($smallPath)) {
+                        mkdir($smallPath, 0755, true);
+                    }
+                    if (!file_exists($mediumPath)) {
+                        mkdir($mediumPath, 0755, true);
+                    }
+
+                    $smallImage->save($smallPath . $imageName, 100); // Lưu ảnh nhỏ
+                    $mediumImage->save($mediumPath . $imageName, 100); // Lưu ảnh trung bình
+                }
             } elseif (strpos($current_url, 'cateNews') !== false) {
                 $originalPath = $request->uploadImg->storeAs('public/images/danh-muc-tin-tuc', $imageName);
             } elseif (strpos($current_url, 'news') !== false) {
@@ -49,7 +73,7 @@ class ContentController extends Controller
             $newPath = str_replace('public', 'storage', $originalPath);
 
             return response()->json([
-                'success' => 'Image uploaded successfully!',
+                'success' => 'Tải ảnh thành công!',
                 'image_name' => $newPath
             ]);
         }

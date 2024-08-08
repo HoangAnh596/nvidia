@@ -219,8 +219,7 @@
         $("#uploadButtonPr").click(function(e) {
             e.preventDefault();
             let data = new FormData();
-            console.log(data);
-            data.append('uploadImg', $('#image')[0].files[0]);
+            data.append('uploadImg', $('#prImages')[0].files[0]);
             data.append('current_url', window.location.href);
 
             $.ajax({
@@ -233,40 +232,72 @@
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    $('#thumbnail').val(response.image_name);
-                    $('#preview-image').show();
+                    addImageToTable(response.image_name);
+                    resetInputs();
                 },
                 error: function(response) {
                     alert("An error occurred. Please try again.");
                 }
             });
-        });
-
-        // $('#current_url_images').val(window.location.href);
-        $("#uploadBtnPrImages").click(function(e) {
-            e.preventDefault();
-            let data = new FormData();
-            data.append('pr_image_ids', $('#prImages')[0].files[0]);
-            // data.append('current_url_images', window.location.href);
-
-            $.ajax({
-                url: "{{ route('upload.image') }}",
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: data,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    $('#thumbnailPrImages').val(response.image_name);
-                    $('#pr-image').show();
-                },
-                error: function(response) {
-                    alert("An error occurred. Please try again.");
-                }
+            // Xử lý sự kiện click cho nút xóa
+            $('table#dataTable').on('click', '.delete-filter', function() {
+                e.preventDefault();
+                $(this).closest('tr').remove();
             });
         });
+        // Xử lý sự kiện khi ảnh được chọn từ trình quản lý file
+        $('#lfm-prImages').on('click', function() {
+            var dataPreview = $(this).data('preview');
+            window.open('/laravel-filemanager?type=image', 'FileManager', 'width=900,height=600');
+            window.SetUrl = function (items) {
+                var imagePath = items.map(function (item) {
+                    return item.url;
+                }).join(',');
+
+                addImageToTable(imagePath);
+            };
+        });
+        // Function to add image to the table
+        function addImageToTable(imagePath) {
+            let title = $('#title_pr_images').val() || $('#name').val();
+            let alt = $('#alt_pr_images').val() || $('#name').val();
+            let stt_img = 999; //chỉ cho nhập số và lớn hoặc bằng 1
+
+            let newRow = `<tr>
+                            <td>
+                                <input type="hidden" name="image[]" value="${imagePath}">
+                                <img src="${imagePath}" class="img-fluid" alt="${imagePath}" width="50%">
+                            </td>
+                            <td><input type="hidden" name="title[]" value="${title}">${title}</td> 
+                            <td><input type="hidden" name="alt[]" value="${alt}">${alt}</td>
+                            <td class="text-center">
+                                <input type="hidden" name="main_img[]" value="0">
+                                <input type="checkbox" class="main_img_checkbox" style="width: 50px; text-align: center;">
+                            </td>
+                            <td class="text-center">
+                                <input type="number" name="stt_img[]" style="width: 50px;text-align: center;" value="${stt_img}" min="1">
+                            </td>
+                            <td><a href="javascript:void(0);" class="btn-sm delete-filter">Xóa</a></td>
+                        </tr>`;
+            $('table#dataTable tbody').append(newRow);
+            // Add change event to checkbox
+            $('.main_img_checkbox').last().change(function() {
+                let hiddenInput = $(this).prev('input[type="hidden"]');
+                hiddenInput.val($(this).is(':checked') ? '1' : '0');
+            });
+
+            // Handle delete button click
+            $('table#dataTable').on('click', '.delete-filter', function(e) {
+                e.preventDefault();
+                $(this).closest('tr').remove();
+            });
+        }
+        // Function to reset input fields
+        function resetInputs() {
+            $('#prImages').val('');
+            $('#title_pr_images').val('');
+            $('#alt_pr_images').val('');
+        }
     });
 </script>
 @endsection

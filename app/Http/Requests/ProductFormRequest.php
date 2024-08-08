@@ -26,27 +26,44 @@ class ProductFormRequest extends FormRequest
     public function rules()
     {
         $params = $this->request->all();
+        // dd($params); // "image_ids" => "["31"]"
         $productId = $params['id'] ?? null;
-        // dd($this->product
-        if (!empty($params['id'])) {
-            $checkNameUpdate = DB::table('products')->select('id')
-            ->where('name', '=', $params['name'])
-            ->where('id', '=', $params['id'])
-            ->value('id');
-        }
-        if (!empty($params['id']) && ($params['id'] == $checkNameUpdate)) {
-            $ruleUpdateName = "required";
+        $imageIds = json_decode($params['image_ids'] ?? '[]', true);
+        // Kiểm tra nếu sản phẩm có id
+        if (!empty($productId)) {
+            $checkNameUpdate = DB::table('products')
+                ->where('name', '=', $params['name'])
+                ->where('id', '=', $productId)
+                ->exists();
+            
+            if ($checkNameUpdate) {
+                $ruleUpdateName = "required";
+            }
+            // Kiểm tra nếu sản phẩm đã có ảnh trong bảng ProductImages
+            $hasImages = DB::table('product_images')
+                ->where('id', '=', $imageIds) //
+                ->exists();
+
+            // Nếu sản phẩm đã có ảnh, không bắt buộc trường image
+            $imageRules = $hasImages ? 'sometimes|array' : 'required|array';
+            $imageItemRules = $hasImages ? 'sometimes|string' : 'required|string';
+        } else {
+            // Nếu là thêm mới sản phẩm, trường image là bắt buộc
+            $imageRules = 'required|array';
+            $imageItemRules = 'required|string';
         }
 
         return [
-            'name' => (isset($ruleUpdateName)) ? $ruleUpdateName : 'required | unique:products',
-            'content'=>'required',
+            'name' => isset($ruleUpdateName) ? $ruleUpdateName : 'required|unique:products',
+            'content' => 'required',
             'category' => 'required',
             'code' => [
                 'required',
                 'regex:/^(?!-)(?!.*--)[A-Za-z0-9-]+(?<!-)$/',
                 Rule::unique('products')->ignore($productId)
             ],
+            'image' => $imageRules,
+            'image.*' => $imageItemRules,
         ];
     }
     /**
@@ -62,6 +79,7 @@ class ProductFormRequest extends FormRequest
             'code.unique' => 'Mã sản phẩm không được trùng.',
             'category.required' => 'Danh mục sản phẩm không được để trống',
             'content.required' => 'Mô tả không được để trống',
+            'image.required' => 'Ảnh không được để trống',
         ];
     }
 }

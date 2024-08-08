@@ -47,7 +47,7 @@ class Product extends Model
     {
         if (!empty($this->image_ids)) {
             $imgId = json_decode($this->image_ids);
-            return ProductImages::whereIn('id', $imgId)->get();
+            return ProductImages::whereIn('id', $imgId)->orderBy('stt_img', 'ASC')->get();
         }
     }
 

@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Infor;
 use App\Models\News;
 use App\Models\Product;
+use App\Models\ProductImages;
 use App\Services\CategorySrc;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -56,15 +57,27 @@ class HomeController extends Controller
                     // Lấy tất cả sản phẩm thuộc các danh mục đó
                     $products = Product::whereHas('category', function ($query) use ($allCategoryIds) {
                         $query->whereIn('product_categories.category_id', $allCategoryIds);
-                    })->select('name', 'slug', 'image', 'alt_img', 'title_img', 'price')
+                    })->select('name', 'slug', 'image', 'alt_img', 'title_img', 'price', 'image_ids')
                         ->where('is_outstand', 1)
                         ->orderBy('created_at', 'DESC')->get();
+                    // images_ids = ["9","10","11"]
+                    foreach ($products as $product) {
+                        $imageIds = json_decode($product->image_ids, true); // Giả sử image_ids là một chuỗi JSON
+                        
+                        if (!empty($imageIds)) {
+                            $productImages = ProductImages::whereIn('id', $imageIds)->get();
+                            $product->product_images = $productImages;
+                        } else {
+                            $product->product_images = collect(); // Thiết lập là một tập hợp rỗng
+                        }
+                    }
 
                     // tách sản phẩm nào thì thuộc danh mục sản phẩm đó
                     $categoriesWithProducts->push([
                         'category' => $category,
                         'products' => $products
                     ]);
+                    // dd($categoriesWithProducts);
                 }
             }
             

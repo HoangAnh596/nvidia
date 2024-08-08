@@ -12,23 +12,29 @@ class ProductImagesController extends Controller
     public function destroy($id)
     {
         $image = ProductImages::findOrFail($id);
-        $product_id = $image->product_id;
-        // Xóa ảnh nếu cần thiết (ví dụ xóa file trên server)
-        Storage::delete($image->image);
-
-        $image->delete();
         // Tìm sản phẩm liên quan
-        $product = Product::findOrFail($product_id);
-        // dd($product);
-        
-        // Cập nhật mảng images_id trong bảng products
-        $imagesIds = json_decode($product->image_ids, true);
-        if (($key = array_search($id, $imagesIds)) !== false) {
-            unset($imagesIds[$key]);
-        }
+        $product = Product::whereJsonContains('image_ids', $id)->firstOrFail();
 
-        $product->image_ids = json_encode(array_values($imagesIds));
-        $product->save();
+        $imageFileName = basename($image->image);
+        $smallImagePath = "public/images/san-pham/small/$imageFileName";
+        $mediumImagePath = "public/images/san-pham/medium/$imageFileName";
+        Storage::delete($smallImagePath);
+        Storage::delete($mediumImagePath);
+        Storage::delete($image->image);
+        // Cập nhật mảng images_id trong bảng products
+        if ($product) {
+            // Cập nhật mảng image_ids trong bảng products
+            $imagesIds = json_decode($product->image_ids, true);
+            if (($key = array_search($id, $imagesIds)) !== false) {
+                unset($imagesIds[$key]);
+                // Cập nhật lại image_ids cho sản phẩm
+                $product->image_ids = json_encode(array_values($imagesIds));
+                $product->save();
+            }
+            
+            // Xóa ảnh từ bảng ProductImages
+            $image->delete();
+        }
 
         return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
     }

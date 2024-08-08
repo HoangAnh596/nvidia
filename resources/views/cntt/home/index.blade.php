@@ -157,22 +157,40 @@
         </div>
         <div class="row mt-4">
             @if(!empty($data['products']))
-            @foreach($data['products'] as $value)
+            @foreach($data['products'] as $product)
             <div class="col-lg-5 col-xs-6 col-md-3 col-sm-6 mb-4">
                 <div class="card h-100">
-                    <a class="btn-img" href="{{ $value->slug }}">
-                        <img class="card-img-top lazyload img-size" src="{{ asset($value->image) }}" data-src="{{ asset($value->image) }}" alt="{{ $value->alt_img }}" title="{{ $value->title_img }}">
-                    </a>
+                    @php
+                    $mainImageExists = false;
+                    @endphp
+
+                    @foreach ($product->product_images as $productImage)
+                        @if($productImage->main_img == 1 && $productImage->image && $productImage->image != '')
+                            <a class="btn-img" href="{{ $product->slug }}">
+                                <img class="card-img-top lazyload img-size" src="{{ asset($productImage->image) }}" data-src="{{ asset($productImage->image) }}" alt="{{ $productImage->alt_img }}" title="{{ $productImage->title_img }}">
+                            </a>
+                            @php
+                                $mainImageExists = true;
+                                break;
+                            @endphp
+                        @endif
+                    @endforeach
+
+                    @if(!$mainImageExists)
+                        <a class="btn-img" href="{{ $product->slug }}">
+                            <img class="card-img-top lazyload img-size" src="{{ asset('storage/images/image-coming-soon-1.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon-1.jpg') }}" width="206" height="206" alt="Image Coming Soon" title="Image Coming Soon">
+                        </a>
+                    @endif
                     <div class="card-body">
                         <div class="text-center h-30">
-                            @if($value->price == 0)
+                            @if($product->price == 0)
                             <span class="lien-he-price">Liên hệ</span>
                             @else
-                            <a href="{{ $value->slug }}" class="text-decoration-none text-danger">{{ number_format($value->price, 0, ',', '.') }}đ </a>
+                            <a href="{{ $product->slug }}" class="text-decoration-none text-danger">{{ number_format($product->price, 0, ',', '.') }}đ </a>
                             @endif
                         </div>
                         <div class="text-dark hover-gr">
-                            <a href="{{ $value->slug }}" class="text-decoration-none btn-link">{{ $value->name }}</a>
+                            <a href="{{ $product->slug }}" class="text-decoration-none btn-link">{{ $product->name }}</a>
                         </div>
                         <ul class="list-unstyled d-flex justify-content-between">
                             <li>

@@ -38,12 +38,6 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#image-tab" type="button" role="tab">
-                            <i class="bi bi-wallet2"></i>
-                            Ảnh sản phẩm
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
                         <button class="nav-link" data-bs-toggle="tab" data-bs-target="#wallet-tab" type="button" role="tab">
                             <i class="bi bi-wallet2"></i>
                             Cấu hình SEO
@@ -53,9 +47,6 @@
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="info-tab" role="tabpanel">
                         @include("admin.product.shared.edit-config")
-                    </div>
-                    <div class="tab-pane fade" id="image-tab" role="tabpanel">
-                        @include("admin.product.shared.edit-image")
                     </div>
                     <div class="tab-pane fade" id="wallet-tab" role="tabpanel">
                         @include("admin.product.shared.edit-seo")
@@ -102,7 +93,7 @@
         const priceField = document.getElementById('price');
         const priceError = document.getElementById('priceError');
         const value = priceField.value;
-        
+
         if (!/^\d*\.?\d*$/.test(value)) {
             priceError.textContent = 'Vui lòng chỉ nhập số nguyên hoặc số thực.';
             priceField.value = value.replace(/[^0-9.]/g, '');
@@ -110,7 +101,7 @@
             priceError.textContent = '';
         }
     }
-    
+
     $(document).ready(function() {
         // Xử lý sản phẩm liên quan select2
         $('.related_pro').select2({
@@ -204,11 +195,11 @@
         });
 
         $('#current_url').val(window.location.href);
-        $("#uploadBtnProduct").click(function(e) {
+        $("#uploadButtonPr").click(function(e) {
             e.preventDefault();
-            // let formData = new FormData($("#uploadImageProduct")[0]);
             let data = new FormData();
-            data.append('uploadImg', $('#image')[0].files[0]);
+            console.log(data);
+            data.append('uploadImg', $('#prImages')[0].files[0]);
             data.append('current_url', window.location.href);
 
             $.ajax({
@@ -221,67 +212,90 @@
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    $('#thumbnail').val(response.image_name);
-                    $('#preview-image').show();
+                    addImageToTable(response.image_name);
+                    resetInputs();
                 },
                 error: function(response) {
                     alert("An error occurred. Please try again.");
                 }
             });
         });
+        $('table#dataTable').on('click', '.delete-filter', function() {
+            $(this).closest('tr').remove();
+            updateIndex();
+        });
+         // Xử lý sự kiện khi ảnh được chọn từ trình quản lý file
+         $('#lfm-prImages').on('click', function() {
+            var dataPreview = $(this).data('preview');
+            window.open('/laravel-filemanager?type=image', 'FileManager', 'width=900,height=600');
+            window.SetUrl = function (items) {
+                var imagePath = items.map(function (item) {
+                    return item.url;
+                }).join(',');
 
-        // $('#current_url_images').val(window.location.href);
-        $("#uploadBtnPrImages").click(function(e) {
+                addImageToTable(imagePath);
+            };
+        });
+        // Function to add image to the table
+        function addImageToTable(imagePath) {
+            let title = $('#title_pr_images').val() || $('#name').val();
+            let alt = $('#alt_pr_images').val() || $('#name').val();
+            let stt_img = 999; //chỉ cho nhập số và lớn hoặc bằng 1
+
+            let newRow = `<tr>
+                            <td>
+                                <input type="hidden" name="image[]" value="${imagePath}">
+                                <img src="${imagePath}" class="img-fluid" alt="${imagePath}" width="50%">
+                            </td>
+                            <td><input type="hidden" name="title[]" value="${title}">${title}</td> 
+                            <td><input type="hidden" name="alt[]" value="${alt}">${alt}</td>
+                            <td class="text-center">
+                                <input type="hidden" name="main_img[]" value="0">
+                                <input type="checkbox" class="main_img_checkbox" style="width: 50px; text-align: center;">
+                            </td>
+                            <td class="text-center">
+                                <input type="number" name="stt_img[]" style="width: 50px;text-align: center;" value="${stt_img}" min="1">
+                            </td>
+                            <td class="text-center"><a href="javascript:void(0);" class="btn-sm delete-filter">Xóa</a></td>
+                        </tr>`;
+            $('table#dataTable tbody').append(newRow);
+            // Add change event to checkbox
+            $('.main_img_checkbox').last().change(function() {
+                let hiddenInput = $(this).prev('input[type="hidden"]');
+                hiddenInput.val($(this).is(':checked') ? '1' : '0');
+            });
+
+            // Handle delete button click
+            $('table#dataTable').on('click', '.delete-filter', function(e) {
+                e.preventDefault();
+                $(this).closest('tr').remove();
+            });
+        }
+
+        $('.btn-destroy').on('click', function(e) {
             e.preventDefault();
-            // let formData = new FormData($("#uploadImageProduct")[0]);
-            let data = new FormData();
-            data.append('pr_image_ids', $('#prImages')[0].files[0]);
-            // data.append('current_url_images', window.location.href);
 
-            $.ajax({
-                url: "{{ route('upload.image') }}",
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: data,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    $('#thumbnailPrImages').val(response.image_name);
-                    $('#pr-image').show();
-                },
-                error: function(response) {
-                    alert("An error occurred. Please try again.");
-                }
-            });
-        });
+            if (confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                var url = $(this).attr('href');
+                console.log(url);
+                
+                var row = $(this).closest('tr'); // Lấy hàng chứa nút "Xóa"
 
-        // xóa ảnh con ở bảng productImages
-        $('#deleteImg').click(function(event) {
-            event.preventDefault();
-            var imageId = $(this).data('id');
-            var imageRow = $('#image-row-' + imageId);
-
-            // if(confirm('Are you sure you want to delete this image?')) {
-            $.ajax({
-                url: 'admin/product-images/' + imageId,
-                type: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    id: imageId
-                },
-                success: function(response) {
-                    if (response.success) {
-                        alert(response.message);
-                        imageRow.remove();
-                    } else {
-                        alert('Failed to delete image.');
+                $.ajax({
+                    url: url,
+                    type: 'DELETE', 
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(result) {
+                        // Xóa hàng khỏi bảng nếu xóa thành công
+                        row.remove();
+                    },
+                    error: function(xhr) {
+                        alert('Có lỗi xảy ra, vui lòng thử lại.');
                     }
-                }
-            });
+                });
+            }
         });
 
         $('.check-stt').change(function() {

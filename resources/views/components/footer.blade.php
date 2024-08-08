@@ -68,37 +68,37 @@
     document.getElementById("holder").style.display = "";
   });
 
-  // js thêm ảnh vào bảng child
-  function uploadImgChild() {
-    const fileInput = document.getElementById('prImages');
-    const imagePreview = document.getElementById('pr');
+  // // js thêm ảnh vào bảng child
+  // function uploadImgChild() {
+  //   const fileInput = document.getElementById('prImages');
+  //   const imagePreview = document.getElementById('pr');
 
-    // Kiểm tra xem đã chọn tệp chưa
-    if (fileInput.files && fileInput.files[0]) {
-      const reader = new FileReader();
+  //   // Kiểm tra xem đã chọn tệp chưa
+  //   if (fileInput.files && fileInput.files[0]) {
+  //     const reader = new FileReader();
 
-      reader.onload = function(e) {
-        // Hiển thị ảnh trước khi upload
-        const image = document.createElement('img');
-        image.src = e.target.result;
-        imagePreview.innerHTML = '';
-        imagePreview.appendChild(image);
-      }
+  //     reader.onload = function(e) {
+  //       // Hiển thị ảnh trước khi upload
+  //       const image = document.createElement('img');
+  //       image.src = e.target.result;
+  //       imagePreview.innerHTML = '';
+  //       imagePreview.appendChild(image);
+  //     }
 
-      // Đọc tệp và hiển thị ảnh
-      reader.readAsDataURL(fileInput.files[0]);
-    } else {
-      imagePreview.innerHTML = 'Vui lòng chọn một tệp ảnh.';
-    }
-  }
+  //     // Đọc tệp và hiển thị ảnh
+  //     reader.readAsDataURL(fileInput.files[0]);
+  //   } else {
+  //     imagePreview.innerHTML = 'Vui lòng chọn một tệp ảnh.';
+  //   }
+  // }
 
-  $(".hiddenBtnPrImages").click(function() {
-    $('#pr').hide();
-  });
-  $('.hiddenPrImages').click(function() {
-    $('#image-holder').hide();
-  });
-  $(".hiddenBtnPrImages").click(function() {
-    document.getElementById("image-holder").style.display = "";
-  });
+  // $(".hiddenBtnPrImages").click(function() {
+  //   $('#pr').hide();
+  // });
+  // $('.hiddenPrImages').click(function() {
+  //   $('#image-holder').hide();
+  // });
+  // $(".hiddenBtnPrImages").click(function() {
+  //   document.getElementById("image-holder").style.display = "";
+  // });
 </script>

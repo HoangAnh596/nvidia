@@ -12,6 +12,7 @@ use App\Models\ProductTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -181,44 +182,41 @@ class ProductController extends Controller
 
         $product->fill($request->all());
         $product->image = $path;
-        $product->title_img = (isset($request->title_img)) ? $request->title_img : $request->name;
-        $product->alt_img = (isset($request->alt_img)) ? $request->alt_img : $request->name;
         $product->title_seo = (isset($request->title_seo)) ? $request->title_seo : $request->name;
         $product->keyword_seo = (isset($request->keyword_seo)) ? $request->keyword_seo : $request->name;
         $product->des_seo = (isset($request->des_seo)) ? $request->des_seo : $request->name;
         
         // Thêm mới images con vào bảng Product_Images
+        // dd($request->all());
+        
         $idPrImage = [];
-        $pathPrImages = parse_url($request->filepathPrImages, PHP_URL_PATH);
-        if ($request->hasFile('pr_image_ids') || !empty($pathPrImages)) {
-            if (strpos($pathPrImages, '/') === 0) {
-                $pathPrImages = substr($pathPrImages, 1);
-            }
-            
-            $productImage = ProductImages::create(
-                [
-                    'product_id' => $request->id,
-                    'title' => (isset($request->title_pr_images)) ? $request->title_pr_images : $request->name,
-                    'alt' => (isset($request->alt_pr_images)) ? $request->alt_pr_images : $request->name,
-                    'image' => $pathPrImages,
-                    'stt_img' => (isset($request->stt_img)) ? $request->stt_img : 999,
-                ]
-            );
+        $images = $request->input('image', []);
+        $main_imgs = $request->input('main_img', []);
+        $titles = $request->input('title', []);
+        $alts = $request->input('alt', []);
+        $stt_imgs = $request->input('stt_img', []);
+
+        for ($i = 0; $i < count($images); $i++) {
+            $productImage = ProductImages::create([
+                'title' => $titles[$i] ?? $request->name,
+                'alt' => $alts[$i] ?? $request->name,
+                'main_img' => $main_imgs[$i],
+                'image' => $images[$i],
+                'stt_img' => $stt_imgs[$i] ?? 999,
+            ]);
             $idPrImage[] = $productImage->id;
         }
-        
-        if (isset($request->id)) {
-            if(empty($product->image_ids)){
-                $product['image_ids'] = json_encode(array_map('strval', $idPrImage));
+        if (!empty($idPrImage)) {
+            // Kiểm tra nếu image_ids đã có dữ liệu thì merge, nếu không thì khởi tạo mới
+            if (!empty($product->image_ids)) {
+                $existingImageIds = json_decode($product->image_ids, true);
+                $mergedImageIds = array_merge($existingImageIds, array_map('strval', $idPrImage));
+                $product->image_ids = json_encode($mergedImageIds);
+            } else {
+                $product->image_ids = json_encode(array_map('strval', $idPrImage));
             }
-            $arr_current = $product->image_ids;
-            $arr_new = $idPrImage;
-            $product->image_ids = json_encode(array_merge(json_decode($arr_current), array_map('strval', $arr_new)));
         }
-        if (!empty($idPrImage) && !isset($request->id)) {
-            $product['image_ids'] = json_encode(array_map('strval', $idPrImage));
-        }
-        
+
         $product->save();
         $product->category()->sync($request->category);
     }

@@ -13,7 +13,7 @@ class ProductImages extends Model
     protected $table = 'product_images';
     // protected $dates = ['deleted_at'];
     protected $fillable = [
-        'image',
+        'image', 'main_img',
         'title',
         'alt',
         'stt_img'

@@ -45,8 +45,8 @@
                         <tr>
                             <th class="">No.</th>
                             <th class="col-sm-4">Name</th>
-                            <th class="col-sm-3">Code</th>
-                            <th class="col-sm-2">Image</th>
+                            <th class="col-sm-3">Slug</th>
+                            <th class="col-sm-2">Code</th>
                             <th class="col-sm-1 text-center">Nổi bật</th>
                             <th class="">Action</th>
                         </tr>
@@ -56,10 +56,8 @@
                         <tr>
                             <td>{{ (($products->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
                             <td>{{ $product->name }}</td>
+                            <td>{{ $product->slug }}</td>
                             <td>{{ $product->code }}</td>
-                            <td>
-                                <img src="{{ \App\Http\Helpers\Helper::getPath($product->image) }}" class="img-fluid">
-                            </td>
                             <td class="text-center">
                                 <div class="form-check">
                                     <input type="checkbox" class="active-checkbox" data-id="{{ $product->id }}" data-field="is_outstand" {{ ($product->is_outstand == 1) ? 'checked' : '' }}>
