@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Log;
 
 class ContentController extends Controller
 {
@@ -17,24 +20,40 @@ class ContentController extends Controller
         if ($request->hasFile('uploadImg')) {
             // Lấy URL hiện tại từ request
             $current_url = $request->input('current_url');
-            $imageName = uniqid() . '-' . $request->uploadImg->getClientOriginalName();
+            $file = $request->file('uploadImg');
+            $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
 
+            // Tạo tên file ban đầu
+            $imageName = $originalName . '.' . $extension;
+            $counter = 1;
+            // dd($extension);
+            $imageName = $file->getClientOriginalName();
             if (strpos($current_url, 'categories') !== false) {
-                $originalPath = $request->uploadImg->storeAs('public/images/danh-muc', $imageName);
+                $originalPath = $file->storeAs('public/images/danh-muc', $imageName);
             } elseif (strpos($current_url, 'products') !== false) {
-                $originalPath = $request->uploadImg->storeAs('public/images/san-pham', $imageName);
+
+                // Kiểm tra nếu file đã tồn tại, thêm số vào tên file
+                while (Storage::exists('public/images/san-pham/' . $imageName)) {
+                    $imageName = $originalName . '-' . $counter . '.' . $extension;
+                    $counter++;
+                }
+                // Lưu file ảnh gốc
+                $originalPath = $file->storeAs('public/images/san-pham', $imageName);
                 // Đường dẫn tuyệt đối đến ảnh gốc
                 $originalAbsolutePath = storage_path('app/' . $originalPath);
                 // Đường dẫn tuyệt đối đến thư mục lưu ảnh nhỏ
                 $smallPath = public_path('storage/images/san-pham/small/');
                 $mediumPath = public_path('storage/images/san-pham/medium/');
+                $bigPath = public_path('storage/images/san-pham/big/');
+
                 // Kiểm tra xem tệp ảnh gốc đã tồn tại chưa
                 if (file_exists($originalAbsolutePath)) {
                     // Tạo ảnh nhỏ
-                    $smallImage = Image::make($originalAbsolutePath)->resize(150, 150)->sharpen(10);; // Tạo ảnh nhỏ
-                    $mediumImage = Image::make($originalAbsolutePath)->resize(300, 300)->sharpen(10);; // Tạo ảnh trung bình
+                    $smallImage = Image::make($originalAbsolutePath)->resize(108, 77)->sharpen(10);; // Tạo ảnh nhỏ
+                    $mediumImage = Image::make($originalAbsolutePath)->resize(206, 206)->sharpen(10);; // Tạo ảnh trung bình
+                    $bigImage = Image::make($originalAbsolutePath)->resize(460, 358)->sharpen(10);; // Tạo ảnh lớn
                     
-                    // dd($smallPath);
                     // Kiểm tra và tạo thư mục nếu chưa tồn tại
                     if (!file_exists($smallPath)) {
                         mkdir($smallPath, 0755, true);
@@ -42,18 +61,22 @@ class ContentController extends Controller
                     if (!file_exists($mediumPath)) {
                         mkdir($mediumPath, 0755, true);
                     }
+                    if (!file_exists($bigPath)) {
+                        mkdir($bigPath, 0755, true);
+                    }
 
                     $smallImage->save($smallPath . $imageName, 100); // Lưu ảnh nhỏ
                     $mediumImage->save($mediumPath . $imageName, 100); // Lưu ảnh trung bình
+                    $bigImage->save($bigPath . $imageName, 100); // Lưu ảnh lớn
                 }
             } elseif (strpos($current_url, 'cateNews') !== false) {
-                $originalPath = $request->uploadImg->storeAs('public/images/danh-muc-tin-tuc', $imageName);
+                $originalPath = $file->storeAs('public/images/danh-muc-tin-tuc', $imageName);
             } elseif (strpos($current_url, 'news') !== false) {
-                $originalPath = $request->uploadImg->storeAs('public/images/tin-tuc', $imageName);
+                $originalPath = $file->storeAs('public/images/tin-tuc', $imageName);
             } elseif (strpos($current_url, 'cateMenu') !== false) {
-                $originalPath = $request->uploadImg->storeAs('public/images/menu', $imageName);
+                $originalPath = $file->storeAs('public/images/menu', $imageName);
             } elseif (strpos($current_url, 'favicon') !== false) {
-                $originalPath = $request->uploadImg->storeAs('public/images/favicon', $imageName);
+                $originalPath = $file->storeAs('public/images/favicon', $imageName);
             }
             $newPath = str_replace('public', 'storage', $originalPath);
 
@@ -79,6 +102,34 @@ class ContentController extends Controller
         }
 
         return response()->json(['error' => 'Tải ảnh lên bị lỗi!'], 500);
+    }
+
+    public function deleteImage(Request $request)
+    {
+        $$imageUrls = $request->input('image', []);
+        foreach ($imageUrls as $imageUrl) {
+            Storage::delete($imageUrl);
+        }
+    
+        return response()->json(['message' => 'Images deleted successfully.']);
+        // $imagePath = $request->input('image_url');
+        // // dd($imagePath);
+        // $imagePath = str_replace('storage', 'public', $imagePath); // Chuyển đổi đường dẫn public thành đường dẫn storage
+
+        // if (Storage::exists($imagePath)) {
+        //     Storage::delete($imagePath);
+        //     $smallImagePath = str_replace('/san-pham/', '/san-pham/small/', $imagePath);
+        //     $mediumImagePath = str_replace('/san-pham/', '/san-pham/medium/', $imagePath);
+        //     $bigImagePath = str_replace('/san-pham/', '/san-pham/big/', $imagePath);
+
+        //     Storage::delete($smallImagePath);
+        //     Storage::delete($mediumImagePath);
+        //     Storage::delete($bigImagePath);
+
+        //     return response()->json(['success' => 'Image deleted successfully.']);
+        // }
+
+        // return response()->json(['error' => 'Image not found.'], 404);
     }
 
     public function checkSlug(Request $request)

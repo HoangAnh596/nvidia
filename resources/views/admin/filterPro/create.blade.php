@@ -64,23 +64,3 @@
 </div>
 
 @endsection
-
-@section('js')
-<script src="{{ asset('cntt/js/slug.js') }}"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const options = document.querySelectorAll('#parent_id option');
-        options.forEach(option => {
-            option.style.display = 'block';
-            option.addEventListener('click', function() {
-                const level = parseInt(this.getAttribute('data-level'));
-                options.forEach(opt => {
-                    if (parseInt(opt.getAttribute('data-level')) > level) {
-                        opt.style.display = opt.style.display === 'none' ? 'block' : 'none';
-                    }
-                });
-            });
-        });
-    });
-</script>
-@endsection

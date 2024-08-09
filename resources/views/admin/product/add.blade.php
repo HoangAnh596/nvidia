@@ -87,40 +87,71 @@
     });
 
     let timeout = null;
-
+    let updateSlug = true;
+    function validateSlug(slug) {
+    // Biểu thức chính quy để kiểm tra định dạng của slug
+        const regex = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+        return regex.test(slug);
+    }
     function checkDuplicate() {
         clearTimeout(timeout);
         timeout = setTimeout(async function() {
-            await createSlug();
+            if (updateSlug) {
+                await createSlug();
+            }
+
             const name = document.getElementById('name').value;
             const slug = document.getElementById('slug').value;
+
             // Xóa thông báo lỗi trước đó
             document.getElementById('name-error').innerText = "";
             document.getElementById('slug-error').innerText = "";
+            // Chỉ kiểm tra nếu slug không rỗng
+            if (updateSlug && name.trim() !== "") {
+                await createSlug();
+            }
+            // Kiểm tra định dạng slug
+            if (slug.trim() === "") {
+                document.getElementById('slug-error').innerText = 'Url không được để trống';
+            } else if (!validateSlug(slug)) {
+                document.getElementById('slug-error').innerText = 'Url không hợp lệ. Chỉ chấp nhận chữ cái thường, số và dấu gạch ngang.';
+            } else {
+                // Nếu slug hợp lệ, kiểm tra trùng lặp
+                await $.ajax({
+                    url: "{{ route('products.checkName') }}",
+                    type: 'POST',
+                    data: {
+                        name: name,
+                        slug: slug,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(data) {
+                        if (data.name_exists) {
+                            document.getElementById('name-error').innerText = 'Tên đã tồn tại';
+                        }
 
-            await $.ajax({
-                url: " {{ route('products.checkName') }} ",
-                type: 'POST',
-                data: {
-                    name: name,
-                    slug: slug,
-                    _token: "{{ csrf_token() }}"
-                },
-                success: function(data) {
-                    if (data.name_exists) {
-                        document.getElementById('name-error').innerText = 'Tên đã tồn tại';
+                        if (data.slug_exists) {
+                            document.getElementById('slug-error').innerText = 'Url đã tồn tại';
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
                     }
-
-                    if (data.slug_exists) {
-                        document.getElementById('slug-error').innerText = 'Slug đã tồn tại';
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                }
-            });
+                });
+            }
         }, 1000);
     }
+    // Đặt updateSlug là true khi tên thay đổi
+    document.getElementById('name').addEventListener('input', function() {
+        updateSlug = true;
+        checkDuplicate();
+    });
+
+    // Đặt updateSlug là false khi slug thay đổi
+    document.getElementById('slug').addEventListener('input', function() {
+        updateSlug = false;
+        checkDuplicate();
+    });
 
     $(document).ready(function() {
         // Xử lý sản phẩm liên quan select2
@@ -214,7 +245,8 @@
                 });
             }
         });
-
+        // Lưu đường dẫn ảnh đã tải lên
+        let uploadedImages = [];
         $('#current_url').val(window.location.href);
         $("#uploadButtonPr").click(function(e) {
             e.preventDefault();
@@ -232,6 +264,7 @@
                 processData: false,
                 contentType: false,
                 success: function(response) {
+                    // uploadedImages.push(response.image_name); // Thêm vào danh sách ảnh đã upload
                     addImageToTable(response.image_name);
                     resetInputs();
                 },
@@ -239,16 +272,11 @@
                     alert("An error occurred. Please try again.");
                 }
             });
-            // Xử lý sự kiện click cho nút xóa
-            $('table#dataTable').on('click', '.delete-filter', function() {
-                e.preventDefault();
-                $(this).closest('tr').remove();
-            });
         });
         // Xử lý sự kiện khi ảnh được chọn từ trình quản lý file
         $('#lfm-prImages').on('click', function() {
             var dataPreview = $(this).data('preview');
-            window.open('/laravel-filemanager?type=image', 'FileManager', 'width=900,height=600');
+            window.open('/laravel-filemanager?type=image', 'FileManager', 'width=300,height=300');
             window.SetUrl = function (items) {
                 var imagePath = items.map(function (item) {
                     return item.url;
@@ -259,6 +287,7 @@
         });
         // Function to add image to the table
         function addImageToTable(imagePath) {
+            uploadedImages.push(imagePath); // Lưu đường dẫn ảnh vào mảng
             let title = $('#title_pr_images').val() || $('#name').val();
             let alt = $('#alt_pr_images').val() || $('#name').val();
             let stt_img = 999; //chỉ cho nhập số và lớn hoặc bằng 1
@@ -277,27 +306,49 @@
                             <td class="text-center">
                                 <input type="number" name="stt_img[]" style="width: 50px;text-align: center;" value="${stt_img}" min="1">
                             </td>
-                            <td><a href="javascript:void(0);" class="btn-sm delete-filter">Xóa</a></td>
+                            <td><a href="javascript:void(0);" class="btn-sm delete-filter" data-image="${imagePath}">Xóa</a></td>
                         </tr>`;
             $('table#dataTable tbody').append(newRow);
-            // Add change event to checkbox
+            // Thay đổi checkbox 
             $('.main_img_checkbox').last().change(function() {
                 let hiddenInput = $(this).prev('input[type="hidden"]');
                 hiddenInput.val($(this).is(':checked') ? '1' : '0');
             });
 
-            // Handle delete button click
+            // Xử lý khi ấn vào nút xóa
             $('table#dataTable').on('click', '.delete-filter', function(e) {
                 e.preventDefault();
                 $(this).closest('tr').remove();
             });
         }
-        // Function to reset input fields
+        // Reset data về ban đầu
         function resetInputs() {
             $('#prImages').val('');
             $('#title_pr_images').val('');
             $('#alt_pr_images').val('');
         }
+
+        // Xử lý sự kiện click cho nút xóa trong bảng
+        $('table#dataTable').on('click', '.delete-filter', function(e) {
+            e.preventDefault();
+            const imageUrl = $(this).data('image'); // Lấy đường dẫn ảnh từ data attribute
+
+            // Xóa ảnh từ server
+            $.ajax({
+                url: "{{ route('delete.image') }}",
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: { image_url: imageUrl },
+                success: function(response) {
+                    $(this).closest('tr').remove(); // Xóa hàng khỏi bảng
+                },
+                error: function(response) {
+                    alert("An error occurred while deleting the image.");
+                }
+            });
+        });
     });
 </script>
 @endsection

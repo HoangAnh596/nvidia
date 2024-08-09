@@ -9,7 +9,6 @@ use App\Models\Product;
 use App\Models\ProductImages;
 use App\Services\CategorySrc;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -65,7 +64,9 @@ class HomeController extends Controller
                         $imageIds = json_decode($product->image_ids, true); // Giả sử image_ids là một chuỗi JSON
                         
                         if (!empty($imageIds)) {
-                            $productImages = ProductImages::whereIn('id', $imageIds)->get();
+                            $productImages = ProductImages::whereIn('id', $imageIds)
+                                ->orderBy('updated_at', 'DESC') // Sắp xếp theo ngày cập nhật
+                                ->get();
                             $product->product_images = $productImages;
                         } else {
                             $product->product_images = collect(); // Thiết lập là một tập hợp rỗng
@@ -77,7 +78,6 @@ class HomeController extends Controller
                         'category' => $category,
                         'products' => $products
                     ]);
-                    // dd($categoriesWithProducts);
                 }
             }
             

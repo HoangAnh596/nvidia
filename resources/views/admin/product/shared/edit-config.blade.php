@@ -136,7 +136,7 @@
                                 <td>{{ $val->title }}</td>
                                 <td>{{ $val->alt }}</td>
                                 <td class="text-center">
-                                    <input type="checkbox" class="check-stt" name="main_img" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('main_img', $val->main_img) }}" {{ ($val->main_img == 1) ? 'checked' : '' }}>
+                                    <input type="checkbox" class="check-main" name="main_img" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('main_img', $val->main_img) }}" {{ ($val->main_img == 1) ? 'checked' : '' }}>
                                 </td>
                                 <td class="text-center">
                                     <input type="number" class="check-stt" name="stt_img" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_img', $val->stt_img) }}" min="1">

@@ -1,5 +1,6 @@
 async function createSlug() {
-// action on the envent
+    if (!updateSlug) return; 
+    // action on the envent
     var title, slug;
     // Lấy text từ thẻ input title
     title  = $('#name').val();

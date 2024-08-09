@@ -71,7 +71,9 @@
                         </button>
                     </span>
                 </div>
-                <!-- <div id="image-holder"></div> -->
+                <div id="preview">
+                    <img id="preview-image" src="#" alt="your image" />
+                </div>
             </div>
         </div>
         <div class="form-row">

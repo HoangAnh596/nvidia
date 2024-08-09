@@ -63,54 +63,75 @@
 @endsection
 
 @section('js')
+<script src="{{ asset('cntt/js/slug.js') }}"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const options = document.querySelectorAll('#parent_id option');
-        options.forEach(option => {
-            option.style.display = 'block';
-            option.addEventListener('click', function() {
-                const level = parseInt(this.getAttribute('data-level'));
-                options.forEach(opt => {
-                    if (parseInt(opt.getAttribute('data-level')) > level) {
-                        opt.style.display = opt.style.display === 'none' ? 'block' : 'none';
+
+    let timeout = null;
+    let updateSlug = true;
+    function validateSlug(slug) {
+    // Biểu thức chính quy để kiểm tra định dạng của slug
+        const regex = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+        return regex.test(slug);
+    }
+    function checkDuplicate() {
+        clearTimeout(timeout);
+        timeout = setTimeout(async function() {
+            if (updateSlug) {
+                await createSlug();
+            }
+
+            const name = document.getElementById('name').value;
+            const slug = document.getElementById('slug').value;
+
+            // Xóa thông báo lỗi trước đó
+            document.getElementById('name-error').innerText = "";
+            document.getElementById('slug-error').innerText = "";
+            // Chỉ kiểm tra nếu slug không rỗng
+            if (updateSlug && name.trim() !== "") {
+                await createSlug();
+            }
+            // Kiểm tra định dạng slug
+            if (slug.trim() === "") {
+                document.getElementById('slug-error').innerText = 'Url không được để trống';
+            } else if (!validateSlug(slug)) {
+                document.getElementById('slug-error').innerText = 'Url không hợp lệ. Chỉ chấp nhận chữ cái thường, số và dấu gạch ngang.';
+            } else {
+                // Nếu slug hợp lệ, kiểm tra trùng lặp
+                await $.ajax({
+                    url: "{{ route('filters.checkName') }}",
+                    type: 'POST',
+                    data: {
+                        name: name,
+                        slug: slug,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(data) {
+                        if (data.name_exists) {
+                            document.getElementById('name-error').innerText = 'Tên đã tồn tại';
+                        }
+
+                        if (data.slug_exists) {
+                            document.getElementById('slug-error').innerText = 'Url đã tồn tại';
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
                     }
                 });
-            });
-        });
+            }
+        }, 1000);
+    }
+    // Đặt updateSlug là true khi tên thay đổi
+    document.getElementById('name').addEventListener('input', function() {
+        updateSlug = true;
+        checkDuplicate();
     });
 
-    // let timeout = null;
-    // function checkDuplicate() {
-    //     clearTimeout(timeout);
-    //     timeout = setTimeout(function() {
-    //         const name = document.getElementById('name').value;
-    //         const slug = document.getElementById('slug').value;
-    //         // Xóa thông báo lỗi trước đó
-    //         document.getElementById('name-error').innerText = "";
-    //         document.getElementById('slug-error').innerText = "";
-
-    //         $.ajax({
-    //             url: " {{ route('filters.checkName') }} ",
-    //             type: 'POST',
-    //             data: {
-    //                 name: name,
-    //                 slug: slug,
-    //                 _token: "{{ csrf_token() }}"
-    //             },
-    //             success: function(data) {
-    //                 if (data.name_exists) {
-    //                     document.getElementById('name-error').innerText = 'Tên bộ lọc đã tồn tại';
-    //                 }
-    //                 if (data.slug_exists) {
-    //                     document.getElementById('slug-error').innerText = 'Tên tìm kiếm trên url đã tồn tại';
-    //                 }
-    //             },
-    //             error: function(xhr, status, error) {
-    //                 console.error('Error:', error);
-    //             }
-    //         });
-    //     }, 1000);
-    // }
+    // Đặt updateSlug là false khi slug thay đổi
+    document.getElementById('slug').addEventListener('input', function() {
+        updateSlug = false;
+        checkDuplicate();
+    });
 
     $(document).ready(function() {
         // Hàm để cập nhật số thứ tự

@@ -161,22 +161,14 @@
             <div class="col-lg-5 col-xs-6 col-md-3 col-sm-6 mb-4">
                 <div class="card h-100">
                     @php
-                    $mainImageExists = false;
+                    $mainImage = $product->product_images->firstWhere('main_img', 1);
                     @endphp
 
-                    @foreach ($product->product_images as $productImage)
-                        @if($productImage->main_img == 1 && $productImage->image && $productImage->image != '')
-                            <a class="btn-img" href="{{ $product->slug }}">
-                                <img class="card-img-top lazyload img-size" src="{{ asset($productImage->image) }}" data-src="{{ asset($productImage->image) }}" alt="{{ $productImage->alt_img }}" title="{{ $productImage->title_img }}">
-                            </a>
-                            @php
-                                $mainImageExists = true;
-                                break;
-                            @endphp
-                        @endif
-                    @endforeach
-
-                    @if(!$mainImageExists)
+                    @if($mainImage)
+                        <a class="btn-img" href="{{ $product->slug }}">
+                            <img class="card-img-top lazyload img-size" src="{{ asset(str_replace('storage/images/san-pham/', 'storage/images/san-pham/medium/', $mainImage->image)) }}" data-src="{{ asset(str_replace('storage/images/san-pham/', 'storage/images/san-pham/medium/', $mainImage->image)) }}" alt="{{ $mainImage->alt_img }}" title="{{ $mainImage->title_img }}">
+                        </a>
+                    @else
                         <a class="btn-img" href="{{ $product->slug }}">
                             <img class="card-img-top lazyload img-size" src="{{ asset('storage/images/image-coming-soon-1.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon-1.jpg') }}" width="206" height="206" alt="Image Coming Soon" title="Image Coming Soon">
                         </a>

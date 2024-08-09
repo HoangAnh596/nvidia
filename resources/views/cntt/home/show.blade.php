@@ -32,7 +32,7 @@
                                     @if(!empty($images))
                                     @foreach ($images as $val)
                                     <div class="swiper-slide gallery-trigger">
-                                        <img class="prod-img lazyload" src="{{ asset($val->image) }}" data-src="{{ asset($val->image) }}" alt="{{ $val->alt }}" title="{{ $val->title }}">
+                                        <img class="prod-img lazyload" src="{{ asset(str_replace('storage/images/san-pham/', 'storage/images/san-pham/big/', $val->image)) }}" data-src="{{ asset(str_replace('storage/images/san-pham/', 'storage/images/san-pham/big/', $val->image)) }}" alt="{{ $val->alt }}" title="{{ $val->title }}">
                                     </div>
                                     @endforeach
                                     @endif
@@ -45,7 +45,7 @@
                                     @if(!empty($images))
                                     @foreach ($images as $img)
                                     <div class="swiper-slide">
-                                        <img class="prod-img lazyload" src="{{ asset($img->image) }}" data-src="{{ asset($img->image) }}" alt="{{ $img->alt }}" title="{{ $img->title }}">
+                                        <img class="prod-img lazyload" src="{{ asset(str_replace('storage/images/san-pham/', 'storage/images/san-pham/small/', $img->image)) }}" data-src="{{ asset(str_replace('storage/images/san-pham/', 'storage/images/san-pham/small/', $img->image)) }}" alt="{{ $img->alt }}" title="{{ $img->title }}">
                                     </div>
                                     @endforeach
                                     @endif

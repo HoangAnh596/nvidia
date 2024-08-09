@@ -24,6 +24,7 @@ use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +47,7 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
 
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     // Quản lý Danh mục 
-    Route::resource('categories', CategoryController::class)->except(['show']);
+    Route::resource('categories', CategoryController::class);
     Route::post('/categories/check-name', [CategoryController::class, 'checkName'])->name('categories.checkName');
     Route::post('/categories/checkbox', [CategoryController::class, 'isCheckbox'])->name('categories.isCheckbox');
     Route::post('/categories/checkStt', [CategoryController::class, 'checkStt'])->name('categories.checkStt');
@@ -68,6 +69,7 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::resource('product-tags', ProductTagController::class)->only(['store']);
     Route::post('/product-images/checkStt', [ProductImagesController::class, 'checkStt'])->name('product-images.checkStt');
     Route::delete('product-images/{id}', [ProductImagesController::class, 'destroy'])->name('product-images.destroy');
+    Route::post('/product-images/checkImg', [ProductImagesController::class, 'isCheckImg'])->name('products.isCheckImg');
 
     // Quản lý bộ lọc danh mục
     Route::get('/filters', [FilterCateController::class, 'index'])->name('filter.index');
@@ -130,6 +132,7 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('cateFooter/checkbox', [cateFooterController::class, 'isCheckbox'])->name('cateFooter.isCheckbox');
 
     Route::post('upload', [ContentController::class, 'upload'])->name('upload.image');
+    Route::post('/delete-image', [ContentController::class, 'deleteImage'])->name('delete.image');
 
     Route::get('logout', [LoginController::class, 'logout'])->name('logoutUser');
 });
@@ -159,4 +162,7 @@ Route::prefix('/')->group(function () {
     Route::get('/{slug}', [HomeController::class, 'category'])
         ->name('home.category')->where('slug', '[a-zA-Z0-9-_]+');
     Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
+});
+Route::get('/create_sitemap', function(){
+    return Artisan::call('sitemap:create');
 });

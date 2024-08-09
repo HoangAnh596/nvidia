@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ProductController extends Controller
 {
@@ -147,7 +148,8 @@ class ProductController extends Controller
     public function insertOrUpdate(ProductFormRequest $request, $id = '')
     {
         $product = empty($id) ? new Product() : Product::findOrFail($id);
-        
+            
+        // dd($request->all());
         if(!empty($request['subCategory'])) {
             $request->merge(['subCategory' => $request->subCategory]);
         }
@@ -169,19 +171,7 @@ class ProductController extends Controller
             $request['tag_ids'] = json_encode($numericArray);
         }
 
-        // Xóa ảnh hiện tại nếu checkbox "Xóa Ảnh" được đánh dấu
-        if ($request->has('delete_image') && $request->input('delete_image') == 1) {
-            Storage::delete($product->image);
-            $product->image = null;
-        }
-        $path = parse_url($request->filepath, PHP_URL_PATH);
-        // Xóa dấu gạch chéo đầu tiên nếu cần thiết
-        if (strpos($path, '/') === 0) {
-            $path = substr($path, 1);
-        }
-
         $product->fill($request->all());
-        $product->image = $path;
         $product->title_seo = (isset($request->title_seo)) ? $request->title_seo : $request->name;
         $product->keyword_seo = (isset($request->keyword_seo)) ? $request->keyword_seo : $request->name;
         $product->des_seo = (isset($request->des_seo)) ? $request->des_seo : $request->name;

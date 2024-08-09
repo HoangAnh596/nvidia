@@ -259,13 +259,20 @@
                             <td class="text-center"><a href="javascript:void(0);" class="btn-sm delete-filter">Xóa</a></td>
                         </tr>`;
             $('table#dataTable tbody').append(newRow);
-            // Add change event to checkbox
+            // thay đổi checkbox main_img
             $('.main_img_checkbox').last().change(function() {
                 let hiddenInput = $(this).prev('input[type="hidden"]');
                 hiddenInput.val($(this).is(':checked') ? '1' : '0');
             });
 
-            // Handle delete button click
+            // Reset các data cũ về ban đầu
+            function resetInputs() {
+                $('#prImages').val('');
+                $('#title_pr_images').val('');
+                $('#alt_pr_images').val('');
+            }
+
+            // Xử lý khi ấn vào nút xóa
             $('table#dataTable').on('click', '.delete-filter', function(e) {
                 e.preventDefault();
                 $(this).closest('tr').remove();
@@ -311,6 +318,31 @@
                 data: {
                     id: idMenu,
                     stt_img: sttMenu,
+                },
+                success: function(response) {
+                    if (response.success) {
+                        alert('Trạng thái được cập nhật thành công.');
+                    } else {
+                        alert('Không thể cập nhật trạng thái.');
+                    }
+                },
+                error: function() {
+                    alert('Lỗi cập nhật trạng thái.');
+                }
+            });
+        });
+
+        $('.check-main').change(function() {
+            var cateId = $(this).data('id');
+            var value = $(this).is(':checked') ? 1 : 0;
+
+            $.ajax({
+                url: '{{ route("products.isCheckImg") }}',
+                method: 'POST',
+                data: {
+                    id: cateId,
+                    main_img: value,
+                    _token: '{{ csrf_token() }}',
                 },
                 success: function(response) {
                     if (response.success) {

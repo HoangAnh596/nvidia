@@ -65,41 +65,37 @@ button.pop-gallery {
     display: none; 
     position: fixed;
     left: 0;
-    top: 43px;
-    height: 100%; 
-    overflow: auto;
+    top: 0; /* Điều chỉnh vị trí */
+    width: 100%; /* Đảm bảo modal chiếm toàn bộ chiều rộng */
     z-index: 99999;
-    /* max-width: 1200px; */
 }
 
 /* Modal Content */
 .modal-content {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap; /* Đảm bảo các hình ảnh không bị co lại */
+    justify-content: center; /* Hiển thị ảnh theo dòng */
     align-items: center;
     gap: 10px;
-    padding: 20px;
-    margin-bottom: 40px;
+    padding: 20px;/* Đảm bảo nội dung có không gian hiển thị hợp lý */
 }
 
 /* Hình ảnh trong modal */
 .modal-image {
-    width: 35%;
-    max-height: 30%;
+    width: auto; /* Đảm bảo hình ảnh không bị co lại */
     margin: 5px;
 }
 
 /* Close Button */
 .close {
     position: fixed;
-    top: 54px;
-    right: 35px;
+    top: 10px; /* Điều chỉnh vị trí */
+    right: 10px; /* Điều chỉnh vị trí */
     background-color: #76b900;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    z-index: 99999;
+    z-index: 100000; /* Đảm bảo nút đóng nằm trên cùng */
 }
 .col-viewmore-item {
     display: inline-block;

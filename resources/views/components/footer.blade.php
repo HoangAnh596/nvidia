@@ -22,7 +22,7 @@
   var options = {
     extraPlugins: 'autogrow,filebrowser',
     autoGrow_minHeight: 200,
-    autoGrow_maxHeight: 600,
+    autoGrow_maxHeight: 400,
     autoGrow_bottomSpace: 50,
     removePlugins: 'resize',
     toolbarLocation: 'top',
@@ -38,7 +38,8 @@
   function uploadImage() {
     const fileInput = document.getElementById('image');
     const imagePreview = document.getElementById('preview');
-
+    console.log(fileInput, imagePreview);
+    
     // Kiểm tra xem đã chọn tệp chưa
     if (fileInput.files && fileInput.files[0]) {
       const reader = new FileReader();
@@ -68,7 +69,7 @@
     document.getElementById("holder").style.display = "";
   });
 
-  // // js thêm ảnh vào bảng child
+  // js thêm ảnh vào bảng child
   // function uploadImgChild() {
   //   const fileInput = document.getElementById('prImages');
   //   const imagePreview = document.getElementById('pr');

@@ -36,7 +36,7 @@
                 <input class="hiddenImg py-1" type="file" name="uploadImg" id="image" accept="image/*">
                 <input id="thumbnail" class="form-control" type="hidden" name="filepath">
                 <input type="hidden" name="current_url" id="current_url" value="" />
-                <button class="btn btn-outline-dark" id="uploadButton" style="margin-right: 1rem;" onclick="uploadImage()">Upload</button>
+                <button class="btn btn-outline-dark" id="" style="margin-right: 1rem;" onclick="uploadImage()">Upload</button>
                 <span class="input-group-btn">
                     <button id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-outline-dark hiddenButton">
                         <i class="fa fa-picture-o"></i> Chọn ảnh từ thư viện

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="/vendor/sitemap/styles/xml.xsl" type="text/xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+	<url>
+	<loc>http://localhost:8000</loc>
+		<priority>1.0</priority>
+		<lastmod>1970-01-01T08:00:00+08:00</lastmod>
+		<changefreq>daily</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/tets-thu-1-cai-tin-tuc</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-08-08T14:26:17+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/bai-viet-ne</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-07-18T10:07:03+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/gioi-thieu-ve-may-chu-gpu</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-07-12T08:37:37+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/gioi-thieu-dong-server-dell-poweredge-r7515</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-07-12T08:31:10+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+</urlset>
+

@@ -26,27 +26,38 @@ class ProductFormRequest extends FormRequest
     public function rules()
     {
         $params = $this->request->all();
-        // dd($params); // "image_ids" => "["31"]"
         $productId = $params['id'] ?? null;
         $imageIds = json_decode($params['image_ids'] ?? '[]', true);
+        // Đảm bảo $imageIds là một mảng, nếu không chuyển nó thành một mảng rỗng
+        if (!is_array($imageIds)) {
+            $imageIds = [];
+        }
         // Kiểm tra nếu sản phẩm có id
-        if (!empty($productId)) {
+        if (!empty($params['id'])) {
             $checkNameUpdate = DB::table('products')
                 ->where('name', '=', $params['name'])
-                ->where('id', '=', $productId)
+                ->where('id', '=', $params['id'])
                 ->exists();
-            
+
             if ($checkNameUpdate) {
                 $ruleUpdateName = "required";
             }
-            // Kiểm tra nếu sản phẩm đã có ảnh trong bảng ProductImages
-            $hasImages = DB::table('product_images')
-                ->where('id', '=', $imageIds) //
-                ->exists();
 
-            // Nếu sản phẩm đã có ảnh, không bắt buộc trường image
-            $imageRules = $hasImages ? 'sometimes|array' : 'required|array';
-            $imageItemRules = $hasImages ? 'sometimes|string' : 'required|string';
+            // Chỉ tiếp tục nếu $imageIds không rỗng
+            if (!empty($imageIds)) {
+                // Sử dụng whereIn để kiểm tra nếu bất kỳ id nào tồn tại trong bảng product_images
+                $hasImages = DB::table('product_images')
+                    ->whereIn('id', $imageIds) // Sử dụng whereIn để kiểm tra danh sách ID
+                    ->exists();
+
+                // Đặt quy tắc xác thực dựa trên kết quả kiểm tra
+                $imageRules = $hasImages ? 'sometimes|array' : 'required|array';
+                $imageItemRules = $hasImages ? 'sometimes|string' : 'required|string';
+            } else {
+                // Nếu $imageIds rỗng, không có hình ảnh nào hợp lệ để kiểm tra
+                $imageRules = 'required|array';
+                $imageItemRules = 'required|string';
+            }
         } else {
             // Nếu là thêm mới sản phẩm, trường image là bắt buộc
             $imageRules = 'required|array';

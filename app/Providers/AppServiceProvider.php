@@ -37,6 +37,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        \App\Models\Category::observe(\App\Observers\CategoryObserver::class);
+        \App\Models\Product::observe(\App\Observers\ProductObserver::class);
+        \App\Models\News::observe(\App\Observers\NewObserver::class);
+
         Paginator::useBootstrap();
         Schema::defaultStringLength(191);
         // đảm bảo sql chỉ chạy 1 lần

@@ -18,8 +18,10 @@ class ProductImagesController extends Controller
         $imageFileName = basename($image->image);
         $smallImagePath = "public/images/san-pham/small/$imageFileName";
         $mediumImagePath = "public/images/san-pham/medium/$imageFileName";
+        $bigImagePath = "public/images/san-pham/big/$imageFileName";
         Storage::delete($smallImagePath);
         Storage::delete($mediumImagePath);
+        Storage::delete($bigImagePath);
         Storage::delete($image->image);
         // Cập nhật mảng images_id trong bảng products
         if ($product) {
@@ -52,5 +54,14 @@ class ProductImagesController extends Controller
         $category->save();
 
         return response()->json(['success' => true, 'message' => 'STT updated successfully.']);
+    }
+
+    public function isCheckImg(Request $request)
+    {
+        $product = ProductImages::findOrFail($request->id);
+        $product->main_img = $request->main_img;
+        $product->save();
+
+        return response()->json(['success' => true]);
     }
 }

@@ -4,9 +4,64 @@ $(document).ready(function() {
         $('.prd-view-more').css('max-height', '10000px'); // Thêm chiều cao cho content-cate
     });
 
-    $('.gallery-trigger').on('click', function(e) {
+    // nó nằm trong swiper-slide gallery-trigger
+    // $('.gallery-trigger').on('click', function(e) {
+    //     e.preventDefault();
+    //     $('#imageModal').css('display', 'block');
+    // });
+
+
+    // Đảm bảo rằng ảnh chỉ được thêm vào modal một lần
+    if ($('#imageModal .modal-content img').length === 0) {
+        $('.gallery-trigger img').each(function() {
+            const currentImage = $(this).clone();
+            $('#imageModal .modal-content').append(currentImage);
+        });
+    }
+
+    // Khi nhấn vào .gallery-trigger img, hiển thị modal và cuộn tới vị trí ảnh đã nhấp
+    $('.gallery-trigger img').on('click', function(e) {
         e.preventDefault();
-        $('#imageModal').css('display', 'block');
+
+        const modal = $('#imageModal');
+        const modalContent = modal.find('.modal-content'); // cuộn theo website luôn
+        console.log("Modal Content Height:", modalContent.height());
+        console.log("Modal Content Scroll Height:", modalContent[0].scrollHeight);
+        // Hiển thị modal
+        modal.css('display', 'block');
+
+        // Đợi một thời gian ngắn để modal được hiển thị hoàn toàn
+        setTimeout(() => {
+            const clickedImageSrc = $(this).attr('src').trim();
+            console.log("Clicked Image Src:", clickedImageSrc);
+        
+            const normalizedClickedImageSrc = clickedImageSrc.replace('/big/', '/');
+            console.log("Normalized Clicked Image Src:", normalizedClickedImageSrc);
+        
+            let imageFound = false;
+        
+            // Đợi các ảnh được tải xong
+            modalContent.find('img').on('load', function() {
+                if (imageFound) return; // Nếu đã tìm thấy ảnh, không cần tiếp tục xử lý
+        
+                const imageSrc = $(this).attr('src').trim();
+                const normalizedImageSrc = imageSrc.replace('/big/', '/');
+                if (normalizedImageSrc === normalizedClickedImageSrc) {
+                    imageFound = true;
+                    const targetPosition = $(this).position().top + modalContent.scrollTop();
+                    console.log("Target Image Position:", targetPosition);
+        
+                    modalContent.scrollTop(targetPosition);
+                }
+            }).each(function() {
+                // Đảm bảo các ảnh chưa được tải xong thì cũng xử lý
+                if (this.complete) $(this).load();
+            });
+        
+            if (!imageFound) {
+                console.error("Image not found in modal.");
+            }
+        }, 100);
     });
 
     $('.close').on('click', function() {
@@ -19,8 +74,6 @@ $(document).ready(function() {
         }
     });
 
-
-    
 });
 document.addEventListener('DOMContentLoaded', function() {
     var toggler = document.getElementsByClassName("caret");
