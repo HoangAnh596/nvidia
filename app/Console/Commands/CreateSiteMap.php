@@ -66,7 +66,7 @@ class CreateSiteMap extends Command
         $sitemap->add((env('APP_URL'). "/sanpham.xml"), Carbon::now('Asia/Ho_Chi_Minh'), '0.9', 'daily');
         $sitemap->add((env('APP_URL'). "/tintuc.xml"), Carbon::now('Asia/Ho_Chi_Minh'), '0.9', 'daily');
 
-        $sitemap->store('xml', 'sitemap');
+        $sitemap->store('xml', 'sitemap', public_path(), null, null, false);
         // File::copy(public_path('sitemap.xml'), base_path('sitemap.xml'));
         if (File::exists(base_path() . '/sitemap.xml')) {
             File::copy(public_path('sitemap.xml'), base_path('sitemap.xml'));
@@ -82,7 +82,7 @@ class CreateSiteMap extends Command
             $sitemap->add(env('APP_URL'). "/{$category->slug}", $category->updated_at, '0.8', 'weekly');
         }
         // Lưu file sitemap danh mục
-        $sitemap->store('xml', 'danhmuc');
+        $sitemap->store('xml', 'danhmuc', public_path(), null, null, false);
         if (File::exists(base_path() . '/danhmuc.xml')) {
             File::copy(public_path('danhmuc.xml'), base_path('danhmuc.xml'));
         }
@@ -98,7 +98,7 @@ class CreateSiteMap extends Command
             $sitemap->add(env('APP_URL'). "/{$pro->slug}", $pro->updated_at, '0.8', 'weekly');
         }
         // Lưu file sitemap danh mục
-        $sitemap->store('xml', 'sanpham');
+        $sitemap->store('xml', 'sanpham', public_path(), null, null, false);
         if (File::exists(base_path() . '/sanpham.xml')) {
             File::copy(public_path('sanpham.xml'), base_path('sanpham.xml'));
         }
@@ -114,7 +114,7 @@ class CreateSiteMap extends Command
             $sitemap->add(env('APP_URL'). "/{$new->slug}", $new->updated_at, '0.8', 'weekly');
         }
         // Lưu file sitemap danh mục
-        $sitemap->store('xml', 'tintuc');
+        $sitemap->store('xml', 'tintuc', public_path(), null, null, false);
         if (File::exists(base_path() . '/tintuc.xml')) {
             File::copy(public_path('tintuc.xml'), base_path('tintuc.xml'));
         }

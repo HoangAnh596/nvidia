@@ -265,19 +265,18 @@
                 hiddenInput.val($(this).is(':checked') ? '1' : '0');
             });
 
-            // Reset các data cũ về ban đầu
-            function resetInputs() {
-                $('#prImages').val('');
-                $('#title_pr_images').val('');
-                $('#alt_pr_images').val('');
-            }
-
             // Xử lý khi ấn vào nút xóa
             $('table#dataTable').on('click', '.delete-filter', function(e) {
                 e.preventDefault();
                 $(this).closest('tr').remove();
             });
         }
+        // Reset các data cũ về ban đầu
+        function resetInputs() {
+                $('#prImages').val('');
+                $('#title_pr_images').val('');
+                $('#alt_pr_images').val('');
+            }
 
         $('.btn-destroy').on('click', function(e) {
             e.preventDefault();

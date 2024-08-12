@@ -166,7 +166,7 @@
 
                     @if($mainImage)
                         <a class="btn-img" href="{{ $product->slug }}">
-                            <img class="card-img-top lazyload img-size" src="{{ asset(str_replace('storage/images/san-pham/', 'storage/images/san-pham/medium/', $mainImage->image)) }}" data-src="{{ asset(str_replace('storage/images/san-pham/', 'storage/images/san-pham/medium/', $mainImage->image)) }}" alt="{{ $mainImage->alt_img }}" title="{{ $mainImage->title_img }}">
+                            <img class="card-img-top lazyload img-size" src="{{ asset(str_replace('storage/images/san-pham/', 'storage/images/san-pham/medium/', $mainImage->image)) }}" data-src="{{ asset(str_replace('storage/images/san-pham/', 'storage/images/san-pham/medium/', $mainImage->image)) }}" alt="{{ $mainImage->alt }}" title="{{ $mainImage->title }}">
                         </a>
                     @else
                         <a class="btn-img" href="{{ $product->slug }}">

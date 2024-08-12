@@ -62,22 +62,28 @@ button.pop-gallery {
 
 /* Modal */
 .modal {
-    display: none; 
+    display: none;
     position: fixed;
     left: 0;
-    top: 0; /* Điều chỉnh vị trí */
-    width: 100%; /* Đảm bảo modal chiếm toàn bộ chiều rộng */
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Ẩn cuộn ngoài */
     z-index: 99999;
 }
 
 /* Modal Content */
 .modal-content {
     display: flex;
-    flex-wrap: nowrap; /* Đảm bảo các hình ảnh không bị co lại */
-    justify-content: center; /* Hiển thị ảnh theo dòng */
+    flex-direction: column; /* Hiển thị ảnh theo cột */
+    justify-content: flex-start; /* Đặt các ảnh lên đầu */
     align-items: center;
     gap: 10px;
-    padding: 20px;/* Đảm bảo nội dung có không gian hiển thị hợp lý */
+    padding: 20px;
+    min-height: 100vh;
+    max-height: 100vh; /* Điều chỉnh chiều cao tối đa của modal-content */
+    overflow-y: auto; /* Cho phép cuộn dọc */
+    background-color: black;
 }
 
 /* Hình ảnh trong modal */
@@ -85,12 +91,15 @@ button.pop-gallery {
     width: auto; /* Đảm bảo hình ảnh không bị co lại */
     margin: 5px;
 }
-
+/* Ẩn cuộn của trang khi modal mở */
+.no-scroll {
+    overflow: hidden;
+}
 /* Close Button */
 .close {
     position: fixed;
-    top: 10px; /* Điều chỉnh vị trí */
-    right: 10px; /* Điều chỉnh vị trí */
+    top: 20px; /* Điều chỉnh vị trí */
+    right: 40px; /* Điều chỉnh vị trí */
     background-color: #76b900;
     font-size: 16px;
     font-weight: bold;

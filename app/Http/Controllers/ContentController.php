@@ -106,30 +106,33 @@ class ContentController extends Controller
 
     public function deleteImage(Request $request)
     {
-        $$imageUrls = $request->input('image', []);
-        foreach ($imageUrls as $imageUrl) {
-            Storage::delete($imageUrl);
-        }
-    
-        return response()->json(['message' => 'Images deleted successfully.']);
-        // $imagePath = $request->input('image_url');
-        // // dd($imagePath);
-        // $imagePath = str_replace('storage', 'public', $imagePath); // Chuyển đổi đường dẫn public thành đường dẫn storage
-
-        // if (Storage::exists($imagePath)) {
-        //     Storage::delete($imagePath);
-        //     $smallImagePath = str_replace('/san-pham/', '/san-pham/small/', $imagePath);
-        //     $mediumImagePath = str_replace('/san-pham/', '/san-pham/medium/', $imagePath);
-        //     $bigImagePath = str_replace('/san-pham/', '/san-pham/big/', $imagePath);
-
-        //     Storage::delete($smallImagePath);
-        //     Storage::delete($mediumImagePath);
-        //     Storage::delete($bigImagePath);
-
-        //     return response()->json(['success' => 'Image deleted successfully.']);
+        // $imageUrls = $request->input('image', []);
+        // foreach ($imageUrls as $imageUrl) {
+        //     Storage::delete($imageUrl);
         // }
+    
+        // return response()->json(['message' => 'Images deleted successfully.']);
+        $imageDelete = $request->input('image_url');
+        // // dd($imagePath);
+        $imagePath = str_replace('storage', 'public', $imageDelete); // Chuyển đổi đường dẫn public thành đường dẫn storage
 
-        // return response()->json(['error' => 'Image not found.'], 404);
+        if (Storage::exists($imagePath)) {
+            $imageUrls = $request->input('image', []);
+            foreach ($imageUrls as $imageUrl) {
+                Storage::delete($imageUrl);
+            }
+            $smallImagePath = str_replace('/san-pham/', '/san-pham/small/', $imagePath);
+            $mediumImagePath = str_replace('/san-pham/', '/san-pham/medium/', $imagePath);
+            $bigImagePath = str_replace('/san-pham/', '/san-pham/big/', $imagePath);
+
+            Storage::delete($smallImagePath);
+            Storage::delete($mediumImagePath);
+            Storage::delete($bigImagePath);
+
+            return response()->json(['success' => 'Image deleted successfully.']);
+        }
+
+        return response()->json(['error' => 'Image not found.'], 404);
     }
 
     public function checkSlug(Request $request)

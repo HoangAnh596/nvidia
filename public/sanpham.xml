@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="/vendor/sitemap/styles/xml.xsl" type="text/xsl"?>
+
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 	<url>
 	<loc>http://localhost:8000</loc>
 		<priority>1.0</priority>
 		<lastmod>1970-01-01T08:00:00+08:00</lastmod>
 		<changefreq>daily</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/iphone-16-128gb</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-08-12T10:55:02+07:00</lastmod>
+		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/test-thu-nao</loc>
@@ -16,7 +22,7 @@
 	<url>
 	<loc>http://localhost:8000/them-anh-resize-moi-nhat</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-08-09T17:01:16+07:00</lastmod>
+		<lastmod>2024-08-12T08:51:50+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -34,13 +40,13 @@
 	<url>
 	<loc>http://localhost:8000/ten-toi-la-e</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-08-08T15:52:11+07:00</lastmod>
+		<lastmod>2024-08-12T10:28:28+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/anh-chinh-ne</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-08-09T08:27:57+07:00</lastmod>
+		<lastmod>2024-08-12T10:29:02+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -53,12 +59,6 @@
 	<loc>http://localhost:8000/test-anh-con-ne</loc>
 		<priority>0.8</priority>
 		<lastmod>2024-08-07T11:20:14+07:00</lastmod>
-		<changefreq>weekly</changefreq>
-	</url>
-	<url>
-	<loc>http://localhost:8000/vanillajs-img</loc>
-		<priority>0.8</priority>
-		<lastmod>2024-08-07T10:14:26+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
