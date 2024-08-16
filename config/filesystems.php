@@ -53,6 +53,26 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'danh_muc_images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/images/danh-muc'),
+            'url' => env('APP_URL').'/storage/images/danh-muc',
+            'visibility' => 'public',
+        ],
+
+        'san_pham_images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/images/san-pham'),
+            'url' => env('APP_URL').'/storage/images/san-pham',
+            'visibility' => 'public',
+        ],
+
+        'tin_tuc_images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/images/tin-tuc'),
+            'url' => env('APP_URL').'/storage/images/tin-tuc',
+            'visibility' => 'public',
+        ],
     ],
 
     /*

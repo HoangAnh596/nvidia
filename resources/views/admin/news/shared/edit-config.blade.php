@@ -36,13 +36,10 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
+    <div class="row mb-3">
+        <div class="col-2">
             <div class="input-group">
-                <input class="hiddenImg py-1" type="file" name="uploadImg" id="image" accept="image/*">
                 <input id="thumbnail" class="form-control" type="hidden" name="filepath" value="{{ old('image', $new->image ?? '') }}">
-                <input type="hidden" name="current_url" id="current_url" value="" />
-                <button class="btn btn-outline-dark" id="uploadBtnNew" style="margin-right: 1rem;" onclick="uploadImage()">Upload</button>
                 <span class="input-group-btn">
                     <button id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-outline-dark hiddenButton">
                         <i class="fa fa-picture-o"></i> Chọn ảnh từ thư viện
@@ -50,16 +47,8 @@
                 </span>
             </div>
             <div id="holder"><img id="out_img" src="{{ \App\Http\Helpers\Helper::getPath($new->image) }}" class="ml-2 img-fluid"></div>
-            <div id="preview">
-                <img id="preview-image" src="#" alt="your image" />
-            </div>
-            <div class="form-check" style="margin-bottom: 50px; margin-top: 30px;">
-                <input class="form-check-input" type="checkbox" name="delete_image" id="flexCheckDefault" value="1">
-                <label class="form-check-label text-danger" for="flexCheckDefault">
-                    Xóa ảnh cũ (Thận trọng khi sử dụng)
-                </label>
-            </div>
         </div>
+        <div class="col-3 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 800 x 600 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
     </div>
     <div class="row">
         <div class="col">

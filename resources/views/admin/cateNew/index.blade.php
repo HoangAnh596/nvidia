@@ -26,6 +26,7 @@
                             <th class="col-sm-3 position-relative">Tên Danh Mục Tin Tức</th>
                             <th class="col-sm-3 position-relative">Địa chỉ đường dẫn</th>
                             <th class="position-relative text-center">Thứ tự</th>
+                            <th class="position-relative text-center">Menu</th>
                             <th class="position-relative text-center">Hiển thị</th>
                             <th class="col-sm-2 position-relative"></th>
                         </tr>
@@ -74,6 +75,32 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+
+        $('.checkbox-cateNew').change(function() {
+            var cateId = $(this).data('id');
+            var field = $(this).data('field');
+            var value = $(this).is(':checked') ? 1 : 0;
+
+            $.ajax({
+                url: '{{ route("cateNews.isCheckbox") }}',
+                method: 'POST',
+                data: {
+                    id: cateId,
+                    field: field,
+                    value: value
+                },
+                success: function(response) {
+                    if (response.success) {
+                        alert('Trạng thái được cập nhật thành công.');
+                    } else {
+                        alert('Không thể cập nhật trạng thái.');
+                    }
+                },
+                error: function() {
+                    alert('Lỗi cập nhật trạng thái.');
+                }
+            });
         });
 
         $('.check-stt').change(function() {

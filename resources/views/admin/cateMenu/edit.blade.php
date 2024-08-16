@@ -101,7 +101,7 @@
 
                     </div>
                 </div>
-                <div class="row" style="margin:60px 0;">
+                <!-- <div class="row" style="margin:60px 0;">
                     <div class="col-2 imgMenu">
                         <div class="d-flex flex-row-reverse">Ảnh đại diện <div class="warningMenu">*</div>
                         </div>
@@ -124,7 +124,7 @@
                             <img id="preview-image" src="#" alt="your image" />
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Thứ tự hiển thị :</div>
                     <div class="col-1">

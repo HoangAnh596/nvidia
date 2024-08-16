@@ -58,7 +58,8 @@ class ProductFormRequest extends FormRequest
                 $imageRules = 'required|array';
                 $imageItemRules = 'required|string';
             }
-        } else {
+        } 
+        else {
             // Nếu là thêm mới sản phẩm, trường image là bắt buộc
             $imageRules = 'required|array';
             $imageItemRules = 'required|string';
@@ -73,7 +74,7 @@ class ProductFormRequest extends FormRequest
                 'regex:/^(?!-)(?!.*--)[A-Za-z0-9-]+(?<!-)$/',
                 Rule::unique('products')->ignore($productId)
             ],
-            'image' => $imageRules,
+            'filepath' => $imageRules,
             'image.*' => $imageItemRules,
         ];
     }
@@ -90,7 +91,7 @@ class ProductFormRequest extends FormRequest
             'code.unique' => 'Mã sản phẩm không được trùng.',
             'category.required' => 'Danh mục sản phẩm không được để trống',
             'content.required' => 'Mô tả không được để trống',
-            'image.required' => 'Ảnh không được để trống',
+            'filepath.required' => 'Ảnh không được để trống',
         ];
     }
 }

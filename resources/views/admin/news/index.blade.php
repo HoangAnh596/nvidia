@@ -19,16 +19,14 @@
             <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
                 <div class="input-group">
                     <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search of new" aria-label="Search" name="keyword" value="{{ $keyword }}">
+                        <input type="search" class="form-control" placeholder="Tìm kiếm tên bài viết" aria-label="Search" name="keyword" value="{{ $keyword }}">
                     </div>
                     <div class="form-group">
                         <select name="cateNew" class="form-control">
-                            <option value="">Danh mục</option>
-                            @if(isset($categories))
+                            <option value="">Danh mục bài viết</option>
                             @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ \Request::get('cate') == $category->id ? "selected ='selected'" : "" }}> {{ $category->name }} </option>
+                            @include('admin.news.partials.category_search', ['category' => $category, 'level' => 0])
                             @endforeach
-                            @endif
                         </select>
                     </div>
                     <div class="input-group-append">

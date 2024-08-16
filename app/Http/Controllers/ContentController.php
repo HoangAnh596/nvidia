@@ -13,6 +13,7 @@ class ContentController extends Controller
 {
     public function upload(Request $request)
     {
+        dd(1);
         $request->validate([
             'uploadImg' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -45,14 +46,14 @@ class ContentController extends Controller
                 // Đường dẫn tuyệt đối đến thư mục lưu ảnh nhỏ
                 $smallPath = public_path('storage/images/san-pham/small/');
                 $mediumPath = public_path('storage/images/san-pham/medium/');
-                $bigPath = public_path('storage/images/san-pham/big/');
+                $largePath = public_path('storage/images/san-pham/large/');
 
                 // Kiểm tra xem tệp ảnh gốc đã tồn tại chưa
                 if (file_exists($originalAbsolutePath)) {
                     // Tạo ảnh nhỏ
-                    $smallImage = Image::make($originalAbsolutePath)->resize(108, 77)->sharpen(10);; // Tạo ảnh nhỏ
-                    $mediumImage = Image::make($originalAbsolutePath)->resize(206, 206)->sharpen(10);; // Tạo ảnh trung bình
-                    $bigImage = Image::make($originalAbsolutePath)->resize(460, 358)->sharpen(10);; // Tạo ảnh lớn
+                    $smallImage = Image::make($originalAbsolutePath)->resize(108, 77)->sharpen(10); // Tạo ảnh nhỏ
+                    $mediumImage = Image::make($originalAbsolutePath)->resize(206, 206)->sharpen(10); // Tạo ảnh trung bình
+                    $largeImage = Image::make($originalAbsolutePath)->resize(460, 358)->sharpen(10); // Tạo ảnh lớn
                     
                     // Kiểm tra và tạo thư mục nếu chưa tồn tại
                     if (!file_exists($smallPath)) {
@@ -61,13 +62,13 @@ class ContentController extends Controller
                     if (!file_exists($mediumPath)) {
                         mkdir($mediumPath, 0755, true);
                     }
-                    if (!file_exists($bigPath)) {
-                        mkdir($bigPath, 0755, true);
+                    if (!file_exists($largePath)) {
+                        mkdir($largePath, 0755, true);
                     }
 
                     $smallImage->save($smallPath . $imageName, 100); // Lưu ảnh nhỏ
                     $mediumImage->save($mediumPath . $imageName, 100); // Lưu ảnh trung bình
-                    $bigImage->save($bigPath . $imageName, 100); // Lưu ảnh lớn
+                    $largeImage->save($largePath . $imageName, 100); // Lưu ảnh lớn
                 }
             } elseif (strpos($current_url, 'cateNews') !== false) {
                 $originalPath = $file->storeAs('public/images/danh-muc-tin-tuc', $imageName);
@@ -106,7 +107,8 @@ class ContentController extends Controller
 
     public function deleteImage(Request $request)
     {
-        // $imageUrls = $request->input('image', []);
+        $imageUrls = $request->input('image', []);
+        dd($imageUrls);
         // foreach ($imageUrls as $imageUrl) {
         //     Storage::delete($imageUrl);
         // }
@@ -123,11 +125,11 @@ class ContentController extends Controller
             }
             $smallImagePath = str_replace('/san-pham/', '/san-pham/small/', $imagePath);
             $mediumImagePath = str_replace('/san-pham/', '/san-pham/medium/', $imagePath);
-            $bigImagePath = str_replace('/san-pham/', '/san-pham/big/', $imagePath);
+            $largeImagePath = str_replace('/san-pham/', '/san-pham/large/', $imagePath);
 
             Storage::delete($smallImagePath);
             Storage::delete($mediumImagePath);
-            Storage::delete($bigImagePath);
+            Storage::delete($largeImagePath);
 
             return response()->json(['success' => 'Image deleted successfully.']);
         }

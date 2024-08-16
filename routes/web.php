@@ -47,47 +47,47 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
 
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     // Quản lý Danh mục 
-    Route::resource('categories', CategoryController::class);
+    Route::resource('categories', CategoryController::class)->middleware('authorization:Admin');
     Route::post('/categories/check-name', [CategoryController::class, 'checkName'])->name('categories.checkName');
     Route::post('/categories/checkbox', [CategoryController::class, 'isCheckbox'])->name('categories.isCheckbox');
     Route::post('/categories/checkStt', [CategoryController::class, 'checkStt'])->name('categories.checkStt');
     Route::get('/categories/slugs', [CategoryController::class, 'getSlugs'])->name('categories.getSlugs');
 
     // Quản lý Sản phẩm
-    Route::get('/products', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/products/create', [ProductController::class, 'create'])->name('product.create');
-    Route::post('/products', [ProductController::class, 'store'])->name('product.store');
-    Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.show');
-    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
-    Route::put('products/{id}', [ProductController::class, 'update'])->name('product.update');
-    Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+    Route::get('/products', [ProductController::class, 'index'])->name('product.index')->middleware('authorization:Admin');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('product.create')->middleware('authorization:Admin');
+    Route::post('/products', [ProductController::class, 'store'])->name('product.store')->middleware('authorization:Admin');
+    Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.show')->middleware('authorization:Admin');
+    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('product.edit')->middleware('authorization:Admin');
+    Route::put('products/{id}', [ProductController::class, 'update'])->name('product.update')->middleware('authorization:Admin');
+    Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('product.destroy')->middleware('authorization:Admin');
     Route::post('/products/check-name', [ProductController::class, 'checkName'])->name('products.checkName');
     Route::post('/products/tim-kiem', [ProductController::class, 'search'])->name('products.tim-kiem');
     Route::post('/products/search-tags', [ProductController::class, 'searchTags'])->name('products.searchTags');
     Route::post('/products/checkbox', [ProductController::class, 'isCheckbox'])->name('products.isCheckbox');
     
-    Route::resource('product-tags', ProductTagController::class)->only(['store']);
+    Route::resource('product-tags', ProductTagController::class)->only(['store'])->middleware('authorization:Admin');
     Route::post('/product-images/checkStt', [ProductImagesController::class, 'checkStt'])->name('product-images.checkStt');
     Route::delete('product-images/{id}', [ProductImagesController::class, 'destroy'])->name('product-images.destroy');
     Route::post('/product-images/checkImg', [ProductImagesController::class, 'isCheckImg'])->name('products.isCheckImg');
 
     // Quản lý bộ lọc danh mục
-    Route::get('/filters', [FilterCateController::class, 'index'])->name('filter.index');
-    Route::get('/filters/create', [FilterCateController::class, 'create'])->name('filter.create');
-    Route::post('/filters', [FilterCateController::class, 'store'])->name('filter.store');
-    Route::get('/filters/{id}/edit', [FilterCateController::class, 'edit'])->name('filter.edit');
-    Route::put('filters/{id}', [FilterCateController::class, 'update'])->name('filter.update');
+    Route::get('/filters', [FilterCateController::class, 'index'])->name('filter.index')->middleware('authorization:Admin');
+    Route::get('/filters/create', [FilterCateController::class, 'create'])->name('filter.create')->middleware('authorization:Admin');
+    Route::post('/filters', [FilterCateController::class, 'store'])->name('filter.store')->middleware('authorization:Admin');
+    Route::get('/filters/{id}/edit', [FilterCateController::class, 'edit'])->name('filter.edit')->middleware('authorization:Admin');
+    Route::put('filters/{id}', [FilterCateController::class, 'update'])->name('filter.update')->middleware('authorization:Admin');
     Route::post('/filters/check-name', [FilterCateController::class, 'checkName'])->name('filters.checkName');
     Route::post('/filters/checkbox', [FilterCateController::class, 'isCheckbox'])->name('filters.isCheckbox');
     Route::post('/filters/checkStt', [FilterCateController::class, 'checkStt'])->name('filters.checkStt');
-    Route::delete('/filters/{id}', [FilterCateController::class, 'destroy'])->name('filters.destroy');
+    Route::delete('/filters/{id}', [FilterCateController::class, 'destroy'])->name('filters.destroy')->middleware('authorization:Admin');
     
-    Route::post('/detailFilter/checkStt', [FilterCateController::class, 'sttDetail'])->name('detailFilter.checkStt');
+    Route::post('/detailFilter/checkStt', [FilterCateController::class, 'sttDetail'])->name('detailFilter.checkStt')->middleware('authorization:Admin');
     // Quản lý bộ lọc của từng sản phẩm thuộc danh mục
-    Route::get('/filter-pro/create', [FilterProductController::class, 'create'])->name('filterPro.create');
-    Route::post('/filter-pro', [FilterProductController::class, 'store'])->name('filterPro.store');
-    Route::get('/filter-pro/{id}/edit', [FilterProductController::class, 'edit'])->name('filterPro.edit');
-    Route::put('filter-pro/{id}', [FilterProductController::class, 'update'])->name('filterPro.update');
+    Route::get('/filter-pro/create', [FilterProductController::class, 'create'])->name('filterPro.create')->middleware('authorization:Admin');
+    Route::post('/filter-pro', [FilterProductController::class, 'store'])->name('filterPro.store')->middleware('authorization:Admin');
+    Route::get('/filter-pro/{id}/edit', [FilterProductController::class, 'edit'])->name('filterPro.edit')->middleware('authorization:Admin');
+    Route::put('filter-pro/{id}', [FilterProductController::class, 'update'])->name('filterPro.update')->middleware('authorization:Admin');
 
     // Quản lý Tin tức
     Route::resource('news', NewController::class)->except(['show'])->middleware('authorization:Admin');
@@ -95,39 +95,40 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('/news/checkbox', [NewController::class, 'isCheckbox'])->name('news.isCheckbox');
 
     // Quản lý danh mục tin tức
-    Route::resource('cateNews', CategoryNewController::class)->except(['show']);
+    Route::resource('cateNews', CategoryNewController::class)->except(['show'])->middleware('authorization:Admin');
     Route::post('/cateNews/check-name', [CategoryNewController::class, 'checkName'])->name('cateNews.checkName');
     Route::post('/cateNews/tim-kiem', [CategoryNewController::class, 'search'])->name('cateNews.tim-kiem');
+    Route::post('/cateNews/checkbox', [CategoryNewController::class, 'isCheckbox'])->name('cateNews.isCheckbox');
     Route::post('/cateNews/checkStt', [CategoryNewController::class, 'checkStt'])->name('cateNews.checkStt');
 
     // Quản lý tài khoản đăng nhập
     Route::resource('users', UserController::class)->except(['show'])->middleware('authorization:Admin');
     // Quản lý thông tin hotline nhân viên, icon, favicon
-    Route::resource('infors', InforController::class)->except(['show']);
+    Route::resource('infors', InforController::class)->except(['show'])->middleware('authorization:Admin');
     Route::post('/infors/checkStt', [InforController::class, 'checkStt'])->name('infors.checkStt');
     Route::post('/infors/checkbox', [InforController::class, 'isCheckbox'])->name('infors.isCheckbox');
     
-    Route::resource('icons', IconController::class)->except(['show']);
+    Route::resource('icons', IconController::class)->except(['show'])->middleware('authorization:Admin');
     Route::post('/icons/checkStt', [IconController::class, 'checkStt'])->name('icons.checkStt');
     Route::post('/icons/checkbox', [IconController::class, 'isCheckbox'])->name('icons.isCheckbox');
 
     Route::resource('favicon', ManageController::class)->only([
         'edit', 'update'
-    ]);
+    ])->middleware('authorization:Admin');
 
     // Quản lý 
-    Route::resource('bottoms', BottomController::class)->except(['show']);
+    Route::resource('bottoms', BottomController::class)->except(['show'])->middleware('authorization:Admin');
     Route::post('/bottoms/checkStt', [BottomController::class, 'checkStt'])->name('bottoms.checkStt');
     Route::post('/bottoms/checkbox', [BottomController::class, 'isCheckbox'])->name('bottoms.isCheckbox');
     
 
     // Quản lý danh mục menu
-    Route::resource('cateMenu', CateMenuController::class)->except(['show']);
+    Route::resource('cateMenu', CateMenuController::class)->except(['show'])->middleware('authorization:Admin');
     Route::post('cateMenu/checkStt', [CateMenuController::class, 'checkStt'])->name('cateMenu.checkStt');
     Route::post('cateMenu/checkbox', [CateMenuController::class, 'isCheckbox'])->name('cateMenu.isCheckbox');
 
     // Quản lý footer
-    Route::resource('cateFooter', CateFooterController::class)->except(['show']);
+    Route::resource('cateFooter', CateFooterController::class)->except(['show'])->middleware('authorization:Admin');
     Route::post('cateFooter/checkStt', [cateFooterController::class, 'checkStt'])->name('cateFooter.checkStt');
     Route::post('cateFooter/checkbox', [cateFooterController::class, 'isCheckbox'])->name('cateFooter.isCheckbox');
 

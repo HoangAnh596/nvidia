@@ -12,17 +12,20 @@ class ProductImagesController extends Controller
     public function destroy($id)
     {
         $image = ProductImages::findOrFail($id);
+        // dd($image->image); // http://localhost:8000/storage/images/san-pham/card.jpg
         // Tìm sản phẩm liên quan
         $product = Product::whereJsonContains('image_ids', $id)->firstOrFail();
 
         $imageFileName = basename($image->image);
         $smallImagePath = "public/images/san-pham/small/$imageFileName";
         $mediumImagePath = "public/images/san-pham/medium/$imageFileName";
-        $bigImagePath = "public/images/san-pham/big/$imageFileName";
+        $largeImagePath = "public/images/san-pham/large/$imageFileName";
         Storage::delete($smallImagePath);
         Storage::delete($mediumImagePath);
-        Storage::delete($bigImagePath);
-        Storage::delete($image->image);
+        Storage::delete($largeImagePath);
+        
+        $imagePath = str_replace('storage/', 'public/', parse_url($image->image, PHP_URL_PATH));
+        Storage::delete($imagePath);
         // Cập nhật mảng images_id trong bảng products
         if ($product) {
             // Cập nhật mảng image_ids trong bảng products

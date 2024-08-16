@@ -22,10 +22,17 @@ class NewController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        $news = News::where('name', 'like', "%" . Helper::escape_like($keyword) . "%");
-        
-        $news = $news->latest()->paginate(config('common.default_page_size'))->appends($request->except('page'));
-        $categories = CategoryNew::all();
+        $categoryId = $request->cateNew;
+        // dd($categoryId);
+        $newsQuery = News::where('name', 'like', "%" . Helper::escape_like($keyword) . "%");
+        // Nếu có danh mục được chọn, thêm điều kiện lọc theo danh mục
+        if ($categoryId) {
+            $newsQuery->where('cate_id', $categoryId);
+        }
+        $news = $newsQuery->latest()->paginate(config('common.default_page_size'))->appends($request->except('page'));
+        $categories = CategoryNew::where('parent_id', 0)
+        ->with('children')
+        ->get();
 
 
         return view('admin.news.index', compact('news', 'keyword', 'categories'));
@@ -122,14 +129,9 @@ class NewController extends Controller
 
         $new->fill($request->all());
         $new->image = $path;
-        // Xóa ảnh hiện tại nếu checkbox "Xóa Ảnh" được đánh dấu
-        if ($request->has('delete_image') && $request->input('delete_image') == 1) {
-            Storage::delete($new->image);
-            $new->image = null;
-        }
         $new->title_img = (isset($request->title_img)) ? $request->title_img : $request->name;
         $new->alt_img = (isset($request->alt_img)) ? $request->alt_img : $request->name;
-        // dd($new);
+        
         $new->save();
     }
 

@@ -19,7 +19,12 @@
     </td>
     <td class="text-center">
         <div class="form-check">
-            <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_public" {{ ($category->is_public == 1) ? 'checked' : '' }}>
+            <input type="checkbox" class="checkbox-cateNew" data-id="{{ $category->id }}" data-field="is_menu" {{ ($category->is_menu == 1) ? 'checked' : '' }}>
+        </div>
+    </td>
+    <td class="text-center">
+        <div class="form-check">
+            <input type="checkbox" class="checkbox-cateNew" data-id="{{ $category->id }}" data-field="is_public" {{ ($category->is_public == 1) ? 'checked' : '' }}>
         </div>
     </td>
     <td>

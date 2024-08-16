@@ -28,7 +28,7 @@ $(document).ready(function() {
         // Đợi một thời gian ngắn để modal được hiển thị hoàn toàn
         setTimeout(() => {
             const clickedImageSrc = $(this).attr('src').trim();
-            const normalizedClickedImageSrc = clickedImageSrc.replace('/big/', '/');
+            const normalizedClickedImageSrc = clickedImageSrc.replace('/large/', '/');
             let imageFound = false;
     
             // Đợi các ảnh được tải xong
@@ -36,7 +36,7 @@ $(document).ready(function() {
                 if (imageFound) return; // Nếu đã tìm thấy ảnh, không cần tiếp tục xử lý
     
                 const imageSrc = $(this).attr('src').trim();
-                const normalizedImageSrc = imageSrc.replace('/big/', '/');
+                const normalizedImageSrc = imageSrc.replace('/large/', '/');
                 if (normalizedImageSrc === normalizedClickedImageSrc) {
                     imageFound = true;
     

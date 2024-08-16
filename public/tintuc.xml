@@ -8,27 +8,39 @@
 		<changefreq>daily</changefreq>
 	</url>
 	<url>
+	<loc>http://localhost:8000/serve-la-gi-tim-hieu-ve-vai-tro-va-chuc-nang-cua-serve</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-08-15T15:16:01+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/quan-ly-giam-sat-thiet-bi-voi-cong-cu-openmanage</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-08-15T15:23:34+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 	<loc>http://localhost:8000/tets-thu-1-cai-tin-tuc</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-08-08T14:26:17+07:00</lastmod>
+		<lastmod>2024-08-16T08:44:05+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/bai-viet-ne</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-07-18T10:07:03+07:00</lastmod>
+		<lastmod>2024-08-15T16:58:26+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/gioi-thieu-ve-may-chu-gpu</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-07-12T08:37:37+07:00</lastmod>
+		<lastmod>2024-08-15T16:58:56+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/gioi-thieu-dong-server-dell-poweredge-r7515</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-07-12T08:31:10+07:00</lastmod>
+		<lastmod>2024-08-15T14:58:24+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 </urlset>

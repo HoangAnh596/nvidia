@@ -19,9 +19,13 @@ body {
     margin: 15px;
     max-height: 150px;
 }
-
+/* 
 #holder img {
     height: 150px !important;
+} */
+#favicon_img {
+    width: 36px !important;
+    height: 36px !important;
 }
 #preview img {
     max-height: 150px;

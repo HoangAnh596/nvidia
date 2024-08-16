@@ -40,6 +40,7 @@ class CategoryFormRequest extends FormRequest
         return [
             'name' => (isset($ruleUpdateName)) ? $ruleUpdateName : 'required | unique:categories',
             'content'=>'required',
+            'filepath'=>'required',
             'stt_cate' => (!empty($params['stt_cate'])) ? 'integer|min:0' : ''
         ];
     }
@@ -53,6 +54,7 @@ class CategoryFormRequest extends FormRequest
             'name.required' => 'Tên danh mục không được bỏ trống.',
             'name.unique' => 'Tên danh mục không được trùng.',
             'content.required' => 'Mô tả không được để trống',
+            'filepath.required' => 'Ảnh không được để trống',
             'stt_cate.integer' => 'Số thứ tự phải là số nguyên.',
             'stt_cate.min' => 'Số thứ tự phải lớn 0',
         ];

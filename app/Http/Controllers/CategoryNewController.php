@@ -28,7 +28,7 @@ class CategoryNewController extends Controller
             $field = $request->field;
             $value = $request->value;
             // Kiểm tra xem trường có tồn tại trong bảng user không
-            if (in_array($field, ['is_serve', 'is_parent', 'is_menu', 'is_outstand', 'is_public'])) {
+            if (in_array($field, ['is_menu', 'is_public'])) {
                 $category->$field = $value;
 
                 $category->save();

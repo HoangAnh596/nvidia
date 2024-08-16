@@ -36,7 +36,7 @@
                         </span>
                     </div>
                     <div id="holder">
-                        <img id="out_img" src="{{ asset($favicon->image) }}" class="ml-2 img-fluid">
+                        <img id="favicon_img" src="{{ asset($favicon->image) }}" class="ml-2 img-fluid">
                     </div>
                     <div id="preview">
                         <img id="preview-image" src="#" alt="your image" />

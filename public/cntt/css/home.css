@@ -1,6 +1,10 @@
 /* Ví dụ trong app.css hoặc style.css */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
-
+/* @media (min-width: 1400px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1230px;
+    }
+} */
 body {
     color: #333;
 }
@@ -407,9 +411,9 @@ hr {
 
 /* --------------------Begin Css Danh mục sản phẩm------------------------ */
 .hp-category {
-    margin: 1.5rem 0;
+    margin: 1rem 0;
     background-color: #eee;
-    border-radius: 7px;
+    border-radius: 5px;
 }
 .hp-category a {
     color: black;
@@ -456,7 +460,7 @@ hr {
 .filter-item {
     padding: 8px 12px;
     border: 2px solid #e5e7eb;
-    border-radius: 7px;
+    border-radius: 5px;
     background-color: #eee;
     position: relative;
 }
@@ -608,7 +612,7 @@ hr {
     display: none;
 }
 .btn-filter-close, .btn-filter-readmore, .btn-filter-close-mb, .btn-filter-readmore-mb {
-    border-radius: 4px;
+    border-radius: 5px;
     display: inline-block;
     font-size: 14px;
     line-height: 16px;
@@ -669,11 +673,27 @@ button:focus {
     margin: 0;
 }
 .btn-img {
-    padding: 0 1rem;
+    padding: 5.5px;
+}
+.custom-row {
+    margin: 0 -4px;
+}
+.row.custom-row .col-w-5 {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+.img-size {
+    width: auto; /* or a relative size like 100% */
+    height: auto;
+    max-width: 100%;
+    border-radius: 5px;
+}
+.show-prod-cate .pagination {
+    margin-bottom: 0;
 }
 .btn-img-new {
     padding: 6px;
-    height: 200px;
+    /* height: 200px; */
 }
 .btn-img-new img {
     border-top-left-radius: 10px;
@@ -686,6 +706,20 @@ button:focus {
 .card-new:hover {
     scale: 1.05;
     transition: scale .5s ease;
+}
+.card-new h4 {
+    padding: 10px;
+    font-size: 1rem !important;
+    font-weight: bold !important;
+}
+.card-new p{
+    padding: 0 10px 10px 10px;
+    height: 148px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
 }
 .ft-sw {
     font-size: 20px !important;
@@ -705,7 +739,6 @@ button:focus {
     color: black;
     display: inline-block;
     text-align: center;
-    margin-top: 5px;
     font-weight: 600;
 }
 .nav-mb li {
@@ -895,7 +928,7 @@ button:focus {
 }
 .show-more {
     background: linear-gradient(180deg, hsla(0, 0%, 100%, 0), hsla(0, 0%, 100%, .91) 50%, #fff 55%);
-    border-radius: 7px;
+    border-radius: 5px;
     bottom: 0;
     display: none;
     left: 0;
@@ -909,12 +942,12 @@ button:focus {
 .btn-show-more button{
     padding: 5px 10px;
     border: 1px solid #e5e7eb;
-    border-radius: 7px;
+    border-radius: 5px;
     background-color: #eee;
 }
 .outstand-show-more {
     background: linear-gradient(180deg, hsla(0, 0%, 100%, 0), hsla(0, 0%, 100%, .91) 50%, #fff 55%);
-    border-radius: 7px;
+    border-radius: 5px;
     bottom: 0;
     display: none;
     left: 0;
@@ -1002,9 +1035,9 @@ button:focus {
     margin-top: 10px;
     margin-bottom: 50px;
 }
-.footer-link li{
+/* .footer-link li{
     margin-bottom: 5px;
-}
+} */
 .ft-link {
     color: #76b900;
     line-height: 30px;
@@ -1210,6 +1243,10 @@ button:focus {
     .child-filter li {
         padding: 10px;
     }
+    .col-w-5 {
+        flex: 0 0 auto;
+        width: 20%;
+    }
 }
 
 @media (max-width: 1200px) {    
@@ -1290,7 +1327,15 @@ button:focus {
         justify-content: center;
     }
 }
-
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+    .col-w-5 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .btn-img {
+        padding: 4px;
+    }
+}
 @media (max-width: 992px) {
     .global-nav {
         display: none;
@@ -1327,11 +1372,14 @@ button:focus {
         font-size: 0.9rem !important;
     }
     .btn-img {
-        padding: 0;
+        padding: 4px;
     }
     .text-dark{
         font-size: 0.9rem !important;
-    }  
+    }
+    .modal-image {
+        width: 80% !important;
+    } 
 }
 @media (min-width: 992px) {
     .navbar-mobile {
@@ -1435,6 +1483,9 @@ button:focus {
     .col-sm-6 {
         flex: 0 0 auto;
         width: 50%;
+    }
+    .btn-img {
+        padding: 4px;
     }
     .card-body a {
         font-size: 0.9rem !important;

@@ -82,20 +82,17 @@
         </div>
     </div>
     <div class="text-dark">
-        <div class="row">
-            <div class="col">
-                <div style="margin-top: 1rem;">(Kích thước đề nghị 400 x 400 px) <i class="fa-solid fa-circle-info" style="color: red;"></i></div>
+        <div class="row mb-3">
+            <div class="col-2">
                 <div class="input-group">
-                    <input class="hiddenPrImages py-1" type="file" name="pr_image_ids" id="prImages" accept="image/*">
-                    <input id="thumbnailPrImages" class="form-control" type="hidden" name="filepathPrImages">
-                    <button class="btn btn-outline-dark" id="uploadButtonPr" style="margin-right: 1rem;">Upload</button>
                     <span class="input-group-btn">
                         <button id="lfm-prImages" data-input="thumbnail" data-preview="image-holder" class="btn btn-outline-dark hiddenBtnPrImages">
                             <i class="fa fa-picture-o"></i> Chọn ảnh từ thư viện 
                         </button>
-                    </span> <i class="fa-solid fa-circle-info" style="color: red;"></i>
+                    </span>
                 </div>
             </div>
+            <div class="col-3 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 800 x 600 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
         </div>
         <div class="form-row">
             <div class="col-6">

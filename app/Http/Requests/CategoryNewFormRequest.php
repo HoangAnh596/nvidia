@@ -39,7 +39,7 @@ class CategoryNewFormRequest extends FormRequest
 
         return [
             'name' => (isset($ruleUpdateName)) ? $ruleUpdateName : 'required | unique:category_news',
-            'content'=>'required',
+            // 'content'=>'required',
             'stt_new' => (!empty($params['stt_new'])) ? 'integer|min:0' : ''
         ];
     }
@@ -52,7 +52,7 @@ class CategoryNewFormRequest extends FormRequest
         return [
             'name.required' => 'Tên danh mục không được bỏ trống.',
             'name.unique' => 'Tên danh mục không được trùng.',
-            'content.required' => 'Mô tả không được để trống',
+            // 'content.required' => 'Mô tả không được để trống',
             'stt_new.integer' => 'Số thứ tự phải là số nguyên.',
             'stt_new.min' => 'Số thứ tự phải lớn 0',
         ];

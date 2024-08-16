@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\CategoryNew;
 use App\Models\Infor;
 use App\Models\News;
 use App\Models\Product;
@@ -31,8 +32,9 @@ class HomeController extends Controller
         $keywordSeo = config('common.keyword_seo');
         $descriptionSeo = config('common.des_seo');
         // Tin tức
-        $blogs = News::where('is_outstand', 1)->select('id', 'name', 'image', 'slug', 'alt_img', 'title_img')
-        ->orderBy('created_at', 'DESC')->get();
+        $blogs = News::where('is_outstand', 1)->select('id', 'name', 'image', 'slug', 'alt_img', 'title_img', 'desc')
+            ->orderBy('created_at', 'DESC')->get();
+        $cateBlogs = CategoryNew::where('is_menu', 1)->select('name', 'slug')->orderBy('created_at', 'ASC')->get();
         // Trang chủ ngoài
         // Lấy tất cả các danh mục có parent_id = 0
         $categories = Category::where('is_public', 1)
@@ -45,7 +47,7 @@ class HomeController extends Controller
         $ids = $cate->pluck('id');
         if ($ids->isEmpty()) {
 
-            return view('cntt.home.index', compact('titleSeo', 'keywordSeo', 'descriptionSeo', 'categories', 'blogs'));
+            return view('cntt.home.index', compact('titleSeo', 'keywordSeo', 'descriptionSeo', 'categories', 'blogs', 'cateBlogs'));
         } else {
             $categoriesWithProducts = collect();
             foreach ($ids as $idCate) {
@@ -56,21 +58,12 @@ class HomeController extends Controller
                     // Lấy tất cả sản phẩm thuộc các danh mục đó
                     $products = Product::whereHas('category', function ($query) use ($allCategoryIds) {
                         $query->whereIn('product_categories.category_id', $allCategoryIds);
-                    })->select('name', 'slug', 'image', 'alt_img', 'title_img', 'price', 'image_ids')
+                    })->select('name', 'slug', 'price', 'image_ids')
                         ->where('is_outstand', 1)
                         ->orderBy('created_at', 'DESC')->get();
                     // images_ids = ["9","10","11"]
                     foreach ($products as $product) {
-                        $imageIds = json_decode($product->image_ids, true); // Giả sử image_ids là một chuỗi JSON
-                        
-                        if (!empty($imageIds)) {
-                            $productImages = ProductImages::whereIn('id', $imageIds)
-                                ->orderBy('updated_at', 'DESC') // Sắp xếp theo ngày cập nhật
-                                ->get();
-                            $product->product_images = $productImages;
-                        } else {
-                            $product->product_images = collect(); // Thiết lập là một tập hợp rỗng
-                        }
+                        $product->loadProductImages();
                     }
 
                     // tách sản phẩm nào thì thuộc danh mục sản phẩm đó
@@ -80,10 +73,14 @@ class HomeController extends Controller
                     ]);
                 }
             }
-            
+
             return view('cntt.home.index', compact(
-                'titleSeo', 'keywordSeo', 'descriptionSeo',
-                'categories', 'blogs', 'categoriesWithProducts'
+                'titleSeo',
+                'keywordSeo',
+                'descriptionSeo',
+                'categories',
+                'blogs', 'cateBlogs',
+                'categoriesWithProducts'
             ));
         }
     }
@@ -114,10 +111,14 @@ class HomeController extends Controller
                     $query->whereIn('category_id', $categoryIds);
                 })->orderBy('created_at', 'DESC')
                 ->take(10)->get();
+
+            foreach ($prOutstand as $product) {
+                    $product->loadProductImages();
+                }
             
             // Bộ lọc sản phẩm
             $filters = $request->all();
-            if(!empty($filters)) {
+            if (!empty($filters)) {
                 $products = Product::query();
                 $filterConditions = [];
 
@@ -148,9 +149,19 @@ class HomeController extends Controller
                 $products = $products->orderBy('created_at', 'DESC')->paginate(10);
                 // dd($filterCate);
                 return view('cntt.home.category', compact(
-                    'titleSeo', 'keywordSeo', 'descriptionSeo', 'total',
-                    'phoneInfors', 'cateParent', 'mainCate', 'allParents',
-                    'products', 'prOutstand', 'filterCate', 'slugs'));
+                    'titleSeo',
+                    'keywordSeo',
+                    'descriptionSeo',
+                    'total',
+                    'phoneInfors',
+                    'cateParent',
+                    'mainCate',
+                    'allParents',
+                    'products',
+                    'prOutstand',
+                    'filterCate',
+                    'slugs'
+                ));
             }
 
             $products = Product::where(function ($query) use ($categoryIds) {
@@ -165,6 +176,11 @@ class HomeController extends Controller
                     }
                 });
             })->orderBy('created_at', 'DESC')->paginate(10);
+
+            foreach ($products as $product) {
+                $product->loadProductImages();
+            }
+
             // dd($products);
             // Tính toán số lượng trang hiện có
             $currentPage = $request->input('page', 1);
@@ -177,11 +193,20 @@ class HomeController extends Controller
                 })->orderBy('created_at', 'DESC')
                     ->paginate(10, ['*'], 'page', $lastPage);
             }
-            
+
             return view('cntt.home.category', compact(
-                'titleSeo', 'keywordSeo', 'descriptionSeo',
-                'phoneInfors', 'cateParent', 'mainCate', 'allParents',
-                'products', 'prOutstand', 'filterCate', 'slugs'));
+                'titleSeo',
+                'keywordSeo',
+                'descriptionSeo',
+                'phoneInfors',
+                'cateParent',
+                'mainCate',
+                'allParents',
+                'products',
+                'prOutstand',
+                'filterCate',
+                'slugs'
+            ));
         }
 
         $idPro = Product::where('slug', $slug)->value('id');
@@ -200,9 +225,16 @@ class HomeController extends Controller
         $images = $product->getProductImages();
 
         return view('cntt.home.show', compact(
-            'titleSeo', 'keywordSeo', 'descriptionSeo',
-            'phoneInfors', 'product', 'allParents', 'parent',
-            'images', 'relatedProducts'));
+            'titleSeo',
+            'keywordSeo',
+            'descriptionSeo',
+            'phoneInfors',
+            'product',
+            'allParents',
+            'parent',
+            'images',
+            'relatedProducts'
+        ));
     }
 
     private function buildTree($cateMenu, $parentId = 0)
@@ -266,9 +298,15 @@ class HomeController extends Controller
             }
 
             return view('cntt.home.search', compact(
-                'titleSeo', 'keywordSeo', 'descriptionSeo',
-                'keyword', 'nameCate',
-                'products', 'phoneInfors', 'total'));
+                'titleSeo',
+                'keywordSeo',
+                'descriptionSeo',
+                'keyword',
+                'nameCate',
+                'products',
+                'phoneInfors',
+                'total'
+            ));
         } else {
             // Tìm kiếm sản phẩm theo tên hoặc mã sản phẩm
             $productsQuery = Product::where(function ($query) use ($keyword) {
@@ -289,15 +327,22 @@ class HomeController extends Controller
             }
 
             return view('cntt.home.search', compact(
-                'titleSeo', 'keywordSeo', 'descriptionSeo',
-                'keyword', 'nameCate',
-                'products', 'phoneInfors', 'total'));
+                'titleSeo',
+                'keywordSeo',
+                'descriptionSeo',
+                'keyword',
+                'nameCate',
+                'products',
+                'phoneInfors',
+                'total'
+            ));
         }
     }
 
-    public function filters(Request $request) {
+    public function filters(Request $request)
+    {
         $filters = $request->all();
-        if(!empty($filters)) {
+        if (!empty($filters)) {
             $products = Product::query();
             $filterConditions = [];
 
@@ -324,7 +369,7 @@ class HomeController extends Controller
                 });
             }
             $total = $products->count();
-            return response()->json([ 'count' => $total ]);
+            return response()->json(['count' => $total]);
         }
     }
 }

@@ -148,7 +148,7 @@ class CategoryController extends Controller
     public function insertOrUpdate(CategoryFormRequest $request, $id = '')
     {
         $category = empty($id) ? new Category() : Category::findOrFail($id);
-
+        // dd($request->filepath);
         $category->fill($request->all());
         $path = parse_url($request->filepath, PHP_URL_PATH);
         // Xóa dấu gạch chéo đầu tiên nếu cần thiết

@@ -50,6 +50,19 @@ class Product extends Model
         }
     }
 
+    public function loadProductImages()
+    {
+        $imageIds = json_decode($this->image_ids, true);
+
+        if (!empty($imageIds)) {
+            $this->product_images = ProductImages::whereIn('id', $imageIds)
+                ->orderBy('updated_at', 'DESC')
+                ->get();
+        } else {
+            $this->product_images = collect(); // Thiết lập là một tập hợp rỗng
+        }
+    }
+
     public function category()
     {
         return $this->belongsToMany('App\Models\Category', 'product_categories', 'product_id', 'category_id');

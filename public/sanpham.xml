@@ -8,9 +8,21 @@
 		<changefreq>daily</changefreq>
 	</url>
 	<url>
+	<loc>http://localhost:8000/card-gaming-rtx-1000</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-08-15T14:00:55+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/card-rtx</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-08-15T10:29:10+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 	<loc>http://localhost:8000/iphone-16-128gb</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-08-12T10:55:02+07:00</lastmod>
+		<lastmod>2024-08-15T14:03:05+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -22,13 +34,13 @@
 	<url>
 	<loc>http://localhost:8000/them-anh-resize-moi-nhat</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-08-12T08:51:50+07:00</lastmod>
+		<lastmod>2024-08-14T15:49:14+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/ten-san-pham</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-08-09T08:49:12+07:00</lastmod>
+		<lastmod>2024-08-14T15:49:17+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -40,13 +52,13 @@
 	<url>
 	<loc>http://localhost:8000/ten-toi-la-e</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-08-12T10:28:28+07:00</lastmod>
+		<lastmod>2024-08-14T15:49:55+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/anh-chinh-ne</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-08-12T10:29:02+07:00</lastmod>
+		<lastmod>2024-08-14T17:31:37+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>

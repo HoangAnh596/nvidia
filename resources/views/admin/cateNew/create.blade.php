@@ -22,7 +22,7 @@
             <div class="card-header d-flex justify-content-between">
                 <a href="{{ route('cateNews.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
                 <div>
-                    <button class="btn btn-primary btn-sm " type="submitCateNew"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
+                    <button class="btn btn-primary btn-sm" id="submit" type="submitCateNew"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
                     <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
                 </div>
             </div>
@@ -53,7 +53,7 @@
             </div>
 
             <div class="mt-4 pb-4 mr-4 float-right">
-                <button class="btn btn-primary btn-sm" type="submitCateNew"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+                <button class="btn btn-primary btn-sm" id="submit" type="submitCateNew"><i class="fa-solid fa-floppy-disk"></i> Save</button>
                 <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
             </div>
         </form>
@@ -165,35 +165,35 @@
                 }
             },
         });
-
-        $('#current_url').val(window.location.href);
-        $("#uploadBtnCateNew").click(function(e) {
-            e.preventDefault();
-            let data = new FormData();
-            console.log(data);
-            data.append('uploadImg', $('#image')[0].files[0]);
-            data.append('current_url', window.location.href);
-
-            $.ajax({
-                url: "{{ route('upload.image') }}",
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: data,
-                processData: false,
-                contentType: false,
-                _token: "{{ csrf_token() }}",
-                success: function(response) {
-                    $('#thumbnail').val(response.image_name);
-                    $('#preview-image').show();
-                },
-                error: function(response) {
-                    alert("An error occurred. Please try again.");
-                    console.log(response);
-                }
-            });
-        });
     });
+        // $('#current_url').val(window.location.href);
+        // $("#uploadBtnCateNew").click(function(e) {
+        //     e.preventDefault();
+        //     let data = new FormData();
+        //     console.log(data);
+        //     data.append('uploadImg', $('#image')[0].files[0]);
+        //     data.append('current_url', window.location.href);
+
+        //     $.ajax({
+        //         url: "{{ route('upload.image') }}",
+        //         method: "POST",
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         data: data,
+        //         processData: false,
+        //         contentType: false,
+        //         _token: "{{ csrf_token() }}",
+        //         success: function(response) {
+        //             $('#thumbnail').val(response.image_name);
+        //             $('#preview-image').show();
+        //         },
+        //         error: function(response) {
+        //             alert("An error occurred. Please try again.");
+        //             console.log(response);
+        //         }
+        //     });
+        // });
+    
 </script>
 @endsection

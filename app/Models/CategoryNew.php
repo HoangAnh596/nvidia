@@ -26,10 +26,10 @@ class CategoryNew extends Model
     const IS_NOT_PUBLIC = 0;
 
     protected $fillable = [
-        'name', 'slug', 'image','title_img', 'alt_img',
+        'name', 'slug',
         'related_pro', 'content', 'parent_id',
         'title_seo', 'keyword_seo', 'des_seo', 'stt_new',
-        'is_serve', 'is_parent', 'is_menu', 'is_outstand', 'is_public'
+        'is_menu', 'is_outstand', 'is_public'
     ];
 
     public function children()

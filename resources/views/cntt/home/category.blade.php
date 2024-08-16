@@ -16,7 +16,7 @@
 </div>
 <div class="filter">
     <div class="container">
-        <div class="row mt-4">
+        <div class="row mt-3">
             <h1>Chọn theo tiêu chí</h1>
         </div>
         @php
@@ -26,7 +26,7 @@
         <!-- begin navbar mobile -->
         @if($agent->isMobile())
         @if(!empty($filterCate))
-        <div class="mobile-filter ft-fixed mt-4" data-url="{{ route('home.filters') }}">
+        <div class="mobile-filter ft-fixed mt-3" data-url="{{ route('home.filters') }}">
             <div class="container" style="padding: 0;">
                 <div class="splide">
                     <div class="splide__track">
@@ -59,7 +59,7 @@
         @endif
         @else
         @if(!empty($filterCate))
-        <div class="row web-filter mt-4" data-url="{{ route('home.filters') }}">
+        <div class="row web-filter mt-3" data-url="{{ route('home.filters') }}">
             <ul class="nav nav-filter ft-fixed">
                 <div class="container cont-fixed">
                     <?php $countFilter = 0 ?>
@@ -81,69 +81,69 @@
                         </button>
                         @endif
                         @if ($countFilter > 4 && $countFilter < 8)
-                        <ul class="child-filter filter-show-right">
+                            <ul class="child-filter filter-show-right">
                             <div class="arrow-filter-right"></div>
                             @if($fil->special == 1)
                             @foreach ($fil->valueFilters as $item)
-                            <li class="nav-item child-nav">
-                                <a class="btn-child-filter" id="{{ $item->id }}" data-href="{{ $item->search }}" href="{{ $cateParent->slug }}?{{ $fil->slug }}={{ $item->id }}" data-type="filters">{{ $item->key_word }}</a>
-                            </li>
-                            @endforeach
-                            @endif
-                            @foreach ($fil->valueFilters as $item)
-                            <li class="nav-item child-nav">
-                                <a class="btn-child-filter" id="{{ $item->id }}" data-href="{{ $item->search }}" href="{{ $cateParent->slug }}-{{ $item->search }}" data-type="filters">{{ $item->key_word }}</a>
-                            </li>
-                            @endforeach
-                            <div class="filter-button filter-button-sticky">
-                                <button href="javascript:void(0)" id="{{ $fil->id }}" class="btn-filter-close">Bỏ chọn</button>
-                                <button href="javascript:filterPros();" id="{{ $fil->id }}" class="btn-filter-readmore">Xem <b class="total-reloading"> @if(!empty($total)) {{ $total }} @endif</b> kết quả</button>
-                            </div>
-                        </ul>
-                        @else
-                        <ul class="child-filter">
-                            <div class="arrow-filter"></div>
-                            @if($fil->special == 1)
-                            @foreach ($fil->valueFilters as $item)
-                            <li class="nav-item child-nav">
-                                <a class="btn-child-filter" id="{{ $item->id }}" data-href="{{ $item->search }}" href="{{ $cateParent->slug }}?{{ $fil->slug }}={{ $item->id }}" data-type="filters">{{ $item->key_word }}</a>
-                            </li>
-                            @endforeach
-                            @else
-                            @foreach ($fil->valueFilters as $item)
-                            <li class="nav-item child-nav">
-                                <a class="btn-child-filter" id="{{ $item->id }}" data-href="{{ $item->search }}" href="{{ $cateParent->slug }}-{{ $item->search }}" data-type="filters">{{ $item->key_word }}</a>
-                            </li>
-                            @endforeach
-                            @endif
-                            <div class="filter-button filter-button-sticky">
-                                <button href="javascript:void(0)" id="{{ $fil->id }}" class="btn-filter-close">Bỏ chọn</button>
-                                <button href="javascript:filterPros();" id="{{ $fil->id }}" class="btn-filter-readmore">Xem <b class="total-reloading"> @if(!empty($total)) {{ $total }} @endif</b> kết quả</button>
-                            </div>
-                        </ul>
-                        @endif
+                    <li class="nav-item child-nav">
+                        <a class="btn-child-filter" id="{{ $item->id }}" data-href="{{ $item->search }}" href="{{ $cateParent->slug }}?{{ $fil->slug }}={{ $item->id }}" data-type="filters">{{ $item->key_word }}</a>
                     </li>
                     @endforeach
+                    @endif
+                    @foreach ($fil->valueFilters as $item)
+                    <li class="nav-item child-nav">
+                        <a class="btn-child-filter" id="{{ $item->id }}" data-href="{{ $item->search }}" href="{{ $cateParent->slug }}-{{ $item->search }}" data-type="filters">{{ $item->key_word }}</a>
+                    </li>
+                    @endforeach
+                    <div class="filter-button filter-button-sticky">
+                        <button href="javascript:void(0)" id="{{ $fil->id }}" class="btn-filter-close">Bỏ chọn</button>
+                        <button href="javascript:filterPros();" id="{{ $fil->id }}" class="btn-filter-readmore">Xem <b class="total-reloading"> @if(!empty($total)) {{ $total }} @endif</b> kết quả</button>
+                    </div>
+            </ul>
+            @else
+            <ul class="child-filter">
+                <div class="arrow-filter"></div>
+                @if($fil->special == 1)
+                @foreach ($fil->valueFilters as $item)
+                <li class="nav-item child-nav">
+                    <a class="btn-child-filter" id="{{ $item->id }}" data-href="{{ $item->search }}" href="{{ $cateParent->slug }}?{{ $fil->slug }}={{ $item->id }}" data-type="filters">{{ $item->key_word }}</a>
+                </li>
+                @endforeach
+                @else
+                @foreach ($fil->valueFilters as $item)
+                <li class="nav-item child-nav">
+                    <a class="btn-child-filter" id="{{ $item->id }}" data-href="{{ $item->search }}" href="{{ $cateParent->slug }}-{{ $item->search }}" data-type="filters">{{ $item->key_word }}</a>
+                </li>
+                @endforeach
+                @endif
+                <div class="filter-button filter-button-sticky">
+                    <button href="javascript:void(0)" id="{{ $fil->id }}" class="btn-filter-close">Bỏ chọn</button>
+                    <button href="javascript:filterPros();" id="{{ $fil->id }}" class="btn-filter-readmore">Xem <b class="total-reloading"> @if(!empty($total)) {{ $total }} @endif</b> kết quả</button>
                 </div>
             </ul>
+            @endif
+            </li>
+            @endforeach
         </div>
-        @endif
-        @endif
+        </ul>
     </div>
+    @endif
+    @endif
+</div>
 </div>
 <div class="container">
     <div class="show-prod-cate">
-        <div class="row mt-4" id="product-data">
+        <div class="row custom-row mt-3" id="product-data">
             @include('cntt.home.partials.products', ['products' => $products])
         </div>
-        <nav class="d-flex justify-content-center">
+        <nav class="d-flex justify-content-center mt-2">
             {{ $products->links() }}
         </nav>
     </div>
-    <div class="cate-prod mt-2">
+    <div class="cate-prod mt-3">
         <div class="row">
             <div class="col-md-9 res-w100">
-                <div class="content-cate mb-4">
+                <div class="content-cate mb-3">
                     <div>
                         {!! $mainCate->content !!}
                     </div>
@@ -154,7 +154,7 @@
             </div>
             <div class="col-md-3 res-dnone">
                 @if(!$prOutstand->isEmpty())
-                <div class="outstand-prod mb-4">
+                <div class="outstand-prod mb-3">
                     <div class="bg-prod d-flex align-items-center">
                         <h2>Sản phẩm nổi bật</h2>
                     </div>
@@ -162,16 +162,40 @@
                         @foreach($prOutstand as $data)
                         <div class="row mt-3">
                             <div class="col-md-4 col-4" style="padding:0;">
-                                <a class="btn-outstand" href="{{ $data->slug }}">
+                                <!-- <a class="btn-outstand" href="{{ $data->slug }}">
                                     <img class="card-img-top lazyload" src="{{ asset($data->image) }}" data-src="{{ asset($data->image) }}" alt="{{ $data->alt_img }}" title="{{ $data->title_img }}">
+                                </a> -->
+                                @php
+                                $mainImage = $data->product_images->firstWhere('main_img', 1);
+                                @endphp
+
+                                @if($mainImage)
+                                @php
+                                $imagePath = $mainImage->image;
+                                $directory = dirname($imagePath);
+                                $filename = basename($imagePath);
+                                $newDirectory = $directory . '/small';
+                                $newImagePath = $newDirectory . '/' . $filename;
+                                @endphp
+                                <a class="btn-img" href="{{ $data->slug }}">
+                                    <img class="card-img-top img-size" src="{{ asset($newImagePath) }}" alt="{{ $mainImage->alt }}" title="{{ $mainImage->title }}">
                                 </a>
+                                @else
+                                <a class="btn-img" href="{{ $data->slug }}">
+                                    <img class="card-img-top lazyload img-size" src="{{ asset('storage/images/small/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" width="206" height="206" alt="Image Coming Soon" title="Image Coming Soon">
+                                </a>
+                                @endif
                             </div>
                             <div class="col-md-8 col-8 d-flex flex-column bd-highlight" style="height: 100px; overflow: hidden;">
                                 <div class="bd-highlight">
                                     <a class="btn-link" href="{{ $data->slug }}">{{ $data->name }}</a>
                                 </div>
                                 <div class="bd-highlight">
-                                    <a href="{{ $data->slug }}" class="text-decoration-none text-danger">{{ number_format($data->price, 0, ',', '.') }}đ</a>
+                                    @if($data->price == 0)
+                                    <span class="lien-he-price">Liên hệ</span>
+                                    @else
+                                    <a href="{{ $data->slug }}" class="text-decoration-none text-danger">{{ number_format($data->price, 0, ',', '.') }}đ </a>
+                                    @endif
                                 </div>
                                 <div class="mt-auto bd-highlight">
                                     <ul class="list-unstyled d-flex justify-content-between">
@@ -195,7 +219,7 @@
                 </div>
                 @endif
                 <!-- Hotline -->
-                <div class="support-prod new-prod mb-4">
+                <div class="support-prod new-prod mb-3">
                     <div class="bg-prod d-flex align-items-center">
                         <h2>Bạn cần báo giá tốt nhất</h2>
                     </div>
@@ -272,15 +296,16 @@
 <script type="text/javascript">
     // Nhúng danh sách slugs từ backend vào frontend
     var validSlugs = <?php echo json_encode($slugs); ?>;
+
     function getValidSlugFromUrl(validSlugs) {
-            var currentUrl = window.location.href.split('?')[0];
-            for (var i = 0; i < validSlugs.length; i++) {
-                if (currentUrl.includes(validSlugs[i])) {
-                    return validSlugs[i];
-                }
+        var currentUrl = window.location.href.split('?')[0];
+        for (var i = 0; i < validSlugs.length; i++) {
+            if (currentUrl.includes(validSlugs[i])) {
+                return validSlugs[i];
             }
-            return null;
         }
+        return null;
+    }
     // Lấy slug hợp lệ từ URL
     var slug = getValidSlugFromUrl(validSlugs);
     document.addEventListener('DOMContentLoaded', function() {
@@ -288,7 +313,7 @@
         if (window.innerWidth < 1200) {
             // Tìm phần tử Splide
             var splideElement = document.querySelector('.splide');
-            
+
             // Chỉ khởi tạo Splide nếu phần tử Splide tồn tại
             if (splideElement) {
                 new Splide(splideElement, {
@@ -305,7 +330,7 @@
             var $showFilter = $(this); // Lấy nút show-filter được nhấp
             var index = $('.show-filter-mb').index($showFilter); // Lấy chỉ số của nút show-filter được nhấp
             var $childFilter = $('.child-filter-mb').eq(index); // Lấy child-filter tương ứng
-            
+
             // Kiểm tra xem child-filter hiện đang hiển thị hay ẩn
             if ($childFilter.is(':visible')) {
                 $childFilter.hide(); // Nếu đang hiển thị, thì ẩn đi
@@ -345,10 +370,10 @@
             var $btnChildFilter = $(this);
             $btnChildFilter.toggleClass('border-blue');
             $(this).closest('.child-filter-mb').find('.filter-button-mb').show();
-    
+
             // Lấy giá trị data-target của .child-filter để tìm .show-filter tương ứng
             var targetId = $(this).closest('.child-filter-mb').data('target');
-            
+
             // Tìm phần tử .show-filter trong tất cả các phần tử .splide__slide
             var $showFilter = $('.splide__slide').find('.show-filter-mb').filter(function() {
                 return $(this).data('filter-id') === targetId;
@@ -386,9 +411,9 @@
                     // Xử lý phản hồi từ backend (ví dụ: cập nhật danh sách sản phẩm)
                     var $resultCount = $('.total-reloading');
                     var $readMoreButton = $('.btn-filter-readmore-mb');
-                    
+
                     $resultCount.text(response.count);
-                    
+
                     if (response.count === 0) {
                         $readMoreButton.prop('disabled', true); // Vô hiệu hóa nút nếu total bằng 0
                         $readMoreButton.addClass('disabled'); // Thêm lớp 'disabled' để áp dụng CSS
@@ -402,7 +427,7 @@
                 }
             });
         });
-        
+
         // Ẩn tất cả các child-filter khi người dùng cuộn trang
         $(window).on('scroll', function() {
             $('.child-filter-mb').hide();
@@ -421,7 +446,7 @@
             var $childFilter = $(this).closest('.child-filter-mb');
             // Lấy targetId từ .child-filter
             var targetId = $childFilter.data('target');
-            
+
             // Tìm .show-filter tương ứng với targetId
             var $showFilter = $('.show-filter-mb').filter(function() {
                 return $(this).data('filter-id') == targetId;
@@ -445,8 +470,8 @@
         $('.btn-filter-readmore-mb').on('click', function() {
             var queryParams = Object.keys(selectedFiltersMb).map(function(key) {
                 return key + '=' + selectedFiltersMb[key].join(',');
-            }).join('&');// Chuyển đổi đối tượng bộ lọc đã chọn thành chuỗi query parameters
-            
+            }).join('&'); // Chuyển đổi đối tượng bộ lọc đã chọn thành chuỗi query parameters
+
             var currentUrl = window.location.href.split('?')[0];
             var newUrl = currentUrl + '?' + queryParams;
             window.location.href = newUrl; // Chuyển hướng đến URL mới
@@ -479,11 +504,11 @@
     });
 
     // Kiểm tra kích thước màn hình khi cửa sổ thay đổi kích thước
-    window.addEventListener('resize', function () {
+    window.addEventListener('resize', function() {
         if (window.innerWidth < 1200) {
             // Tìm phần tử Splide
             var splideElement = document.querySelector('.splide');
-            
+
             // Chỉ khởi tạo Splide nếu phần tử Splide tồn tại và chưa được khởi tạo
             if (splideElement && !splideElement.classList.contains('is-initialized')) {
                 new Splide(splideElement, {

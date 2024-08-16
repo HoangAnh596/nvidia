@@ -30,24 +30,19 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <div class="input-group" style="margin-top: 30px;">
-                <input class="hiddenImg py-1" type="file" name="uploadImg" id="image" accept="image/*">
+    <div class="row mb-3">
+        <div class="col-2">
+            <div class="input-group">
                 <input id="thumbnail" class="form-control" type="hidden" name="filepath">
-                <input type="hidden" name="current_url" id="current_url" value="" />
-                <button class="btn btn-outline-dark" id="" style="margin-right: 1rem;" onclick="uploadImage()">Upload</button>
                 <span class="input-group-btn">
                     <button id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-outline-dark hiddenButton">
                         <i class="fa fa-picture-o"></i> Chọn ảnh từ thư viện
                     </button>
                 </span>
             </div>
-            <div id="holder"></div>
-            <div id="preview">
-                <img id="preview-image" src="#" alt="your image" />
-            </div>
+            <div id="holder"><img src="{{ old('filepath') }}" alt="" style="height: 5rem;"></div>
         </div>
+        <div class="col-3 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 800 x 600 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
     </div>
     <div class="row">
         <div class="col-6">
@@ -72,7 +67,7 @@
     <div class="row">
         <div class="col">
             <label for="example-textarea" class="form-label">Mô tả chi tiết</label>
-            <textarea class="form-control" id="my-editor" rows="10" name="content"></textarea>
+            <textarea class="form-control" id="my-editor" rows="10" name="content">{{ old('content') }}</textarea>
             @error('content')
             <span class="font-italic text-danger ">{{ $message }}</span>
             @enderror

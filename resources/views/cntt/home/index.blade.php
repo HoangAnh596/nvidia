@@ -116,10 +116,10 @@
         @if(!empty($categories))
         @foreach($categories as $item)
         <div class="col-lg-5 col-xs-6 col-md-4 col-sm-6">
-            <a class="d-flex justify-content-center flex-fill mt-4" href="{{ $item->slug }}" title="{{ $item->name }}">
+            <a class="d-flex justify-content-center flex-fill mt-3" href="{{ $item->slug }}" title="{{ $item->name }}">
                 <img class="rounded-circle img-fluid border lazyload" src="{{ asset($item->image) }}" data-src="{{ asset($item->image) }}" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
             </a>
-            <h2 class="mt-4 mb-3 d-flex flex-fill justify-content-center">
+            <h2 class="mt-3 mb-3 d-flex flex-fill justify-content-center">
                 <a href="{{ $item->slug }}" title="{{ $item->name }}">{{ $item->name }}</a>
             </h2>
         </div>
@@ -134,7 +134,7 @@
 @foreach ($categoriesWithProducts as $data)
 <section>
     <div class="container">
-        <div class="row bg-cate">
+        <div class="row bg-cate mt-2 mb-3">
             @if(!empty($data['products']))
             <div class="col-md-3 text-cate" style="padding-left: 0;">
                 <a class="btn-link ft-sw" href="{{ asset($data['category']->slug) }}" title="{{ $data['category']->name }}">{{ $data['category']->name }}</a>
@@ -155,23 +155,31 @@
             </div>
             @endif
         </div>
-        <div class="row mt-4">
+        <div class="row custom-row">
             @if(!empty($data['products']))
             @foreach($data['products'] as $product)
-            <div class="col-lg-5 col-xs-6 col-md-3 col-sm-6 mb-4">
+            <div class="col-w-5 col-xs-6 col-md-4 col-sm-6 mb-2">
                 <div class="card h-100">
                     @php
                     $mainImage = $product->product_images->firstWhere('main_img', 1);
                     @endphp
 
                     @if($mainImage)
-                        <a class="btn-img" href="{{ $product->slug }}">
-                            <img class="card-img-top lazyload img-size" src="{{ asset(str_replace('storage/images/san-pham/', 'storage/images/san-pham/medium/', $mainImage->image)) }}" data-src="{{ asset(str_replace('storage/images/san-pham/', 'storage/images/san-pham/medium/', $mainImage->image)) }}" alt="{{ $mainImage->alt }}" title="{{ $mainImage->title }}">
-                        </a>
+                    @php
+                    $imagePath = $mainImage->image;
+                    $directory = dirname($imagePath);
+                    $filename = basename($imagePath);
+                    $newDirectory = $directory . '/small';
+                    $newImagePath = $newDirectory . '/' . $filename;
+                    @endphp
+                    <a class="btn-img" href="{{ $product->slug }}">
+                        <img class="card-img-top img-size" src="{{ asset($newImagePath) }}" alt="{{ $mainImage->alt }}" title="{{ $mainImage->title }}">
+                    </a>
+                    <!-- srcset="/uploads/200_image.jpg 200w, /uploads/400_image.jpg 400w, /uploads/800_image.jpg 800w" -->
                     @else
-                        <a class="btn-img" href="{{ $product->slug }}">
-                            <img class="card-img-top lazyload img-size" src="{{ asset('storage/images/image-coming-soon-1.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon-1.jpg') }}" width="206" height="206" alt="Image Coming Soon" title="Image Coming Soon">
-                        </a>
+                    <a class="btn-img" href="{{ $product->slug }}">
+                        <img class="card-img-top lazyload img-size" src="{{ asset('storage/images/small/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" width="206" height="206" alt="Image Coming Soon" title="Image Coming Soon">
+                    </a>
                     @endif
                     <div class="card-body">
                         <div class="text-center h-30">
@@ -210,19 +218,24 @@
 <!-- Begin Tin tức bài viết -->
 <section>
     <div class="container">
-        <div class="row bg-cate">
+        <div class="row bg-cate mt-2">
             <div class="col-md-3 text-cate" style="padding-left: 0;">
                 <a class="btn-link ft-sw" href="/blogs">Tin Tức Công Nghệ</a>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
                 <ul class="nav nav-mb">
+                    @foreach($cateBlogs as $child)
+                    <li class="nav-item">
+                        <a class="btn-link" aria-current="page" href="{{ asset('/blogs/' . $child->slug) }}">{{ $child->name }}</a>
+                    </li>
+                    @endforeach
                     <li class="nav-item">
                         <a class="btn-link" aria-current="page" href="/blogs">Xem thêm</a>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="row mt-4">
+        <div class="row mt-3">
             @if(!empty($blogs))
             @foreach($blogs as $val)
             <div class="col-12 col-md-3 col-sm-6 mb-4">
@@ -230,9 +243,10 @@
                     <a class="btn-img-new" href="/blogs/{{ $val->slug }}">
                         <img class="card-img-top lazyload img-size" src="{{ asset($val->image) }}" data-src="{{ asset($val->image) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
                     </a>
-                    <div class="card-body">
-                        <a href="/blogs/{{ $val->slug }}" class="text-decoration-none text-dark">{{ $val->name }}</a>
+                    <div class="new-body">
+                        <a href="/blogs/{{ $val->slug }}" class="text-decoration-none text-dark"><h4>{{ $val->name }}</h4></a>
                     </div>
+                    <p>{{ $val->desc }}</p>
                 </div>
             </div>
             @endforeach
