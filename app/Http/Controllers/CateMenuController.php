@@ -85,24 +85,11 @@ class CateMenuController extends Controller
         $cateMenu = empty($id) ? new CateMenu() : CateMenu::findOrFail($id);
 
         $cateMenu->fill($request->all());
-        $path = parse_url($request->filepath, PHP_URL_PATH);
-        // Xóa dấu gạch chéo đầu tiên nếu cần thiết
-        if (strpos($path, '/') === 0) {
-            $path = substr($path, 1);
-        }
-
-        $cateMenu->image = $path;
         if(empty($request->input('parent_menu'))){
             $cateMenu->parent_menu = $request->input('parent_menu', 0);
-            $cateMenu->image = null;
         }
         if(empty($request->input('is_tab'))){
             $cateMenu->is_tab = $request->input('is_tab', 0);
-        }
-        // Xóa ảnh hiện tại nếu checkbox "Xóa Ảnh" được đánh dấu
-        if ($request->has('delete_image') && $request->input('delete_image') == 1) {
-            Storage::delete($cateMenu->image);
-            $cateMenu->image = null;
         }
         $cateMenu->stt_menu = (isset($request->stt_menu)) ? $request->stt_menu : 999;
 

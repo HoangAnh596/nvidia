@@ -57,32 +57,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- @if (Session::has('message'))
-    <script>
-        toastr.options = {
-            "progressBar": true,
-            "closeButton": true,
-            "timeOut": 12000
-        };
-        toastr.success("{{ addslashes(Session::get('message')) }}", 'Success!');
-    </script>
-@endif -->
 
-<!-- @if ($errors->any())
-    <script>
-        toastr.options = {
-            "progressBar": true,
-            "closeButton": true,
-            "timeOut": 12000
-        };
-        
-        var errors = {!! json_encode($errors->all()) !!};
-
-        errors.forEach(function(error) {
-            toastr.error(error, 'Error!');
-        });
-    </script>
-@endif -->
     @yield('js')
     <!-- End Script -->
 </body>

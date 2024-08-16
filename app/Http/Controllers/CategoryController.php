@@ -148,7 +148,7 @@ class CategoryController extends Controller
     public function insertOrUpdate(CategoryFormRequest $request, $id = '')
     {
         $category = empty($id) ? new Category() : Category::findOrFail($id);
-        // dd($request->filepath);
+        
         $category->fill($request->all());
         $path = parse_url($request->filepath, PHP_URL_PATH);
         // Xóa dấu gạch chéo đầu tiên nếu cần thiết
@@ -158,10 +158,10 @@ class CategoryController extends Controller
 
         $category->image = $path;
         // Xóa ảnh hiện tại nếu checkbox "Xóa Ảnh" được đánh dấu
-        if ($request->has('delete_image') && $request->input('delete_image') == 1) {
-            Storage::delete($category->image);
-            $category->image = null;
-        }
+        // if ($request->has('delete_image') && $request->input('delete_image') == 1) {
+        //     Storage::delete($category->image);
+        //     $category->image = null;
+        // }
 
         $category->title_img = (isset($request->title_img)) ? $request->title_img : $request->name;
         $category->alt_img = (isset($request->alt_img)) ? $request->alt_img : $request->name;

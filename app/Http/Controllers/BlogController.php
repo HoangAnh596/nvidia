@@ -22,6 +22,7 @@ class BlogController extends Controller
     public function blog()
     {
         // Seo website
+        // dd(1);
         $titleSeo = config('common.title_seo_blog');
         $keywordSeo = config('common.keyword_seo_blog');
         $descriptionSeo = config('common.des_seo_blog');
@@ -113,6 +114,7 @@ class BlogController extends Controller
 
     public function detailBlog($slugParent, $slug)
     {
+        dd(1);
         $cateMenu = CategoryNew::select('name', 'slug')->orderBy('stt_new', 'ASC')
             ->where('is_public', 1)
             ->where('slug','<>','blogs')->get();

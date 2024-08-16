@@ -16,10 +16,10 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('subCategory')->nullable();
             $table->string('slug');
             $table->string('related_pro')->nullable();
             $table->string('tag_ids')->nullable();
-            $table->string('subCategory')->nullable();
             $table->string('code', 50);
             $table->tinyInteger('status')->default(1)->comment('1: còn hàng, 0: hết hàng');
             $table->tinyInteger('is_outstand')->default(0)->comment('1: nổi bật, 0: không nổi bật');

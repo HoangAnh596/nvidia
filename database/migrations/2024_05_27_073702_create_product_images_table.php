@@ -16,6 +16,7 @@ class CreateProductImagesTable extends Migration
         Schema::create('product_images', function (Blueprint $table) {
             $table->id();
             $table->string('image')->nullable();
+            $table->tinyInteger('main_img')->default(1)->comment('1: ảnh chính, 0: ảnh con');
             $table->string('title')->nullable();
             $table->string('alt')->nullable();
             $table->integer('stt_img')->nullable();

@@ -40,7 +40,7 @@
         </div>
         <div style="height: 38px; color: red; margin-left: 20px;"><i class="fa-solid fa-circle-info"></i></div>
     </div>
-    <div class="row mt-3 mb-3">
+    <!-- <div class="row mt-3 mb-3">
         <div class="col-2 d-flex flex-row-reverse">Kiểu chọn :</div>
         <div class="col-1">
             <select class="form-select" aria-label="Default" name="is_select">
@@ -55,7 +55,7 @@
             </select>
         </div>
         <div class="d-flex align-items-center" style="height: 38px; color: red; padding-left: 20px"><i class="fa-solid fa-circle-info"></i></div>
-    </div>
+    </div> -->
     <div class="row mt-3 mb-3">
         <div class="col-2 d-flex flex-row-reverse">Hiển thị :</div>
         <div class="col-1">
