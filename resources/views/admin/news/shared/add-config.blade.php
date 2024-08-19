@@ -2,7 +2,7 @@
     <div class="form-row">
         <div class="col">
             <div class="mb-3">
-                <label for="name" class="form-label">Tên sản phẩm</label>
+                <label for="name" class="form-label">Tên bài viết</label>
                 <input type="text" id="name" class="form-control" name="name" oninput="checkDuplicate()">
                 <span id="name-error" style="color: red;"></span>
             </div>
@@ -14,12 +14,12 @@
         </div>
         <div class="col">
             <div class="mb-3">
-                <label for="slug" class="form-label">Địa chỉ Url</label>
+                <label for="slug" class="form-label">Url bài viết</label>
                 <input type="text" id="slug" class="form-control" name="slug" oninput="checkDuplicate()">
                 <span id="slug-error" style="color: red;"></span>
             </div>  
             <div class="mb-3">
-                <label for="new_categories" class="form-label">Danh mục sản phẩm</label>
+                <label for="new_categories" class="form-label">Danh mục bài viết</label>
                 <select id="new_categories" class="border form-control" data-live-search="true" name="cate_id">
                     @if(isset($categories))
                     @foreach($categories as $category)

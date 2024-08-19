@@ -9,6 +9,7 @@
             <div class="mb-3">
                 <label for="code" class="form-label">Mã sản phẩm <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
                 <input type="text" id="code" class="form-control" name="code" value="{{ old('code') }}">
+                <span class="text-danger" id="codeError"></span>
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Giá sản phẩm</label>
@@ -34,7 +35,7 @@
         </div>
         <div class="col">
             <div class="mb-3">
-                <label for="slug" class="form-label">Địa chỉ Url</label>
+                <label for="slug" class="form-label">Url sản phẩm <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
                 <input type="text" id="slug" class="form-control" name="slug" value="{{ old('slug') }}" oninput="checkDuplicate()">
                 <span id="slug-error" style="color: red;"></span>
             </div>

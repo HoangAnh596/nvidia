@@ -10,6 +10,7 @@ class ProductTagController extends Controller
     public function store(Request $request)
     {
         $name = $request->input('name');
+        // dd($name);
         $productTag = ProductTag::create(
             ['name' => $name],
         );

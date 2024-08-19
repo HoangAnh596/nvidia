@@ -88,11 +88,57 @@
 
     let timeout = null;
     let updateSlug = true;
+
+    document.getElementById('code').addEventListener('input', function(e) {
+        const value = e.target.value;
+        const codeError = document.getElementById('codeError');
+        // Regex cho phép chỉ nhập số, chữ thường, chữ cái và dấu gạch ngang, không có ký tự đặc biệt ở đầu/cuối
+        const regex = /^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$/;
+
+        // Kiểm tra giá trị nhập vào với regex
+        if (!regex.test(value)) {
+            codeError.textContent = 'Vui lòng chỉ nhập số, chữ thường, chữ cái và dấu gạch ngang. Đầu và cuối không được chứa ký tự đặc biệt.';
+            clearTimeout(timeout);
+        } else {
+            codeError.textContent = '';
+            // Xóa bộ đếm thời gian trước đó nếu người dùng tiếp tục nhập
+            clearTimeout(timeout);
+
+            // Thiết lập lại bộ đếm thời gian để gọi API sau 3 giây nếu không có sự thay đổi
+            timeout = setTimeout(function() {
+                // Gọi API để kiểm tra mã sản phẩm
+                checkCodeAvailability(value);
+            }, 2000);
+        }
+    });
+
+    function checkCodeAvailability(code) {
+        const codeError = document.getElementById('codeError');
+        $.ajax({
+            url: "{{ route('products.checkCode') }}",
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                code: code,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(data) {
+                if (data.code_exists) {
+                    document.getElementById('codeError').innerText = 'Tên đã tồn tại';
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
     function validateSlug(slug) {
-    // Biểu thức chính quy để kiểm tra định dạng của slug
+        // Biểu thức chính quy để kiểm tra định dạng của slug
         const regex = /^[a-z0-9]+(-[a-z0-9]+)*$/;
         return regex.test(slug);
     }
+
     function checkDuplicate() {
         clearTimeout(timeout);
         timeout = setTimeout(async function() {
@@ -186,7 +232,7 @@
 
         // Xử lý phần tags
         $('#searchTags').select2({
-            placeholder: "Select or type product name",
+            placeholder: "Nhập thẻ tags",
             tags: true,
             ajax: {
                 url: "{{ route('products.searchTags') }}",
@@ -248,37 +294,37 @@
         // Lưu đường dẫn ảnh đã tải lên
         let uploadedImages = [];
         $('#current_url').val(window.location.href);
-        $("#uploadButtonPr").click(function(e) {
-            e.preventDefault();
-            let data = new FormData();
-            data.append('uploadImg', $('#prImages')[0].files[0]);
-            data.append('current_url', window.location.href);
+        // $("#uploadButtonPr").click(function(e) {
+        //     e.preventDefault();
+        //     let data = new FormData();
+        //     data.append('uploadImg', $('#prImages')[0].files[0]);
+        //     data.append('current_url', window.location.href);
 
-            $.ajax({
-                url: "{{ route('upload.image') }}",
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: data,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    // uploadedImages.push(response.image_name); // Thêm vào danh sách ảnh đã upload
-                    addImageToTable(response.image_name);
-                    resetInputs();
-                },
-                error: function(response) {
-                    alert("An error occurred. Please try again.");
-                }
-            });
-        });
+        //     $.ajax({
+        //         url: "{{ route('upload.image') }}",
+        //         method: "POST",
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         data: data,
+        //         processData: false,
+        //         contentType: false,
+        //         success: function(response) {
+        //             // uploadedImages.push(response.image_name); // Thêm vào danh sách ảnh đã upload
+        //             addImageToTable(response.image_name);
+        //             resetInputs();
+        //         },
+        //         error: function(response) {
+        //             alert("An error occurred. Please try again.");
+        //         }
+        //     });
+        // });
         // Xử lý sự kiện khi ảnh được chọn từ trình quản lý file
         $('#lfm-prImages').on('click', function() {
             var dataPreview = $(this).data('preview');
             window.open('/laravel-filemanager?type=image', 'FileManager', 'width=300,height=300');
-            window.SetUrl = function (items) {
-                var imagePath = items.map(function (item) {
+            window.SetUrl = function(items) {
+                var imagePath = items.map(function(item) {
                     return item.url;
                 }).join(',');
 
@@ -340,7 +386,9 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                data: { image_url: imageUrl },
+                data: {
+                    image_url: imageUrl
+                },
                 success: function(response) {
                     $(this).closest('tr').remove(); // Xóa hàng khỏi bảng
                 },

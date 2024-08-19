@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class NewFormRequest extends FormRequest
@@ -24,22 +25,67 @@ class NewFormRequest extends FormRequest
      */
     public function rules()
     {
-        $formRules = [
-            'title' => [
-                'required',
-                'max:255'
-            ],
-            'content'=>'required',
-            'file_upload' => [
-                "mimes:jpg,bmp,png,gif",
-                'max:1000'
-            ]
-        ];
-        
-        if($this->id == null){
-            $formRules['file_upload'][] = "required";
+        $params = $this->request->all();
+
+        if (!empty($params['id'])) {
+            $checkNameUpdate = DB::table('news')->select('id')
+                ->where('name', '=', $params['name'])
+                ->where('id', '=', $params['id'])
+                ->value('id');
         }
-        return $formRules;
+        if (!empty($params['id']) && ($params['id'] == $checkNameUpdate)) {
+            $ruleUpdateName = "required";
+        } else {
+            $ruleUpdateName = 'required|unique:news';
+        }
+
+        // Kiểm tra tính duy nhất của slug trong cả hai bảng
+        $uniqueSlugRule = function ($attribute, $value, $fail) use ($params) {
+            $slugExistsInCategory = DB::table('news')
+                ->where('slug', $value)
+                ->where('id', '!=', $params['id'] ?? 0)
+                ->exists();
+
+            $slugExistsInNews = DB::table('category_news')
+                ->where('slug', $value)
+                ->exists();
+
+            if ($slugExistsInCategory || $slugExistsInNews) {
+                $fail('URL danh mục tin tức không được trùng.');
+            }
+        };
+
+        // Đặt điều kiện cho slug
+        $slugRule = !empty($params['id'])
+            ? ['in:' . DB::table('news')->where('id', $params['id'])->value('slug'), $uniqueSlugRule]
+            : ['required', 'string', 'max:255', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $uniqueSlugRule];
+
+        return [
+            'name' => $ruleUpdateName,
+            'slug' => $slugRule,
+            'filepath' => 'required',
+            'stt_new' => (!empty($params['stt_new'])) ? 'integer|min:0' : '',
+            'content'=>'required',
+        ];
+        // $formRules = [
+        //     'title' => [
+        //         'required',
+        //         'max:255'
+        //     ],
+        //     'content'=>'required',
+        //     'file_upload' => [
+        //         "mimes:jpg,bmp,png,gif",
+        //         'max:1000'
+        //     ],
+        //     'slug' => !empty($params['id'])
+        //                 ? 'in:' . DB::table('news')->where('id', $params['id'])->value('slug')
+        //                 : 'required|string|max:255|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/|unique:category_news,slug',
+        // ];
+        
+        // if($this->id == null){
+        //     $formRules['file_upload'][] = "required";
+        // }
+        // return $formRules;
     }
     // validate
     public function messages()
@@ -48,9 +94,11 @@ class NewFormRequest extends FormRequest
             'title.required' => 'title không được để trống',
             'title.max' => 'title không được quá 255 ký tự',
             'content.required' => 'content không được để trống',
-            'file_upload.required' => 'file_upload không được để trống',
-            'file_upload.mimes' => 'file_upload phải thuộc jpg,bmp,png,gif',
-            'file_upload.max' => 'file_upload không được quá 2MB',
+            'filepath.required' => 'Ảnh không được để trống',
+            'slug.required' => 'Url không được bỏ trống.',
+            'slug.unique' => 'Url không được trùng.',
+            'slug.regex' => 'Url chỉ được phép chứa chữ cái thường, số và dấu gạch ngang.',
+            'slug.in' => 'Không được thay đổi slug',
         ];
     }
 }

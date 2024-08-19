@@ -27,27 +27,62 @@
                 </div>
             </div>
             <div class="card-body border-top p-9">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#info-tab" type="button" role="tab">
-                            <i class="bi bi-info-circle-fill"></i>
-                            Cấu hình sản phẩm
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#wallet-tab" type="button" role="tab">
-                            <i class="bi bi-wallet2"></i>
-                            Cấu hình SEO
-                        </button>
-                    </li>
-                </ul>
-
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="info-tab" role="tabpanel">
-                        @include("admin.cateNew.shared.add-config")
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Tên danh mục <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
+                            <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" oninput="checkDuplicate()">
+                            <span id="name-error" style="color: red;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Danh mục cha </label>
+                            <select name="parent_id" id="parent_id" class="form-control">
+                                <option value="0">Chọn danh mục</option>
+                                @foreach($cateNewParents as $category)
+                                @include('admin.cateNew.partials.category_add', ['category' => $category, 'level' => 0])
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                    <div class="tab-pane fade" id="wallet-tab" role="tabpanel">
-                        @include("admin.cateNew.shared.add-seo")
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">URL danh mục bài viết <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
+                            <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug') }}" oninput="checkDuplicate()">
+                            <span id="slug-error" style="color: red;"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="related_pro" class="form-label">Sản phẩm liên quan: </label>
+                            <select class="related_pro form-control" name="related_pro[]" id="related_pro" multiple="multiple"></select>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Tiêu đề SEO: </label>
+                            <input type="text" name="title_seo" id="title_seo" class="form-control" value="{{ old('title_seo') }}">
+                            <div class="text-danger" id="message" style="padding-top: 10px;"></div>
+                            @error('title_seo')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Từ khóa SEO: </label>
+                            <input type="text" name="keyword_seo" class="form-control" value="{{ old('keyword_seo') }}">
+                            @error('keyword_seo')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Mô tả chi tiết SEO: </label>
+                            <input type="text" name="des_seo" class="form-control" value="{{ old('des_seo') }}">
+                            @error('des_seo')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,7 +100,6 @@
 @section('js')
 <script src="{{ asset('cntt/js/slug.js') }}"></script>
 <script>
-
     let timeout = null;
     let updateSlug = true;
 
@@ -166,34 +200,5 @@
             },
         });
     });
-        // $('#current_url').val(window.location.href);
-        // $("#uploadBtnCateNew").click(function(e) {
-        //     e.preventDefault();
-        //     let data = new FormData();
-        //     console.log(data);
-        //     data.append('uploadImg', $('#image')[0].files[0]);
-        //     data.append('current_url', window.location.href);
-
-        //     $.ajax({
-        //         url: "{{ route('upload.image') }}",
-        //         method: "POST",
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         data: data,
-        //         processData: false,
-        //         contentType: false,
-        //         _token: "{{ csrf_token() }}",
-        //         success: function(response) {
-        //             $('#thumbnail').val(response.image_name);
-        //             $('#preview-image').show();
-        //         },
-        //         error: function(response) {
-        //             alert("An error occurred. Please try again.");
-        //             console.log(response);
-        //         }
-        //     });
-        // });
-    
 </script>
 @endsection

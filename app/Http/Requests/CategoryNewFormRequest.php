@@ -29,18 +29,43 @@ class CategoryNewFormRequest extends FormRequest
 
         if (!empty($params['id'])) {
             $checkNameUpdate = DB::table('category_news')->select('id')
-            ->where('name', '=', $params['name'])
-            ->where('id', '=', $params['id'])
-            ->value('id');
+                ->where('name', '=', $params['name'])
+                ->where('id', '=', $params['id'])
+                ->value('id');
         }
         if (!empty($params['id']) && ($params['id'] == $checkNameUpdate)) {
             $ruleUpdateName = "required";
+        } else {
+            $ruleUpdateName = 'required|unique:category_news';
         }
 
+        // Kiểm tra tính duy nhất của slug trong cả hai bảng
+        $uniqueSlugRule = function ($attribute, $value, $fail) use ($params) {
+            $slugExistsInCategory = DB::table('category_news')
+                ->where('slug', $value)
+                ->where('id', '!=', $params['id'] ?? 0)
+                ->exists();
+
+            $slugExistsInNews = DB::table('news')
+                ->where('slug', $value)
+                ->exists();
+
+            if ($slugExistsInCategory || $slugExistsInNews) {
+                $fail('URL danh mục tin tức không được trùng.');
+            }
+        };
+
+        // Đặt điều kiện cho slug
+        $slugRule = !empty($params['id'])
+            ? ['in:' . DB::table('category_news')->where('id', $params['id'])->value('slug'), $uniqueSlugRule]
+            : ['required', 'string', 'max:255', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $uniqueSlugRule];
+
         return [
-            'name' => (isset($ruleUpdateName)) ? $ruleUpdateName : 'required | unique:category_news',
-            // 'content'=>'required',
-            'stt_new' => (!empty($params['stt_new'])) ? 'integer|min:0' : ''
+            'name' => $ruleUpdateName,
+            'slug' => $slugRule,
+            'stt_new' => (!empty($params['stt_new'])) ? 'integer|min:0' : '',
+            'related_pro' => 'nullable|array',
+            'related_pro.*' => 'integer',
         ];
     }
 
@@ -52,6 +77,10 @@ class CategoryNewFormRequest extends FormRequest
         return [
             'name.required' => 'Tên danh mục không được bỏ trống.',
             'name.unique' => 'Tên danh mục không được trùng.',
+            'slug.required' => 'Url không được bỏ trống.',
+            'slug.unique' => 'Url không được trùng.',
+            'slug.regex' => 'Url chỉ được phép chứa chữ cái thường, số và dấu gạch ngang.',
+            'slug.in' => 'Không được thay đổi slug',
             // 'content.required' => 'Mô tả không được để trống',
             'stt_new.integer' => 'Số thứ tự phải là số nguyên.',
             'stt_new.min' => 'Số thứ tự phải lớn 0',

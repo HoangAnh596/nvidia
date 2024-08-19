@@ -2,20 +2,14 @@
     <div class="row">
         <div class="col-6">
             <div class="form-group">
-                <label for="">Tên danh mục: </label>
+                <label for="">Tên danh mục <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
                 <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" oninput="checkDuplicate()">
                 <span id="name-error" style="color: red;"></span>
-                @error('name')
-                <span class="text-danger">{{ $message }}</span>
-                @enderror
             </div>
             <div class="form-group">
-                <label for="">URL danh mục: </label>
+                <label for="">URL danh mục <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
                 <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug') }}" oninput="checkDuplicate()">
                 <span id="slug-error" style="color: red;"></span>
-                @error('slug')
-                <span class="text-danger">{{ $message }}</span>
-                @enderror
             </div>
         </div>
         <div class="col-6">
@@ -49,28 +43,19 @@
             <div class="form-group">
                 <label for="">Tiêu đề ảnh: </label>
                 <input type="text" name="title_img" class="form-control" value="{{ old('title_img') }}">
-                @error('title_img')
-                <span class="text-danger">{{ $message }}</span>
-                @enderror
             </div>
         </div>
         <div class="col-6">
             <div class="form-group">
                 <label for="">Alt ảnh: </label>
                 <input type="text" name="alt_img" class="form-control" value="{{ old('alt_img') }}">
-                @error('alt_img')
-                <span class="text-danger">{{ $message }}</span>
-                @enderror
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <label for="example-textarea" class="form-label">Mô tả chi tiết</label>
+            <label for="example-textarea" class="form-label">Mô tả chi tiết <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
             <textarea class="form-control" id="my-editor" rows="10" name="content">{{ old('content') }}</textarea>
-            @error('content')
-            <span class="font-italic text-danger ">{{ $message }}</span>
-            @enderror
         </div>
     </div>
 </div>

@@ -2,7 +2,7 @@
     <div class="form-row">
         <div class="col">
             <div class="mb-3">
-                <label for="name" class="form-label">Tên tin tức</label>
+                <label for="name" class="form-label">Tên bài viết</label>
                 <input type="text" id="name" class="form-control" name="name" value="{{ old('name', $new->name ?? '') }}" oninput="checkDuplicate()">
                 <span id="name-error" style="color: red;"></span>
                 @error('name')
@@ -16,11 +16,11 @@
         </div>
         <div class="col">
             <div class="mb-3">
-                <label for="slug" class="form-label">Slug tin tức</label>
+                <label for="slug" class="form-label">Url bài viết</label>
                 <input class="form-control" id="slug" type="name" name="slug" value="{{ old('slug', $new->slug ?? '') }}" disabled>
             </div>
             <div class="mb-3">
-                <label for="new_categories" class="form-label">Danh mục tin tức</label>
+                <label for="new_categories" class="form-label">Danh mục bài viết</label>
                 <select id="new_categories" class="border form-control" data-live-search="true" name="cate_id">
                     @if(isset($categories))
                     @foreach($categories as $val)

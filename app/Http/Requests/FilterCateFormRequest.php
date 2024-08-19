@@ -27,31 +27,38 @@ class FilterCateFormRequest extends FormRequest
     {
         $params = $this->request->all();
 
-        if (!empty($params['id'])) {
-            $checkNameUpdate = DB::table('filter_cate')->select('id')
-            ->where('name', '=', $params['name'])
-            ->where('id', '=', $params['id'])
-            ->value('id');
-        }
-        if (!empty($params['id']) && ($params['id'] == $checkNameUpdate)) {
-            $ruleUpdateName = "required";
-        }
+        $ruleUpdateName = 'required';
+        $ruleUpdateSlug = 'required | max:255 | regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/ | unique:filter_cate';
         
         if (!empty($params['id'])) {
-            $checkSlugUpdate = DB::table('filter_cate')->select('id')
-            ->where('slug', '=', $params['slug'])
-            ->where('id', '=', $params['id'])
-            ->value('id');
-        }
-        if (!empty($params['id']) && ($params['id'] == $checkSlugUpdate)) {
-            $ruleUpdateSlug = "required";
+            // Kiểm tra tên đã tồn tại khi cập nhật
+            $checkNameUpdate = DB::table('filter_cate')
+                ->select('id')
+                ->where('name', '=', $params['name'])
+                ->where('id', '!=', $params['id'])
+                ->value('id');
+        
+            if ($checkNameUpdate) {
+                $ruleUpdateName = 'required';
+            }
+        
+            // Kiểm tra slug đã tồn tại khi cập nhật
+            $checkSlugUpdate = DB::table('filter_cate')
+                ->select('id')
+                ->where('slug', '=', $params['slug'])
+                ->where('id', '!=', $params['id'])
+                ->value('id');
+        
+            if ($checkSlugUpdate) {
+                $ruleUpdateSlug = 'required | max:255 | regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/';
+            }
         }
 
         return [
-            'name' => (isset($ruleUpdateName)) ? $ruleUpdateName : 'required',
-            'slug' => (isset($ruleUpdateSlug)) ? $ruleUpdateSlug : 'required | unique:filter_cate',
+            'name' => $ruleUpdateName,
+            'slug' => $ruleUpdateSlug,
             'cate_id' => 'required',
-            'stt_filter' => (!empty($params['stt_filter'])) ? 'integer|min:0' : ''
+            'stt_filter' => !empty($params['stt_filter']) ? 'integer|min:0' : '',
         ];
     }
 
@@ -63,8 +70,10 @@ class FilterCateFormRequest extends FormRequest
         return [
             'name.required' => 'Tên bộ lọc không được bỏ trống.',
             'name.unique' => 'Tên bộ lọc không được trùng.',
-            'slug.required' => 'Tên bộ lọc không được bỏ trống.',
-            'slug.unique' => 'Tên bộ lọc không được trùng.',
+            'slug.required' => 'Url không được bỏ trống.',
+            'slug.unique' => 'Url không được trùng.',
+            'slug.max' => 'Url không được vượt quá 255 ký tự.',
+            'slug.regex' => 'Url chỉ được phép chứa chữ cái thường, số và dấu gạch ngang.',
             'cate_id.required' => 'Danh mục sản phẩm không được bỏ trống.',
             'stt_filter.integer' => 'Số thứ tự phải là số nguyên.',
             'stt_filter.min' => 'Số thứ tự phải lớn 0',

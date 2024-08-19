@@ -58,10 +58,12 @@
                 <button class="btn btn-primary btn-sm " type="submit" id="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
             </div>
         </form>
-        <form class="deleteForm" action="{{ route('categories.destroy', ['category' => $category->id]) }}" method="post">
+        <form id="deleteForm-{{ $category->id }}" action="{{ route('categories.destroy', ['category' => $category->id]) }}" method="post" class="deleteForm">
             @csrf
-            @method( 'Delete' )
-            <button class="btn btn-danger btn-sm" type="delete" value="Delete" onclick="return confirm('Bạn chắc chắn muốn xóa chứ?')" style="float: right; margin-right: 20px; margin-left:5px"><i class="fa-solid fa-eraser"></i> Xóa</button>
+            @method('Delete')
+            <button class="btn btn-danger btn-sm" type="button" value="Delete" onclick="confirmDelete('{{ $category->id }}')" style="float: right; margin-right: 20px; margin-left:5px">
+                <i class="fa-solid fa-eraser"></i> Xóa
+            </button>
         </form>
     </div>
 </div>
@@ -94,31 +96,59 @@
         });
     }
     
-    $(document).ready(function() {
-        $("#uploadButton").click(function(e) {
-            e.preventDefault();
-            let data = new FormData();
-            data.append('uploadImg', $('#image')[0].files[0]);
-            data.append('current_url', window.location.href);
+    // $(document).ready(function() {
+    //     $("#uploadButton").click(function(e) {
+    //         e.preventDefault();
+    //         let data = new FormData();
+    //         data.append('uploadImg', $('#image')[0].files[0]);
+    //         data.append('current_url', window.location.href);
 
-            $.ajax({
-                url: "{{ route('upload.image') }}",
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: data,
-                processData: false,
-                contentType: false,
-                success: function(res) {
-                    $('#thumbnail').val(res.image_name);
-                    $('#preview-image').show();
-                },
-                error: function(err) {
-                    alert("An error occurred. Please try again. 1");
-                }
-            });
+    //         $.ajax({
+    //             url: "{{ route('upload.image') }}",
+    //             method: "POST",
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             },
+    //             data: data,
+    //             processData: false,
+    //             contentType: false,
+    //             success: function(res) {
+    //                 $('#thumbnail').val(res.image_name);
+    //                 $('#preview-image').show();
+    //             },
+    //             error: function(err) {
+    //                 alert("An error occurred. Please try again. 1");
+    //             }
+    //         });
+    //     });
+    // });
+
+    function confirmDelete(id) {
+        toastr.warning(`
+        <div>Bạn chắc chắn muốn xóa chứ?</div>
+        <div style="margin-top: 15px;">
+            <button type="button" id="confirmButton" class="btn btn-danger btn-sm" style="margin-right: 10px;">Xóa</button>
+            <button type="button" id="cancelButton" class="btn btn-secondary btn-sm">Hủy</button>
+        </div>
+    `, 'Cảnh báo', {
+            closeButton: false,
+            timeOut: 0, // Vô hiệu hóa tự động loại bỏ
+            extendedTimeOut: 0,
+            tapToDismiss: false,
+            positionClass: "toast-top-center",
+            onShown: function() {
+                // Xử lý khi người dùng nhấn "Xóa"
+                document.getElementById('confirmButton').addEventListener('click', function() {
+                    toastr.clear(); // Xóa thông báo toastr
+                    document.getElementById('deleteForm-' + id).submit(); // Gửi form để xóa
+                });
+
+                // Xử lý khi người dùng nhấn "Hủy"
+                document.getElementById('cancelButton').addEventListener('click', function() {
+                    toastr.remove(); // Xóa thông báo toastr khi nhấn nút "Hủy"
+                });
+            }
         });
-    });
+    }
 </script>
 @endsection

@@ -29,39 +29,87 @@
                 </div>
             </div>
             <div class="card-body border-top p-9">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#info-tab" type="button" role="tab">
-                            <i class="bi bi-info-circle-fill"></i>
-                            Cấu hình sản phẩm
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#wallet-tab" type="button" role="tab">
-                            <i class="bi bi-wallet2"></i>
-                            Cấu hình SEO
-                        </button>
-                    </li>
-                </ul>
-
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="info-tab" role="tabpanel">
-                        @include("admin.cateNew.shared.edit-config")
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-3 col-xs-12">
+                            <label for="name" class="form-label">Tên danh mục <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
+                            <input type="text" id="name" class="form-control" name="name" value="{{ old('name', $category->name ?? '') }}">
+                        </div>
+                        <div class="form-group mb-3 col-xs-12">
+                            <label for="parent_id">Danh mục cha:</label>
+                            <select class="form-control" id="parent_id" name="parent_id">
+                                <option value="0">Chọn danh mục</option>
+                                @foreach($categories as $cat)
+                                @include('admin.cateNew.partials.category-option', ['category' => $cat, 'level' => 0, 'selected' => $category->parent_id])
+                                @endforeach
+                            </select>
+                            @if ($errors->has('parent_id'))
+                            <div class="invalid-feedback" style="display: block;">
+                                {{ $errors->first('parent_id') }}
+                            </div>
+                            @endif
+                        </div>
                     </div>
-                    <div class="tab-pane fade" id="wallet-tab" role="tabpanel">
-                        @include("admin.cateNew.shared.edit-seo")
+                    <div class="col-sm-6">
+                        <div class="mb-3 col-xs-12">
+                            <label for="slug" class="form-label">URL danh mục bài viết: </label>
+                            <input type="text" id="slug" class="form-control" name="slug" value="{{ old('slug', $category->slug ?? '') }}" disabled>
+                        </div>
+                        <div class="mb-3 col-xs-12">
+                            <label for="related_pro" class="form-label">Sản phẩm liên quan: </label>
+                            <select class="related_pro form-control" name="related_pro[]" id="related_pro" multiple="multiple">
+                                @if(!empty($relatedPro))
+                                    @foreach($relatedPro as $val)
+                                        <option value="{{ $val->id }}" 
+                                            {{ in_array($val->id, old('related_pro', json_decode($category->related_pro, true) ?? [])) ? 'selected' : '' }}>
+                                            {{ $val->name }}
+                                        </option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-3 col-xs-12">
+                            <label for="title_seo" class="form-label">Tiêu đề SEO:</label>
+                            <input type="text" id="title_seo" class="form-control" name="title_seo" value="{{ old('title_seo', $category->title_seo ?? '') }}">
+                            @error('title_seo')
+                            <span class="font-italic text-danger ">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3 col-xs-12">
+                            <label for="keyword_seo" class="form-label">Từ khóa SEO:</label>
+                            <input type="text" id="keyword_seo" class="form-control" name="keyword_seo" value="{{ old('keyword_seo', $category->keyword_seo ?? '') }}">
+                            @error('keyword_seo')
+                            <span class="font-italic text-danger ">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3 col-xs-12">
+                            <label for="des_seo" class="form-label">Mô tả chi tiết SEO:</label>
+                            <input type="text" id="des_seo" class="form-control" name="des_seo" value="{{ old('des_seo', $category->des_seo ?? '') }}">
+                            @error('des_seo')
+                            <span class="font-italic text-danger ">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="mt-4 pb-4 mr-4 float-right">
-                <button class="btn btn-primary btn-sm " type="submit" id="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+                <button class="btn btn-primary btn-sm " type="submit" id="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
             </div>
         </form>
-        <form action="{{ route('cateNews.destroy', ['cateNews' => $category->id]) }}" method="post" class="deleteForm">
+        <form id="deleteForm-{{ $category->id }}" action="{{ route('cateNews.destroy', ['cateNews' => $category->id]) }}" method="post" class="deleteForm">
             @csrf
-            @method( 'Delete' )
-            <button class="btn btn-danger btn-sm" type="delete" value="Delete" onclick="return confirm('Bạn chắc chắn muốn xóa chứ?')" style="float: right; margin-right: 20px; margin-left:5px"><i class="fa-solid fa-eraser"></i> Xóa</button>
+            @method('Delete')
+            <button class="btn btn-danger btn-sm" type="button" onclick="confirmDelete('{{ $category->id }}')" style="float: right; margin-right: 20px; margin-left: 5px">
+                <i class="fa-solid fa-eraser"></i> Xóa
+            </button>
         </form>
     </div>
 </div>
@@ -149,5 +197,33 @@
             });
         });
     });
+
+    function confirmDelete(id) {
+        toastr.warning(`
+        <div>Bạn chắc chắn muốn xóa chứ?</div>
+        <div style="margin-top: 15px;">
+            <button type="button" id="confirmButton" class="btn btn-danger btn-sm" style="margin-right: 10px;">Xóa</button>
+            <button type="button" id="cancelButton" class="btn btn-secondary btn-sm">Hủy</button>
+        </div>
+    `, 'Cảnh báo', {
+            closeButton: false,
+            timeOut: 0, // Vô hiệu hóa tự động loại bỏ
+            extendedTimeOut: 0,
+            tapToDismiss: false,
+            positionClass: "toast-top-center",
+            onShown: function() {
+                // Xử lý khi người dùng nhấn "Xóa"
+                document.getElementById('confirmButton').addEventListener('click', function() {
+                    toastr.clear(); // Xóa thông báo toastr
+                    document.getElementById('deleteForm-' + id).submit(); // Gửi form để xóa
+                });
+
+                // Xử lý khi người dùng nhấn "Hủy"
+                document.getElementById('cancelButton').addEventListener('click', function() {
+                    toastr.remove(); // Xóa thông báo toastr khi nhấn nút "Hủy"
+                });
+            }
+        });
+    }
 </script>
 @endsection

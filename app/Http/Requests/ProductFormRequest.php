@@ -26,6 +26,7 @@ class ProductFormRequest extends FormRequest
     public function rules()
     {
         $params = $this->request->all();
+        // dd($params);
         $productId = $params['id'] ?? null;
         $imageIds = json_decode($params['image_ids'] ?? '[]', true);
         // Đảm bảo $imageIds là một mảng, nếu không chuyển nó thành một mảng rỗng
@@ -42,40 +43,42 @@ class ProductFormRequest extends FormRequest
             if ($checkNameUpdate) {
                 $ruleUpdateName = "required";
             }
-
-            // Chỉ tiếp tục nếu $imageIds không rỗng
-            if (!empty($imageIds)) {
-                // Sử dụng whereIn để kiểm tra nếu bất kỳ id nào tồn tại trong bảng product_images
-                $hasImages = DB::table('product_images')
-                    ->whereIn('id', $imageIds) // Sử dụng whereIn để kiểm tra danh sách ID
-                    ->exists();
-
-                // Đặt quy tắc xác thực dựa trên kết quả kiểm tra
-                $imageRules = $hasImages ? 'sometimes|array' : 'required|array';
-                $imageItemRules = $hasImages ? 'sometimes|string' : 'required|string';
-            } else {
-                // Nếu $imageIds rỗng, không có hình ảnh nào hợp lệ để kiểm tra
-                $imageRules = 'required|array';
-                $imageItemRules = 'required|string';
-            }
-        } 
-        else {
-            // Nếu là thêm mới sản phẩm, trường image là bắt buộc
-            $imageRules = 'required|array';
-            $imageItemRules = 'required|string';
         }
+
+        // Kiểm tra tính duy nhất của slug trong cả hai bảng
+        $uniqueSlugRule = function ($attribute, $value, $fail) use ($params) {
+            $slugExistsInProducts = DB::table('products')
+                ->where('slug', $value)
+                ->where('id', '!=', $params['id'] ?? 0)
+                ->exists();
+
+            $slugExistsInCategory = DB::table('categories')
+                ->where('slug', $value)
+                ->exists();
+
+            if ($slugExistsInCategory || $slugExistsInProducts) {
+                $fail('Url sản phẩm không được trùng.');
+            }
+        };
+
+        // Đặt điều kiện cho slug
+        $slugRule = !empty($params['id'])
+            ? ['in:' . DB::table('products')->where('id', $params['id'])->value('slug'), $uniqueSlugRule]
+            : ['required', 'string', 'max:255', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $uniqueSlugRule];
 
         return [
             'name' => isset($ruleUpdateName) ? $ruleUpdateName : 'required|unique:products',
             'content' => 'required',
             'category' => 'required',
+            'image' => !empty($params['id']) ? '' : 'required',
+            'slug' => $slugRule,
             'code' => [
                 'required',
                 'regex:/^(?!-)(?!.*--)[A-Za-z0-9-]+(?<!-)$/',
                 Rule::unique('products')->ignore($productId)
             ],
-            'filepath' => $imageRules,
-            'image.*' => $imageItemRules,
+            'related_pro' => 'nullable|array',
+            'related_pro.*' => 'integer',
         ];
     }
     /**
@@ -91,7 +94,11 @@ class ProductFormRequest extends FormRequest
             'code.unique' => 'Mã sản phẩm không được trùng.',
             'category.required' => 'Danh mục sản phẩm không được để trống',
             'content.required' => 'Mô tả không được để trống',
-            'filepath.required' => 'Ảnh không được để trống',
+            'image.required' => 'Ảnh không được để trống',
+            'slug.required' => 'Url không được bỏ trống.',
+            'slug.unique' => 'Url không được trùng.',
+            'slug.regex' => 'Url chỉ được phép chứa chữ cái thường, số và dấu gạch ngang.',
+            'slug.in' => 'Không được thay đổi slug',
         ];
     }
 }

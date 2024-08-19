@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FilterProductRequest;
 use App\Models\Category;
 use App\Models\Filter;
 use App\Models\Product;
@@ -17,20 +18,25 @@ class FilterProductController extends Controller
         
         // Lấy ra ID của các categories
         $categoryIds = $products->category()->pluck('categories.id')->toArray();
-        // Kiểm tra nếu mảng không rỗng và lấy giá trị đầu tiên
-        $idCate = !empty($categoryIds) ? (int)$categoryIds[0] : null;
-        $categories = Category::with('children')->where('parent_id', 0)->get();
-
-        // Lấy ra id của parent_id = 0 
-        $filterIds = Category::findOrFail($idCate)->topLevelParent()->id;
-        $cate = Category::findOrFail($filterIds);
-        $filterCate = $cate->getFilterCates();
-        // Lấy ra các bản ghi trong bảng filters_products có product_id = $request->pro_id
-        $filterProducts = DB::table('filters_products')
-            ->where('product_id', $id)
-            ->get();
         
-        return view('admin.filterPro.create',compact('idCate', 'categories', 'products', 'filterCate', 'filterProducts'));
+        // Kiểm tra nếu mảng không rỗng và lấy giá trị đầu tiên
+        $categories = Category::with('children')->where('parent_id', 0)->get();
+        if(!empty($categoryIds)) {
+            $idCate = (int)$categoryIds[0];
+
+            // Lấy ra id của parent_id = 0 
+            $filterIds = Category::findOrFail($idCate)->topLevelParent()->id;
+            $cate = Category::findOrFail($filterIds);
+            $filterCate = $cate->getFilterCates();
+            // Lấy ra các bản ghi trong bảng filters_products có product_id = $request->pro_id
+            $filterProducts = DB::table('filters_products')
+                ->where('product_id', $id)
+                ->get();
+            
+            return view('admin.filterPro.create',compact('idCate', 'categories', 'products', 'filterCate', 'filterProducts'));
+        }
+        
+        return view('admin.filterPro.create',compact('products'));
     }
 
     public function store(Request $request)

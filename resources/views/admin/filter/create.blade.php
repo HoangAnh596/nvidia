@@ -65,14 +65,15 @@
 @section('js')
 <script src="{{ asset('cntt/js/slug.js') }}"></script>
 <script>
-
     let timeout = null;
     let updateSlug = true;
+
     function validateSlug(slug) {
-    // Biểu thức chính quy để kiểm tra định dạng của slug
+        // Biểu thức chính quy để kiểm tra định dạng của slug
         const regex = /^[a-z0-9]+(-[a-z0-9]+)*$/;
         return regex.test(slug);
     }
+
     function checkDuplicate() {
         clearTimeout(timeout);
         timeout = setTimeout(async function() {
@@ -160,7 +161,11 @@
             if (filterName) {
                 // Kiểm tra tên filter có trùng hay không
                 if (isDuplicateFilter(filterName)) {
-                    alert('Tên bộ lọc đã tồn tại. Vui lòng nhập một tên khác.');
+                    toastr.error('Tên bộ lọc đã tồn tại. Vui lòng nhập một tên khác', 'Lỗi', {
+                        progressBar: true,
+                        closeButton: true,
+                        timeOut: 5000
+                    });
                 } else {
                     // Thêm vào bảng
                     var newRow = `<tr>
@@ -172,7 +177,7 @@
                             <td class="text-center">
                                 <input type="number" name="stt[]" style="width: 50px;text-align: center;" value="999">
                             </td>
-                            <td><a href class="btn-sm delete-filter">Xóa</a></td>
+                            <td><a href="javascript:void(0);" class="btn-sm delete-filter">Xóa</a></td>
                         </tr>`;
                     $('#filters-table tbody').append(newRow);
 
@@ -183,7 +188,11 @@
                     updateIndex();
                 }
             } else {
-                alert('Vui lòng nhập tên bộ lọc');
+                toastr.error('Vui lòng nhập tên bộ lọc.', 'Lỗi', {
+                    progressBar: true,
+                    closeButton: true,
+                    timeOut: 5000
+                });
             }
         });
         // Xử lý sự kiện click cho nút xóa

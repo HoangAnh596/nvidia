@@ -65,6 +65,18 @@
 
 @section('js')
 <script>
+    let timeout = null;
+
+    document.getElementById('name').addEventListener('input', function() {
+        // Xóa bộ đếm thời gian trước đó nếu có
+        clearTimeout(timeout);
+
+        // Thiết lập lại bộ đếm thời gian để gọi API sau 2 giây nếu không có sự thay đổi
+        timeout = setTimeout(function() {
+            checkDuplicate();
+        }, 2000);
+    });
+
     function checkDuplicate() {
         const name = document.getElementById('name').value;
         // Xóa thông báo lỗi trước đó
@@ -81,6 +93,30 @@
             success: function(data) {
                 if (data.name_exists) {
                     document.getElementById('name-error').innerText = 'Tên đã tồn tại';
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
+    function checkCodeDuplicate() {
+        const code = document.getElementById('code').value;
+        // Xóa thông báo lỗi trước đó
+        document.getElementById('code-error').innerText = "";
+
+        $.ajax({
+            url: " {{ route('products.checkCode') }} ",
+            type: 'POST',
+            data: {
+                code: code,
+                id: '{{ $product->id }}',
+                _token: "{{ csrf_token() }}"
+            },
+            success: function(data) {
+                if (data.code_exists) {
+                    document.getElementById('code-error').innerText = 'Tên đã tồn tại';
                 }
             },
             error: function(xhr, status, error) {
@@ -195,35 +231,35 @@
         });
 
         $('#current_url').val(window.location.href);
-        $("#uploadButtonPr").click(function(e) {
-            e.preventDefault();
-            let data = new FormData();
-            console.log(data);
-            data.append('uploadImg', $('#prImages')[0].files[0]);
-            data.append('current_url', window.location.href);
+        // $("#uploadButtonPr").click(function(e) {
+        //     e.preventDefault();
+        //     let data = new FormData();
+        //     console.log(data);
+        //     data.append('uploadImg', $('#prImages')[0].files[0]);
+        //     data.append('current_url', window.location.href);
 
-            $.ajax({
-                url: "{{ route('upload.image') }}",
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: data,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    addImageToTable(response.image_name);
-                    resetInputs();
-                },
-                error: function(response) {
-                    alert("An error occurred. Please try again.");
-                }
-            });
-        });
-        $('table#dataTable').on('click', '.delete-filter', function() {
-            $(this).closest('tr').remove();
-            updateIndex();
-        });
+        //     $.ajax({
+        //         url: "{{ route('upload.image') }}",
+        //         method: "POST",
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         data: data,
+        //         processData: false,
+        //         contentType: false,
+        //         success: function(response) {
+        //             addImageToTable(response.image_name);
+        //             resetInputs();
+        //         },
+        //         error: function(response) {
+        //             alert("An error occurred. Please try again.");
+        //         }
+        //     });
+        // });
+        // $('table#dataTable').on('click', '.delete-filter', function() {
+        //     $(this).closest('tr').remove();
+        //     updateIndex();
+        // });
          // Xử lý sự kiện khi ảnh được chọn từ trình quản lý file
          $('#lfm-prImages').on('click', function() {
             var dataPreview = $(this).data('preview');
@@ -281,28 +317,52 @@
         $('.btn-destroy').on('click', function(e) {
             e.preventDefault();
 
-            if (confirm('Bạn chắc chắn muốn xóa chứ?')) {
-                var url = $(this).attr('href');
-                console.log(url);
-                
-                var row = $(this).closest('tr'); // Lấy hàng chứa nút "Xóa"
+            var id = $(this).data('id'); // Lấy ID từ thuộc tính data-id
+            var url = $(this).attr('href'); // Lấy URL từ href
 
-                $.ajax({
-                    url: url,
-                    type: 'DELETE', 
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(result) {
-                        // Xóa hàng khỏi bảng nếu xóa thành công
-                        row.remove();
-                    },
-                    error: function(xhr) {
-                        alert('Có lỗi xảy ra, vui lòng thử lại.');
-                    }
-                });
-            }
+            confirmDeleteImg(id, url); // Gọi hàm confirmDelete
         });
+
+        function confirmDeleteImg(id, url) {
+            toastr.warning(`
+                <div>Bạn chắc chắn muốn xóa chứ?</div>
+                <div style="margin-top: 15px;">
+                    <button type="button" id="confirmButton" class="btn btn-danger btn-sm" style="margin-right: 10px;">Xóa</button>
+                    <button type="button" id="cancelButton" class="btn btn-secondary btn-sm">Hủy</button>
+                </div>
+            `, 'Cảnh báo', {
+                closeButton: false,
+                timeOut: 0, // Vô hiệu hóa tự động loại bỏ
+                extendedTimeOut: 0,
+                tapToDismiss: false,
+                positionClass: "toast-top-center",
+                onShown: function() {
+                    document.getElementById('confirmButton').addEventListener('click', function() {
+                        toastr.remove(); // Xóa thông báo toastr
+
+                        // Thực hiện xóa đối tượng bằng AJAX
+                        $.ajax({
+                            url: url,
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(result) {
+                                // Xóa hàng khỏi bảng nếu xóa thành công
+                                $('a[data-id="' + id + '"]').closest('tr').remove();
+                            },
+                            error: function(xhr) {
+                                alert('Có lỗi xảy ra, vui lòng thử lại.');
+                            }
+                        });
+                    });
+
+                    document.getElementById('cancelButton').addEventListener('click', function() {
+                        toastr.remove(); // Xóa thông báo toastr khi nhấn nút "Hủy"
+                    });
+                }
+            });
+        }
 
         $('.check-stt').change(function() {
             var idMenu = $(this).data('id');

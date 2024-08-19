@@ -9,7 +9,7 @@
         <nav style="--bs-breadcrumb-divider: '»';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-                <li class="breadcrumb-item">Tất cả bài viết</li>
+                <li class="breadcrumb-item">Blogs</li>
             </ol>
         </nav>
     </div>

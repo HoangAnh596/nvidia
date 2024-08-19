@@ -16,8 +16,8 @@ class CreateProductTagTable extends Migration
         Schema::create('product_tag', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug');
-            $table->float('price', 8, 2);
+            $table->string('slug')->nullable();
+            $table->float('price', 8, 2)->nullable();
             $table->string('image')->nullable();
             $table->text('content')->nullable();
             $table->string('title_img')->nullable();

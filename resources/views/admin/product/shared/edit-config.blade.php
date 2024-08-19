@@ -5,16 +5,11 @@
                 <label for="name" class="form-label">Tên sản phẩm <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
                 <input type="text" id="name" class="form-control" name="name" value="{{ old('name', $product->name ?? '') }}" oninput="checkDuplicate()">
                 <span id="name-error" style="color: red;"></span>
-                @error('name')
-                <span class="font-italic text-danger ">{{ $message }}</span>
-                @enderror
             </div>
             <div class="mb-3">
                 <label for="code" class="form-label">Mã sản phẩm <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
-                <input type="text" id="code" class="form-control" name="code" value="{{ old('code', $product->code ?? '') }}">
-                @error('code')
-                <span class="font-italic text-danger ">{{ $message }}</span>
-                @enderror
+                <input type="text" id="code" class="form-control" name="code" value="{{ old('code', $product->code ?? '') }}" oninput="checkCodeDuplicate()">
+                <span id="code-error" style="color: red;"></span>
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Giá sản phẩm</label>
@@ -44,15 +39,16 @@
         </div>
         <div class="col">
             <div class="mb-3">
-                <label for="slug" class="form-label">Địa chỉ Url <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
+                <label for="slug" class="form-label">Url sản phẩm <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
                 <input class="form-control" id="slug" type="name" name="slug" value="{{ old('slug', $product->slug ?? '') }}" disabled>
             </div>
             <div class="mb-3">
                 <label for="related_pro" class="form-label">Sản phẩm liên quan: </label>
-                <select class="related_pro form-control" name="related_pro[]" id="related_pro" multiple="multiple" value="{{ old('related_pro', $product->related_pro ?? '') }}">
+                <select class="related_pro form-control" name="related_pro[]" id="related_pro" multiple="multiple">
                     @if(!empty($relatedProducts))
                     @foreach($relatedProducts as $val)
-                    <option value="{{ $val->id }}" {{ in_array($val->id, json_decode($product->related_pro, true)) ? 'selected' : '' }}>
+                    <option value="{{ $val->id }}"
+                        {{ in_array($val->id, old('related_pro', json_decode($product->related_pro, true) ?? [])) ? 'selected' : '' }}>
                         {{ $val->name }}
                     </option>
                     @endforeach
@@ -61,10 +57,11 @@
             </div>
             <div class="mb-3">
                 <label for="tag_ids" class="form-label">Thẻ tag</label>
-                <select class="searchTags form-control" name="tag_ids[]" id="searchTags" multiple="multiple" value="{{ old('tag_ids', $product->tag_ids ?? '') }}">
+                <select class="searchTags form-control" name="tag_ids[]" id="searchTags" multiple="multiple">
                     @if(isset($productTags))
                     @foreach($productTags as $val)
-                    <option value="{{ $val->id }}" {{ in_array($val->id, json_decode($product->tag_ids, true)) ? 'selected' : '' }}>
+                    <option value="{{ $val->id }}"
+                        {{ in_array($val->id, old('tag_ids', json_decode($product->tag_ids, true) ?? [])) ? 'selected' : '' }}>
                         {{ $val->name }}
                     </option>
                     @endforeach
@@ -87,7 +84,7 @@
                 <div class="input-group">
                     <span class="input-group-btn">
                         <button id="lfm-prImages" data-input="thumbnail" data-preview="image-holder" class="btn btn-outline-dark hiddenBtnPrImages">
-                            <i class="fa fa-picture-o"></i> Chọn ảnh từ thư viện 
+                            <i class="fa fa-picture-o"></i> Chọn ảnh từ thư viện
                         </button>
                     </span>
                 </div>
@@ -139,7 +136,7 @@
                                     <input type="number" class="check-stt" name="stt_img" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_img', $val->stt_img) }}" min="1">
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ asset('/admin/product-images/' . $val->id) }}" class="btn-sm btn-destroy">Xóa</a>
+                                    <a href="{{ asset('/admin/product-images/' . $val->id) }}" class="btn-sm btn-destroy" data-id="{{ $val->id }}">Xóa</a>
                                 </td>
                             </tr>
                             @endforeach

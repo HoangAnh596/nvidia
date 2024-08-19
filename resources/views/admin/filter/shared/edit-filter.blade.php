@@ -41,7 +41,7 @@
                                 <input type="text" class="check-stt" data-id="{{ $item->id }}" style="width: 50px;text-align: center;" value="{{ old('stt', $item->stt) }}">
                             </td>
                             <td>
-                                <a href="{{ asset('/admin/filters/' . $item->id) }}" class="btn-sm btn-destroy">Xóa</a>
+                                <a href="{{ asset('/admin/filters/' . $item->id) }}" class="btn-sm btn-destroy" data-id="{{ $item->id }}">Xóa</a>
                             </td>
                         </tr>
                         @endforeach

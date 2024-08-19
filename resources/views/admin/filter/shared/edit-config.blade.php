@@ -6,9 +6,6 @@
             <div class="form-group">
                 <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $filter->name ?? '') }}" oninput="checkDuplicate()">
                 <span id="name-error" style="color: red;"></span>
-                @error('name')
-                <span class="text-danger">{{ $message }}</span>
-                @enderror
             </div>
         </div>
         <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -20,9 +17,6 @@
             <div class="form-group">
                 <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug', $filter->slug ?? '') }}" oninput="checkDuplicate()">
                 <span id="slug-error" style="color: red;"></span>
-                @error('slug')
-                <span class="text-danger">{{ $message }}</span>
-                @enderror
             </div>
         </div>
         <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>

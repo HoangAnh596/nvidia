@@ -130,6 +130,9 @@ class CategoryNewController extends Controller
 
         $category->fill($request->all());
         $category->stt_new = (isset($request->stt_new)) ? $request->stt_new : 999;
+        $category->title_seo = (isset($request->title_seo)) ? $request->title_seo : $request->name;
+        $category->keyword_seo = (isset($request->keyword_seo)) ? $request->keyword_seo : $request->name;
+        $category->des_seo = (isset($request->des_seo)) ? $request->des_seo : $request->name;
 
         $category->save();
     }

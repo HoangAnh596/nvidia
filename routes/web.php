@@ -62,6 +62,7 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::put('products/{id}', [ProductController::class, 'update'])->name('product.update')->middleware('authorization:Admin');
     Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('product.destroy')->middleware('authorization:Admin');
     Route::post('/products/check-name', [ProductController::class, 'checkName'])->name('products.checkName');
+    Route::post('/products/check-code', [ProductController::class, 'checkCode'])->name('products.checkCode');
     Route::post('/products/tim-kiem', [ProductController::class, 'search'])->name('products.tim-kiem');
     Route::post('/products/search-tags', [ProductController::class, 'searchTags'])->name('products.searchTags');
     Route::post('/products/checkbox', [ProductController::class, 'isCheckbox'])->name('products.isCheckbox');

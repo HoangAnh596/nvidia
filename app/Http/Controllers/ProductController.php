@@ -230,6 +230,20 @@ class ProductController extends Controller
         ]);
     }
 
+    public function checkCode(Request $request)
+    {
+        $code = $request->input('code');
+        $id = $request->get('id');
+
+        $codeExists = Product::where('code', $code)
+            ->where('id', '!=', $id)
+            ->exists();
+        // dd($codeExists);
+        return response()->json([
+            'code_exists' => $codeExists,
+        ]);
+    }
+
     public function search(Request $request)
     {
         $related_pro = [];

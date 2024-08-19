@@ -109,7 +109,11 @@
             if (filterName) {
                 // Kiểm tra tên filter có trùng hay không
                 if (isDuplicateFilter(filterName)) {
-                    alert('Tên bộ lọc đã tồn tại. Vui lòng nhập một tên khác.');
+                    toastr.error('Tên bộ lọc đã tồn tại. Vui lòng nhập một tên khác.', 'Lỗi', {
+                        progressBar: true,
+                        closeButton: true,
+                        timeOut: 5000
+                    });
                 } else {
                     // Thêm vào bảng
                     var newRow = `<tr>
@@ -121,7 +125,7 @@
                             <td class="text-center">
                                 <input type="number" name="stt[]" style="width: 50px;text-align: center;" value="999">
                             </td>
-                            <td><a href class="btn-sm delete-filter">Xóa</a></td>
+                            <td><a href="javascript:void(0);" class="btn-sm delete-filter">Xóa</a></td>
                         </tr>`;
                     // Thêm dòng mới vào đầu tbody
                     $('#existing-items').prepend(newRow);
@@ -133,7 +137,11 @@
                     updateIndex();
                 }
             } else {
-                alert('Vui lòng nhập tên bộ lọc');
+                toastr.error('Vui lòng nhập tên bộ lọc.', 'Lỗi', {
+                    progressBar: true,
+                    closeButton: true,
+                    timeOut: 5000
+                });
             }
         });
         // Event delegation for dynamically added elements
@@ -144,27 +152,53 @@
 
         $('.btn-destroy').on('click', function(e) {
             e.preventDefault();
-            
-            if(confirm('Bạn chắc chắn muốn xóa chứ?')) {
-                var url = $(this).attr('href');
-                var row = $(this).closest('tr'); // Lấy hàng chứa nút "Xóa"
-                
-                $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(result) {
-                        // Xóa hàng khỏi bảng nếu xóa thành công
-                        row.remove();
-                    },
-                    error: function(xhr) {
-                        alert('Có lỗi xảy ra, vui lòng thử lại.');
-                    }
-                });
-            }
+
+            var id = $(this).data('id'); // Lấy ID từ thuộc tính data-id
+            var url = $(this).attr('href'); // Lấy URL từ href
+
+            confirmDeleteImg(id, url); // Gọi hàm confirmDelete
         });
+
+        function confirmDeleteImg(id, url) {
+            toastr.warning(`
+                <div>Bạn chắc chắn muốn xóa chứ?</div>
+                <div style="margin-top: 15px;">
+                    <button type="button" id="confirmButton" class="btn btn-danger btn-sm" style="margin-right: 10px;">Xóa</button>
+                    <button type="button" id="cancelButton" class="btn btn-secondary btn-sm">Hủy</button>
+                </div>
+            `, 'Cảnh báo', {
+                closeButton: false,
+                timeOut: 0, // Vô hiệu hóa tự động loại bỏ
+                extendedTimeOut: 0,
+                tapToDismiss: false,
+                positionClass: "toast-top-center",
+                onShown: function() {
+                    document.getElementById('confirmButton').addEventListener('click', function() {
+                        toastr.remove(); // Xóa thông báo toastr
+
+                        // Thực hiện xóa đối tượng bằng AJAX
+                        $.ajax({
+                            url: url,
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(result) {
+                                // Xóa hàng khỏi bảng nếu xóa thành công
+                                $('a[data-id="' + id + '"]').closest('tr').remove();
+                            },
+                            error: function(xhr) {
+                                alert('Có lỗi xảy ra, vui lòng thử lại.');
+                            }
+                        });
+                    });
+
+                    document.getElementById('cancelButton').addEventListener('click', function() {
+                        toastr.remove(); // Xóa thông báo toastr khi nhấn nút "Hủy"
+                    });
+                }
+            });
+        }
 
         $('.check-stt').change(function() {
             var idCate = $(this).data('id');
@@ -182,13 +216,25 @@
                 },
                 success: function(response) {
                     if (response.success) {
-                        alert('Trạng thái được cập nhật thành công.');
+                        toastr.success('Trạng thái được cập nhật thành công.', 'Thành công', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
                     } else {
-                        alert('Không thể cập nhật trạng thái.');
+                        toastr.error('Không thể cập nhật trạng thái.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
                     }
                 },
                 error: function() {
-                    alert('Lỗi cập nhật trạng thái.');
+                    toastr.error('Lỗi cập nhật trạng thái.', 'Lỗi', {
+                        progressBar: true,
+                        closeButton: true,
+                        timeOut: 5000
+                    });
                 }
             });
         });

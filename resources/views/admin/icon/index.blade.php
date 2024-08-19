@@ -81,13 +81,25 @@
                 },
                 success: function(response) {
                     if (response.success) {
-                        alert('Trạng thái được cập nhật thành công.');
+                        toastr.success('Trạng thái được cập nhật thành công.', 'Thành công', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
                     } else {
-                        alert('Không thể cập nhật trạng thái.');
+                        toastr.error('Không thể cập nhật trạng thái.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
                     }
                 },
                 error: function() {
-                    alert('Lỗi cập nhật trạng thái.');
+                    toastr.error('Lỗi cập nhật trạng thái.', 'Lỗi', {
+                        progressBar: true,
+                        closeButton: true,
+                        timeOut: 5000
+                    });
                 }
             });
         });
@@ -108,13 +120,25 @@
                 },
                 success: function(response) {
                     if (response.success) {
-                        alert('Trạng thái được cập nhật thành công.');
+                        toastr.success('Thứ tự được cập nhật thành công.', 'Thành công', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
                     } else {
-                        alert('Không thể cập nhật trạng thái.');
+                        toastr.error('Không thể cập nhật thứ tự.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
                     }
                 },
                 error: function() {
-                    alert('Lỗi cập nhật trạng thái.');
+                    toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
+                        progressBar: true,
+                        closeButton: true,
+                        timeOut: 5000
+                    });
                 }
             });
         });

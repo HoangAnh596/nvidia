@@ -28,10 +28,10 @@
         </div>
     </td>
     <td>
-        <a href="{{ asset('admin/cateNews/'.$category->id.'/edit') }}" >Chỉnh sửa</a> | 
-        <a href="{{ asset('admin/cateNews/'.$category->id.'/edit') }}" >Nhân bản</a> | 
-        <a href="{{ asset('admin/cateNews/'.$category->id.'/edit') }}" >Thêm bộ lọc</a> | 
-        <a href="{{ asset('admin/cateNews/'.$category->id.'/edit') }}" >Xóa cache</a> | 
+        <a href="{{ asset('admin/cateNews/'.$category->id.'/edit') }}" >Chỉnh sửa</a>
+        <!-- <a href="{{ asset('admin/cateNews/'.$category->id.'/edit') }}" >Nhân bản</a> |  -->
+        <!-- <a href="{{ asset('admin/cateNews/'.$category->id.'/edit') }}" >Thêm bộ lọc</a> |  -->
+        <!-- <a href="{{ asset('admin/cateNews/'.$category->id.'/edit') }}" >Xóa cache</a> |  -->
         <!-- <a href="{{ asset('admin/cateNews/'.$category->id) }}" >Chi tiết</a> |  -->
     </td>
 </tr>

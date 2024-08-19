@@ -124,3 +124,14 @@ body {
 .cke_notification_warning {
     display: none;
 }
+
+/* thông báo toastr */
+
+.toast-warning {
+    font-size: 1rem;
+}
+#confirmButton {
+    background-color: red;
+}
+
+/* thông báo toastr */
