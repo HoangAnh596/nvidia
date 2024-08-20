@@ -4,20 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CategoryNew extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
-    protected $table = 'category_news';
-    
-    protected $dates = ['deleted_at'];
+    protected $table = 'category_news'; 
 
-    const IS_SERVE = 1;
-    const IS_NOT_SERVE = 0;
-    const IS_TOP_PARENT = 1;
-    const IS_NOT_PARENT = 0;
     const IS_MENU = 1;
     const IS_NOT_MENU = 0;
     const IS_TOP_OUTSTAND = 1;

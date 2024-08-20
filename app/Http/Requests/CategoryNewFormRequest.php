@@ -27,20 +27,30 @@ class CategoryNewFormRequest extends FormRequest
     {
         $params = $this->request->all();
 
-        if (!empty($params['id'])) {
-            $checkNameUpdate = DB::table('category_news')->select('id')
-                ->where('name', '=', $params['name'])
-                ->where('id', '=', $params['id'])
-                ->value('id');
-        }
-        if (!empty($params['id']) && ($params['id'] == $checkNameUpdate)) {
-            $ruleUpdateName = "required";
+        // Kiểm tra nếu 'name' là "blogs"
+        if (strtolower(trim($params['name'])) === 'blogs') {
+            $ruleUpdateName = "required|not_in:blogs";
         } else {
-            $ruleUpdateName = 'required|unique:category_news';
+            if (!empty($params['id'])) {
+                $checkNameUpdate = DB::table('category_news')->select('id')
+                    ->where('name', '=', $params['name'])
+                    ->where('id', '=', $params['id'])
+                    ->value('id');
+            }
+
+            if (!empty($params['id']) && ($params['id'] == $checkNameUpdate)) {
+                $ruleUpdateName = "required";
+            } else {
+                $ruleUpdateName = 'required|unique:category_news';
+            }
         }
 
-        // Kiểm tra tính duy nhất của slug trong cả hai bảng
+        // Kiểm tra tính duy nhất của slug trong cả hai bảng và không được trùng "blogs"
         $uniqueSlugRule = function ($attribute, $value, $fail) use ($params) {
+            if (strtolower(trim($value)) === 'blogs') {
+                $fail('URL đã tồn tại. Vui lòng thay đổi url khác.');
+            }
+
             $slugExistsInCategory = DB::table('category_news')
                 ->where('slug', $value)
                 ->where('id', '!=', $params['id'] ?? 0)
@@ -51,7 +61,7 @@ class CategoryNewFormRequest extends FormRequest
                 ->exists();
 
             if ($slugExistsInCategory || $slugExistsInNews) {
-                $fail('URL danh mục tin tức không được trùng.');
+                $fail('URL đã tồn tại. Vui lòng thay đổi url khác.');
             }
         };
 
@@ -76,9 +86,10 @@ class CategoryNewFormRequest extends FormRequest
     {
         return [
             'name.required' => 'Tên danh mục không được bỏ trống.',
-            'name.unique' => 'Tên danh mục không được trùng.',
+            'name.unique' => 'Tên danh mục đã tồn tại. Vui lòng thay đổi tên khác',
+            'name.not_in' => 'Tên danh mục đã tồn tại. Vui lòng thay đổi tên khác',
             'slug.required' => 'Url không được bỏ trống.',
-            'slug.unique' => 'Url không được trùng.',
+            'slug.unique' => 'URL đã tồn tại. Vui lòng thay đổi url khác.',
             'slug.regex' => 'Url chỉ được phép chứa chữ cái thường, số và dấu gạch ngang.',
             'slug.in' => 'Không được thay đổi slug',
             // 'content.required' => 'Mô tả không được để trống',

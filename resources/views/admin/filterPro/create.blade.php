@@ -5,11 +5,11 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Chi tiết bộ lọc sản phẩm</h3>
+        <h3 class="mb-2 text-gray-800">Chỉnh sửa bộ lọc sản phẩm</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
                 <li class="breadcrumb-item"><a href="javascript: void(0);">Bộ lọc</a></li>
-                <li class="breadcrumb-item active">Thêm bộ lọc sản phẩm</li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
         </h6>
     </div>

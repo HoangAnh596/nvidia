@@ -5,10 +5,10 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Chi tiết danh mục tin tức</h3>
+        <h3 class="mb-2 text-gray-800">Chi tiết danh mục bài viết</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">Danh mục tin tức</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Danh mục bài viết</a></li>
                 <li class="breadcrumb-item active">Thêm mới</li>
             </ol>
         </h6>
@@ -23,7 +23,7 @@
                 <a href="{{ route('cateNews.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
                 <div>
                     <button class="btn btn-primary btn-sm" id="submit" type="submitCateNew"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
-                    <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
+                    <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
                 </div>
             </div>
             <div class="card-body border-top p-9">
@@ -35,11 +35,11 @@
                             <span id="name-error" style="color: red;"></span>
                         </div>
                         <div class="form-group">
-                            <label for="">Danh mục cha </label>
+                            <label for="">Danh mục bài viết</label>
                             <select name="parent_id" id="parent_id" class="form-control">
                                 <option value="0">Chọn danh mục</option>
                                 @foreach($cateNewParents as $category)
-                                @include('admin.cateNew.partials.category_add', ['category' => $category, 'level' => 0])
+                                    @include('admin.cateNew.partials.category_add', ['category' => $category, 'level' => 0, 'selected' => old('parent_id', $category->parent_id)])
                                 @endforeach
                             </select>
                         </div>
@@ -89,7 +89,7 @@
 
             <div class="mt-4 pb-4 mr-4 float-right">
                 <button class="btn btn-primary btn-sm" id="submit" type="submitCateNew"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-                <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
+                <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
             </div>
         </form>
     </div>
@@ -122,6 +122,17 @@
             // Xóa thông báo lỗi trước đó
             document.getElementById('name-error').innerText = "";
             document.getElementById('slug-error').innerText = "";
+
+            // Kiểm tra nếu name hoặc slug là "blogs"
+            if (name === "blogs" || slug === "blogs") {
+                if (name === "blogs") {
+                    document.getElementById('name-error').innerText = 'Tên không được trùng.';
+                }
+                if (slug === "blogs") {
+                    document.getElementById('slug-error').innerText = 'Url không được trùng.';
+                }
+                return;
+            }
             // Chỉ kiểm tra nếu slug không rỗng
             if (updateSlug && name.trim() !== "") {
                 await createSlug();

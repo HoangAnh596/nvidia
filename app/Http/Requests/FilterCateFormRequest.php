@@ -69,9 +69,9 @@ class FilterCateFormRequest extends FormRequest
     {
         return [
             'name.required' => 'Tên bộ lọc không được bỏ trống.',
-            'name.unique' => 'Tên bộ lọc không được trùng.',
+            'name.unique' => 'Tên bộ lọc đã tồn tại. Vui lòng thay đổi tên khác.',
             'slug.required' => 'Url không được bỏ trống.',
-            'slug.unique' => 'Url không được trùng.',
+            'slug.unique' => 'URL đã tồn tại. Vui lòng thay đổi url khác.',
             'slug.max' => 'Url không được vượt quá 255 ký tự.',
             'slug.regex' => 'Url chỉ được phép chứa chữ cái thường, số và dấu gạch ngang.',
             'cate_id.required' => 'Danh mục sản phẩm không được bỏ trống.',

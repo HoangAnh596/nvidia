@@ -45,7 +45,9 @@ class NewController extends Controller
      */
     public function create()
     {
-        $categories = CategoryNew::where('slug','<>','blogs')->get();
+        $categories = CategoryNew::where('parent_id', 0)
+            ->with('children')
+            ->get();
         
         return view('admin.news.add', compact('categories'));
     }
@@ -56,7 +58,7 @@ class NewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NewFormRequest $request)
     {
         $this->insertOrUpdate($request);
 
@@ -85,7 +87,7 @@ class NewController extends Controller
     public function edit($id)
     {
         $new = News::findOrFail($id);
-        $categories = CategoryNew::where('slug','<>','blogs')->get();
+        $categories = CategoryNew::with('children')->where('parent_id', 0)->get();
         
         return view('admin.news.edit', compact('new', 'categories'));
     }
@@ -97,7 +99,7 @@ class NewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(NewFormRequest $request, $id)
     {
         $this->insertOrUpdate($request, $id);
 
@@ -114,7 +116,7 @@ class NewController extends Controller
     {
         News::findOrFail($id)->delete();
 
-        return redirect()->route('news.index')->with(['message' => 'Delete Success']);
+        return redirect()->route('news.index')->with(['message' => 'Xóa bài viết thành công !']);
     }
 
     public function insertOrUpdate(Request $request, $id = '')

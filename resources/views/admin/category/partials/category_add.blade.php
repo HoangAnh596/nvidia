@@ -1,5 +1,4 @@
-<!-- resources/views/category/partials/category_add.blade.php -->
-<option value="{{ $category->id }}" data-level="{{ $level }}">
+<option value="{{ $category->id }}" data-level="{{ $level }}" {{ (int) old('parent_id', $selectedCategory ?? '') == $category->id ? 'selected' : '' }}>
     {{ str_repeat('--| ', $level * 1) }}{{ $category->name }}
 </option>
 @if ($category->children)

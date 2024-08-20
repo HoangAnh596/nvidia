@@ -25,10 +25,10 @@
         <div class="col-2 d-flex flex-row-reverse align-items-center">Danh mục sản phẩm :</div>
         <div class="col-6">
             <div class="form-group">
-                <select name="cate_id" id="cate_id" class="form-control" size="10" style="width: 600px;">
+                <select name="cate_id" id="cate_id" class="form-control">
                     <option value="" style="display: none;"></option>
                     @foreach($categories as $val)
-                    @include('admin.filter.partials.filter-add', ['category' => $val, 'level' => 0, 'prefix' => '|---', 'selected' => $idCate])
+                    @include('admin.filter.partials.filter-add', ['category' => $val, 'level' => 0, 'prefix' => '|---', 'selected' => old('cate_id', $idCate)])
                     @endforeach
                 </select>
             </div>

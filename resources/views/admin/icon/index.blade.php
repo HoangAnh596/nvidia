@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h3 class="mb-2 text-gray-800">Thông tin icon footer</h3>
+    <h3 class="mb-2 text-gray-800">Danh sách icon footer</h3>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </form>
-            <a href="{{ route('icons.create') }}" class="btn btn-danger">Tạo mới icon</a>
+            <a href="{{ route('icons.create') }}" class="btn btn-danger">Thêm mới icon</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

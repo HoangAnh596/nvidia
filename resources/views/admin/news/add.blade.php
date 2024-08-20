@@ -4,10 +4,10 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Chi tiết tin tức</h3>
+        <h3 class="mb-2 text-gray-800">Thêm mới bài viết</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">Tin tức</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Bài viết</a></li>
                 <li class="breadcrumb-item active">Thêm mới</li>
             </ol>
         </h6>
@@ -26,7 +26,7 @@
                 <a href="{{ route('news.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Back</a>
                 <div>
                     <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-                    <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
+                    <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
                 </div>
             </div>
             <div class="card-body border-top p-9">
@@ -56,7 +56,7 @@
             </div>
             <div class="mt-4 pb-4 mr-4 float-right">
                 <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-                <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
+                <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
             </div>
         </form>
     </div>
@@ -84,7 +84,7 @@
             const selectedOption = selectElement.options[selectElement.selectedIndex];
             const slug = selectedOption.getAttribute('data-slug');
             slugParentInput.value = slug;
-            // console.log(slug);
+            console.log(slug);
         }
 
         // Gọi hàm khi trang load lần đầu

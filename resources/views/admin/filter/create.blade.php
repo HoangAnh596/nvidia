@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Chi tiết bộ lọc</h3>
+        <h3 class="mb-2 text-gray-800">Thêm mới bộ lọc</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
                 <li class="breadcrumb-item"><a href="javascript: void(0);">Bộ lọc</a></li>
@@ -20,10 +20,10 @@
             @csrf
             @method('POST')
             <div class="card-header d-flex justify-content-between">
-                <a href="{{ route('categories.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Back</a>
+                <a href="{{ route('filter.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Back</a>
                 <div>
                     <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-                    <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
+                    <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
                 </div>
             </div>
             <div class="card-body border-top p-9">
@@ -54,7 +54,7 @@
 
             <div class="mt-4 pb-4 mr-4 float-right">
                 <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-                <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
+                <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
             </div>
         </form>
     </div>

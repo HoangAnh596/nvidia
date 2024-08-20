@@ -34,9 +34,9 @@ class NewFormRequest extends FormRequest
                 ->value('id');
         }
         if (!empty($params['id']) && ($params['id'] == $checkNameUpdate)) {
-            $ruleUpdateName = "required";
+            $ruleUpdateName = "required | max:255";
         } else {
-            $ruleUpdateName = 'required|unique:news';
+            $ruleUpdateName = 'required | max:255 | unique:news';
         }
 
         // Kiểm tra tính duy nhất của slug trong cả hai bảng
@@ -51,7 +51,7 @@ class NewFormRequest extends FormRequest
                 ->exists();
 
             if ($slugExistsInCategory || $slugExistsInNews) {
-                $fail('URL danh mục tin tức không được trùng.');
+                $fail('URL đã tồn tại. Vui lòng thay đổi url khác.');
             }
         };
 
@@ -64,41 +64,25 @@ class NewFormRequest extends FormRequest
             'name' => $ruleUpdateName,
             'slug' => $slugRule,
             'filepath' => 'required',
+            'desc' => 'required',
             'stt_new' => (!empty($params['stt_new'])) ? 'integer|min:0' : '',
             'content'=>'required',
         ];
-        // $formRules = [
-        //     'title' => [
-        //         'required',
-        //         'max:255'
-        //     ],
-        //     'content'=>'required',
-        //     'file_upload' => [
-        //         "mimes:jpg,bmp,png,gif",
-        //         'max:1000'
-        //     ],
-        //     'slug' => !empty($params['id'])
-        //                 ? 'in:' . DB::table('news')->where('id', $params['id'])->value('slug')
-        //                 : 'required|string|max:255|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/|unique:category_news,slug',
-        // ];
-        
-        // if($this->id == null){
-        //     $formRules['file_upload'][] = "required";
-        // }
-        // return $formRules;
     }
     // validate
     public function messages()
     {
         return [
-            'title.required' => 'title không được để trống',
-            'title.max' => 'title không được quá 255 ký tự',
+            'name.required' => 'Tên bài viết không được để trống',
+            'name.unique' => 'Tên bài viết đã tồn tại. Vui lòng thay đổi tên khác.',
+            'name.max' => 'Tên bài viết không được quá 255 ký tự',
             'content.required' => 'content không được để trống',
             'filepath.required' => 'Ảnh không được để trống',
             'slug.required' => 'Url không được bỏ trống.',
-            'slug.unique' => 'Url không được trùng.',
+            'slug.unique' => 'URL đã tồn tại. Vui lòng thay đổi url khác.',
             'slug.regex' => 'Url chỉ được phép chứa chữ cái thường, số và dấu gạch ngang.',
             'slug.in' => 'Không được thay đổi slug',
+            'desc.required' => 'Mô tả ngắn không được để trống',
         ];
     }
 }

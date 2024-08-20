@@ -148,6 +148,7 @@ class CategoryNewController extends Controller
         $category = CategoryNew::where('id', $id)->with('children')->first();
         $childIds = $category->getAllChildrenIds();
         $allCategoryIds = array_merge([$id], $childIds);
+        News::whereIn('cate_id', $allCategoryIds)->delete();
         CategoryNew::whereIn('id', $allCategoryIds)->delete();
 
         return redirect(route('cateNews.index'))->with(['message' => 'Xóa thành công !']);

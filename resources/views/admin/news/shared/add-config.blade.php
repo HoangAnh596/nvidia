@@ -2,30 +2,30 @@
     <div class="form-row">
         <div class="col">
             <div class="mb-3">
-                <label for="name" class="form-label">Tên bài viết</label>
-                <input type="text" id="name" class="form-control" name="name" oninput="checkDuplicate()">
+                <label for="name" class="form-label">Tên bài viết <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
+                <input type="text" id="name" class="form-control" name="name" value="{{ old('name') }}" oninput="checkDuplicate()">
                 <span id="name-error" style="color: red;"></span>
             </div>
             <div class="mb-3">
-                <label for="desc" class="form-label">Mô tả ngắn</label>
-                <input type="text" id="desc" class="form-control" name="desc">
+                <label for="desc" class="form-label">Mô tả ngắn <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
+                <!-- <input type="text" id="desc" class="form-control" name="desc" value="{{ old('desc') }}"> -->
+                <textarea name="desc" id="desc" rows="5" style="width: 100%">{{ old('desc') }}</textarea>
                 <span id="desc-error" style="color: red;"></span>
             </div>
         </div>
         <div class="col">
             <div class="mb-3">
-                <label for="slug" class="form-label">Url bài viết</label>
-                <input type="text" id="slug" class="form-control" name="slug" oninput="checkDuplicate()">
+                <label for="slug" class="form-label">Url bài viết <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
+                <input type="text" id="slug" class="form-control" name="slug" value="{{ old('slug') }}" oninput="checkDuplicate()">
                 <span id="slug-error" style="color: red;"></span>
-            </div>  
+            </div>
             <div class="mb-3">
-                <label for="new_categories" class="form-label">Danh mục bài viết</label>
-                <select id="new_categories" class="border form-control" data-live-search="true" name="cate_id">
-                    @if(isset($categories))
+                <label for="">Danh mục bài viết</label>
+                <select name="cate_id" id="new_categories" class="form-control">
+                    <option value="0">Chọn danh mục</option>
                     @foreach($categories as $category)
-                    <option value="{{ $category->id }}" data-slug="{{ $category->slug }}" {{ \Request::get('cate') == $category->id ? "selected ='selected'" : "" }}> {{ $category->name }} </option>
+                    @include('admin.news.partials.category_add', ['category' => $category, 'level' => 0, 'selected' => old('parent_id', $category->parent_id)])
                     @endforeach
-                    @endif
                 </select>
             </div>
         </div>
@@ -66,7 +66,7 @@
     </div>
     <div class="form-row">
         <div class="col">
-            <label for="example-textarea" class="form-label">Description</label>
+            <label for="example-textarea" class="form-label">Description <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
             <textarea id="my-editor" name="content" class="form-control">{{ old('content') }}</textarea>
         </div>
     </div>

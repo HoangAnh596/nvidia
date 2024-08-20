@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CateFooterFormRequest;
 use App\Models\CateFooter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -31,7 +32,7 @@ class CateFooterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CateFooterFormRequest $request)
     {
         $this->insertOrUpdate($request);
 
@@ -59,11 +60,27 @@ class CateFooterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CateFooterFormRequest $request, $id)
     {
         $this->insertOrUpdate($request, $id);
 
         return redirect(route('cateFooter.index'))->with(['message' => "Cập nhật thành công danh mục footer !"]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $category = CateFooter::where('id', $id)->with('children')->first();
+        $childIds = $category->getAllChildrenIds();
+        $allCategoryIds = array_merge([$id], $childIds);
+        CateFooter::whereIn('id', $allCategoryIds)->delete();
+
+        return redirect(route('cateMenu.index'))->with(['message' => 'Xóa thành công']);
     }
 
     public function insertOrUpdate(Request $request, $id = '')

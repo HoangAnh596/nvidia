@@ -34,7 +34,7 @@
                     <input type="password" name="password_confirmation" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-user btn-block">Submit</button>
+            <button type="submit" class="btn btn-primary btn-user btn-block">Lưu</button>
             <hr>
         </form>
     </div>

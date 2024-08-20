@@ -75,7 +75,10 @@ class CateMenuController extends Controller
      */
     public function destroy($id)
     {
-        CateMenu::findOrFail($id)->delete();
+        $category = CateMenu::where('id', $id)->with('children')->first();
+        $childIds = $category->getAllChildrenIds();
+        $allCategoryIds = array_merge([$id], $childIds);
+        CateMenu::whereIn('id', $allCategoryIds)->delete();
 
         return redirect(route('cateMenu.index'))->with(['message' => 'Xóa thành công']);
     }

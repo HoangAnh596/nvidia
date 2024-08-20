@@ -88,7 +88,7 @@
 	<url>
 	<loc>http://localhost:8000/dtdd-iphone-ram-128-gb</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-08-16T08:29:51+07:00</lastmod>
+		<lastmod>2024-08-19T11:21:36+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -116,9 +116,9 @@
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-	<loc>http://localhost:8000/geforce-now-cloud-gaming</loc>
+	<loc>http://localhost:8000/geforce-now-cloud</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-07-16T10:02:42+07:00</lastmod>
+		<lastmod>2024-08-19T17:03:09+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -148,7 +148,7 @@
 	<url>
 	<loc>http://localhost:8000/dong-ho-thong-minh</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-08-16T16:56:00+07:00</lastmod>
+		<lastmod>2024-08-19T17:01:57+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -160,7 +160,7 @@
 	<url>
 	<loc>http://localhost:8000/dtdd</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-08-17T08:29:48+07:00</lastmod>
+		<lastmod>2024-08-19T17:02:33+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 </urlset>

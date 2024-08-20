@@ -5,11 +5,11 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Chi tiết danh mục Menu</h3>
+        <h3 class="mb-2 text-gray-800">Chỉnh sửa Footer</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">Danh mục Menu</a></li>
-                <li class="breadcrumb-item active">Thêm mới</li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Footer</a></li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
         </h6>
     </div>
@@ -26,7 +26,7 @@
                 <a href="{{ route('cateFooter.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
                 <div>
                     <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
-                    <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
+                    <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
                 </div>
             </div>
 
@@ -38,9 +38,6 @@
                         <div class="form-group">
                             <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $category->name ?? '') }}" oninput="checkDuplicate()">
                             <span id="name-error" style="color: red;"></span>
-                            @error('name')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -144,8 +141,15 @@
 
             <div class="mt-4 pb-4 mr-4 float-right">
                 <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-                <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
+                <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
             </div>
+        </form>
+        <form id="deleteForm-{{ $category->id }}" action="{{ route('cateFooter.destroy', ['cateFooter' => $category->id]) }}" method="post" class="deleteForm">
+            @csrf
+            @method('Delete')
+            <button class="btn btn-danger btn-sm" type="button" onclick="confirmDelete('{{ $category->id }}')" style="float: right; margin-right: 30px; margin-left: 5px">
+                <i class="fa-solid fa-eraser"></i> Xóa
+            </button>
         </form>
     </div>
 </div>
@@ -180,6 +184,9 @@
         flex-direction: column;
         height: 80px;
         text-align: center;
+    }
+    .toast-top-center>div {
+        width: 400px !important;
     }
 </style>
 @endsection
@@ -235,5 +242,33 @@
             });
         });
     });
+
+    function confirmDelete(id) {
+        toastr.warning(`
+        <div>Các footer con thuộc footer này sẽ bị xóa. Bạn chắc chắn muốn xóa chứ?</div>
+        <div style="margin-top: 15px;">
+            <button type="button" id="confirmButton" class="btn btn-danger btn-sm" style="margin-right: 10px;">Xóa</button>
+            <button type="button" id="cancelButton" class="btn btn-secondary btn-sm">Hủy</button>
+        </div>
+    `, 'Cảnh báo', {
+            closeButton: false,
+            timeOut: 0, // Vô hiệu hóa tự động loại bỏ
+            extendedTimeOut: 0,
+            tapToDismiss: false,
+            positionClass: "toast-top-center",
+            onShown: function() {
+                // Xử lý khi người dùng nhấn "Xóa"
+                document.getElementById('confirmButton').addEventListener('click', function() {
+                    toastr.clear(); // Xóa thông báo toastr
+                    document.getElementById('deleteForm-' + id).submit(); // Gửi form để xóa
+                });
+
+                // Xử lý khi người dùng nhấn "Hủy"
+                document.getElementById('cancelButton').addEventListener('click', function() {
+                    toastr.remove(); // Xóa thông báo toastr khi nhấn nút "Hủy"
+                });
+            }
+        });
+    }
 </script>
 @endsection

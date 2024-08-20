@@ -4,11 +4,11 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Bảng danh mục</h3>
+        <h3 class="mb-2 text-gray-800">Chỉnh sửa danh mục bài viết</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">Danh mục</a></li>
-                <li class="breadcrumb-item active">Thêm mới</li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Danh mục bài viết</a></li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
         </h6>
     </div>
@@ -36,18 +36,13 @@
                             <input type="text" id="name" class="form-control" name="name" value="{{ old('name', $category->name ?? '') }}">
                         </div>
                         <div class="form-group mb-3 col-xs-12">
-                            <label for="parent_id">Danh mục cha:</label>
+                            <label for="parent_id">Danh mục bài viết:</label>
                             <select class="form-control" id="parent_id" name="parent_id">
-                                <option value="0">Chọn danh mục</option>
+                                <option value="0">Danh mục cha</option>
                                 @foreach($categories as $cat)
-                                @include('admin.cateNew.partials.category-option', ['category' => $cat, 'level' => 0, 'selected' => $category->parent_id])
+                                @include('admin.cateNew.partials.category-edit', ['category' => $cat, 'level' => 0, 'selected' => old('parent_id', $category->parent_id)])
                                 @endforeach
                             </select>
-                            @if ($errors->has('parent_id'))
-                            <div class="invalid-feedback" style="display: block;">
-                                {{ $errors->first('parent_id') }}
-                            </div>
-                            @endif
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -115,6 +110,13 @@
 </div>
 @endsection
 
+@section('css')
+<style>
+    .toast-top-center>div {
+        width: 400px !important;
+    }
+</style>
+@endsection
 @section('js')
 <script>
     function checkDuplicate() {
@@ -200,7 +202,7 @@
 
     function confirmDelete(id) {
         toastr.warning(`
-        <div>Bạn chắc chắn muốn xóa chứ?</div>
+        <div>Các bài viết con thuộc danh mục này sẽ bị xóa. Bạn muốn xóa chứ?</div>
         <div style="margin-top: 15px;">
             <button type="button" id="confirmButton" class="btn btn-danger btn-sm" style="margin-right: 10px;">Xóa</button>
             <button type="button" id="cancelButton" class="btn btn-secondary btn-sm">Hủy</button>

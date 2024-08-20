@@ -35,4 +35,15 @@ class CateFooter extends Model
 
         return $this->belongsTo(CateFooter::class, 'parent_menu')->with('parent');
     }
+
+    public function getAllChildrenIds()
+    {
+        $childrenIds = $this->children()->pluck('id')->toArray();
+
+        foreach ($this->children as $child) {
+            $childrenIds = array_merge($childrenIds, $child->getAllChildrenIds());
+        }
+
+        return $childrenIds;
+    }
 }

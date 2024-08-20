@@ -18,10 +18,10 @@
             </div>
             <div class="mb-3">
                 <label for="category" class="form-label">Danh mục chính <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
-                <select name="category" id="parent_id" class="form-control" style="min-height: 300px;" multiple>
+                <select name="category" id="parent_id" class="form-control">
                     <option value="">Chọn danh mục</option>
                     @foreach($categories as $category)
-                    @include('admin.category.partials.category_add', ['category' => $category, 'level' => 0])
+                    @include('admin.product.partials.category_add', ['category' => $category, 'level' => 0])
                     @endforeach
                 </select>
             </div>
@@ -50,11 +50,11 @@
 
             <div class="mb-3">
                 <label for="category" class="form-label">Danh mục phụ</label>
-                <select name="subCategory[]" id="parent_id" class="form-control" style="min-height: 300px;" multiple="multiple">
+                <ul class="subCate">
                     @foreach($categories as $category)
-                    @include('admin.product.partials.category_add', ['category' => $category, 'level' => 0])
+                    @include('admin.product.partials.subCategory_add', ['category' => $category, 'level' => 0, 'selectedCategories' => ''])
                     @endforeach
-                </select>
+                </ul>
             </div>
         </div>
     </div>

@@ -135,3 +135,18 @@ body {
 }
 
 /* thông báo toastr */
+.subCate {
+    list-style-type: none;
+    padding-left: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ced4da;
+    padding: 10px;
+}
+.subCate li {
+    padding: 2px;
+    cursor: pointer;
+}
+.subCate li.selected {
+    background-color: #f0f0f0; /* Bạn có thể thay đổi màu này */
+}

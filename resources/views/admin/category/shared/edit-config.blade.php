@@ -12,18 +12,13 @@
                 <input type="text" id="slug" class="form-control" name="slug" value="{{ old('slug', $category->slug ?? '') }}" disabled>
             </div>
             <div class="form-group mb-3 col-xs-12">
-                <label for="parent_id">Danh mục cha:</label>
+                <label for="parent_id">Danh mục:</label>
                 <select class="form-control" id="parent_id" name="parent_id">
-                    <option value="0">Chọn danh mục</option>
+                    <option value="0">Danh mục cha</option>
                     @foreach($categories as $cat)
-                        @include('admin.category.partials.category-option', ['category' => $cat, 'level' => 0, 'selected' => $category->parent_id])
+                        @include('admin.category.partials.category-edit', ['category' => $cat, 'level' => 0, 'selected' => old('parent_id', $category->parent_id)])
                     @endforeach
                 </select>
-                @if ($errors->has('parent_id'))
-                <div class="invalid-feedback" style="display: block;">
-                    {{ $errors->first('parent_id') }}
-                </div>
-                @endif
             </div>
         </div>
     </div>

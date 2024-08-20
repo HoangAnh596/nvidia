@@ -4,11 +4,11 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Bảng danh mục</h3>
+        <h3 class="mb-2 text-gray-800">Chỉnh sửa danh mục sản phẩm</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">Danh mục</a></li>
-                <li class="breadcrumb-item active">Thêm mới</li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Danh mục sản phẩm</a></li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
         </h6>
     </div>
@@ -69,6 +69,13 @@
 </div>
 @endsection
 
+@section('css')
+<style>
+    .toast-top-center>div {
+        width: 400px !important;
+    }
+</style>
+@endsection
 @section('js')
 <script>
     function checkDuplicate() {
@@ -125,7 +132,7 @@
 
     function confirmDelete(id) {
         toastr.warning(`
-        <div>Bạn chắc chắn muốn xóa chứ?</div>
+        <div>Các danh mục con thuộc danh mục này sẽ bị xóa. Bạn muốn xóa chứ?</div>
         <div style="margin-top: 15px;">
             <button type="button" id="confirmButton" class="btn btn-danger btn-sm" style="margin-right: 10px;">Xóa</button>
             <button type="button" id="cancelButton" class="btn btn-secondary btn-sm">Hủy</button>

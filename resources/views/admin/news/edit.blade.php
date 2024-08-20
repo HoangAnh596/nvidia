@@ -4,11 +4,11 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Tin tức</h3>
+        <h3 class="mb-2 text-gray-800">Chỉnh sửa bài viết</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">News</a></li>
-                <li class="breadcrumb-item active">Thêm mới</li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Bài viết</a></li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
         </h6>
     </div>
@@ -27,7 +27,7 @@
                 <a href="{{ route('news.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Back</a>
                 <div>
                     <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-                    <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
+                    <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
                 </div>
             </div>
             <div class="card-body border-top p-9">
@@ -57,9 +57,15 @@
             </div>
             <div class="mt-4 pb-4 mr-4 float-right">
                 <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-                <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
+                <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
             </div>
-
+        </form>
+        <form id="deleteForm-{{ $new->id }}" action="{{ route('news.destroy', ['news' => $new->id]) }}" method="post" class="deleteForm">
+            @csrf
+            @method('Delete')
+            <button class="btn btn-danger btn-sm" type="button" onclick="confirmDelete('{{ $new->id }}')" style="float: right; margin-right: 30px; margin-left: 5px">
+                <i class="fa-solid fa-eraser"></i> Xóa
+            </button>
         </form>
     </div>
 </div>
@@ -114,7 +120,6 @@
         $('#current_url').val(window.location.href);
         $("#uploadBtnNew").click(function(e) {
             e.preventDefault();
-            // let formData = new FormData($("#uploadImagenew")[0]);
             let data = new FormData();
             data.append('uploadImg', $('#image')[0].files[0]);
             data.append('current_url', window.location.href);
@@ -133,38 +138,67 @@
                     $('#preview-image').show();
                 },
                 error: function(response) {
-                    alert("An error occurred. Please try again.");
+                    toastr.error('Lỗi cập nhật trạng thái.', 'Lỗi', {
+                        progressBar: true,
+                        closeButton: true,
+                        timeOut: 5000
+                    });
                 }
             });
         });
 
-        // $('#current_url_images').val(window.location.href);
-        $("#uploadBtnPrImages").click(function(e) {
-            e.preventDefault();
-            // let formData = new FormData($("#uploadImagenew")[0]);
-            let data = new FormData();
-            data.append('pr_image_ids', $('#prImages')[0].files[0]);
-            // data.append('current_url_images', window.location.href);
+        // $("#uploadBtnPrImages").click(function(e) {
+        //     e.preventDefault();
+        //     let data = new FormData();
+        //     data.append('pr_image_ids', $('#prImages')[0].files[0]);
 
-            $.ajax({
-                url: "{{ route('upload.image') }}",
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: data,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    $('#thumbnailPrImages').val(response.image_name);
-                    $('#pr-image').show();
-                },
-                error: function(response) {
-                    alert("An error occurred. Please try again.");
-                }
-            });
-        });
+        //     $.ajax({
+        //         url: "{{ route('upload.image') }}",
+        //         method: "POST",
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         data: data,
+        //         processData: false,
+        //         contentType: false,
+        //         success: function(response) {
+        //             $('#thumbnailPrImages').val(response.image_name);
+        //             $('#pr-image').show();
+        //         },
+        //         error: function(response) {
+        //             alert("An error occurred. Please try again.");
+        //         }
+        //     });
+        // });
     });
+
+    function confirmDelete(id) {
+        toastr.warning(`
+        <div>Bạn chắc chắn muốn xóa chứ?</div>
+        <div style="margin-top: 15px;">
+            <button type="button" id="confirmButton" class="btn btn-danger btn-sm" style="margin-right: 10px;">Xóa</button>
+            <button type="button" id="cancelButton" class="btn btn-secondary btn-sm">Hủy</button>
+        </div>
+    `, 'Cảnh báo', {
+            closeButton: false,
+            timeOut: 0, // Vô hiệu hóa tự động loại bỏ
+            extendedTimeOut: 0,
+            tapToDismiss: false,
+            positionClass: "toast-top-center",
+            onShown: function() {
+                // Xử lý khi người dùng nhấn "Xóa"
+                document.getElementById('confirmButton').addEventListener('click', function() {
+                    toastr.clear(); // Xóa thông báo toastr
+                    document.getElementById('deleteForm-' + id).submit(); // Gửi form để xóa
+                });
+
+                // Xử lý khi người dùng nhấn "Hủy"
+                document.getElementById('cancelButton').addEventListener('click', function() {
+                    toastr.remove(); // Xóa thông báo toastr khi nhấn nút "Hủy"
+                });
+            }
+        });
+    }
 </script>
 
 @endsection

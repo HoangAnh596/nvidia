@@ -42,9 +42,10 @@
         <input type="text" class="check-stt" name="stt_cate" data-id="{{ $category->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_cate', $category->stt_cate) }}">
     </td>
     <td>
-        <a href="{{ asset('admin/categories/'.$category->id.'/edit') }}" >Chỉnh sửa</a>
+        <a href="{{ asset('admin/categories/'.$category->id.'/edit') }}" >Chỉnh sửa</a> | 
+        <a href="{{ asset('admin/filters/create?cate_id=' . $category->id) }}" >Thêm bộ lọc</a>
         <!-- <a href="{{ asset('admin/categories/'.$category->id.'/edit') }}" >Nhân bản</a> | 
-        <a href="{{ asset('admin/filters/create?cate_id=' . $category->id) }}" >Thêm bộ lọc</a> | 
+        
         <a href="{{ asset('admin/categories/'.$category->id.'/edit') }}" >Xóa cache</a> |  -->
         <!-- <a href="{{ asset('admin/categories/'.$category->id) }}" >Chi tiết</a> |  -->
     </td>

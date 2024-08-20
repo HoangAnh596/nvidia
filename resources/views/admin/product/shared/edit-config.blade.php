@@ -19,9 +19,8 @@
             <div class="mb-3">
                 <label for="category">Danh mục chính <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
                 <select name="category" id="category" class="form-control">
-                    <option value="">Chọn danh mục</option>
                     @foreach($categories as $val)
-                    @include('admin.product.partials.category-option', ['category' => $val, 'selectedCategories' => $product->category])
+                    @include('admin.product.partials.category-edit', ['category' => $val, 'selectedCategories' => $product->category])
                     @endforeach
                 </select>
             </div>
@@ -70,11 +69,11 @@
             </div>
             <div class="mb-3">
                 <label for="category">Danh mục phụ</label>
-                <select name="subCategory[]" id="category" multiple class="form-control" style="min-height: 300px;">
+                <ul id="category" class="subCate">
                     @foreach($categories as $val)
-                    @include('admin.product.partials.sub-category', ['category' => $val, 'selectedCategories' => $product->subCategory])
+                        @include('admin.product.partials.subCategory_edit', ['category' => $val, 'selectedCategories' => $product->subCategory])
                     @endforeach
-                </select>
+                </ul>
             </div>
         </div>
     </div>

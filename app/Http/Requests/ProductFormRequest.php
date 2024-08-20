@@ -57,7 +57,7 @@ class ProductFormRequest extends FormRequest
                 ->exists();
 
             if ($slugExistsInCategory || $slugExistsInProducts) {
-                $fail('Url sản phẩm không được trùng.');
+                $fail('URL đã tồn tại. Vui lòng thay đổi url khác.');
             }
         };
 
@@ -88,15 +88,15 @@ class ProductFormRequest extends FormRequest
     {
         return [
             'name.required' => 'Tên sản phẩm không được bỏ trống.',
-            'name.unique' => 'Tên sản phẩm không được trùng.',
+            'name.unique' => 'Tên sản phẩm đã tồn tại. Vui lòng thay đổi tên khác.',
             'code.required' => 'Mã sản phẩm không được để trống',
             'code.regex' => 'Mã sản phẩm chỉ được chứa chữ cái, số và dấu gạch ngang.',
-            'code.unique' => 'Mã sản phẩm không được trùng.',
+            'code.unique' => 'Mã sản phẩm đã tồn tại. Vui lòng thay đổi mã khác.',
             'category.required' => 'Danh mục sản phẩm không được để trống',
             'content.required' => 'Mô tả không được để trống',
             'image.required' => 'Ảnh không được để trống',
             'slug.required' => 'Url không được bỏ trống.',
-            'slug.unique' => 'Url không được trùng.',
+            'slug.unique' => 'URL đã tồn tại. Vui lòng thay đổi url khác.',
             'slug.regex' => 'Url chỉ được phép chứa chữ cái thường, số và dấu gạch ngang.',
             'slug.in' => 'Không được thay đổi slug',
         ];

@@ -39,6 +39,7 @@
     <script src="{{asset('cntt/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('cntt/js/templatemo.js')}}"></script>
     <script src="{{asset('cntt/js/custom.js')}}"></script>
+    <script src="{{asset('cntt/js/admin.js')}}"></script>
     <script src="{{asset('cntt/js/slick.min.js')}}"></script>
     
     <!-- select2 -->

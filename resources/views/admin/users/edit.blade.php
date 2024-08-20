@@ -3,7 +3,7 @@
 <div class="card shadow mb-4">
     <div class="p-5">
         <div class="text-center">
-            <h1 class="h4 text-gray-900 mb-4">Edit User</h1>
+            <h1 class="h4 text-gray-900 mb-4">Chỉnh sửa tài khoản</h1>
         </div>
         <form class="user" action="{{ route('users.update', ['user' => $user->id]) }}" method="post" enctype="multipart/form-data">
         @method('PUT')    
@@ -42,7 +42,7 @@
                 <input type="password" name="password_confirmation" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-user btn-block">Submit</button>
+            <button type="submit" class="btn btn-primary btn-user btn-block">Lưu</button>
             <hr>
         </form>
     </div>

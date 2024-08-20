@@ -4,10 +4,10 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Chi tiết danh mục menu</h3>
+        <h3 class="mb-2 text-gray-800">Danh sách Menu</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">Danh mục Menu</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Menu</a></li>
                 <li class="breadcrumb-item active">Danh sách</li>
             </ol>
         </h6>

@@ -5,10 +5,10 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Chi tiết danh mục Menu</h3>
+        <h3 class="mb-2 text-gray-800">Thêm mới Footer</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">Danh mục Menu</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Footer</a></li>
                 <li class="breadcrumb-item active">Thêm mới</li>
             </ol>
         </h6>
@@ -23,7 +23,7 @@
                 <a href="{{ route('cateFooter.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
                 <div>
                     <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
-                    <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
+                    <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
                 </div>
             </div>
 
@@ -35,9 +35,6 @@
                         <div class="form-group">
                             <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" oninput="checkDuplicate()">
                             <span id="name-error" style="color: red;"></span>
-                            @error('name')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -136,7 +133,7 @@
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Thứ tự hiển thị :</div>
                     <div class="col-1">
-                        <input type="number" style="width:60px" name="stt_menu">
+                        <input type="number" style="width:60px" name="stt_menu" value="{{ old('stt_menu')}}">
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
@@ -160,8 +157,8 @@
             </div>
 
             <div class="mt-4 pb-4 mr-4 float-right">
-                <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-                <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
+                <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
+                <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
             </div>
         </form>
     </div>

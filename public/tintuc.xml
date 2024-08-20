@@ -26,12 +26,6 @@
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-	<loc>http://localhost:8000/bai-viet-ne</loc>
-		<priority>0.8</priority>
-		<lastmod>2024-08-15T16:58:26+07:00</lastmod>
-		<changefreq>weekly</changefreq>
-	</url>
-	<url>
 	<loc>http://localhost:8000/gioi-thieu-ve-may-chu-gpu</loc>
 		<priority>0.8</priority>
 		<lastmod>2024-08-15T16:58:56+07:00</lastmod>
