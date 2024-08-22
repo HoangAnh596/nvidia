@@ -10,14 +10,16 @@
             <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
                 <div class="input-group">
                     <div class="form-group">
-                        <input type="search" class="form-control form-outline" placeholder="Search hotline" aria-label="Search" name="keyword" value="">
+                        <input type="search" class="form-control form-outline" placeholder="Tìm kiếm hotline" aria-label="Search" name="keyword" value="">
                     </div>
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit"> <i class="fas fa-search fa-sm"></i> </button>
                     </div>
                 </div>
             </form>
-            <a href="{{ route('infors.create') }}" class="btn btn-danger">Thêm mới hotline</a>
+            <div>
+                <a href="{{ route('infors.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -25,10 +27,11 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tên</th>
-                            <th>Số điện thoại</th>
-                            <th>stt</th>
-                            <th>Hiển thị</th>
+                            <th class="text-center">Tên</th>
+                            <th class="text-center">Số điện thoại</th>
+                            <th class="text-center">stt</th>
+                            <th class="text-center">Nhận báo giá</th>
+                            <th class="text-center">Hiển thị</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -40,6 +43,11 @@
                             <td>{{ $val->phone }}</td>
                             <td class="text-center">
                                 <input type="text" class="check-stt" name="stt" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt', $val->stt) }}">
+                            </td>
+                            <td class="text-center">
+                                <div class="form-check">
+                                    <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="send_price" {{ ($val->send_price == 1) ? 'checked' : '' }}>
+                                </div>
                             </td>
                             <td class="text-center">
                                 <div class="form-check">
@@ -67,6 +75,7 @@
     $(document).ready(function() {
         $('.active-checkbox').change(function() {
             var idInfor = $(this).data('id');
+            var field = $(this).data('field');
             var value = $(this).is(':checked') ? 1 : 0;
 
             $.ajax({
@@ -74,7 +83,8 @@
                 method: 'POST',
                 data: {
                     id: idInfor,
-                    is_public: value,
+                    field: field,
+                    value: value,
                     _token: '{{ csrf_token() }}',
                 },
                 success: function(response) {

@@ -115,6 +115,22 @@
                     </div>
                 </div>
                 <div class="row mt-3 mb-3">
+                    <div class="col-2 d-flex flex-row-reverse align-items-center">Nhận báo giá :</div>
+                    <div class="col-1 d-flex align-items-center">
+                        <select class="form-select" aria-label="Default" name="send_price">
+                            <option value="0"
+                                @if(!empty($infor) && $infor->send_price == 0) selected @endif>
+                                Không
+                            </option>
+                            <<option value="1"
+                                @if(!empty($infor) && $infor->send_price == 1) selected @endif>
+                                Có
+                            </option>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
+                </div>
+                <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Hiển thị :</div>
                     <div class="col-1 d-flex align-items-center">
                         <select class="form-select" aria-label="Default" name="is_public">
@@ -141,7 +157,7 @@
             </div>
 
             <div class="mt-4 pb-4 mr-4 float-right">
-                <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+                <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
             </div>
         </form>
     </div>

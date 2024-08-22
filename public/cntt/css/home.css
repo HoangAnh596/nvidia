@@ -15,7 +15,10 @@ body {
 .main-nav-link {
     padding-right: 1rem;
 }
-
+h4 {
+    font-size: 1rem;
+    font-weight: bold;
+}
 .bg-gr {
     background-color: #76b900;
 }
@@ -635,13 +638,13 @@ button:focus {
     outline: none;
 }
 .border-blue {
-    border: 2px solid #76b900;
+    border: 2px solid #76b900 !important;
 }
 
 .show-filter:active {
     border: 2px solid #76b900;
 }
-.show-filter-m {
+.show-filter-mb {
     position: relative;
 }
 .show-filter-mb:active {
@@ -709,11 +712,13 @@ button:focus {
 }
 .card-new h4 {
     padding: 10px;
+    line-height: 21px;
     font-size: 1rem !important;
     font-weight: bold !important;
 }
 .card-new p{
     padding: 0 10px 10px 10px;
+    line-height: 1.5rem;
     height: 148px;
     overflow: hidden;
     display: -webkit-box;
@@ -790,7 +795,8 @@ button:focus {
     padding: 0 15px;
 }
 .product-wap {
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.10);
+    padding: 6px;
+    box-shadow: none;
 } 
 .menu-left h2 {
     font-size: 25px !important;
@@ -970,24 +976,39 @@ button:focus {
 }
 /* --------------------End Css Danh mục sản phẩm------------------------ */
 /* Css content */
-#chi-tiet h1 {
-    line-height: 35px;
-    font-size: 25px;
+#chi-tiet h1, .content-cate h1 {
+    line-height: 30px;
+    font-size: 22px;
     font-weight: bold;
 }
 #chi-tiet table p {
     margin: 0;
 }
-#chi-tiet h2 {
-    font-size: 22px;
+#chi-tiet h2, .content-cate h2 {
+    font-size: 20px;
     font-weight: bold;
+    line-height: 30px;
 }
-#chi-tiet p {
+#chi-tiet h3, .content-cate h3 {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 30px;
+}
+#chi-tiet h4, .content-cate h1 {
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 30px;
+}
+#chi-tiet a, .content-cate a {
+    color: #76b900;
+    text-decoration: underline;
+}
+#chi-tiet p, .content-cate p {
     margin-block-start: 0;
     margin-block-end: 0;
     margin-bottom: 10px;
 }
-#chi-tiet table {
+#chi-tiet table, .content-cate table {
     --bs-table-bg: transparent;
     --bs-table-accent-bg: transparent;
     --bs-table-striped-color: #212529;
@@ -1002,17 +1023,17 @@ button:focus {
     vertical-align: top;
     border-color: #dee2e6;
 }
-#chi-tiet table>:not(caption)>* {
+#chi-tiet table>:not(caption)>*, .content-cate table>:not(caption)>*{
     border-width: 1px 0;
 }
-#chi-tiet table tbody tr td:first-child {
+#chi-tiet table tbody tr td:first-child, .content-cate table tbody tr td:first-child {
     word-break: initial;
 }
-#chi-tiet table>:not(caption)>*>* {
+#chi-tiet table>:not(caption)>*>*, .content-cate table>:not(caption)>*>* {
     border-width: 0 1px;
     padding: .3rem .5rem;
 }
-#chi-tiet img {
+#chi-tiet img, .content-cate img {
     border-radius: 5px;
     max-width: 100%;
 }
@@ -1266,7 +1287,7 @@ button:focus {
         margin: 5px 5px;
     }
     .fixed-filter {
-        top: -1.5rem;
+        top: -1.2rem;
     }
     .res-dnone {
         display: none;
@@ -1379,7 +1400,10 @@ button:focus {
     }
     .modal-image {
         width: 80% !important;
-    } 
+    }
+    .show-filter-mb, .navbar-toggler {
+        color: #212529;
+    }
 }
 @media (min-width: 992px) {
     .navbar-mobile {
@@ -1459,6 +1483,14 @@ button:focus {
         display: inline-block;
         margin-bottom: 15px;
         margin-right: 20px;
+    }
+    .carousel-indicators li {
+        width: 18px;
+    }
+    .btn-carousel {
+        font-size: 16px !important;
+        padding: 10px 12px;
+        min-width: 40px;
     }
 }
 

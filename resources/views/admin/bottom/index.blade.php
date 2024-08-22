@@ -17,7 +17,9 @@
                     </div>
                 </div>
             </form>
-            <a href="{{ route('bottoms.create') }}" class="btn btn-danger">Tạo mới</a>
+            <div>
+                <a href="{{ route('bottoms.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">

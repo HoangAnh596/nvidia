@@ -18,9 +18,21 @@
 }
 
 .news-body h1 {
-    font-size: 1.75rem;
+    font-size: 22px;
     font-weight: bold;
-    line-height: 35px;
+    line-height: 30px;
+}
+
+.news-body h2 {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+}
+
+.news-body h3 {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 30px;
 }
 
 .head-blog span {

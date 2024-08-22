@@ -140,7 +140,17 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        Product::findOrFail($id)->delete();
+        $product = Product::findOrFail($id);
+        // Chuyển đổi image_ids thành mảng (giả sử chúng là chuỗi JSON)
+        $imageIds = json_decode($product->image_ids, true); // Hoặc explode(',', $product->image_ids) nếu là chuỗi phân tách bởi dấu phẩy
+
+        // Xóa các ảnh trong bảng product_images
+        if (is_array($imageIds)) {
+            ProductImages::whereIn('id', $imageIds)->delete();
+        }
+
+        // Xóa sản phẩm
+        $product->delete();
 
         return redirect(route('product.index'))->with(['message' => 'Xóa sản phẩm thành công']);
     }

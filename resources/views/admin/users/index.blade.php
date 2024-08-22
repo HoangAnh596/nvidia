@@ -4,18 +4,30 @@
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Danh sách tài khoản</h6>
     </div>
+    <div class="card-header py-3 d-flex justify-content-between">
+        <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
+            <div class="input-group sr-product">
+                <div class="form-group">
+                    <input type="search" class="form-control" placeholder="Tìm kiếm tên, email tài khoản" aria-label="Search" name="keyword" value="{{ $keyword }}">
+                </div>
+                <div class="form-group">
+                    <select name="role" class="form-control">
+                        <option value="">Vai trò</option>
+                        <option value="1">Quản trị viên</option>
+                        <option value="0">Người dùng</option>
+                    </select>
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit"> <i class="fas fa-search fa-sm"></i> </button>
+                </div>
+            </div>
+        </form>
+        <div>
+            <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
+        </div>
+    </div>
     <div class="card-body">
         <div class="table-responsive">
-            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="margin-bottom:20px !important">
-                <div class="input-group">
-                    <input type="search" name="keyword" class="form-control bg-light border-0 small" placeholder="Tìm kiếm tài khoản" aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -36,12 +48,7 @@
                         <td>{{ $val->role($val->role) }}</td>
                         <!-- <td><img src="{{ \App\Http\Helpers\Helper::getPath('users',$val->image) }}" alt="" style="width: 100px; height: 100px"></td> -->
                         <td class="action-buttons">
-                            <a class="btn btn-primary" href="{{ asset('admin/users/'.$val->id.'/edit') }}">chỉnh sửa</a>
-                            <form action="{{ route('users.destroy', ['user' => $val->id]) }}" method="post">
-                                @csrf
-                                @method('Delete')
-                                <input type="submit" class="btn btn-danger" value="Xóa" onclick="return confirm('Do you really want to delete?')" />
-                            </form>
+                            <a class="btn-sm" href="{{ asset('admin/users/'.$val->id.'/edit') }}">Chỉnh sửa</a>
                         </td>
                     </tr>
                     @endforeach

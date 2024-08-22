@@ -36,7 +36,7 @@
                 $countMb ?>
                 @if($item->children->isNotEmpty())
                 <li class="nav-item nav-item-mobile">
-                    <a href="{{ asset($item->url) }}">{{ $item->name }}</a>
+                    <a href="@if($item->is_click == 1){{ asset($item->url) }}@else javascript:void(0) @endif" target="@if($item->is_tab == 1) _blank @endif">{{ $item->name }}</a>
                     <a class="active nav-link-mb" id="nav-link-mb-{{ $item->id }}" aria-current="page" data-id="{{ $item->id }}">
                         <i class="fa-solid fa-chevron-down icon-down"></i>
                         <i class="fa-solid fa-chevron-up icon-up"></i>
@@ -50,18 +50,21 @@
                 </li>
                 @else
                 <li class="nav-item nav-item-mobile">
-                    <a href="{{ asset($item->url) }}">{{ $item->name }}</a>
+                    <a href="@if($item->is_click == 1){{ asset($item->url) }}@else javascript:void(0) @endif" target="@if($item->is_tab == 1) _blank @endif">{{ $item->name }}</a>
                 </li>
                 @endif
                 @endforeach
                 <li class="nav-item nav-item-mobile">
-                    <a aria-current="page" href="{{ asset('/shop') }}" target="_blank">Shop</a>
+                    <a aria-current="page" href="javascript:void(0)">Shop</a>
+                    <!-- <a aria-current="page" href="{{ asset('/shop') }}" target="_blank">Shop</a> -->
                 </li>
                 <li class="nav-item nav-item-mobile">
-                    <a aria-current="page" href="{{ asset('/download') }}" target="_blank">Driviers</a>
+                    <a aria-current="page" href="javascript:void(0)">Driviers</a>
+                    <!-- <a aria-current="page" href="{{ asset('/download') }}" target="_blank">Driviers</a> -->
                 </li>
                 <li class="nav-item nav-item-mobile">
-                    <a aria-current="page" href="{{ asset('/support') }}" target="_blank">Support</a>
+                    <a aria-current="page" href="javascript:void(0)">Support</a>
+                    <!-- <a aria-current="page" href="{{ asset('/support') }}" target="_blank">Support</a> -->
                 </li>
             </ul>
         </div>
@@ -88,7 +91,7 @@
                 $count ?>
                 @if($category->children->isNotEmpty())
                 <div class="nav-item">
-                    <a class="nav-link nav-link-web" href="{{ asset($category->url) }}" id="navbarDropdown{{ $category->id }}" data-id="{{ $category->id }}">
+                    <a class="nav-link nav-link-web" href="@if($category->is_click == 1){{ asset($category->url) }}@else javascript:void(0) @endif" target="@if($category->is_tab == 1) _blank @endif" id="navbarDropdown{{ $category->id }}" data-id="{{ $category->id }}">
                         {{ $category->name }}
                     </a>
                     @if(count($category->children) > 0)
@@ -101,7 +104,7 @@
                 </div>
                 @else
                 <div class="nav-item">
-                    <a class="nav-link" href="{{ asset($category->url) }}" id="navbarDropdown{{ $category->id }}" data-id="{{ $category->id }}">
+                    <a class="nav-link" href="@if($category->is_click == 1){{ asset($category->url) }}@else javascript:void(0) @endif" target="@if($category->is_tab == 1) _blank @endif" id="navbarDropdown{{ $category->id }}" data-id="{{ $category->id }}">
                         {{ $category->name }}
                     </a>
                 </div>
@@ -111,13 +114,16 @@
             <div class="d-flex" id="templatemo_main_nav">
                 <ul class="navbar-nav main-nav-link">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ asset('/shop') }}" target="_blank">Shop</a>
+                        <a class="nav-link" aria-current="page" href="javascript:void(0)">Shop</a>
+                        <!-- <a class="nav-link" aria-current="page" href="{{ asset('/shop') }}" target="_blank">Shop</a> -->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ asset('/download') }}" target="_blank">Driviers</a>
+                        <a class="nav-link" aria-current="page" href="javascript:void(0)">Driviers</a>
+                        <!-- <a class="nav-link" aria-current="page" href="{{ asset('/download') }}" target="_blank">Driviers</a> -->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ asset('/support') }}" target="_blank">Support</a>
+                        <a class="nav-link" aria-current="page" href="javascript:void(0)">Support</a>
+                        <!-- <a class="nav-link" aria-current="page" href="{{ asset('/support') }}" target="_blank">Support</a> -->
                     </li>
                 </ul>
                 <div class="d-flex align-self-center search-abort">

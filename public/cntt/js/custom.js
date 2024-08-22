@@ -217,6 +217,10 @@ $(document).ready(function() {
     if (typeof slug !== 'undefined') {
         // Xử lý nút "Xem kết quả"
         $('.btn-filter-readmore').on('click', function() {
+            // Kiểm tra và xóa thuộc tính 'page' khỏi đối tượng selectedFilters
+            if (selectedFilters.hasOwnProperty('page')) {
+                delete selectedFilters['page'];
+            }
             var topFilterCount = countFiltersInAll(selectedFilters, true); // Tính số lượng phần tử với isTopFilter = true trong tất cả các khóa 
             var notTopFilterCount = countFiltersInAll(selectedFilters, false); // Tính số lượng phần tử với isTopFilter = false trong tất cả các khóa
             // Sắp xếp restoredSelectedOrder để đảm bảo top-filter luôn đứng đầu
@@ -229,10 +233,23 @@ $(document).ready(function() {
             var queryParams = '';
             var firstFilter = selectedOrder[0] || null;
             var secondFilter = selectedOrder[1] || null;
+
+            // Lấy URL hiện tại
+            var currentUrl = window.location.href;
+
+            // Tạo đối tượng URL từ URL hiện tại
+            var url = new URL(currentUrl);
+
+            // Tạo URL mới chỉ bao gồm phần đường dẫn chính, không có tham số query
+            var newUrl = url.origin + url.pathname;
+
             var newUrl = window.location.href.split('?')[0];
             var urlParts = newUrl.split(slug); // Tách phần URL trước và sau "-" đầu tiên
-    
+            console.log(urlParts);
+            console.log('newUrl', newUrl);
             if (firstFilter && secondFilter) {
+                console.log(333333);
+                
                 var firstIsTopFilter = firstFilter.isTopFilter;
                 var secondIsTopFilter = secondFilter.isTopFilter;
                 if (firstIsTopFilter && secondIsTopFilter) {
@@ -242,11 +259,19 @@ $(document).ready(function() {
                             return filter.value;
                         }).join(',');
                     }).join('&');
+                    console.log('topFilterCount', topFilterCount);
+                    console.log('notTopFilterCount', notTopFilterCount);
+                    console.log('resParams', resParams);
+                    console.log('restoredSelectedOrder', restoredSelectedOrder);
+                    console.log('queryParams', queryParams);
+                    
                     
                     if (topFilterCount === 1 && notTopFilterCount === 1 && restoredSelectedOrder.length > 0 && resPath === true) {
                         newUrl = urlParts[0] + slug + '-' + topFilter + '-' + otherFilters[0];
+                    // } else if (topFilterCount === 0 && notTopFilterCount === 1 && restoredSelectedOrder.length > 0 && resParams === true) {
+                    //     newUrl = urlParts[0] + slug + '-' + otherFilters[0];
                     } else if (topFilterCount === 0 && notTopFilterCount === 1 && restoredSelectedOrder.length > 0 && resParams === true) {
-                        newUrl = urlParts[0] + slug + '-' + otherFilters[0];
+                        newUrl += '?' + queryParams;
                     } else if (topFilterCount === 0 && notTopFilterCount === 0 && restoredSelectedOrder.length > 0 && resParams === true && (Object.keys(selectedFilters).length === 0)) {
                         newUrl = urlParts[0] + slug;
                     } else if (topFilterCount === 1 && restoredSelectedOrder.length > 0 && resPath === false) {
@@ -265,6 +290,7 @@ $(document).ready(function() {
                             return filter.value;
                         }).join(',');
                     }).join('&');
+                    console.log('resParams', resParams);
                     if (firstFilter.isSpecialFilter === false && secondFilter.isSpecialFilter === true){
                         if(topFilterCount === 1 && notTopFilterCount >= 1) {
                             newUrl += '?' + queryParams;
@@ -293,6 +319,7 @@ $(document).ready(function() {
                         } else if(topFilterCount === 0 && notTopFilterCount === 0 && otherFilters.length < 1 && resPath === true) {
                             newUrl = urlParts[0] + slug; //sửa
                         } else if(topFilterCount === 1 && notTopFilterCount === 0 && resParams === true) {
+                            console.log(122223212323);
                             newUrl += '-' + top + '?' + queryParams;
                         } else {
                             newUrl += '?' + queryParams;
@@ -306,9 +333,11 @@ $(document).ready(function() {
                             return filter.value;
                         }).join(',');
                     }).join('&');
-                    if(secondFilter.isSpecialFilter === false) {
-                        newUrl += '-' + otherFilters[1] + '?' + queryParams;
-                    } else if(firstFilter.isSpecialFilter === true && secondFilter.isSpecialFilter === true) {
+                    // if(secondFilter.isSpecialFilter === false) {
+                    //     console.log(444);
+                    //     // newUrl += '-' + otherFilters[1] + '?' + queryParams;
+                    // } else 
+                    if(firstFilter.isSpecialFilter === true && secondFilter.isSpecialFilter === true) {
                         newUrl += '?' + queryParams;
                     } else {
                         if(otherFilters.length < 1 && resPath === false && resParams === true && (Object.keys(selectedFilters).length === 0)) {
@@ -318,7 +347,7 @@ $(document).ready(function() {
                         } else if(notTopFilterCount === 1 && resPath === false && resParams === false) {
                             newUrl += '-' + otherFilters[0];
                         } else if(notTopFilterCount >= 2 && resPath === false && resParams === false) {
-                            newUrl += '-' + otherFilters[0] + '?' + queryParams;
+                            newUrl += '?' + queryParams;
                         } else {
                             newUrl += '?' + queryParams;
                         }
@@ -350,7 +379,7 @@ $(document).ready(function() {
                     }
                 }
             } 
-            // console.log('newUrl', newUrl);
+            console.log('newUrl', newUrl);
             window.location.href = newUrl; // Chuyển hướng đến URL mới
         });
     }
@@ -397,13 +426,29 @@ $(document).ready(function() {
 
     // Khởi tạo trạng thái ban đầu từ query parameters
     function initFiltersFromUrl() {
-        var queryParams = new URLSearchParams(window.location.search);
+        // var queryParams = new URLSearchParams(window.location.search);
+        
+        // Lấy URL hiện tại
+        var currentUrl = window.location.href;
+
+        // Tạo đối tượng URL từ URL hiện tại
+        var url = new URL(currentUrl);
+
+        // Tạo đối tượng URLSearchParams từ tham số query
+        var queryParams = new URLSearchParams(url.search);
+
+        // Xóa tham số 'page' nếu nó tồn tại
+        queryParams.delete('page');
+
         var urlPath  = window.location.pathname;
         var pathParts = urlPath.split('/');
          // Tìm slug hợp lệ từ đường dẫn
         var foundSlug = validSlugs.find(slug => urlPath.includes(slug));
+        
         if (foundSlug) {
-            if(queryParams.size === 0 && urlPath.startsWith('/' + foundSlug + '-')) { 
+            if(queryParams.size === 0 && urlPath.startsWith('/' + foundSlug + '-')) {
+                console.log(11113333);
+                
                 var lastPart = pathParts[pathParts.length - 1];  // Lấy phần tử cuối cùng của đường dẫn
                 var filters = lastPart.split('-');  // Phân tách phần tử cuối cùng bằng dấu "-"
                 // Khởi tạo các biến để lưu trữ các bộ lọc
@@ -487,6 +532,8 @@ $(document).ready(function() {
                     });
                 });
             }else if (urlPath.startsWith('/' + foundSlug)) {
+                console.log(22223333);
+                
                 queryParams.forEach(function(value, key) {
                     var values = value.split(',');
                     

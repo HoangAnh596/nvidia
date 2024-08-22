@@ -8,12 +8,6 @@
 		<changefreq>daily</changefreq>
 	</url>
 	<url>
-	<loc>http://localhost:8000/test-sp-lan-2</loc>
-		<priority>0.8</priority>
-		<lastmod>2024-08-19T10:40:46+07:00</lastmod>
-		<changefreq>weekly</changefreq>
-	</url>
-	<url>
 	<loc>http://localhost:8000/sp213</loc>
 		<priority>0.8</priority>
 		<lastmod>2024-08-19T09:49:21+07:00</lastmod>
@@ -158,9 +152,9 @@
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-	<loc>http://localhost:8000/tinh-nang-dac-biet-ho-tro-5g</loc>
+	<loc>http://localhost:8000/iphone-15-128</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-07-26T09:23:59+07:00</lastmod>
+		<lastmod>2024-08-20T14:27:45+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>

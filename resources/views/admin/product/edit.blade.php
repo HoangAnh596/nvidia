@@ -23,7 +23,7 @@
             <input type="hidden" name="image_ids" value="{{ $product->image_ids }}">
             @endif
             <div class="card-header d-flex justify-content-between">
-                <a href="{{ route('product.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Back</a>
+                <a href="{{ route('product.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
                 <div>
                     <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
                     <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
@@ -57,12 +57,25 @@
                 <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
                 <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
             </div>
-
+        </form>
+        <form id="deleteForm-{{ $product->id }}" action="{{ route('product.destroy', ['id' => $product->id]) }}" method="post" class="deleteForm">
+            @csrf
+            @method('Delete')
+            <button class="btn btn-danger btn-sm" type="button" value="Delete" onclick="confirmDelete('{{ $product->id }}')" style="float: right; margin-right: 20px; margin-left:5px">
+                <i class="fa-solid fa-eraser"></i> Xóa
+            </button>
         </form>
     </div>
 </div>
 @endsection
 
+@section('css')
+<style>
+    .toast-top-center>div {
+        width: 400px !important;
+    }
+</style>
+@endsection
 @section('js')
 <script>
     let timeout = null;
@@ -416,6 +429,34 @@
             });
         });
     });
+
+    function confirmDelete(id) {
+        toastr.warning(`
+        <div>Các danh mục con thuộc danh mục này sẽ bị xóa. Bạn muốn xóa chứ?</div>
+        <div style="margin-top: 15px;">
+            <button type="button" id="confirmButton" class="btn btn-danger btn-sm" style="margin-right: 10px;">Xóa</button>
+            <button type="button" id="cancelButton" class="btn btn-secondary btn-sm">Hủy</button>
+        </div>
+    `, 'Cảnh báo', {
+            closeButton: false,
+            timeOut: 0, // Vô hiệu hóa tự động loại bỏ
+            extendedTimeOut: 0,
+            tapToDismiss: false,
+            positionClass: "toast-top-center",
+            onShown: function() {
+                // Xử lý khi người dùng nhấn "Xóa"
+                document.getElementById('confirmButton').addEventListener('click', function() {
+                    toastr.clear(); // Xóa thông báo toastr
+                    document.getElementById('deleteForm-' + id).submit(); // Gửi form để xóa
+                });
+
+                // Xử lý khi người dùng nhấn "Hủy"
+                document.getElementById('cancelButton').addEventListener('click', function() {
+                    toastr.remove(); // Xóa thông báo toastr khi nhấn nút "Hủy"
+                });
+            }
+        });
+    }
 </script>
 
 @endsection

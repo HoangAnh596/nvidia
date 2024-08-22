@@ -16,7 +16,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-end">
-            <a href="{{ route('categories.create') }}" class="btn btn-primary">Thêm mới danh mục</a>
+            <a href="{{ route('categories.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

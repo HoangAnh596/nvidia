@@ -37,7 +37,7 @@
                 </div>
             </form>
             <div>
-                <a href="{{ route('filter.create') }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-circle-plus"></i> Tạo mới bộ lọc</a>
+                <a href="{{ route('filter.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới bộ lọc</a>
             </div>
         </div>
         <div class="card-body">

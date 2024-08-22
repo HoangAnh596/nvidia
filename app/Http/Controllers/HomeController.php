@@ -75,11 +75,8 @@ class HomeController extends Controller
             }
 
             return view('cntt.home.index', compact(
-                'titleSeo',
-                'keywordSeo',
-                'descriptionSeo',
-                'categories',
-                'blogs', 'cateBlogs',
+                'titleSeo', 'keywordSeo', 'descriptionSeo',
+                'categories', 'blogs', 'cateBlogs',
                 'categoriesWithProducts'
             ));
         }
@@ -115,16 +112,25 @@ class HomeController extends Controller
             foreach ($prOutstand as $product) {
                     $product->loadProductImages();
                 }
-            
+            // dd($prOutstand);
             // Bộ lọc sản phẩm
             $filters = $request->all();
             if (!empty($filters)) {
+                // dd($filters);
+                // array:2 [▼
+                // "ram" => "9,10"
+                // "page" => "2"
+                // ]
                 $products = Product::query();
                 $filterConditions = [];
 
                 foreach ($filters as $key => $value) {
-                    $filterIds = explode(',', $value);
+                    // Bỏ qua 'page' vì nó không phải là bộ lọc sản phẩm
+                    if ($key === 'page') {
+                        continue;
+                    }
 
+                    $filterIds = explode(',', $value);
                     if (count($filterIds) > 0) {
                         $filterConditions[] = $filterIds;
                     }
@@ -146,21 +152,32 @@ class HomeController extends Controller
                     });
                 }
                 $total = $products->count();
-                $products = $products->orderBy('created_at', 'DESC')->paginate(10);
-                // dd($filterCate);
+                // Xử lý phân trang
+                $currentPage = $request->input('page', 1);
+                // Tính số trang tối đa dựa trên số lượng sản phẩm và số lượng sản phẩm mỗi trang
+                $lastPage = ceil($total / 10); // 10 là số sản phẩm mỗi trang, điều chỉnh nếu cần
+                
+                // Nếu số trang yêu cầu vượt quá số trang hiện có, đặt nó về trang cuối cùng
+                if ($currentPage > $lastPage) {
+                    $currentPage = $lastPage;
+                }
+                $products = $products->orderBy('created_at', 'DESC')->paginate(10, ['*'], 'page', $currentPage);
+                // Lấy URL hiện tại và xử lý chuỗi query
+                $currentUrl = request()->fullUrl();
+                $currentUrl = preg_replace('/(&|\?)page=\d+/', '', $currentUrl);
+                $currentUrl = str_replace('%2C', ',', $currentUrl);
+
+                // Gán URL đã xử lý vào phân trang
+                $products->withPath($currentUrl);
+
+                // Gán URL đã xử lý vào phân trang
+                $products->withPath($currentUrl);
+                // dd($products);
                 return view('cntt.home.category', compact(
-                    'titleSeo',
-                    'keywordSeo',
-                    'descriptionSeo',
-                    'total',
-                    'phoneInfors',
-                    'cateParent',
-                    'mainCate',
-                    'allParents',
-                    'products',
-                    'prOutstand',
-                    'filterCate',
-                    'slugs'
+                    'titleSeo', 'keywordSeo', 'descriptionSeo',
+                    'total', 'phoneInfors', 'cateParent',
+                    'mainCate', 'allParents', 'products',
+                    'prOutstand', 'filterCate', 'slugs'
                 ));
             }
 
@@ -181,7 +198,6 @@ class HomeController extends Controller
                 $product->loadProductImages();
             }
 
-            // dd($products);
             // Tính toán số lượng trang hiện có
             $currentPage = $request->input('page', 1);
             $lastPage = $products->lastPage();
@@ -195,17 +211,10 @@ class HomeController extends Controller
             }
 
             return view('cntt.home.category', compact(
-                'titleSeo',
-                'keywordSeo',
-                'descriptionSeo',
-                'phoneInfors',
-                'cateParent',
-                'mainCate',
-                'allParents',
-                'products',
-                'prOutstand',
-                'filterCate',
-                'slugs'
+                'titleSeo', 'keywordSeo', 'descriptionSeo',
+                'phoneInfors', 'cateParent', 'mainCate',
+                'allParents', 'products', 'prOutstand',
+                'filterCate', 'slugs'
             ));
         }
 
@@ -225,15 +234,9 @@ class HomeController extends Controller
         $images = $product->getProductImages();
 
         return view('cntt.home.show', compact(
-            'titleSeo',
-            'keywordSeo',
-            'descriptionSeo',
-            'phoneInfors',
-            'product',
-            'allParents',
-            'parent',
-            'images',
-            'relatedProducts'
+            'titleSeo', 'keywordSeo', 'descriptionSeo',
+            'phoneInfors', 'product', 'allParents',
+            'parent', 'images', 'relatedProducts'
         ));
     }
 
@@ -298,14 +301,9 @@ class HomeController extends Controller
             }
 
             return view('cntt.home.search', compact(
-                'titleSeo',
-                'keywordSeo',
-                'descriptionSeo',
-                'keyword',
-                'nameCate',
-                'products',
-                'phoneInfors',
-                'total'
+                'titleSeo', 'keywordSeo', 'descriptionSeo',
+                'keyword', 'nameCate', 'products',
+                'phoneInfors', 'total'
             ));
         } else {
             // Tìm kiếm sản phẩm theo tên hoặc mã sản phẩm
@@ -327,21 +325,18 @@ class HomeController extends Controller
             }
 
             return view('cntt.home.search', compact(
-                'titleSeo',
-                'keywordSeo',
-                'descriptionSeo',
-                'keyword',
-                'nameCate',
-                'products',
-                'phoneInfors',
-                'total'
+                'titleSeo', 'keywordSeo', 'descriptionSeo',
+                'keyword', 'nameCate', 'products',
+                'phoneInfors', 'total'
             ));
         }
     }
 
-    public function filters(Request $request)
+    public function fil(Request $request)
     {
-        $filters = $request->all();
+        $filters = $request->input('filters', null);
+        // $filters = $request->all();
+        dd($filters);
         if (!empty($filters)) {
             $products = Product::query();
             $filterConditions = [];
@@ -370,6 +365,39 @@ class HomeController extends Controller
             }
             $total = $products->count();
             return response()->json(['count' => $total]);
+        }
+    }
+
+    public function filters(Request $request)
+    {
+        $filters = $request->input('filters', null);
+
+        if (!empty($filters)) {
+            // Decode chuỗi JSON sang mảng
+            $filtersArray = json_decode($filters, true);
+
+            // Kiểm tra xem $filtersArray có phải là mảng không
+            if (is_array($filtersArray)) {
+                $products = Product::query();
+
+                foreach ($filtersArray as $key => $values) {
+                    if (is_array($values) && count($values) > 0) {
+                        // Sử dụng whereHas để lọc sản phẩm dựa trên filter_id
+                        $products->whereHas('filters', function ($query) use ($values) {
+                            $query->whereIn('filters_products.filter_id', $values);
+                        });
+                    }
+                }
+
+                // Đếm tổng số sản phẩm thỏa mãn điều kiện
+                $total = $products->count();
+
+                return response()->json(['count' => $total]);
+            } else {
+                return response()->json(['error' => 'Invalid filters format'], 400);
+            }
+        } else {
+            return response()->json(['count' => 0]);
         }
     }
 }

@@ -61,7 +61,7 @@ button.pop-gallery {
 
 
 /* Modal */
-.modal {
+#imageModal .modal {
     display: none;
     position: fixed;
     left: 0;
@@ -73,7 +73,7 @@ button.pop-gallery {
 }
 
 /* Modal Content */
-.modal-content {
+#imageModal .modal-content {
     display: flex;
     flex-direction: column; /* Hiển thị ảnh theo cột */
     justify-content: flex-start; /* Đặt các ảnh lên đầu */
@@ -205,6 +205,22 @@ button.pop-gallery {
     color: #fff;
 }
 
+.price-modal .modal {
+    top: 0;
+}
+.price-modal .modal-content {
+    margin-top: 43px;
+}
+.price-modal .hide {
+    display: none;
+}
+.price-modal .price-code {
+    color: #76b900;
+}
+.price-modal .btn-primary {
+    background-color: #76b900;
+    border-color: #76b900;
+}
 
 .check-list-btn svg {
     position: absolute;
@@ -601,7 +617,6 @@ button.pop-gallery {
 /* Custom CSS for Swiper */
 .swiper {
     width: 100%;
-    height: 300px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -609,11 +624,6 @@ button.pop-gallery {
   .swiper-slide {
     background-size: cover;
     background-position: center;
-  }
-
-  .mySwiper2 {
-    height: 358px;
-    width: 100%;
   }
 
   .mySwiper {
@@ -637,43 +647,12 @@ button.pop-gallery {
     /* width: 100%;
     height: 100%; */
     object-fit: cover;
+    cursor: pointer;
   }
   .swiper-button-next,
 .swiper-button-prev {
     color: #76b900;
 }
-/* .swiper-slide {
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    text-align: center;
-    border-radius: 4px;
-    padding: 20px;
-}
-
-.swiper-pagination-bullet {
-    background: #76b900;
-}
-
-.swiper-button-next,
-.swiper-button-prev {
-    color: #76b900;
-}
-
-
-.active {
-    display: block;
-    color: #76b900;
-}
-
-.desc-product img {
-    width: 100%;
-}
-.swiper-wrapper {
-    height: auto;
-} */
 
 :root {
     --swiper-navigation-size: 38px;

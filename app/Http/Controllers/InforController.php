@@ -117,9 +117,19 @@ class InforController extends Controller
     public function isCheckbox(Request $request)
     {
         $infor = Infor::findOrFail($request->id);
-        $infor->is_public = $request->is_public;
-        $infor->save();
+        if ($infor) {
+            $field = $request->field;
+            $value = $request->value;
+            // Kiểm tra xem trường có tồn tại trong bảng user không
+            if (in_array($field, ['send_price', 'is_public'])) {
+                $infor->$field = $value;
 
-        return response()->json(['success' => true]);
+                $infor->save();
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Không tồn tại.']);
+            }
+        }
+        return response()->json(['success' => false]);
     }
 }

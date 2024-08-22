@@ -337,13 +337,16 @@
                 $showFilter.removeClass('border-blue'); // Xóa border-blue nếu đang ẩn
             } else {
                 // Ẩn tất cả các child-filter khác và xóa border-blue từ các show-filter không có btn-child-filter nào được chọn
-                $('.child-filter-mb').not($childFilter).hide().each(function() {
-                    var $siblingChildFilter = $(this);
-                    var $siblingShowFilter = $('.show-filter').eq($('.child-filter-mb').index($siblingChildFilter));
-                    if ($siblingChildFilter.find('.btn-child-filter-mb.border-blue').length === 0) {
-                        $siblingShowFilter.removeClass('border-blue');
-                    }
-                });
+                $('.child-filter-mb').each(function(i) {
+                var $siblingChildFilter = $(this);
+                var $siblingShowFilter = $('.show-filter-mb').eq(i);
+                
+                // Kiểm tra nếu child-filter hiện tại đang hiển thị và không có btn-child-filter-mb nào được chọn
+                if ($siblingChildFilter.is(':visible') && $siblingChildFilter.find('.btn-child-filter-mb.border-blue').length === 0) {
+                    $siblingChildFilter.hide(); // Ẩn child-filter hiện tại
+                    $siblingShowFilter.removeClass('border-blue'); // Xóa border-blue từ nút show-filter-mb tương ứng
+                }
+            });
 
                 $childFilter.show(); // Hiển thị child-filter tương ứng
                 $showFilter.addClass('border-blue'); // Thêm border-blue cho nút hiện tại
@@ -353,10 +356,13 @@
         // Đóng menu thả xuống khi nhấp vào bên ngoài
         $(document).on('click', function(e) {
             if (!$(e.target).closest('.show-filter-mb, .child-filter-mb').length) {
-                $('.child-filter-mb').slideUp();
+                $('.child-filter-mb').slideUp();  // Ẩn tất cả các child-filter
                 $('.show-filter-mb').each(function() {
                     var $showFilter = $(this);
-                    var $childFilter = $showFilter.next('.child-filter-mb');
+                    var index = $('.show-filter-mb').index($showFilter); // Lấy chỉ số của nút show-filter
+                    var $childFilter = $('.child-filter-mb').eq(index); // Lấy child-filter tương ứng
+
+                    // Kiểm tra nếu không có btn-child-filter-mb nào được chọn
                     if ($childFilter.find('.btn-child-filter-mb.border-blue').length === 0) {
                         $showFilter.removeClass('border-blue'); // Xóa border-blue nếu không có btn-child-filter nào được chọn
                     }
@@ -480,10 +486,12 @@
         // Khởi tạo trạng thái ban đầu từ query parameters
         function initFiltersMbFromUrl() {
             var queryParams = new URLSearchParams(window.location.search);
+            
             queryParams.forEach(function(value, key) {
                 var values = value.split(',');
                 selectedFiltersMb[key] = values;
 
+                // Tìm và thêm class border-blue cho nút show-filter-mb tương ứng
                 var $showFilter = $('.show-filter-mb[name="' + key + '"]');
                 $showFilter.addClass('border-blue');
                 values.forEach(function(id) {
@@ -491,16 +499,15 @@
                     $btnChildFilter.addClass('border-blue');
                 });
                 // Hiển thị filter-button nếu có bất kỳ btn-child-filter nào được chọn
-                var $childFilter = $showFilter.next('.child-filter-mb');
-                $childFilter.show();
-                // console.log($childFilter);
+                var $childFilter = $('.child-filter-mb[data-target="' + key + '"]');
                 if (values.length > 0) {
+                    $childFilter.show();
                     $childFilter.find('.filter-button-mb').show();
                 }
             });
         }
 
-        initFiltersMbFromUrl(); // Khởi tạo trạng thái từ URL khi trang được tải
+        initFiltersMbFromUrl();
     });
 
     // Kiểm tra kích thước màn hình khi cửa sổ thay đổi kích thước

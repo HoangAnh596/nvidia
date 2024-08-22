@@ -22,6 +22,7 @@ class CreateInforsTable extends Migration
             $table->string('zalo')->nullable();
             $table->string('gmail')->nullable();
             $table->integer('stt')->nullable();
+            $table->tinyInteger('send_price')->default(0)->comment('0: không nhận mail, 1: nhận mail');
             $table->tinyInteger('is_public')->default(0)->comment('1: hiển thị, 0: không hiển thị');
             $table->timestamps();
         });

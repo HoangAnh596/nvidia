@@ -235,25 +235,134 @@
                 </ul>
             </div>
         </div>
-        <div class="row mt-3">
-            @if(!empty($blogs))
-            @foreach($blogs as $val)
-            <div class="col-12 col-md-3 col-sm-6 mb-4">
-                <div class="card h-100 card-new">
-                    <a class="btn-img-new" href="/blogs/{{ $val->slug }}">
-                        <img class="card-img-top lazyload img-size" src="{{ asset($val->image) }}" data-src="{{ asset($val->image) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
-                    </a>
-                    <div class="new-body">
-                        <a href="/blogs/{{ $val->slug }}" class="text-decoration-none text-dark"><h4>{{ $val->name }}</h4></a>
+        <div class="container-fluid px-0 mt-3">
+            <div class="owl-carousel owl-theme">
+                @if(!empty($blogs))
+                @foreach($blogs as $val)
+                <div class="item">
+                    <div class="card h-100 card-new">
+                        <a class="btn-img-new" href="/blogs/{{ $val->slug }}">
+                            <img class="card-img-top lazyload img-size" src="{{ asset($val->image) }}" data-src="{{ asset($val->image) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
+                        </a>
+                        <div class="new-body">
+                            <a href="/blogs/{{ $val->slug }}" class="text-decoration-none text-dark">
+                                <h4>{{ $val->name }}</h4>
+                            </a>
+                        </div>
+                        <p>{{ $val->desc }}</p>
                     </div>
-                    <p>{{ $val->desc }}</p>
                 </div>
+                @endforeach
+                @endif
             </div>
-            @endforeach
-            @endif
         </div>
     </div>
 </section>
 
 <!-- End Tin tức bài viết -->
+@endsection
+
+@section('css')
+<!-- Owl Carousel CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+<style>
+    .container-fluid {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .owl-carousel .item {
+        padding: 4px;
+        /* Khoảng cách giữa các item */
+    }
+
+    .owl-carousel .card {
+        width: 100%;
+        height: auto;
+    }
+
+    .owl-carousel .owl-nav button.owl-prev,
+    .owl-carousel .owl-nav button.owl-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: #76b900;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .owl-carousel .owl-nav button.owl-prev:hover,
+    .owl-carousel .owl-nav button.owl-next:hover {
+        background-color: #76b900;
+    }
+
+    .owl-carousel .owl-nav button.owl-prev {
+        left: -35px;
+    }
+
+    .owl-carousel .owl-nav button.owl-next {
+        right: -35px;
+    }
+    .owl-carousel .owl-stage-outer {
+        padding-bottom: 20px;
+    }
+    .owl-theme .owl-nav {
+        margin-top: 0px;
+    }
+    .owl-theme .owl-dots .owl-dot.active span,.owl-theme .owl-dots .owl-dot:hover span {
+        background: #76b900;
+    }
+    @media (max-width: 768px) {
+        .owl-carousel .owl-nav button.owl-prev,
+        .owl-carousel .owl-nav button.owl-next {
+            width: 24px;
+            height: 24px;
+        }
+        .owl-carousel .owl-nav button.owl-prev {
+            left: 0;
+        }
+
+        .owl-carousel .owl-nav button.owl-next {
+            right: 0;
+        }
+        .owl-carousel .item {
+            padding: 0px; /* Khoảng cách giữa các item */
+        }
+    }
+</style>
+@endsection
+@section('js')
+<!-- Owl Carousel JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".owl-carousel").owlCarousel({
+            items: 4, // Số lượng item hiển thị
+            loop: true,
+            margin: 6,
+            nav: true,
+            navText: [
+                '<i class="fas fa-chevron-left"></i>', // Nút Previous
+                '<i class="fas fa-chevron-right"></i>' // Nút Next
+            ],
+            responsive: {
+                0: {
+                    items: 2
+                },
+                800: {
+                    items: 3
+                },
+                1100: {
+                    items: 4
+                }
+            }
+        });
+    });
+</script>
 @endsection

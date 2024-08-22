@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         // đảm bảo sql chỉ chạy 1 lần
         $this->app->singleton('menus', function () {
-            return CateMenu::select('id', 'name', 'url', 'stt_menu')
+            return CateMenu::select('id', 'name', 'url', 'stt_menu', 'is_click', 'is_tab')
                 ->where('parent_menu', 0)
                 ->where('is_public', 1)
                 ->orderBy('stt_menu', 'ASC')

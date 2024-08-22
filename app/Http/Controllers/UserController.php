@@ -19,12 +19,22 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $keyWord = $request->input('keyword');
-        $users = user::where('name', 'like', "%" . Helper::escape_like($keyWord) . "%")
-            ->latest()
-            ->paginate(config('common.default_page_size'));
+        $keyword = $request->keyword;
+        $role = $request->role;
+        
+        $userQuery = User::where(function($query) use ($keyword) {
+            $query->where('name', 'like', "%" . Helper::escape_like($keyword) . "%")
+                  ->orWhere('email', 'like', "%" . Helper::escape_like($keyword) . "%");
+        });
+        if ($role !== null && $role !== '') {
+            $userQuery->where('role', $role);
+        }
 
-        return view('admin.users.index', compact('users', 'keyWord'));
+        $users = $userQuery->latest()->paginate(config('common.default_page_size'))->appends($request->except('page'));
+
+        
+
+        return view('admin.users.index', compact('users', 'keyword'));
     }
 
     /**

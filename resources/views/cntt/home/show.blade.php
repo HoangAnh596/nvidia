@@ -89,7 +89,7 @@
                                 <span>@if($product->status == 1) Còn hàng @else Hết hàng @endif</span>
                             </div>
                             <div class="price">
-                                <button title="Liên hệ để để được báo giá bán tốt nhất!" class="contact-price" onclick="showmodal('C9300-48P-E');">
+                                <button title="Liên hệ để để được báo giá bán tốt nhất!" class="contact-price" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-hand-index-thumb" viewBox="0 0 16 16">
                                         <path d="M6.75 1a.75.75 0 0 1 .75.75V8a.5.5 0 0 0 1 0V5.467l.086-.004c.317-.012.637-.008.816.027.134.027.294.096.448.182.077.042.15.147.15.314V8a.5.5 0 0 0 1 0V6.435l.106-.01c.316-.024.584-.01.708.04.118.046.3.207.486.43.081.096.15.19.2.259V8.5a.5.5 0 1 0 1 0v-1h.342a1 1 0 0 1 .995 1.1l-.271 2.715a2.5 2.5 0 0 1-.317.991l-1.395 2.442a.5.5 0 0 1-.434.252H6.118a.5.5 0 0 1-.447-.276l-1.232-2.465-2.512-4.185a.517.517 0 0 1 .809-.631l2.41 2.41A.5.5 0 0 0 6 9.5V1.75A.75.75 0 0 1 6.75 1zM8.5 4.466V1.75a1.75 1.75 0 1 0-3.5 0v6.543L3.443 6.736A1.517 1.517 0 0 0 1.07 8.588l2.491 4.153 1.215 2.43A1.5 1.5 0 0 0 6.118 16h6.302a1.5 1.5 0 0 0 1.302-.756l1.395-2.441a3.5 3.5 0 0 0 .444-1.389l.271-2.715a2 2 0 0 0-1.99-2.199h-.581a5.114 5.114 0 0 0-.195-.248c-.191-.229-.51-.568-.88-.716-.364-.146-.846-.132-1.158-.108l-.132.012a1.26 1.26 0 0 0-.56-.642 2.632 2.632 0 0 0-.738-.288c-.31-.062-.739-.058-1.05-.046l-.048.002zm2.094 2.025z"></path>
                                     </svg>
@@ -133,6 +133,53 @@
                         <i class="maphcm"></i> Số 31B, Đường 1, Phường An Phú, Quận 2 (Thủ Đức), <b>TP HCM</b>.
                         <a title="Chỉ đường đến CNTTShop.vn" href="https://www.google.com/maps/dir//31b+%C4%90%C6%B0%E1%BB%9Dng+s%E1%BB%91+1,+An+Ph%C3%BA,+Qu%E1%BA%ADn+2,+Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh,+Vietnam/@10.8088314,106.7506978,17z/data=!4m8!4m7!1m0!1m5!1m1!1s0x31752641f7cf5b8b:0x5573c2cda7b199cb!2m2!1d106.7528865!2d10.8088261?hl=vi" target="_blank" rel="noopener noreferrer"><i class="directions"></i></a>
                     </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="price-modal">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Yêu cầu nhận giá tốt về sản phẩm <span class="price-code">{{ $product->code }}</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-success hide" id="price-success"></div>
+                    <div class="alert alert-danger hide" id="price-error"></div>
+                    <div class="form-group mb-2">
+                        <label for="name">Họ tên</label>
+                        <input type="text" name="name" class="form-control" id="name">
+                        <span class="name-price-erros" style="color: red;"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="text" name="phone" class="form-control" id="phone">
+                        <span class="phone-price-errors" style="color: red;"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email">
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="amount">Số lượng cần mua</label>
+                        <input type="number" min="1" class="form-control" name="amount" id="amount">
+                    </div>
+                    <div class="form-group">
+                        <label>Mục đích mua hàng: </label>
+                        <label><input value="1" name="purpose" type="radio" style="margin-left: 15px; margin-right: 5px;">Công ty</label>
+                        <label><input value="2" name="purpose" type="radio" style="margin-left: 15px; margin-right: 5px;">Dự án</label>
+                    </div>
+                </div>
+                @if (!empty($product))
+                <input type="hidden" name="code" id="code" value="{{ $product->code }}">
+                @endif
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary send-price">Gửi yêu cầu</button>
                 </div>
             </div>
         </div>
@@ -225,6 +272,112 @@
         thumbs: {
             swiper: swiper,
         },
+    });
+
+
+    // Báo giá
+    document.querySelector('.send-price').addEventListener('click', function() {
+        let submitButton = this;
+
+        // Vô hiệu hóa nút submit để ngăn gửi nhiều lần
+        submitButton.disabled = true;
+        let nameElement = document.getElementById('name');
+        let phoneElement = document.getElementById('phone');
+        let emailElement = document.getElementById('email');
+        let amountElement = document.getElementById('amount');
+        let purposeElement = document.querySelector('input[name="purpose"]:checked');
+        let codeElement = document.getElementById('code');
+
+        // Kiểm tra xem các phần tử có tồn tại không
+        if (!nameElement || !phoneElement) {
+            document.getElementById('price-error').innerText = 'Vui lòng điền đầy đủ thông tin!';
+            document.getElementById('price-error').classList.remove('hide');
+            submitButton.disabled = false; // Kích hoạt lại nút submit
+            return;
+        }
+
+        let nameValue = nameElement.value.trim();
+        let phoneValue = phoneElement.value.trim();
+
+        // Ẩn thông báo trước khi gửi form
+        document.getElementById('price-success').classList.add('hide');
+        document.getElementById('price-error').classList.add('hide');
+
+        let isValid = true;
+        let errorMessages = {};
+
+        // Kiểm tra trường 'name'
+        if (nameValue.length < 3 || nameValue.length > 256) {
+            isValid = false;
+            errorMessages.name = 'Họ tên phải có từ 3 đến 256 ký tự.';
+        } else {
+            document.querySelector('.name-price-erros').innerText = '';
+        }
+        if (errorMessages.name) {
+            document.querySelector('.name-price-erros').innerText = errorMessages.name;
+        }
+
+        // Kiểm tra trường 'phone'
+        const phonePattern = /^[0-9]{10,12}$/;
+        if (!phonePattern.test(phoneValue)) {
+            isValid = false;
+            errorMessages.phone = 'Số điện thoại không hợp lệ.';
+        } else {
+            document.querySelector('.phone-price-errors').innerText = '';
+        }
+        if (errorMessages.phone) {
+            document.querySelector('.phone-price-errors').innerText = errorMessages.phone;
+        }
+
+        // Nếu không hợp lệ thì ngừng xử lý và hiển thị lỗi
+        if (!isValid) {
+            document.getElementById('price-error').innerText = 'Vui lòng kiểm tra lại thông tin của bạn.';
+            document.getElementById('price-error').classList.remove('hide');
+            submitButton.disabled = false; // Kích hoạt lại nút submit
+            return;
+        }
+
+        let data = {
+            name: nameElement.value,
+            phone: phoneElement.value,
+            email: emailElement ? emailElement.value : null,
+            amount: amountElement ? amountElement.value : null,
+            purpose: purposeElement ? purposeElement.value : 1,
+            code: codeElement.value,
+        };
+
+        fetch('{{ route("price.request") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('price-success').innerText = data.success;
+                    document.getElementById('price-success').classList.remove('hide');
+
+                    // Xóa dữ liệu cũ
+                    document.getElementById('name').value = '';
+                    document.getElementById('phone').value = '';
+                    document.getElementById('email').value = '';
+                    document.getElementById('amount').value = '';
+                    document.querySelectorAll('input[name="purpose"]').forEach(radio => radio.checked = false);
+                    document.getElementById('code').value = '';
+                } else {
+                    document.getElementById('price-error').innerText = data.error;
+                    document.getElementById('price-error').classList.remove('hide');
+                }
+                submitButton.disabled = false; // Kích hoạt lại nút submit sau khi xử lý xong
+            })
+            .catch(error => {
+                document.getElementById('price-error').innerText = 'Đã xảy ra lỗi khi gửi yêu cầu.';
+                document.getElementById('price-error').classList.remove('hide');
+                submitButton.disabled = false; // Kích hoạt lại nút submit nếu xảy ra lỗi
+            });
     });
 </script>
 @endsection

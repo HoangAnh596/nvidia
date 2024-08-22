@@ -19,7 +19,7 @@ class Infor extends Model
     protected $fillable = [
         'name', 'role', 'phone',
         'skype', 'zalo', 'gmail',
-        'stt', 'is_public'
+        'stt', 'is_public', 'send_price'
     ];
     
 }

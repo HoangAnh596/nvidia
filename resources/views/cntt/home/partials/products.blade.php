@@ -12,7 +12,7 @@
 <div class="col-w-5 col-xs-6 col-md-3 col-sm-6 mb-2">
     <div class="card h-100">
         @php
-        $mainImage = $product->product_images->firstWhere('main_img', 1);
+        $mainImage = $product->product_images ? $product->product_images->firstWhere('main_img', 1) : null;
         @endphp
 
         @if($mainImage)

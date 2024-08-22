@@ -16,7 +16,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-end">
-            <a href="{{ route('cateMenu.create') }}" class="btn btn-primary">Thêm mới danh mục</a>
+            <a href="{{ route('cateMenu.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -27,6 +27,7 @@
                             <th class="col-sm-3 position-relative">Địa chỉ đường dẫn</th>
                             <th class="position-relative text-center">Thứ tự</th>
                             <th class="position-relative text-center">Hiển thị</th>
+                            <th class="position-relative text-center">Mở Tab</th>
                             <th class="position-relative text-center">Click</th>
                             <th class="col-sm-2 position-relative"></th>
                         </tr>

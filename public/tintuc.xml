@@ -8,6 +8,12 @@
 		<changefreq>daily</changefreq>
 	</url>
 	<url>
+	<loc>http://localhost:8000/huong-dan-mount-va-phan-vung-o-cung-trong-he-dieu-hanh-linux</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-08-21T11:52:14+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 	<loc>http://localhost:8000/serve-la-gi-tim-hieu-ve-vai-tro-va-chuc-nang-cua-serve</loc>
 		<priority>0.8</priority>
 		<lastmod>2024-08-16T16:59:18+07:00</lastmod>

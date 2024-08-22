@@ -35,7 +35,7 @@
                 </div>
             </form>
             <div>
-                <a href="{{ route('news.create') }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-circle-plus"></i> CREATE</a>
+                <a href="{{ route('news.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
             </div>
         </div>
         <div class="card-body">

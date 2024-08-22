@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </form>
-            <a href="{{ route('icons.create') }}" class="btn btn-danger">Thêm mới icon</a>
+            <a href="{{ route('icons.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới icon</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

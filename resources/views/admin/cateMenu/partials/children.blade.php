@@ -24,6 +24,11 @@
     </td>
     <td class="text-center">
         <div class="form-check">
+            <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_tab" {{ ($category->is_tab == 1) ? 'checked' : '' }}>
+        </div>
+    </td>
+    <td class="text-center">
+        <div class="form-check">
             <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_click" {{ ($category->is_click == 1) ? 'checked' : '' }}>
         </div>
     </td>

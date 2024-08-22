@@ -140,6 +140,22 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        // Lấy tất cả các sản phẩm có chứa danh mục trong trường sub
+        $products = Product::whereJsonContains('subCategory', $id)->get();
+
+        foreach ($products as $product) {
+            // Lấy danh sách sub hiện tại
+            $sub = $product->subCategory;
+
+            // Loại bỏ ID danh mục khỏi danh sách sub
+            $updatedSub = array_filter($sub, function($value) use ($id) {
+                return $value != $id;
+            });
+
+            // Cập nhật lại trường sub với danh sách mới
+            $product->subCategory = array_values($updatedSub); // Sử dụng array_values để đánh chỉ mục lại cho mảng
+            $product->save();
+        }
         Category::findOrFail($id)->delete();
 
         return redirect(route('categories.index'))->with(['message' => 'Xóa thành công !']);
