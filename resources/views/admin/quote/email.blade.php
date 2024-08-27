@@ -3,4 +3,4 @@
 <p><strong>Số điện thoại:</strong> {{ $data['phone'] }}</p>
 <p><strong>Email:</strong> {{ $data['email'] }}</p>
 <p><strong>Số lượng cần mua:</strong> {{ $data['amount'] }}</p>
-<p><strong>Mục đích mua hàng:</strong> {{ $data['purpose'] == 1 ? 'Công ty' : 'Dự án' }}</p>
+<p><strong>Mục đích mua hàng:</strong> {{ $data['purpose'] == 0 ? 'Công ty' : 'Dự án' }}</p>

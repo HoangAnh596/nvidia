@@ -67,6 +67,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'san_pham_filepath' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/files'),
+            'url' => env('APP_URL').'/storage/files',
+            'visibility' => 'public',
+        ],
+
         'tin_tuc_images' => [
             'driver' => 'local',
             'root' => storage_path('app/public/images/tin-tuc'),

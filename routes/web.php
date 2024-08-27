@@ -11,16 +11,18 @@ use App\Http\Controllers\BottomController;
 use App\Http\Controllers\CateFooterController;
 use App\Http\Controllers\CategoryNewController;
 use App\Http\Controllers\CateMenuController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FilterCateController;
 use App\Http\Controllers\FilterProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IconController;
 use App\Http\Controllers\InforController;
 use App\Http\Controllers\ManageController;
-use App\Http\Controllers\SendPriceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImagesController;
 use App\Http\Controllers\ProductTagController;
+use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
@@ -108,14 +110,17 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::resource('infors', InforController::class)->except(['show'])->middleware('authorization:Admin');
     Route::post('/infors/checkStt', [InforController::class, 'checkStt'])->name('infors.checkStt');
     Route::post('/infors/checkbox', [InforController::class, 'isCheckbox'])->name('infors.isCheckbox');
-    
+    Route::resource('quotes', QuoteController::class)->except(['show'])->middleware('authorization:Admin');
+
+    // Route::resource('setting', SettingController::class)->except(['show'])->middleware('authorization:Admin');
+
+    // Quản lý email admin, favicon web
+    Route::get('/setting/{id}/edit', [SettingController::class, 'edit'])->name('setting.edit')->middleware('authorization:Admin');
+    Route::put('setting/{id}', [SettingController::class, 'update'])->name('setting.update')->middleware('authorization:Admin');
+
     Route::resource('icons', IconController::class)->except(['show'])->middleware('authorization:Admin');
     Route::post('/icons/checkStt', [IconController::class, 'checkStt'])->name('icons.checkStt');
     Route::post('/icons/checkbox', [IconController::class, 'isCheckbox'])->name('icons.isCheckbox');
-
-    Route::resource('favicon', ManageController::class)->only([
-        'edit', 'update'
-    ])->middleware('authorization:Admin');
 
     // Quản lý 
     Route::resource('bottoms', BottomController::class)->except(['show'])->middleware('authorization:Admin');
@@ -128,6 +133,11 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('cateMenu/checkStt', [CateMenuController::class, 'checkStt'])->name('cateMenu.checkStt');
     Route::post('cateMenu/checkbox', [CateMenuController::class, 'isCheckbox'])->name('cateMenu.isCheckbox');
 
+    // Quản lý comment
+    Route::resource('comments', CommentController::class)->except(['show'])->middleware('authorization:Admin');
+    Route::post('/comments/tim-kiem', [CommentController::class, 'search'])->name('comments.tim-kiem');
+    Route::post('/comments/sendCmt', [CommentController::class, 'sendCmt'])->name('comments.sendCmt');
+    Route::post('/comments/parent', [CommentController::class, 'parent'])->name('comments.parent');
     // Quản lý footer
     Route::resource('cateFooter', CateFooterController::class)->except(['show'])->middleware('authorization:Admin');
     Route::post('cateFooter/checkStt', [cateFooterController::class, 'checkStt'])->name('cateFooter.checkStt');
@@ -146,7 +156,8 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 // Tìm kiếm
 Route::get('/tim-kiem', [HomeController::class, 'search'])->name('home.search');
 Route::get('/filters', [HomeController::class, 'filters'])->name('home.filters');
-Route::post('/send-price', [SendPriceController::class, 'sendRequest'])->name('price.request');
+Route::post('/send-price', [QuoteController::class, 'sendRequest'])->name('price.request');
+Route::post('/send-comment', [CommentController::class, 'sendCmt'])->name('comments.sendCmt');
 // Trang chủ phía người dùng
 Route::prefix('/')->group(function () {
     Route::prefix('/blogs')->group(function () {

@@ -428,6 +428,15 @@
                 }
             });
         });
+
+        document.getElementById('lfm-file').addEventListener('click', function () {
+            window.open('/laravel-filemanager?type=Files', 'FileManager', 'width=900,height=600');
+            window.SetUrl = function (items) {
+                var file_path = items[0].url;
+                document.getElementById('thumbnail-file').value = file_path;
+                document.getElementById('file-name').textContent = items[0].name;
+            };
+        });
     });
 
     function confirmDelete(id) {

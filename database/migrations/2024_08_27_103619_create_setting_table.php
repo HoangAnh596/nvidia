@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFaviconTable extends Migration
+class CreateSettingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class CreateFaviconTable extends Migration
      */
     public function up()
     {
-        Schema::create('favicon', function (Blueprint $table) {
+        Schema::create('setting', function (Blueprint $table) {
             $table->id();
+            $table->string('mail_name')->nullable();
+            $table->string('mail_pass')->nullable();
+            $table->string('mail_text')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });
@@ -27,6 +30,6 @@ class CreateFaviconTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('favicon');
+        Schema::dropIfExists('setting');
     }
 }

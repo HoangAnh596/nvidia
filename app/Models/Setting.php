@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Favicon extends Model
+class Setting extends Model
 {
     use HasFactory;
 
-    protected $table = 'favicon';
+    protected $table = 'setting';
 
     protected $fillable = [
-        'image',
+        'mail_name', 'mail_pass',
+        'mail_text', 'image',
     ];
 }

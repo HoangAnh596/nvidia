@@ -24,6 +24,7 @@ class CleanupImgProduct extends Command
 
         // Mảng để lưu trữ tất cả các đường dẫn ảnh đang được sử dụng
         $usedImages = [];
+        $usedFilepaths = [];
 
         foreach ($products as $product) {
             // Trích xuất URL ảnh từ nội dung
@@ -58,13 +59,22 @@ class CleanupImgProduct extends Command
                     $usedImages[] = $relativePath;
                 }
             }
+
+            // Lấy danh sách filepath từ mỗi sản phẩm
+            if (!empty($product->filepath)) {
+                // Chuyển đường dẫn ảnh thành đường dẫn tương đối
+                $relativeImagePath = str_replace(url('storage'), 'storage', $product->filepath);
+                $usedFilepaths[] = $relativeImagePath;
+            }
         }
 
         // Lấy tất cả các ảnh trong thư mục lưu trữ
         $allImages = Storage::disk('san_pham_images')->allFiles();
+        $allFilepath = Storage::disk('san_pham_filepath')->allFiles();
 
         // Mảng để lưu trữ các tên ảnh đã được sử dụng mà không xét đến kích thước
         $baseFilenames = [];
+        $baseFilepath = [];
 
         foreach ($usedImages as $imageUrl) {
             // Tách lấy tên tệp từ URL
@@ -84,6 +94,22 @@ class CleanupImgProduct extends Command
             }
         }
 
-        $this->info('Hoàn thành việc xóa ảnh không sử dụng!');
+        // Xử lý file
+        foreach ($usedFilepaths as $filepath) {
+            $filename = basename($filepath);
+            $baseFilepath[] = $filename;
+        }
+
+        foreach ($allFilepath as $file) {
+            $currentFilename = basename($file);
+            // $this->info("Đang kiểm tra file: $currentFilename");
+            if (!in_array($currentFilename, $baseFilepath)) {
+                // $this->info("File này không nằm trong danh sách đang sử dụng: $currentFilename");
+                Storage::disk('san_pham_filepath')->delete($file);
+                $this->info("Đã xóa file không sử dụng: $file");
+            }
+        }
+
+        $this->info('Hoàn thành việc xóa ảnh và file không sử dụng!');
     }
 }

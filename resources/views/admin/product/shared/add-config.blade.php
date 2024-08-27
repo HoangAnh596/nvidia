@@ -47,7 +47,6 @@
                 <label for="tags" class="form-label">Thẻ Tags</label>
                 <select class="form-control searchTags" name="tag_ids[]" id="searchTags" multiple="multiple"></select>
             </div>
-
             <div class="mb-3">
                 <label for="category" class="form-label">Danh mục phụ</label>
                 <ul class="subCate">
@@ -58,8 +57,21 @@
             </div>
         </div>
     </div>
+    <div class="row mb-3">
+        <div class="col-2">
+            <div class="input-group">
+                <input id="thumbnail-file" class="form-control filepath" type="hidden" name="filepath">
+                <span class="input-group-btn">
+                    <button id="lfm-file" data-input="thumbnail-file" data-preview="holder" class="btn btn-outline-dark">
+                        <i class="fa fa-picture-o"></i> Chọn File
+                    </button>
+                </span>
+            </div>
+        </div>
+        <div class="col-5 d-flex flex-row align-items-center" id="file-name" style="height: 38px;">{{ basename(old('filepath')) }}</div>
+    </div>
     <div class="text-dark">
-        <div class="row mb-3"> 
+        <div class="row mb-3">
             <div class="col-2">
                 <div class="input-group">
                     <span class="input-group-btn">

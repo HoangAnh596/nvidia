@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Favicon;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
-class ManageController extends Controller
+class SettingController extends Controller
 {
     /**
      * Show the form for creating a new resource.
@@ -14,7 +15,7 @@ class ManageController extends Controller
      */
     public function create()
     {
-        return view('admin.favicon.add');
+        return view('admin.setting.add');
     }
 
     /**
@@ -25,9 +26,9 @@ class ManageController extends Controller
      */
     public function edit($id)
     {
-        $favicon = Favicon::findOrFail(1);
-        // dd($favicon);
-        return view('admin.favicon.edit', compact('favicon'));
+        $setting = Setting::findOrFail(1);
+        // dd($setting);
+        return view('admin.setting.edit', compact('setting'));
     }
 
     /**
@@ -39,7 +40,7 @@ class ManageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $favicon = Favicon::findOrFail(1);
+        $setting = Setting::findOrFail(1);
 
         $path = parse_url($request->filepath, PHP_URL_PATH);
         // Xóa dấu gạch chéo đầu tiên nếu cần thiết
@@ -47,9 +48,10 @@ class ManageController extends Controller
             $path = substr($path, 1);
         }
 
-        $favicon->image = $path;
-        $favicon->save();
+        $setting->fill($request->all());
+        $setting->image = $path;
+        $setting->save();
 
-        return redirect('/admin')->with(['message' => 'Cập nhật hình ảnh favicon thành công']);
+        return redirect('/admin')->with(['message' => 'Cập nhật hình ảnh setting thành công']);
     }
 }

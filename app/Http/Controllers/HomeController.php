@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\CategoryNew;
+use App\Models\Comment;
 use App\Models\Infor;
 use App\Models\News;
 use App\Models\Product;
-use App\Models\ProductImages;
 use App\Services\CategorySrc;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -112,15 +113,10 @@ class HomeController extends Controller
             foreach ($prOutstand as $product) {
                     $product->loadProductImages();
                 }
-            // dd($prOutstand);
+           
             // Bộ lọc sản phẩm
             $filters = $request->all();
             if (!empty($filters)) {
-                // dd($filters);
-                // array:2 [▼
-                // "ram" => "9,10"
-                // "page" => "2"
-                // ]
                 $products = Product::query();
                 $filterConditions = [];
 
@@ -233,10 +229,36 @@ class HomeController extends Controller
         $relatedProducts = $product->getRelatedProducts();
         $images = $product->getProductImages();
 
+        // Comments 
+        $commentsQuery = Comment::query(); // Khởi tạo query builder cho bảng comments
+        if (Auth::check() && Auth::user()->role == 1) {
+            // Nếu role = 1, lấy tất cả các comments cho sản phẩm này
+            $commentsQuery->where('comments.product_id', $idPro)
+                        ->where('comments.parent_id', 0)
+                        ->with('replies') // Load các bình luận con
+                        ->orderBy('comments.updated_at', 'DESC');
+        } else {
+            // Nếu role khác 1, lấy các bình luận public hoặc bình luận của chính người dùng đó
+            $commentsQuery->where('comments.product_id', $idPro)
+                          ->where('comments.parent_id', 0)
+                          ->where(function($query) {
+                                $query->where('comments.is_public', 1) // Hiển thị bình luận công khai
+                                    ->orWhere(function($query) {
+                                    // Nếu bình luận của chính người dùng hiện tại, hiển thị nó bất kể is_public là gì
+                                        $query->whereNotNull('comments.user_id')->where('comments.user_id', Auth::id());
+                                    });
+                            })
+                          ->with('replies') // Load các bình luận con
+                          ->orderBy('comments.updated_at', 'DESC');
+        }
+
+        $comments = $commentsQuery->get();
+        
         return view('cntt.home.show', compact(
             'titleSeo', 'keywordSeo', 'descriptionSeo',
             'phoneInfors', 'product', 'allParents',
-            'parent', 'images', 'relatedProducts'
+            'parent', 'images', 'relatedProducts',
+            'comments'
         ));
     }
 

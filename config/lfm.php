@@ -60,6 +60,10 @@ return [
                 'image/gif',
                 'application/pdf',
                 'text/plain',
+                'application/msword', // MIME type for .doc files
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // MIME type for .docx files
+                'application/vnd.ms-excel', // MIME type for .xls files
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // MIME type for .xlsx files
             ],
         ],
         'image' => [

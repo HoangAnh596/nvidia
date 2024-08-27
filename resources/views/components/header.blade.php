@@ -106,7 +106,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseMenus" aria-expanded="true" aria-controls="collapseMenus">
                 <i class="fa-solid fa-bars"></i>
-                <span>Quản lý Menu, Footer</span>
+                <span>QL Menu, Footer</span>
             </a>
             <div id="collapseMenus" class="collapse" aria-labelledby="headingMenus" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -122,15 +122,13 @@
         <li class="nav-item">
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseInfors" aria-expanded="true" aria-controls="collapseInfors">
                 <i class="fa-solid fa-phone-volume"></i>
-                <span>Hotline, favicon, icon</span>
+                <span>QL hotline, báo giá</span>
             </a>
             <div id="collapseInfors" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('quotes.index') }}">Danh sách báo giá</a>
                     <a class="collapse-item" href="{{ route('infors.index') }}">Danh sách hotline</a>
                     <a class="collapse-item" href="{{ route('infors.create') }}">Thêm mới hotline</a>
-                    <a class="collapse-item" href="{{ route('icons.index') }}">Danh sách icon</a>
-                    <a class="collapse-item" href="{{ route('icons.create') }}">Thêm mới icon</a>
-                    <a class="collapse-item" href="{{ route('favicon.edit', ['favicon' => 1]) }}">Cập nhật favicon</a>
                 </div>
             </div>
         </li>
@@ -148,16 +146,44 @@
                 </div>
             </div>
         </li>
+        <!-- Nav Item - Pages Comments -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseComments" aria-expanded="true" aria-controls="collapseComments">
+                <i class="fa-regular fa-comment"></i>
+                <span>Comment sản phẩm</span>
+            </a>
+            <div id="collapseComments" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('comments.index') }}">Danh sách comment</a>
+                    <a class="collapse-item" href="{{ route('comments.create') }}">Thêm mới comment</a>
+                </div>
+            </div>
+        </li>
         <!-- Nav Item - Pages Infors -->
         <li class="nav-item">
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseBottoms" aria-expanded="true" aria-controls="collapseBottoms">
-                <i class="fa-solid fa-list-check"></i>
-                <span>Quản lý chân trang</span>
+                <i class="fa-solid fa-icons"></i>
+                <span>QL chân trang, icon</span>
             </a>
             <div id="collapseBottoms" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('bottoms.index') }}">Danh sách chân trang</a>
                     <a class="collapse-item" href="{{ route('bottoms.create') }}">Thêm mới chân trang</a>
+                    <a class="collapse-item" href="{{ route('icons.index') }}">Danh sách icon</a>
+                    <a class="collapse-item" href="{{ route('icons.create') }}">Thêm mới icon</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Setting -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseSetting" aria-expanded="true" aria-controls="collapseSetting">
+                <i class="fa-solid fa-list-check"></i>
+                <span>Cài đặt Admin</span>
+            </a>
+            <div id="collapseSetting" class="collapse" aria-labelledby="headingSetting" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('setting.edit', ['id' => 1]) }}">Cập nhật email admin</a>
                 </div>
             </div>
         </li>

@@ -77,6 +77,19 @@
             </div>
         </div>
     </div>
+    <div class="row mb-3">
+        <div class="col-2">
+            <div class="input-group">
+                <input id="thumbnail-file" class="form-control filepath" type="hidden" name="filepath">
+                <span class="input-group-btn">
+                    <button id="lfm-file" data-input="thumbnail-file" data-preview="holder" class="btn btn-outline-dark">
+                        <i class="fa fa-picture-o"></i> Chọn File
+                    </button>
+                </span>
+            </div>
+        </div>
+        <div class="col-5 d-flex flex-row align-items-center" id="file-name" style="height: 38px;">{{ basename(old('filepath', $product->filepath ?? '')) }}</div>
+    </div>
     <div class="text-dark">
         <div class="row mb-3">
             <div class="col-2">

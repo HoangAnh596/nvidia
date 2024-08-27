@@ -6,12 +6,13 @@ use App\Models\Bottom;
 use App\Models\CateFooter;
 use App\Models\Category;
 use App\Models\CateMenu;
-use App\Models\Favicon;
 use App\Models\Icon;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Config;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -79,7 +80,7 @@ class AppServiceProvider extends ServiceProvider
         });
         // favicon
         $this->app->singleton('favicon', function () {
-            return Favicon::where('id', 1)->select('id', 'image')->get();
+            return Setting::where('id', 1)->select('id', 'image')->get();
         });
         // Icon footer
         $this->app->singleton('icon', function () {
@@ -90,6 +91,17 @@ class AppServiceProvider extends ServiceProvider
             return Bottom::where('is_public', 1)->orderBy('stt', 'ASC')->select('id', 'name', 'url')->get();
         });
 
+        // Cấu hình gửi mail báo
+        $settings = Setting::where('id', 1)->select('id', 'mail_name', 'mail_pass', 'mail_text')->first();
+        if ($settings) {
+            // Cập nhật config với các giá trị từ bản ghi settings
+            Config::set('mail.mailers.smtp.username', $settings->mail_name);
+            Config::set('mail.mailers.smtp.password', $settings->mail_pass);
+            Config::set('mail.from.address', $settings->mail_name);
+            Config::set('mail.from.name', $settings->mail_text);
+            // Cập nhật các giá trị khác tương tự
+        }
+        
         View::composer('*', function ($view) {
             $menus = $this->app->make('menus');
             $footers = $this->app->make('footers');

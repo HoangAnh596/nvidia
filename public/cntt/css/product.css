@@ -451,13 +451,13 @@ button.pop-gallery {
 }
 
 /* Comments */
-.top-box-comments {
+.comment-write {
     padding: 15px;
     border: solid 1px #ccc;
     margin-bottom: 10px;
     border-radius: 5px;
 }
-.top-box-comments h3 {
+.comment-write h3 {
     font-size: 1.25em;
     font-weight: 500;
 }

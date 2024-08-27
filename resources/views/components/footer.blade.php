@@ -19,6 +19,9 @@
   $('#lfm-prImages').filemanager('image', {
     prefix: route_prefix
   });
+  $('#lfm-file').filemanager('file', {
+    prefix: route_prefix
+  });
 
   var options = {
     extraPlugins: 'autogrow,filebrowser',
