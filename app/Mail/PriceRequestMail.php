@@ -30,7 +30,7 @@ class PriceRequestMail extends Mailable
     public function build()
     {
         return $this->subject('Yêu cầu nhận giá tốt')
-                    ->view('admin.infor.email')
+                    ->view('admin.quote.email')
                     ->with('data', $this->data);
     }
 }

@@ -110,7 +110,9 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::resource('infors', InforController::class)->except(['show'])->middleware('authorization:Admin');
     Route::post('/infors/checkStt', [InforController::class, 'checkStt'])->name('infors.checkStt');
     Route::post('/infors/checkbox', [InforController::class, 'isCheckbox'])->name('infors.isCheckbox');
-    Route::resource('quotes', QuoteController::class)->except(['show'])->middleware('authorization:Admin');
+    // Báo giá
+    Route::get('/quotes', [QuoteController::class, 'index'])->name('quotes.index')->middleware('authorization:Admin');
+    Route::post('/quotes/checkbox', [QuoteController::class, 'isCheckbox'])->name('quotes.isCheckbox');
 
     // Route::resource('setting', SettingController::class)->except(['show'])->middleware('authorization:Admin');
 

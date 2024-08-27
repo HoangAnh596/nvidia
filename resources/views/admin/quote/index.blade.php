@@ -17,9 +17,6 @@
                     </div>
                 </div>
             </form>
-            <div>
-                <a href="{{ route('quotes.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
-            </div>
         </div>
         <div class="table-responsive">
             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -33,7 +30,6 @@
                         <th class="text-center">Số lượng SP</th>
                         <th class="text-center">Mục đích</th>
                         <th class="text-center">Đã báo giá</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,9 +47,6 @@
                                 <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="status" {{ ($val->status == 1) ? 'checked' : '' }}>
                             </div>
                         </td>
-                        <td>
-                            <a href="{{ asset('admin/quotes/'.$val->id.'/edit') }}">Chỉnh sửa</a>
-                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -64,4 +57,47 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+<script>
+    $(document).ready(function() {
+        $('.active-checkbox').change(function() {
+            var sttId = $(this).data('id');
+            var value = $(this).is(':checked') ? 1 : 0;
+
+            $.ajax({
+                url: '{{ route("quotes.isCheckbox") }}',
+                method: 'POST',
+                data: {
+                    id: sttId,
+                    status: value,
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function(response) {
+                    if (response.success) {
+                        toastr.success('Trạng thái được cập nhật thành công.', 'Thành công', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.error('Không thể cập nhật trạng thái.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    }
+                },
+                error: function() {
+                    toastr.error('Lỗi cập nhật trạng thái.', 'Lỗi', {
+                        progressBar: true,
+                        closeButton: true,
+                        timeOut: 5000
+                    });
+                }
+            });
+        });
+    });
+</script>
 @endsection
