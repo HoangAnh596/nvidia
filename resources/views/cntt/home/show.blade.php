@@ -207,9 +207,10 @@
                         <h3>Bạn đang cần tư vấn về sản phẩm: {{ $product->code }} ?</h3>
                         <div class="form-comment">
                             <form id="rate-form" method="post">
-                                <input type="hidden" id="idprd" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" id="idUser" name="user_id" value="{{ Auth::id() }}">
-                                <input type="hidden" id="parent_id" name="parent_id" value="{{ $product->code }}-1">
+                                <input type="hidden" id="idprd" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" id="slugPrd" name="slugPrd" value="{{ $product->slug }}">
+                                <input type="hidden" id="parent_id" name="parent_id">
                                 <div class="input-account-form">
                                     <textarea title="Nhập nội dung bình luận / nhận xét" name="content" id="comment-content" placeholder="Nhập câu hỏi / bình luận / nhận xét tại đây..." class="info-form-comment"></textarea>
                                     <span id="content-error" style="color: red;"></span>
@@ -512,6 +513,7 @@
                     method: 'POST',
                     data: {
                         product_id: $('#idprd').val(),
+                        slugProduct: $('#slugPrd').val(),
                         user_id: $('#idUser').val(),
                         parent_id: 0,
                         content: cmtContent,

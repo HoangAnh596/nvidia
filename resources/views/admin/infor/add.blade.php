@@ -33,9 +33,6 @@
                         <div class="form-group">
                             <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}">
                             <span id="name-error" style="color: red;"></span>
-                            @error('name')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -47,9 +44,6 @@
                         <div class="form-group">
                             <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone') }}">
                             <span id="phone-error" style="color: red; display: none;">Sđt không hợp lệ (phải là 10 số từ 0-9)</span>
-                            @error('phone')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -61,9 +55,6 @@
                         <div class="form-group">
                             <input type="text" name="skype" id="skype" class="form-control" value="{{ old('skype') }}">
                             <span id="skype-error" style="color: red;"></span>
-                            @error('skype')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -75,9 +66,6 @@
                         <div class="form-group">
                             <input type="text" name="zalo" id="zalo" class="form-control" value="{{ old('zalo') }}">
                             <span id="zalo-error" style="color: red;"></span>
-                            @error('zalo')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -89,9 +77,6 @@
                         <div class="form-group">
                             <input type="text" name="gmail" id="gmail" class="form-control" value="{{ old('gmail') }}">
                             <span id="gmail-error" style="color: red;"></span>
-                            @error('gmail')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\Helper;
 use App\Http\Requests\CommentFormRequest;
 use App\Models\Comment;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
@@ -14,48 +17,33 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $comments = Comment::where('parent_id', 0)
+        // Lấy các tham số tìm kiếm từ request
+        $keyword = $request->input('keyword');
+        $isPublic = $request->input('is_public');
+
+        // Khởi tạo query cho việc tìm kiếm
+        $cmtQuery = Comment::query();
+
+        // Áp dụng tìm kiếm theo nội dung nếu có từ khóa
+        if ($keyword) {
+            $cmtQuery->where('content', 'like', "%" . Helper::escape_like($keyword) . "%");
+        }
+
+        // Áp dụng lọc theo trạng thái công khai nếu có giá trị
+        if ($isPublic !== null) {
+            $cmtQuery->where('is_public', $isPublic);
+        }
+
+        // Lấy danh sách comment cha và các reply, đồng thời phân trang
+        $comments = $cmtQuery->where('parent_id', 0)
             ->with('replies')
-            ->latest()->paginate(20);
+            ->latest()
+            ->paginate(20);
 
-        return view('admin.comment.index', compact('comments'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // $products = ;
-        return view('admin.comment.add');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CommentFormRequest $request)
-    {
-        $this->insertOrUpdate($request);
-
-        return redirect()->back()->with(['message' => 'Tạo mới thành công']);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        // Trả về view cùng với dữ liệu cần thiết
+        return view('admin.comment.index', compact('comments', 'keyword', 'isPublic'));
     }
 
     /**
@@ -67,9 +55,8 @@ class CommentController extends Controller
     public function edit($id)
     {
         $comment = Comment::findOrFail($id);
-        // $categories = CategoryNew::with('children')->where('parent_id', 0)->get();
-        
-        return view('admin.comments.edit', compact('comment'));
+
+        return view('admin.comment.edit', compact('comment'));
     }
 
     /**
@@ -81,7 +68,13 @@ class CommentController extends Controller
      */
     public function update(CommentFormRequest $request, $id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+
+        $comment->fill($request->all());
+
+        $comment->save();
+
+        return redirect(route('comments.index'))->with(['message' => "Cập nhật danh mục thành công !"]);
     }
 
     /**
@@ -92,17 +85,71 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Comment::where('id', $id)->with('replies')->firstOrFail();
+        $cmtParentId = $category->parent_id;
+        $childIds = $category->getAllChildrenIds();
+        $allCategoryIds = array_merge([$id], $childIds);
+        Comment::whereIn('id', $allCategoryIds)->delete();
+        if (!empty($cmtParentId)) {
+            $cmtParent = Comment::find($cmtParentId);
+            // Nếu comment cha tồn tại và không còn replies nào khác, cập nhật is_public = 0
+            if ($cmtParent && $cmtParent->replies()->count() == 0) {
+                $cmtParent->is_public = 0;
+                $cmtParent->save();
+            }
+        }
+
+        return redirect(route('comments.index'))->with(['message' => 'Xóa thành công !']);
     }
 
-    public function insertOrUpdate(Request $request, $id = '')
+    public function replay($id)
     {
-        $comment = empty($id) ? new Comment() : Comment::findOrFail($id);
+        $comment = Comment::findOrFail($id);
+        $product = Product::where('id', $comment->product_id)->first();
+        $user = Auth::user();
+        // dd($user->name);
 
-        // dd($request->all());
-        $comment->fill($request->all());
-        
-        $comment->save();
+        return view('admin.comment.replay', compact('comment', 'product', 'user'));
+    }
+
+    public function repUpdate(CommentFormRequest $request, $id)
+    {
+        // Lấy thông tin user đăng nhập
+        $user = Auth::user();
+
+        DB::beginTransaction();
+
+        try {
+            // Tạo bản ghi mới cho comment reply
+            $replayCmt = new Comment();
+            $replayCmt->parent_id = $request->id;
+            $replayCmt->product_id = $request->product_id;
+            $replayCmt->content = $request->content;
+            $replayCmt->name = $request->name;
+            $replayCmt->email = $request->email;
+            $replayCmt->slugProduct = $request->slugProduct;
+            $replayCmt->user_id = $user->id;
+            $replayCmt->is_public = 1;
+
+            $replayCmt->save();
+
+            // Sau khi bản ghi mới được tạo thành công, cập nhật trạng thái is_public của comment cha
+            $cmtParent = Comment::findOrFail($request->id); // Đảm bảo rằng bạn đang dùng $request->id thay vì $id
+            $cmtParent->is_public = 1;
+            $cmtParent->save();
+
+            // Commit transaction
+            DB::commit();
+
+            // Chuyển hướng với thông báo thành công
+            return redirect(route('comments.index'))->with(['message' => 'Trả lời bình luận thành công']);
+        } catch (\Exception $e) {
+            // Rollback transaction nếu có lỗi xảy ra
+            DB::rollback();
+
+            // Xử lý lỗi (có thể ghi log, hiển thị thông báo lỗi, ...)
+            return redirect()->back()->with(['error' => 'Đã xảy ra lỗi khi trả lời bình luận. Vui lòng thử lại sau.']);
+        }
     }
 
     public function search(Request $request)
@@ -116,13 +163,12 @@ class CommentController extends Controller
 
     public function sendCmt(CommentFormRequest $request)
     {
-        // dd($request->all());
         try {
             $sendCmt = new Comment();
-    
+
             // Lưu các dữ liệu vào commentsendRequest
             $sendCmt->fill($request->all());
-    
+
             // Lưu comment vào cơ sở dữ liệu
             $sendCmt->save();
             // Render view của bình luận mới
@@ -150,10 +196,39 @@ class CommentController extends Controller
                 ->where('parent_id', 0)
                 ->with('replies')
                 ->get();
-            
+
             return response()->json($cate);
         }
 
         return response()->json([]);
+    }
+
+    public function isCheckbox(Request $request)
+    {
+        $comment = Comment::findOrFail($request->id);
+        $comment->is_public = $request->is_public;
+        $comment->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function checkStar(Request $request)
+    {
+        $cmtStar = $request->input('star');
+        if (!empty($cmtStar)) {
+            $request->validate([
+                'star' => 'integer|min:0|max:5',
+            ], [
+                'star.max' => 'Số sao phải nhỏ hơn hoặc bằng 5.',
+                'star.min' => 'Số sao phải lớn hơn hoặc bằng 0.',
+                'star.integer' => 'Giá trị phải là số nguyên.',
+            ]);
         }
+        $id = $request->get('id');
+        $comment = Comment::findOrFail($id);
+        $comment->star = (isset($cmtStar)) ? $cmtStar : 1;
+        $comment->save();
+
+        return response()->json(['success' => true, 'message' => 'Cập nhật sao comments thành công']);
+    }
 }

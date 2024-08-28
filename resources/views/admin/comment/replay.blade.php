@@ -15,14 +15,14 @@
     <!-- DataTales Example -->
 
     <div class="card shadow">
-        <form action="{{ route('comments.update', $comment->id) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('comments.repUpdate', $comment->id) }}" method="post" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             @if (!empty($comment))
             <input type="hidden" name="id" value="{{ $comment->id }}">
             <input type="hidden" name="product_id" value="{{ $comment->product_id }}">
-            <input type="hidden" name="user_id" value="{{ $comment->user_id }}">
-            <input type="hidden" name="email" value="{{ $comment->email }}">
+            <input type="hidden" name="email" value="{{ $user->email }}">
+            <input type="hidden" name="slugProduct" value="{{ $comment->slugProduct }}">
             @endif
             <div class="card-header d-flex justify-content-between">
                 <a href="{{ route('comments.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
@@ -31,12 +31,23 @@
                 </div>
             </div>
             <div class="card-body border-top p-9">
+                <div class="row mb-4">
+                    <div class="col-2 d-flex flex-row-reverse cmtContent">Sản phẩm</div>
+                    <div class="col-8"><span class="border border-sm">{{ $product->name }}</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-2 d-flex flex-row-reverse cmtContent">Nội dung bình luận</div>
+                    <div class="col-8">
+                        <span class="border border-sm">{{ $comment->content }}</span>
+                    </div>
+                </div>
+                <hr>
                 <div class="row">
                     <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Tác giả <div class="warningMenu">*</div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $comment->name ?? '') }}">
+                            <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name ?? '') }}">
                             <span id="name-error" style="color: red;"></span>
                         </div>
                     </div>
@@ -47,7 +58,7 @@
                     </div>
                     <div class="col-9">
                         <div class="form-group">
-                            <textarea class="form-control" id="my-editor" rows="10" name="content">{{ old('content', $comment->content ?? '') }}</textarea>
+                            <textarea class="form-control" id="my-editor" rows="10" name="content">{{ old('content') }}</textarea>
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -68,7 +79,6 @@
         width: 400px !important;
     }
     .cmtContent {
-        text-decoration: underline;
         color: #76b900;
         font-weight: bold;
     }

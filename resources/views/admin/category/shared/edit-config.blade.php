@@ -56,9 +56,6 @@
         <div class="col">
             <label for="example-textarea" class="form-label">Mô tả chi tiết <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
             <textarea class="form-control" id="my-editor" rows="10" name="content">{{ old('content', $category->content ?? '') }}</textarea>
-            @error('content')
-            <span class="font-italic text-danger ">{{ $message }}</span>
-            @enderror
         </div>
     </div>
 </div>

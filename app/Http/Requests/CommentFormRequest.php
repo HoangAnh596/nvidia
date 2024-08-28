@@ -27,6 +27,7 @@ class CommentFormRequest extends FormRequest
         return [
             'name' => 'required | min:3 | max: 50',
             'content' => 'required | max:500 | min:3',
+            'email' => 'required',
         ];
     }
     public function messages()
@@ -38,6 +39,7 @@ class CommentFormRequest extends FormRequest
             'content.required' => 'Nội dung không được để trống',
             'content.min' => 'Nội dung tối thiểu ít nhất 3 ký tự',
             'content.max' => 'Nội dung không được vượt quá 500 ký tự',
+            'email.required' => 'Email không được để trống',
         ];
     }
 }

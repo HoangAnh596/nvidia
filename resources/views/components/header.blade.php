@@ -102,6 +102,35 @@
                 </div>
             </div>
         </li>
+
+        <!-- Nav Item - Pages Hotline -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseInfors" aria-expanded="true" aria-controls="collapseInfors">
+                <i class="fa-solid fa-phone-volume"></i>
+                <span>QL hotline, báo giá</span>
+            </a>
+            <div id="collapseInfors" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('quotes.index') }}">Danh sách báo giá</a>
+                    <a class="collapse-item" href="{{ route('infors.index') }}">Danh sách hotline</a>
+                    <a class="collapse-item" href="{{ route('infors.create') }}">Thêm mới hotline</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Comments -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseComments" aria-expanded="true" aria-controls="collapseComments">
+                <i class="fa-regular fa-comment"></i>
+                <span>Comment sản phẩm</span>
+            </a>
+            <div id="collapseComments" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('comments.index') }}">Danh sách comment</a>
+                </div>
+            </div>
+        </li>
+
         <!-- Nav Item - Pages Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseMenus" aria-expanded="true" aria-controls="collapseMenus">
@@ -114,21 +143,6 @@
                     <a class="collapse-item" href="{{ route('cateMenu.create') }}">Thêm mới Menu</a>
                     <a class="collapse-item" href="{{ route('cateFooter.index') }}">Danh sách Footer</a>
                     <a class="collapse-item" href="{{ route('cateFooter.create') }}">Thêm mới Footer</a>
-                </div>
-            </div>
-        </li>
-
-        <!-- Nav Item - Pages Infors -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseInfors" aria-expanded="true" aria-controls="collapseInfors">
-                <i class="fa-solid fa-phone-volume"></i>
-                <span>QL hotline, báo giá</span>
-            </a>
-            <div id="collapseInfors" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('quotes.index') }}">Danh sách báo giá</a>
-                    <a class="collapse-item" href="{{ route('infors.index') }}">Danh sách hotline</a>
-                    <a class="collapse-item" href="{{ route('infors.create') }}">Thêm mới hotline</a>
                 </div>
             </div>
         </li>
@@ -146,19 +160,7 @@
                 </div>
             </div>
         </li>
-        <!-- Nav Item - Pages Comments -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseComments" aria-expanded="true" aria-controls="collapseComments">
-                <i class="fa-regular fa-comment"></i>
-                <span>Comment sản phẩm</span>
-            </a>
-            <div id="collapseComments" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('comments.index') }}">Danh sách comment</a>
-                    <a class="collapse-item" href="{{ route('comments.create') }}">Thêm mới comment</a>
-                </div>
-            </div>
-        </li>
+        
         <!-- Nav Item - Pages Infors -->
         <li class="nav-item">
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseBottoms" aria-expanded="true" aria-controls="collapseBottoms">

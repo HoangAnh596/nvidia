@@ -5,7 +5,7 @@
                 <div class="img-member-thumb">{{ strtoupper(mb_substr($cmt->name, 0, 1, 'UTF-8')) }}</div>
                 <div class="name-member">{{ $cmt->name }}</div>
                 <div class="star-rated" title="5 sao"><i class="i-star"></i></div>
-                <div class="content-comments">{{ $cmt->content }}</div>
+                <div class="content-comments">{!! $cmt->content !!}</div>
                 <div class="relate-comment">
                     <input class="relate-com-item rep-comment" value="{{ $cmt->id }}" id="reply-comment-{{ $cmt->id }}" type="radio" name="rdo-reply">
                     <label for="reply-comment-{{ $cmt->id }}"><span></span>Trả lời</label>

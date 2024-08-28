@@ -15,11 +15,12 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->bigInteger('parent_id');
-            $table->string('name');
             $table->text('content');
-            $table->string('email')->nullable();
+            $table->bigInteger('parent_id');
+            $table->unsignedBigInteger('product_id');
+            $table->bigInteger('user_id');
+            $table->string('name');
+            $table->string('email');
             $table->string('phone')->nullable();
             $table->tinyInteger('star')->nullable();
             $table->tinyInteger('is_public')->default(0)->comment('0: không hiển thị, 1: hiển thị');

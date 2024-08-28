@@ -92,29 +92,46 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::get('/filter-pro/{id}/edit', [FilterProductController::class, 'edit'])->name('filterPro.edit')->middleware('authorization:Admin');
     Route::put('filter-pro/{id}', [FilterProductController::class, 'update'])->name('filterPro.update')->middleware('authorization:Admin');
 
-    // Quản lý Tin tức
-    Route::resource('news', NewController::class)->except(['show'])->middleware('authorization:Admin');
-    Route::post('/news/check-name', [NewController::class, 'checkName'])->name('news.checkName');
-    Route::post('/news/checkbox', [NewController::class, 'isCheckbox'])->name('news.isCheckbox');
-
     // Quản lý danh mục tin tức
     Route::resource('cateNews', CategoryNewController::class)->except(['show'])->middleware('authorization:Admin');
     Route::post('/cateNews/check-name', [CategoryNewController::class, 'checkName'])->name('cateNews.checkName');
     Route::post('/cateNews/tim-kiem', [CategoryNewController::class, 'search'])->name('cateNews.tim-kiem');
     Route::post('/cateNews/checkbox', [CategoryNewController::class, 'isCheckbox'])->name('cateNews.isCheckbox');
     Route::post('/cateNews/checkStt', [CategoryNewController::class, 'checkStt'])->name('cateNews.checkStt');
+    // Quản lý Tin tức
+    Route::resource('news', NewController::class)->except(['show'])->middleware('authorization:Admin');
+    Route::post('/news/check-name', [NewController::class, 'checkName'])->name('news.checkName');
+    Route::post('/news/checkbox', [NewController::class, 'isCheckbox'])->name('news.isCheckbox');
 
-    // Quản lý tài khoản đăng nhập
-    Route::resource('users', UserController::class)->except(['show'])->middleware('authorization:Admin');
-    // Quản lý thông tin hotline nhân viên, icon, favicon
+    // Quản lý thông tin hotline nhân viên,
     Route::resource('infors', InforController::class)->except(['show'])->middleware('authorization:Admin');
     Route::post('/infors/checkStt', [InforController::class, 'checkStt'])->name('infors.checkStt');
     Route::post('/infors/checkbox', [InforController::class, 'isCheckbox'])->name('infors.isCheckbox');
     // Báo giá
     Route::get('/quotes', [QuoteController::class, 'index'])->name('quotes.index')->middleware('authorization:Admin');
     Route::post('/quotes/checkbox', [QuoteController::class, 'isCheckbox'])->name('quotes.isCheckbox');
+    // Quản lý comment
+    Route::resource('comments', CommentController::class)->only(['index', 'edit', 'update', 'destroy'])->middleware('authorization:Admin');
+    Route::post('/comments/tim-kiem', [CommentController::class, 'search'])->name('comments.tim-kiem');
+    Route::post('/comments/sendCmt', [CommentController::class, 'sendCmt'])->name('comments.sendCmt');
+    Route::post('/comments/parent', [CommentController::class, 'parent'])->name('comments.parent');
+    Route::post('/comments/checkbox', [CommentController::class, 'isCheckbox'])->name('comments.isCheckbox');
+    Route::post('/comments/checkStar', [CommentController::class, 'checkStar'])->name('comments.star');
+    Route::get('/comments/{id}/replay', [CommentController::class, 'replay'])->name('comments.replay')->middleware('authorization:Admin');
+    Route::put('cmtRep/{id}', [CommentController::class, 'repUpdate'])->name('comments.repUpdate')->middleware('authorization:Admin');
 
-    // Route::resource('setting', SettingController::class)->except(['show'])->middleware('authorization:Admin');
+    // Quản lý danh mục menu
+    Route::resource('cateMenu', CateMenuController::class)->except(['show'])->middleware('authorization:Admin');
+    Route::post('cateMenu/checkStt', [CateMenuController::class, 'checkStt'])->name('cateMenu.checkStt');
+    Route::post('cateMenu/checkbox', [CateMenuController::class, 'isCheckbox'])->name('cateMenu.isCheckbox');
+
+    // Quản lý footer
+    Route::resource('cateFooter', CateFooterController::class)->except(['show'])->middleware('authorization:Admin');
+    Route::post('cateFooter/checkStt', [cateFooterController::class, 'checkStt'])->name('cateFooter.checkStt');
+    Route::post('cateFooter/checkbox', [cateFooterController::class, 'isCheckbox'])->name('cateFooter.isCheckbox');
+
+    // Quản lý tài khoản đăng nhập
+    Route::resource('users', UserController::class)->except(['show'])->middleware('authorization:Admin');
 
     // Quản lý email admin, favicon web
     Route::get('/setting/{id}/edit', [SettingController::class, 'edit'])->name('setting.edit')->middleware('authorization:Admin');
@@ -128,22 +145,6 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::resource('bottoms', BottomController::class)->except(['show'])->middleware('authorization:Admin');
     Route::post('/bottoms/checkStt', [BottomController::class, 'checkStt'])->name('bottoms.checkStt');
     Route::post('/bottoms/checkbox', [BottomController::class, 'isCheckbox'])->name('bottoms.isCheckbox');
-    
-
-    // Quản lý danh mục menu
-    Route::resource('cateMenu', CateMenuController::class)->except(['show'])->middleware('authorization:Admin');
-    Route::post('cateMenu/checkStt', [CateMenuController::class, 'checkStt'])->name('cateMenu.checkStt');
-    Route::post('cateMenu/checkbox', [CateMenuController::class, 'isCheckbox'])->name('cateMenu.isCheckbox');
-
-    // Quản lý comment
-    Route::resource('comments', CommentController::class)->except(['show'])->middleware('authorization:Admin');
-    Route::post('/comments/tim-kiem', [CommentController::class, 'search'])->name('comments.tim-kiem');
-    Route::post('/comments/sendCmt', [CommentController::class, 'sendCmt'])->name('comments.sendCmt');
-    Route::post('/comments/parent', [CommentController::class, 'parent'])->name('comments.parent');
-    // Quản lý footer
-    Route::resource('cateFooter', CateFooterController::class)->except(['show'])->middleware('authorization:Admin');
-    Route::post('cateFooter/checkStt', [cateFooterController::class, 'checkStt'])->name('cateFooter.checkStt');
-    Route::post('cateFooter/checkbox', [cateFooterController::class, 'isCheckbox'])->name('cateFooter.isCheckbox');
 
     Route::post('upload', [ContentController::class, 'upload'])->name('upload.image');
     Route::post('/delete-image', [ContentController::class, 'deleteImage'])->name('delete.image');
