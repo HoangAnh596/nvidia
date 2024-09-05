@@ -147,7 +147,7 @@
         <form id="deleteForm-{{ $category->id }}" action="{{ route('cateFooter.destroy', ['cateFooter' => $category->id]) }}" method="post" class="deleteForm">
             @csrf
             @method('Delete')
-            <button class="btn btn-danger btn-sm" type="button" onclick="confirmDelete('{{ $category->id }}')" style="float: right; margin-right: 30px; margin-left: 5px">
+            <button class="btn btn-danger btn-sm" type="button" onclick="confirmDelete('{{ $category->id }}')" style="float: right; margin: 0 5px;">
                 <i class="fa-solid fa-eraser"></i> Xóa
             </button>
         </form>

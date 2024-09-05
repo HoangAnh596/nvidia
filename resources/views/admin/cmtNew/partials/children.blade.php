@@ -3,7 +3,7 @@
     @if ($category->parent_id == 0)
     <td>{{ (($comments->currentPage() - 1) * $comments->perPage()) + $loop->iteration }}</td>
     <td>
-        <a href="{{ asset($category->slugProduct) }}" target="_blank">{!! $category->content !!}</a>
+        <a href="{{ asset('/blogs/' . $category->slugNew) }}" target="_blank">{!! $category->content !!}</a>
     </td>
     <td>{{ $category->name }}</td>
     @else
@@ -15,7 +15,7 @@
         {{ $category->email }}
     </td>
     <td class="text-center">
-        <a href="{{ asset($category->slugProduct) }}" target="_blank">Xem link</a>
+        <a href="{{ asset('/blogs/' . $category->slugNew) }}" target="_blank">Xem link</a>
     </td>
     <td class="text-center">
         <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_public" {{ ($category->is_public == 1) ? 'checked' : '' }}>
@@ -37,12 +37,12 @@
     </td>
     @endif
     <td class="text-center">
-        <a href="{{ asset('admin/comments/'.$category->id.'/edit') }}" >Chỉnh sửa</a> |
+        <a href="{{ asset('admin/cmtNews/'.$category->id.'/edit') }}" >Chỉnh sửa</a> |
         @if ($category->parent_id == 0 && $category->replies->isEmpty())
-        <a class="btn btn-primary btn-sm" href="{{ asset('admin/comments/'.$category->id.'/replay') }}" >Trả lời</a> |
+        <a class="btn btn-primary btn-sm" href="{{ asset('admin/cmtNews/'.$category->id.'/replay') }}" >Trả lời</a> |
         @endif
         <a href="javascript:void(0);" onclick="confirmDelete('{{ $category->id }}')">Xóa</a>
-        <form id="deleteForm-{{ $category->id }}" action="{{ route('comments.destroy', ['comment' => $category->id]) }}" method="post" style="display: none;">
+        <form id="deleteForm-{{ $category->id }}" action="{{ route('cmtNews.destroy', ['cmtNews' => $category->id]) }}" method="post" style="display: none;">
             @csrf
             @method('DELETE')
         </form>
@@ -50,6 +50,6 @@
 </tr>
 @if ($category->replies)
 @foreach ($category->replies as $child)
-@include('admin.comment.partials.children', ['category' => $child, 'level' => $level + 1])
+@include('admin.cmtNew.partials.children', ['category' => $child, 'level' => $level + 1])
 @endforeach
 @endif

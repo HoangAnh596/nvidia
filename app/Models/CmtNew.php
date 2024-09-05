@@ -5,32 +5,32 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class CmtNew extends Model
 {
     use HasFactory;
 
-    protected $table = 'comments';
+    protected $table = 'cmt_news';
 
     protected $fillable = [
-        'name', 'product_id', 'user_id',
-        'parent_id', 'email', 'phone',
-        'content', 'star', 'is_public',
-        'slugProduct',
+        'name', 'new_id', 'parent_id',
+        'email', 'phone', 'slugNew',
+        'content', 'user_id',
+        'star', 'is_public'
     ];
 
-    public function cmtProduct()
+    public function cmtNew()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(News::class, 'new_id');
     }
 
     public function replies()
     {
-        return $this->hasMany(Comment::class, 'parent_id')->with('replies');
+        return $this->hasMany(CmtNew::class, 'parent_id')->with('replies');
     }
 
     public function cmtChild()
     {
-        return $this->hasMany(Comment::class, 'parent_id')
+        return $this->hasMany(CmtNew::class, 'parent_id')
             ->where('is_public', 1)
             ->with(['cmtChild' => function ($query) {
                 $query->where('is_public', 1);

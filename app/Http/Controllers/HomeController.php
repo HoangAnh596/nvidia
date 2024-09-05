@@ -62,7 +62,7 @@ class HomeController extends Controller
                     })->select('name', 'slug', 'price', 'image_ids')
                         ->where('is_outstand', 1)
                         ->orderBy('created_at', 'DESC')->get();
-                    // images_ids = ["9","10","11"]
+                    
                     foreach ($products as $product) {
                         $product->loadProductImages();
                     }
@@ -168,7 +168,7 @@ class HomeController extends Controller
 
                 // Gán URL đã xử lý vào phân trang
                 $products->withPath($currentUrl);
-                // dd($products);
+                
                 return view('cntt.home.category', compact(
                     'titleSeo', 'keywordSeo', 'descriptionSeo',
                     'total', 'phoneInfors', 'cateParent',
@@ -197,7 +197,6 @@ class HomeController extends Controller
             // Tính toán số lượng trang hiện có
             $currentPage = $request->input('page', 1);
             $lastPage = $products->lastPage();
-            // dd($products);
             // Nếu trang yêu cầu vượt quá số trang hiện có, chuyển hướng đến trang cuối cùng
             if ($currentPage > $lastPage) {
                 $products = Product::whereHas('category', function ($query) use ($categoryIds) {
@@ -231,12 +230,13 @@ class HomeController extends Controller
 
         // Comments 
         $commentsQuery = Comment::query(); // Khởi tạo query builder cho bảng comments
+        
         if (Auth::check() && Auth::user()->role == 1) {
             // Nếu role = 1, lấy tất cả các comments cho sản phẩm này
             $commentsQuery->where('comments.product_id', $idPro)
                         ->where('comments.parent_id', 0)
                         ->with('replies') // Load các bình luận con
-                        ->orderBy('comments.updated_at', 'DESC');
+                        ->orderBy('comments.created_at', 'DESC');
         } else {
             // Nếu role khác 1, lấy các bình luận public hoặc bình luận của chính người dùng đó
             $commentsQuery->where('comments.product_id', $idPro)
@@ -248,17 +248,37 @@ class HomeController extends Controller
                                         $query->whereNotNull('comments.user_id')->where('comments.user_id', Auth::id());
                                     });
                             })
-                          ->with('replies') // Load các bình luận con
-                          ->orderBy('comments.updated_at', 'DESC');
+                          ->with('cmtChild') // Load các bình luận con
+                          ->orderBy('comments.created_at', 'DESC');
         }
 
         $comments = $commentsQuery->get();
-        
+
+        // Tính tổng số bình luận (cha + con)
+        $totalCommentsCount = Comment::where('product_id', $idPro)
+        ->where(function ($query) {
+            $query->where('parent_id', 0) // Bình luận cha
+                ->orWhere(function ($query) {
+                    $query->where('parent_id', '>', 0); // Bình luận con
+                });
+        })
+        ->where(function($query) {
+            if (!Auth::check() || Auth::user()->role != 1) {
+                $query->where('is_public', 1) // Hiển thị bình luận công khai
+                    ->orWhere(function($query) {
+                        $query->whereNotNull('user_id')
+                                ->where('user_id', Auth::id());
+                    });
+            }
+        })
+        ->count();
+        $user = Auth::user();
+
         return view('cntt.home.show', compact(
             'titleSeo', 'keywordSeo', 'descriptionSeo',
             'phoneInfors', 'product', 'allParents',
             'parent', 'images', 'relatedProducts',
-            'comments'
+            'comments', 'totalCommentsCount', 'user'
         ));
     }
 
@@ -351,42 +371,6 @@ class HomeController extends Controller
                 'keyword', 'nameCate', 'products',
                 'phoneInfors', 'total'
             ));
-        }
-    }
-
-    public function fil(Request $request)
-    {
-        $filters = $request->input('filters', null);
-        // $filters = $request->all();
-        dd($filters);
-        if (!empty($filters)) {
-            $products = Product::query();
-            $filterConditions = [];
-
-            foreach ($filters['filters'] as $key => $values) {
-                if (is_array($values) && count($values) > 0) {
-                    $filterConditions[] = $values;
-                }
-            }
-            if (count($filterConditions) == 1) {
-                // Lấy mảng giá trị từ $filterConditions[0]
-                $filterValues = $filterConditions[0];
-                // Nếu chỉ có 1 bộ lọc, sử dụng whereIn trực tiếp
-                $products->whereHas('filters', function ($query) use ($filterValues) {
-                    $query->whereIn('filters_products.filter_id', $filterValues);
-                });
-            } else {
-                // Nếu có nhiều bộ lọc, sử dụng where với nhiều whereIn bên trong whereHas
-                $products->where(function ($query) use ($filterConditions) {
-                    foreach ($filterConditions as $filterIds) {
-                        $query->whereHas('filters', function ($subQuery) use ($filterIds) {
-                            $subQuery->whereIn('filters_products.filter_id', $filterIds);
-                        });
-                    }
-                });
-            }
-            $total = $products->count();
-            return response()->json(['count' => $total]);
         }
     }
 

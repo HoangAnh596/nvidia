@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Trả lời bình luận sản phẩm</h3>
+        <h3 class="mb-2 text-gray-800">Trả lời bình luận bài viết</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
                 <li class="breadcrumb-item"><a href="javascript: void(0);">Bình luận</a></li>
@@ -15,25 +15,25 @@
     <!-- DataTales Example -->
 
     <div class="card shadow">
-        <form action="{{ route('comments.repUpdate', $comment->id) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('cmtNews.repUpdate', $comment->id) }}" method="post" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             @if (!empty($comment))
             <input type="hidden" name="id" value="{{ $comment->id }}">
-            <input type="hidden" name="product_id" value="{{ $comment->product_id }}">
+            <input type="hidden" name="new_id" value="{{ $comment->new_id }}">
             <input type="hidden" name="email" value="{{ $user->email }}">
-            <input type="hidden" name="slugProduct" value="{{ $comment->slugProduct }}">
+            <input type="hidden" name="slugNew" value="{{ $comment->slugNew }}">
             @endif
             <div class="card-header d-flex justify-content-between">
-                <a href="{{ route('comments.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
+                <a href="{{ route('cmtNews.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
                 <div>
                     <button class="btn btn-primary btn-sm " type="submit" id="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
                 </div>
             </div>
             <div class="card-body border-top p-9">
                 <div class="row mb-4">
-                    <div class="col-2 d-flex flex-row-reverse cmtContent">Tên sản phẩm</div>
-                    <div class="col-8"><span class="border border-sm">{{ $product->name }}</span></div>
+                    <div class="col-2 d-flex flex-row-reverse cmtContent">Tên bài viết</div>
+                    <div class="col-8"><span class="border border-sm">{{ $new->name }}</span></div>
                 </div>
                 <div class="row">
                     <div class="col-2 d-flex flex-row-reverse cmtContent">Nội dung bình luận</div>

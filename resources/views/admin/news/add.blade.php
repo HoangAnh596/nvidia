@@ -84,7 +84,7 @@
             const selectedOption = selectElement.options[selectElement.selectedIndex];
             const slug = selectedOption.getAttribute('data-slug');
             slugParentInput.value = slug;
-            console.log(slug);
+            // console.log(slug);
         }
 
         // Gọi hàm khi trang load lần đầu

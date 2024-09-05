@@ -24,7 +24,7 @@
   });
 
   var options = {
-    extraPlugins: 'autogrow,filebrowser',
+    extraPlugins: 'autogrow,filebrowser, toc',
     autoGrow_minHeight: 200,
     autoGrow_maxHeight: 400,
     autoGrow_bottomSpace: 50,

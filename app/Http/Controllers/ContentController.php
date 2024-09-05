@@ -13,7 +13,6 @@ class ContentController extends Controller
 {
     public function upload(Request $request)
     {
-        dd(1);
         $request->validate([
             'uploadImg' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -28,7 +27,6 @@ class ContentController extends Controller
             // Tạo tên file ban đầu
             $imageName = $originalName . '.' . $extension;
             $counter = 1;
-            // dd($extension);
             $imageName = $file->getClientOriginalName();
             if (strpos($current_url, 'categories') !== false) {
                 $originalPath = $file->storeAs('public/images/danh-muc', $imageName);

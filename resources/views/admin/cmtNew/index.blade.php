@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Bình luận sản phẩm</h3>
+        <h3 class="mb-2 text-gray-800">Bình luận bài viết</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
                 <li class="breadcrumb-item"><a href="javascript: void(0);">Bình luận</a></li>
@@ -42,7 +42,7 @@
                         <th class="col-sm-3 position-relative">Nội dung bình luận</th>
                         <th class="col-sm-1 position-relative">Tác giả</th>
                         <th class="col-sm-2 position-relative text-center">Mail</th>
-                        <th class="position-relative text-center">BL Sản Phẩm</th>
+                        <th class="position-relative text-center">BL Bài viết</th>
                         <th class="position-relative text-center">Hiển thị</th>
                         <th class="position-relative text-center">Đánh giá(Star)</th>
                         <th class="position-relative text-center">Time</th>
@@ -51,7 +51,7 @@
                 </thead>
                 <tbody>
                     @foreach ($comments as $category)
-                    @include('admin.comment.partials.children', ['category' => $category, 'level' => 0])
+                    @include('admin.cmtNew.partials.children', ['category' => $category, 'level' => 0])
                     @endforeach
                 </tbody>
             </table>
@@ -88,7 +88,7 @@
             var value = $(this).is(':checked') ? 1 : 0;
 
             $.ajax({
-                url: '{{ route("comments.isCheckbox") }}',
+                url: '{{ route("cmtNews.isCheckbox") }}',
                 method: 'POST',
                 data: {
                     id: cmtId,
@@ -125,7 +125,7 @@
             var cmtStar = $(this).val();
 
             $.ajax({
-                url: '{{ route("comments.star") }}',
+                url: '{{ route("cmtNews.star") }}',
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

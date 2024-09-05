@@ -7,7 +7,7 @@
         <h3 class="mb-2 text-gray-800">Cập nhật favicon và email</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">setting</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Cài đặt website</a></li>
                 <li class="breadcrumb-item active">Cập nhật</li>
             </ol>
         </h6>
@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div class="mt-4 pb-4 mr-4 float-right">
-                <button class="btn btn-primary btn-sm " type="submit" id="submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+                <button class="btn btn-primary btn-sm " type="submit" id="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
                 <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button>
             </div>
         </form>

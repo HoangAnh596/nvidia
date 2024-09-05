@@ -11,6 +11,7 @@ use App\Http\Controllers\BottomController;
 use App\Http\Controllers\CateFooterController;
 use App\Http\Controllers\CategoryNewController;
 use App\Http\Controllers\CateMenuController;
+use App\Http\Controllers\CmtNewsController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FilterCateController;
 use App\Http\Controllers\FilterProductController;
@@ -110,7 +111,7 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     // Báo giá
     Route::get('/quotes', [QuoteController::class, 'index'])->name('quotes.index')->middleware('authorization:Admin');
     Route::post('/quotes/checkbox', [QuoteController::class, 'isCheckbox'])->name('quotes.isCheckbox');
-    // Quản lý comment
+    // Quản lý comment sản phẩm
     Route::resource('comments', CommentController::class)->only(['index', 'edit', 'update', 'destroy'])->middleware('authorization:Admin');
     Route::post('/comments/tim-kiem', [CommentController::class, 'search'])->name('comments.tim-kiem');
     Route::post('/comments/sendCmt', [CommentController::class, 'sendCmt'])->name('comments.sendCmt');
@@ -119,6 +120,16 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('/comments/checkStar', [CommentController::class, 'checkStar'])->name('comments.star');
     Route::get('/comments/{id}/replay', [CommentController::class, 'replay'])->name('comments.replay')->middleware('authorization:Admin');
     Route::put('cmtRep/{id}', [CommentController::class, 'repUpdate'])->name('comments.repUpdate')->middleware('authorization:Admin');
+
+    // Quản lý comment bình luận
+    Route::resource('cmtNews', CmtNewsController::class)->only(['index', 'edit', 'update', 'destroy'])->middleware('authorization:Admin');
+    Route::post('/cmtNews/tim-kiem', [CmtNewsController::class, 'search'])->name('cmtNews.tim-kiem');
+    Route::post('/cmtNews/sendCmt', [CmtNewsController::class, 'sendCmt'])->name('cmtNews.sendCmt');
+    Route::post('/cmtNews/parent', [CmtNewsController::class, 'parent'])->name('cmtNews.parent');
+    Route::post('/cmtNews/checkbox', [CmtNewsController::class, 'isCheckbox'])->name('cmtNews.isCheckbox');
+    Route::post('/cmtNews/checkStar', [CmtNewsController::class, 'checkStar'])->name('cmtNews.star');
+    Route::get('/cmtNews/{id}/replay', [CmtNewsController::class, 'replay'])->name('cmtNews.replay')->middleware('authorization:Admin');
+    Route::put('cmtNewsRep/{id}', [CmtNewsController::class, 'repUpdate'])->name('cmtNews.repUpdate')->middleware('authorization:Admin');
 
     // Quản lý danh mục menu
     Route::resource('cateMenu', CateMenuController::class)->except(['show'])->middleware('authorization:Admin');
@@ -159,8 +170,14 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 // Tìm kiếm
 Route::get('/tim-kiem', [HomeController::class, 'search'])->name('home.search');
 Route::get('/filters', [HomeController::class, 'filters'])->name('home.filters');
+// Gửi báo giá
 Route::post('/send-price', [QuoteController::class, 'sendRequest'])->name('price.request');
+// Gửi bình luận
 Route::post('/send-comment', [CommentController::class, 'sendCmt'])->name('comments.sendCmt');
+Route::post('/send-cmtNews', [CmtNewsController::class, 'sendCmt'])->name('cmtNews.sendCmt');
+// Trả lời bình luận
+Route::post('replyCmt', [CommentController::class, 'replyCmt'])->name('cmt.replyCmt');
+Route::post('reply-cmtNews', [CmtNewsController::class, 'replyCmt'])->name('cmtNews.replyCmt');
 // Trang chủ phía người dùng
 Route::prefix('/')->group(function () {
     Route::prefix('/blogs')->group(function () {

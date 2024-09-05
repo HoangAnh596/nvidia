@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
-use App\Models\User;
 use App\Http\Helpers\Helper;
 use App\Http\Requests\NewFormRequest;
 use App\Models\CategoryNew;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class NewController extends Controller
 {
@@ -23,7 +20,7 @@ class NewController extends Controller
     {
         $keyword = $request->keyword;
         $categoryId = $request->cateNew;
-        // dd($categoryId);
+
         $newsQuery = News::where('name', 'like', "%" . Helper::escape_like($keyword) . "%");
         // Nếu có danh mục được chọn, thêm điều kiện lọc theo danh mục
         if ($categoryId) {
@@ -64,19 +61,6 @@ class NewController extends Controller
 
         return redirect()->back()->with(['message' => 'Tạo mới thành công']);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function show($id)
-    // {
-    //     $news = News::findOrFail($id);
-
-    //     return view('admin.news.show', compact('news'));
-    // }
 
     /**
      * Show the form for editing the specified resource.

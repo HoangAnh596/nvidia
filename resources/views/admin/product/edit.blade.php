@@ -61,7 +61,7 @@
         <form id="deleteForm-{{ $product->id }}" action="{{ route('product.destroy', ['id' => $product->id]) }}" method="post" class="deleteForm">
             @csrf
             @method('Delete')
-            <button class="btn btn-danger btn-sm" type="button" value="Delete" onclick="confirmDelete('{{ $product->id }}')" style="float: right; margin-right: 20px; margin-left:5px">
+            <button class="btn btn-danger btn-sm" type="button" value="Delete" onclick="confirmDelete('{{ $product->id }}')" style="float: right; margin: 0 5px">
                 <i class="fa-solid fa-eraser"></i> Xóa
             </button>
         </form>

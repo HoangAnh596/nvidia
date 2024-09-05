@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCommentsTable extends Migration
+class CreateCmtNewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,19 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('cmt_news', function (Blueprint $table) {
             $table->id();
             $table->text('content');
             $table->bigInteger('parent_id');
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('new_id');
             $table->bigInteger('user_id')->nullable();
             $table->string('name');
-            $table->string('slugProduct');
+            $table->string('slugNew');
             $table->string('email');
             $table->string('phone')->nullable();
             $table->tinyInteger('star')->nullable();
             $table->tinyInteger('is_public')->default(0)->comment('0: không hiển thị, 1: hiển thị');
             $table->timestamps();
-            // $table->foreign('product_id')->references('id')->on('products');
         });
     }
 
@@ -37,6 +36,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('cmt_post');
     }
 }

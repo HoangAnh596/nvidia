@@ -79,7 +79,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('cateNews.index') }}" data-toggle="collapse" data-target="#collapseCateNews" aria-expanded="true" aria-controls="collapseCateNews">
                 <i class="fa-solid fa-newspaper"></i>
-                <span>Danh mục tin tức</span>
+                <span>Danh mục bài viết</span>
             </a>
             <div id="collapseCateNews" class="collapse" aria-labelledby="headingCateNews" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -93,7 +93,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('news.index') }}" data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
                 <i class="fa-solid fa-radio"></i>
-                <span>Tin tức</span>
+                <span>Bài viết</span>
             </a>
             <div id="collapseNews" class="collapse" aria-labelledby="headingNews" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -122,11 +122,12 @@
         <li class="nav-item">
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseComments" aria-expanded="true" aria-controls="collapseComments">
                 <i class="fa-regular fa-comment"></i>
-                <span>Comment sản phẩm</span>
+                <span>QL bình luận</span>
             </a>
             <div id="collapseComments" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('comments.index') }}">Danh sách comment</a>
+                    <a class="collapse-item" href="{{ route('comments.index') }}">Bình luận sản phẩm</a>
+                    <a class="collapse-item" href="{{ route('cmtNews.index') }}">Bình luận bài viết</a>
                 </div>
             </div>
         </li>
