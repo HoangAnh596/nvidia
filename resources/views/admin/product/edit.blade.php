@@ -441,7 +441,7 @@
 
     function confirmDelete(id) {
         toastr.warning(`
-        <div>Các danh mục con thuộc danh mục này sẽ bị xóa. Bạn muốn xóa chứ?</div>
+        <div>Các bình luận, ảnh con thuộc sản phẩm này sẽ bị xóa. Bạn muốn xóa chứ?</div>
         <div style="margin-top: 15px;">
             <button type="button" id="confirmButton" class="btn btn-danger btn-sm" style="margin-right: 10px;">Xóa</button>
             <button type="button" id="cancelButton" class="btn btn-secondary btn-sm">Hủy</button>

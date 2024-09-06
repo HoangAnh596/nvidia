@@ -23,7 +23,7 @@
             </div>
         </form>
         <div>
-            <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
+            <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
         </div>
     </div>
     <div class="card-body">
@@ -33,23 +33,23 @@
                     <tr>
                         <th>#</th>
                         <th>Tên tài khoản</th>
-                        <th>Email tài khoản</th>
+                        <th>Mô tả vai trò</th>
                         <!-- <th class="col-2">Vai trò</th> -->
                         <!-- <th>Image</th> -->
                         <th class="col-2">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $val)
+                    @foreach($roles as $val)
                     <tr>
-                        <td>{{ (($users->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
+                        <td>{{ (($roles->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
                         <td>{{ $val->name }}</td>
-                        <td>{{ $val->email }}</td>
-                        <!-- <td><img src="{{ \App\Http\Helpers\Helper::getPath('users',$val->image) }}" alt="" style="width: 100px; height: 100px"></td> -->
+                        <td>{{ $val->display_name }}</td>
+                        <!-- <td><img src="{{ \App\Http\Helpers\Helper::getPath('roles',$val->image) }}" alt="" style="width: 100px; height: 100px"></td> -->
                         <td class="action-buttons">
-                            <a href="{{ asset('admin/users/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
+                            <a href="{{ asset('admin/roles/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
                             <a href="javascript:void(0);" onclick="confirmDelete('{{ $val->id }}')">Xóa</a>
-                            <form id="deleteForm-{{ $val->id }}" action="{{ route('users.destroy', ['id' => $val->id]) }}" method="post" style="display: none;">
+                            <form id="deleteForm-{{ $val->id }}" action="{{ route('roles.destroy', ['id' => $val->id]) }}" method="post" style="display: none;">
                                 @csrf
                                 @method('DELETE')
                             </form>
@@ -58,7 +58,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {{$users->appends(request()->query())->links()}}
+            {{$roles->appends(request()->query())->links()}}
         </div>
     </div>
 </div>

@@ -156,8 +156,11 @@
             </a>
             <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('users.index') }}">Danh sách</a>
-                    <a class="collapse-item" href="{{ route('users.create') }}">Thêm mới</a>
+                    <a class="collapse-item" href="{{ route('users.index') }}">Danh sách tài khoản</a>
+                    <a class="collapse-item" href="{{ route('users.create') }}">Thêm mới tài khoản</a>
+                    <a class="collapse-item" href="{{ route('roles.index') }}">Danh sách vai trò</a>
+                    <a class="collapse-item" href="{{ route('roles.create') }}">Thêm mới vai trò</a>
+                    <a class="collapse-item" href="{{ route('permissions.create') }}">Thêm mới Permission</a>
                 </div>
             </div>
         </li>

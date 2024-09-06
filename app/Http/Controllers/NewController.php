@@ -6,6 +6,7 @@ use App\Models\News;
 use App\Http\Helpers\Helper;
 use App\Http\Requests\NewFormRequest;
 use App\Models\CategoryNew;
+use App\Models\CmtNew;
 use Illuminate\Http\Request;
 
 class NewController extends Controller
@@ -59,7 +60,7 @@ class NewController extends Controller
     {
         $this->insertOrUpdate($request);
 
-        return redirect()->back()->with(['message' => 'Tạo mới thành công']);
+        return redirect(route('news.index'))->with(['message' => 'Tạo mới thành công']);
     }
 
     /**
@@ -87,7 +88,7 @@ class NewController extends Controller
     {
         $this->insertOrUpdate($request, $id);
 
-        return redirect(route('news.index'))->with(['message' => "Cập nhật tin tức thành công !"]);
+        return back()->with(['message' => "Cập nhật tin tức thành công !"]);
     }
 
     /**
@@ -98,6 +99,9 @@ class NewController extends Controller
      */
     public function destroy($id)
     {
+        // Xóa comment
+        CmtNew::where('new_id', $id)->delete();
+
         News::findOrFail($id)->delete();
 
         return redirect()->route('news.index')->with(['message' => 'Xóa bài viết thành công !']);

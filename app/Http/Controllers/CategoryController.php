@@ -129,7 +129,7 @@ class CategoryController extends Controller
     {
         $this->insertOrUpdate($request, $id);
 
-        return redirect(route('categories.index'))->with(['message' => "Cập nhật danh mục thành công !"]);
+        return back()->with(['message' => "Cập nhật danh mục thành công !"]);
     }
 
     /**

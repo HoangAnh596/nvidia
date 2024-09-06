@@ -44,7 +44,7 @@ class IconController extends Controller
         try {
             $this->insertOrUpdate($request);
             // Lưu thông báo thành công vào session
-            return redirect(route('icons.create'))->with('success', 'Cập nhật thành công!');
+            return redirect(route('icons.index'))->with('success', 'Cập nhật thành công!');
         } catch (\Exception $e) {
             // Có lỗi xảy ra
             // Lưu thông báo lỗi vào session
@@ -76,7 +76,7 @@ class IconController extends Controller
     {
         $this->insertOrUpdate($request, $id);
 
-        return redirect(route('icons.index'))->with(['message' => "Cập nhật thành công Icon !"]);
+        return back()->with(['message' => "Cập nhật thành công Icon !"]);
     }
 
     /**

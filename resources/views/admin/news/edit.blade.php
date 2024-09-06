@@ -60,7 +60,7 @@
                 <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
             </div>
         </form>
-        <form id="deleteForm-{{ $new->id }}" action="{{ route('news.destroy', ['news' => $new->id]) }}" method="post" class="deleteForm">
+        <form id="deleteForm-{{ $new->id }}" action="{{ route('news.destroy', ['id' => $new->id]) }}" method="post" class="deleteForm">
             @csrf
             @method('Delete')
             <button class="btn btn-danger btn-sm" type="button" onclick="confirmDelete('{{ $new->id }}')" style="float: right; margin: 0 5px">
@@ -71,6 +71,13 @@
 </div>
 @endsection
 
+@section('css')
+<style>
+    .toast-top-center>div {
+        width: 400px !important;
+    }
+</style>
+@endsection
 @section('js')
 <script>
     function checkDuplicate() {
@@ -174,7 +181,7 @@
 
     function confirmDelete(id) {
         toastr.warning(`
-        <div>Bạn chắc chắn muốn xóa chứ?</div>
+        <div>Các bình luận thuộc bài viết này sẽ bị xóa. Bạn chắc chắn muốn xóa chứ?</div>
         <div style="margin-top: 15px;">
             <button type="button" id="confirmButton" class="btn btn-danger btn-sm" style="margin-right: 10px;">Xóa</button>
             <button type="button" id="cancelButton" class="btn btn-secondary btn-sm">Hủy</button>

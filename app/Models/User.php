@@ -12,7 +12,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    const ADMIN_ROLE = 1;
+    // const ADMIN_ROLE = 1;
     /**
      * The attributes that are mass assignable.
      *
@@ -22,7 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name', 'email',
         'password',
         'image',
-        'role',
+        // 'role',
     ];
 
     /**
@@ -44,8 +44,29 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function role($role)
+    // public function role($role)
+    // {
+    //     return ($role == User::ADMIN_ROLE) ? "Quản trị viên" : "Người dùng";
+    // }
+
+    public function roles()
     {
-        return ($role == User::ADMIN_ROLE) ? "Quản trị viên" : "Người dùng";
+        return $this->belongsToMany('App\Models\Role', 'role_user', 'user_id', 'role_id');
+    }
+
+    public function checkPermissionAccess($permissionCheck)
+    {
+        // B1: lấy đc tất cả các quyền của user đang login hệ thống
+        // B2: So sánh gtri dựa vào router hiện tại xem có tồn tại trong các quyền mà mình lấy đc hay không
+        $roles = auth()->user()->roles;
+        
+        foreach ($roles as $role) {
+            $permissions  = $role->permissions;
+            if ($permissions->contains('key_code', $permissionCheck)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -34,9 +34,11 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label for="">Vai trò <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                        <select name="role" class="form-control">
-                            <option value="0">Người dùng</option>
-                            <option value="1">Quản trị viên</option>
+                        <select name="role_id[]" class="form-control select2_init" multiple>
+                            <option value=""></option>
+                            @foreach($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -68,4 +70,13 @@
         </div>
     </form>
 </div>
+@endsection
+
+@section('js')
+<script>
+    $('.select2_init').select2({
+        placeholder: 'Chọn vai trò',
+        allowClear: true,
+    });
+</script>
 @endsection

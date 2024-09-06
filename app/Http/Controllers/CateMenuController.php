@@ -64,7 +64,7 @@ class CateMenuController extends Controller
     {
         $this->insertOrUpdate($request, $id);
 
-        return redirect(route('cateMenu.index'))->with(['message' => "Cập nhật danh mục menu thành công !"]);
+        return back()->with(['message' => "Cập nhật danh mục menu thành công !"]);
     }
 
     /**

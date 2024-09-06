@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    const TEXT_SEO = "CNTT Shop";
     protected $categorySrc;
 
     public function __construct(CategorySrc $categorySrc)
@@ -33,8 +32,10 @@ class HomeController extends Controller
         $keywordSeo = config('common.keyword_seo');
         $descriptionSeo = config('common.des_seo');
         // Tin tức
-        $blogs = News::where('is_outstand', 1)->select('id', 'name', 'image', 'slug', 'alt_img', 'title_img', 'desc')
-            ->orderBy('created_at', 'DESC')->get();
+        $blogs = News::where('is_outstand', 1)
+            ->select('id', 'name', 'image', 'slug', 'alt_img', 'title_img', 'desc')
+            ->orderBy('created_at', 'DESC')
+            ->limit(12)->get();
         $cateBlogs = CategoryNew::where('is_menu', 1)->select('name', 'slug')->orderBy('created_at', 'ASC')->get();
         // Trang chủ ngoài
         // Lấy tất cả các danh mục có parent_id = 0

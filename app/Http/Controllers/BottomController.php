@@ -44,7 +44,7 @@ class BottomController extends Controller
     {
         $this->insertOrUpdate($request);
 
-        return redirect(route('bottoms.create'))->with(['message' => 'Tạo mới thành công']);
+        return redirect(route('bottoms.index'))->with(['message' => 'Tạo mới thành công']);
     }
 
 
@@ -72,7 +72,7 @@ class BottomController extends Controller
     {
         $this->insertOrUpdate($request, $id);
 
-        return redirect(route('bottoms.index'))->with(['message' => "Cập nhật thành công hotline !"]);
+        return back()->with(['message' => "Cập nhật thành công hotline !"]);
     }
 
     /**

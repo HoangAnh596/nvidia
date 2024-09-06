@@ -44,7 +44,7 @@ class InforController extends Controller
     {
         $this->insertOrUpdate($request);
 
-        return redirect(route('infors.create'))->with(['message' => 'Tạo mới thành công']);
+        return redirect(route('infors.index'))->with(['message' => 'Tạo mới thành công']);
     }
 
 
@@ -72,7 +72,7 @@ class InforController extends Controller
     {
         $this->insertOrUpdate($request, $id);
 
-        return redirect(route('infors.index'))->with(['message' => "Cập nhật thành công hotline !"]);
+        return back()->with(['message' => "Cập nhật thành công hotline !"]);
     }
 
     /**

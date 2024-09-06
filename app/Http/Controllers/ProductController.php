@@ -6,6 +6,7 @@ use App\Http\Helpers\Helper;
 use App\Http\Requests\ProductFormRequest;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Maker;
 use App\Models\ProductImages;
 use App\Models\ProductTag;
@@ -82,7 +83,7 @@ class ProductController extends Controller
     {
         $this->insertOrUpdate($request);
 
-        return redirect()->back()->with(['message' => 'Tạo mới sản phẩm thành công']);
+        return redirect(route('product.index'))->with(['message' => 'Tạo mới sản phẩm thành công']);
     }
 
     /**
@@ -129,7 +130,7 @@ class ProductController extends Controller
     {
         $this->insertOrUpdate($request, $id);
 
-        return redirect(route('product.index'))->with(['message' => "Cập nhật sản phẩm thành công!"]);
+        return back()->with(['message' => "Cập nhật sản phẩm thành công!"]);
     }
 
     /**
@@ -148,6 +149,8 @@ class ProductController extends Controller
         if (is_array($imageIds)) {
             ProductImages::whereIn('id', $imageIds)->delete();
         }
+        // Xóa comment
+        Comment::where('product_id', $id)->delete();
 
         // Xóa sản phẩm
         $product->delete();

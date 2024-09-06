@@ -74,7 +74,7 @@ class CommentController extends Controller
 
         $comment->save();
 
-        return redirect(route('comments.index'))->with(['message' => "Cập nhật danh mục thành công !"]);
+        return back()->with(['message' => "Cập nhật danh mục thành công !"]);
     }
 
     /**

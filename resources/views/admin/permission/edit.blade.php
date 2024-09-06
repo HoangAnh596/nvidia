@@ -4,7 +4,7 @@
     <div class="text-center">
         <h1 class="h4 text-gray-900 mb-4">Chỉnh sửa tài khoản</h1>
     </div>
-    <form class="user" action="{{ route('users.update', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
+    <form class="user" action="{{ route('users.update', ['user' => $user->id]) }}" method="post" enctype="multipart/form-data">
         @method('PUT')
         @csrf
         <div class="card-header d-flex justify-content-between">
@@ -35,11 +35,15 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label for="">Vai trò <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                        <select name="role_id[]" class="form-control select2_init" multiple>
-                            <option value=""></option>
-                            @foreach($roles as $role)
-                            <option {{ $user->roles->contains('id', $role->id) ? 'selected' : ''}} value="{{ $role->id }}">{{ $role->name }}</option>
-                            @endforeach
+                        <select name="role" class="form-control">
+                            <option value="0" <?php if ($user->role == '0') {
+                                                    echo 'selected="selected"';
+                                                } ?>>Người dùng
+                            </option>
+                            <option value="1" <?php if ($user->role == '1') {
+                                                    echo 'selected="selected"';
+                                                } ?>>Quản trị viên
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -72,13 +76,4 @@
         </div>
     </form>
 </div>
-@endsection
-
-@section('js')
-<script>
-    $('.select2_init').select2({
-        placeholder: 'Chọn vai trò',
-        allowClear: true,
-    });
-</script>
 @endsection

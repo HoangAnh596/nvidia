@@ -98,7 +98,7 @@ class FilterCateController extends Controller
     {
         $this->insertOrUpdate($request, $id);
 
-        return redirect(route('filter.index'))->with(['message' => "Danh mục đã cập nhật thành công !"]);
+        return back()->with(['message' => "Danh mục đã cập nhật thành công !"]);
     }
 
     /**

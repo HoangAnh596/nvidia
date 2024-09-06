@@ -14,18 +14,6 @@
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-	<loc>http://localhost:8000/vanillajs-main</loc>
-		<priority>0.8</priority>
-		<lastmod>2024-08-23T09:03:35+07:00</lastmod>
-		<changefreq>weekly</changefreq>
-	</url>
-	<url>
-	<loc>http://localhost:8000/sp213</loc>
-		<priority>0.8</priority>
-		<lastmod>2024-08-19T09:49:21+07:00</lastmod>
-		<changefreq>weekly</changefreq>
-	</url>
-	<url>
 	<loc>http://localhost:8000/test-thu-1-sanp</loc>
 		<priority>0.8</priority>
 		<lastmod>2024-08-19T09:11:36+07:00</lastmod>

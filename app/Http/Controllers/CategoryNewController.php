@@ -117,7 +117,7 @@ class CategoryNewController extends Controller
     {
         $this->insertOrUpdate($request, $id);
 
-        return redirect(route('cateNews.index'))->with(['message' => "Updated category successfully !"]);
+        return back()->with(['message' => "Updated category successfully !"]);
     }
 
     public function insertOrUpdate(Request $request, $id = '')

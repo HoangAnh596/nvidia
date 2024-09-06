@@ -99,7 +99,7 @@
                 <button class="btn btn-primary btn-sm " type="submit" id="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
             </div>
         </form>
-        <form id="deleteForm-{{ $category->id }}" action="{{ route('cateNews.destroy', ['cateNews' => $category->id]) }}" method="post" class="deleteForm">
+        <form id="deleteForm-{{ $category->id }}" action="{{ route('cateNews.destroy', ['id' => $category->id]) }}" method="post" class="deleteForm">
             @csrf
             @method('Delete')
             <button class="btn btn-danger btn-sm" type="button" onclick="confirmDelete('{{ $category->id }}')" style="float: right; margin: 0 5px">

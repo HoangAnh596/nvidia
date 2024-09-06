@@ -27,7 +27,7 @@ class SettingController extends Controller
     public function edit($id)
     {
         $setting = Setting::findOrFail(1);
-        // dd($setting);
+        
         return view('admin.setting.edit', compact('setting'));
     }
 
@@ -52,6 +52,6 @@ class SettingController extends Controller
         $setting->image = $path;
         $setting->save();
 
-        return redirect('/admin')->with(['message' => 'Cập nhật hình ảnh setting thành công']);
+        return back()->with(['message' => 'Cập nhật hình ảnh setting thành công']);
     }
 }

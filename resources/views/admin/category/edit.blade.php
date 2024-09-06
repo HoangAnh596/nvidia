@@ -15,7 +15,7 @@
     <!-- DataTales Example -->
 
     <div class="card shadow">
-        <form id="uploadImgForm" action="{{ route('categories.update', ['category' => $category->id]) }}" method="post" enctype="multipart/form-data">
+        <form id="uploadImgForm" action="{{ route('categories.update', ['id' => $category->id]) }}" method="post" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             @if (!empty($category))
@@ -58,7 +58,7 @@
                 <button class="btn btn-primary btn-sm " type="submit" id="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
             </div>
         </form>
-        <form id="deleteForm-{{ $category->id }}" action="{{ route('categories.destroy', ['category' => $category->id]) }}" method="post" class="deleteForm">
+        <form id="deleteForm-{{ $category->id }}" action="{{ route('categories.destroy', ['id' => $category->id]) }}" method="post" class="deleteForm">
             @csrf
             @method('Delete')
             <button class="btn btn-danger btn-sm" type="button" value="Delete" onclick="confirmDelete('{{ $category->id }}')" style="float: right; margin: 0 5px">

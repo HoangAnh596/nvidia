@@ -74,7 +74,7 @@ class CmtNewsController extends Controller
 
         $comment->save();
 
-        return redirect(route('cmtNews.index'))->with(['message' => "Cập nhật danh mục thành công !"]);
+        return back()->with(['message' => "Cập nhật danh mục thành công !"]);
     }
 
     /**

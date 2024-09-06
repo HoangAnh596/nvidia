@@ -36,7 +36,7 @@ class CateFooterController extends Controller
     {
         $this->insertOrUpdate($request);
 
-        return redirect(route('cateFooter.create'))->with(['message' => 'Tạo mới thành công']);
+        return redirect(route('cateFooter.index'))->with(['message' => 'Tạo mới thành công']);
     }
 
      /**
@@ -49,7 +49,7 @@ class CateFooterController extends Controller
     {
         $category = CateFooter::findOrFail($id);
         $categories = CateFooter::with('children')->where('parent_menu', 0)->get();
-        // dd($category);
+        
         return view('admin.cateFooter.edit', compact('category', 'categories'));
     }
 
@@ -64,7 +64,7 @@ class CateFooterController extends Controller
     {
         $this->insertOrUpdate($request, $id);
 
-        return redirect(route('cateFooter.index'))->with(['message' => "Cập nhật thành công danh mục footer !"]);
+        return back()->with(['message' => "Cập nhật thành công danh mục footer !"]);
     }
 
     /**
