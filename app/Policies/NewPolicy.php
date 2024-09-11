@@ -91,4 +91,9 @@ class NewPolicy
     {
         //
     }
+
+    public function checkbox(User $user)
+    {
+        return $user->checkPermissionAccess(config('permissions.access.checkbox-new'));
+    }
 }

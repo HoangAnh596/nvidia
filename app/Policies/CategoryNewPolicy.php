@@ -91,4 +91,14 @@ class CategoryNewPolicy
     {
         //
     }
+
+    public function checkbox(User $user)
+    {
+        return $user->checkPermissionAccess(config('permissions.access.checkbox-cateNew'));
+    }
+
+    public function checkStt(User $user)
+    {
+        return $user->checkPermissionAccess(config('permissions.access.checkStt-cateNew'));
+    }
 }

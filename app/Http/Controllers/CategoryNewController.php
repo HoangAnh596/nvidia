@@ -8,6 +8,7 @@ use App\Models\CategoryNew;
 use App\Models\News;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryNewController extends Controller
@@ -83,7 +84,7 @@ class CategoryNewController extends Controller
     {
         $this->insertOrUpdate($request);
 
-        return redirect(route('cateNews.index'))->with(['message' => 'Create Success']);
+        return redirect(route('cateNews.index'))->with(['message' => 'Tạo mới danh mục bài viết thành công']);
     }
 
     /**
@@ -117,7 +118,7 @@ class CategoryNewController extends Controller
     {
         $this->insertOrUpdate($request, $id);
 
-        return back()->with(['message' => "Updated category successfully !"]);
+        return back()->with(['message' => "Cập nhật danh mục bài viết thành công !"]);
     }
 
     public function insertOrUpdate(Request $request, $id = '')
@@ -133,6 +134,7 @@ class CategoryNewController extends Controller
         $category->title_seo = (isset($request->title_seo)) ? $request->title_seo : $request->name;
         $category->keyword_seo = (isset($request->keyword_seo)) ? $request->keyword_seo : $request->name;
         $category->des_seo = (isset($request->des_seo)) ? $request->des_seo : $request->name;
+        $category->user_id = Auth::id();
 
         $category->save();
     }
@@ -175,6 +177,6 @@ class CategoryNewController extends Controller
         $category->stt_new = (isset($sttNew)) ? $sttNew : 999;
         $category->save();
 
-        return response()->json(['success' => true, 'message' => 'STT updated successfully.']);
+        return response()->json(['success' => true, 'message' => 'Cập nhật STT danh mục bài viết thành công.']);
     }
 }

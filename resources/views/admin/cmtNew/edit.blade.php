@@ -15,7 +15,7 @@
     <!-- DataTales Example -->
 
     <div class="card shadow">
-        <form action="{{ route('cmtNews.update', $comment->id) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('cmtNews.update', ['id' => $comment->id]) }}" method="post" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             @if (!empty($comment))

@@ -40,13 +40,13 @@
                         @foreach($val->valueFilters as $item)
                         @if(!empty($val))
                         <div class="form-check form-check-inline mr-3 ml-3">
-                            <input class="form-check-input" type="radio" name="{{ $val->name }}" id="{{ $item->id }}"
-                                value="{{ $item->id }}"
-                                @foreach($filterProducts as $fil)
-                                @if($item->id == $fil->filter_id) checked @endif
-                            @endforeach
-                            />
-                            <label class="form-check-label" for="">
+                            <label class="form-check-label" for="{{ $item->id }}">
+                                <input class="form-check-input" type="radio" name="{{ $val->name }}" id="{{ $item->id }}"
+                                    value="{{ $item->id }}"
+                                    @foreach($filterProducts as $fil)
+                                        @if($item->id == $fil->filter_id) checked @endif
+                                    @endforeach
+                                />
                                 {{ $item->key_word }}
                             </label>
                         </div>

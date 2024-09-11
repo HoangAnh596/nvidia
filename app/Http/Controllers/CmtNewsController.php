@@ -196,7 +196,7 @@ class CmtNewsController extends Controller
 
             $sendCmt->fill($request->all());
 
-            if(Auth::check() && Auth::user()->role == 1) {
+            if(Auth::check() && Auth::user()->hasPermission('check_cmt')) {
                 $sendCmt->is_public = 1;
 
                 // Lưu comment vào cơ sở dữ liệu

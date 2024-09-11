@@ -1,79 +1,70 @@
 @extends('layouts.app')
 @section('content')
-<div class="card shadow mb-4">
-    <div class="text-center">
-        <h1 class="h4 text-gray-900 mb-4">Chỉnh sửa tài khoản</h1>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-flex justify-content-between">
+        <h3 class="mb-2 text-gray-800">Chỉnh sửa danh mục bài viết</h3>
+        <h6 aria-label="breadcrumb">
+            <ol class="breadcrumb bg-light">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Danh mục bài viết</a></li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
+            </ol>
+        </h6>
     </div>
-    <form class="user" action="{{ route('users.update', ['user' => $user->id]) }}" method="post" enctype="multipart/form-data">
-        @method('PUT')
-        @csrf
-        <div class="card-header d-flex justify-content-between">
-            <a href="{{ route('users.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
-            <div>
-                <button class="btn btn-primary btn-sm" id="submit" type="submitCateNew"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
-                <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
-            </div>
-        </div>
-        <div class="text-dark card-body border-top">
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="">Tên tài khoản <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                        <input type="text" name="name" class="form-control" id="exampleFirstName" value="{{ old('name', $user->name ?? '') }}">
-                        <span id="name-error" style="color: red;"></span>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="">Email tài khoản <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                        <input type="text" name="email" class="form-control" id="exampleInputEmail" value="{{ old('email', $user->email ?? '') }}">
-                        <span id="email-error" style="color: red;"></span>
-                    </div>
+    <!-- DataTales Example -->
+
+    <div class="card shadow">
+        <form action="{{ route('permissions.update', $permission->id) }}" method="post" enctype="multipart/form-data">
+            @method('PUT')
+            @csrf
+            @if (!empty($permission))
+            <input type="hidden" name="id" value="{{ $permission->id }}">
+            @endif
+            <div class="card-header d-flex justify-content-between">
+                <a href="{{ route('permissions.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
+                <div>
+                    <button class="btn btn-primary btn-sm " type="submit" id="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
+                    <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Xóa</button> -->
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="">Vai trò <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                        <select name="role" class="form-control">
-                            <option value="0" <?php if ($user->role == '0') {
-                                                    echo 'selected="selected"';
-                                                } ?>>Người dùng
-                            </option>
-                            <option value="1" <?php if ($user->role == '1') {
-                                                    echo 'selected="selected"';
-                                                } ?>>Quản trị viên
-                            </option>
-                        </select>
+            <div class="card-body border-top p-9">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-3 col-xs-12">
+                            <label for="name" class="form-label">Tên danh mục <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
+                            <input type="text" id="name" class="form-control" name="name" value="{{ old('name', $permission->name ?? '') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Chọn Permission cha <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
+                            <select name="parent_id" id="parent_id" class="form-control">
+                                <option value="0" {{ $permission->parent_id == 0 ? 'selected' : '' }}>Chọn Permission cha</option>
+                                @foreach($permissionsParent as $item)
+                                <option value="{{ $item->id }}" {{ $permission->parent_id == $item->id ? 'selected' : '' }}>
+                                    {{ $item->display_name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <img src="{{ \App\Http\Helpers\Helper::getPath($user->image) }}" alt="" style="width: 100px; height: 100px">
-                        <label for="exampleFormControlFile1">Avatar</label>
-                        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
-                    </div>
-                </div>
-            </div> -->
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="">Mật khẩu <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                        <input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="Password">
-                        <span id="name-error" style="color: red;"></span>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="">Lặp lại mật khẩu <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                        <input type="password" name="password_confirmation" class="form-control" id="exampleRepeatPassword" placeholder="Repeat Password">
-                        <span id="email-error" style="color: red;"></span>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">Tên Permission hiển thị màn hình <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
+                            <input type="text" name="display_name" id="display_name" class="form-control" value="{{ old('display_name', $permission->display_name ?? '') }}">
+                            <span id="displayName-error" style="color: red;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Mã Code Permission <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
+                            <input type="text" name="key_code" id="key_code" class="form-control" value="{{ old('key_code', $permission->key_code ?? '') }}">
+                            <span id="keyCode-error" style="color: red;"></span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+
+            <div class="mt-4 pb-4 mr-4 float-right">
+                <button class="btn btn-primary btn-sm " type="submit" id="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection

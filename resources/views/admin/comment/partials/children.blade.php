@@ -12,7 +12,9 @@
     <td style="color: red;">{{ $category->name }}</td>
     @endif
     <td>
+        @can('comment-edit')
         {{ $category->email }}
+        @endcan
     </td>
     <td class="text-center">
         <a href="{{ asset($category->slugProduct) }}" target="_blank">Xem link</a>
@@ -28,24 +30,30 @@
     <td></td>
     @endif
     @if ($category->parent_id == 0)
-    <td style="font-size: 14px;">
+    <td class="text-center" style="font-size: 14px; padding: .75rem .25rem">
         {{ $category->created_at->format('d-m-Y H:i') }}
     </td>
     @else
-    <td style="font-size: 14px; color:red;">
+    <td class="text-center" style="font-size: 14px; color:red; padding: .75rem .25rem">
         {{ $category->created_at->format('d-m-Y H:i') }}
     </td>
     @endif
     <td class="text-center">
+        @can('comment-edit')
         <a href="{{ asset('admin/comments/'.$category->id.'/edit') }}" >Chỉnh sửa</a> |
+        @endcan
+        @can('comment-replay')
         @if ($category->parent_id == 0 && $category->replies->isEmpty())
-        <a class="btn btn-primary btn-sm" href="{{ asset('admin/comments/'.$category->id.'/replay') }}" >Trả lời</a> |
+        <a class="btn btn-primary btn-sm" href="{{ asset('admin/comments/'.$category->id.'/replay') }}" >Trả lời</a>
         @endif
-        <a href="javascript:void(0);" onclick="confirmDelete('{{ $category->id }}')">Xóa</a>
-        <form id="deleteForm-{{ $category->id }}" action="{{ route('comments.destroy', ['comment' => $category->id]) }}" method="post" style="display: none;">
+        @endcan
+        @can('comment-delete')
+        | <a href="javascript:void(0);" onclick="confirmDelete('{{ $category->id }}')">Xóa</a>
+        <form id="deleteForm-{{ $category->id }}" action="{{ route('comments.destroy', ['id' => $category->id]) }}" method="post" style="display: none;">
             @csrf
             @method('DELETE')
         </form>
+        @endcan
     </td>
 </tr>
 @if ($category->replies)

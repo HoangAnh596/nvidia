@@ -11,6 +11,7 @@ use App\Models\Maker;
 use App\Models\ProductImages;
 use App\Models\ProductTag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -195,6 +196,7 @@ class ProductController extends Controller
         $product->title_seo = (isset($request->title_seo)) ? $request->title_seo : $request->name;
         $product->keyword_seo = (isset($request->keyword_seo)) ? $request->keyword_seo : $request->name;
         $product->des_seo = (isset($request->des_seo)) ? $request->des_seo : $request->name;
+        $product->user_id = Auth::id();
         
         // Thêm mới images con vào bảng Product_Images
         // dd($request->all());

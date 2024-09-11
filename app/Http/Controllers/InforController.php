@@ -6,6 +6,7 @@ use App\Http\Helpers\Helper;
 use App\Http\Requests\InforFormRequest;
 use App\Models\Infor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InforController extends Controller
 {
@@ -83,6 +84,7 @@ class InforController extends Controller
      */
     public function destroy($id)
     {
+        dd($id);
         Infor::findOrFail($id)->delete();
 
         return redirect('/infors')->with(['message' => 'Xóa hotline thành công']);
@@ -95,6 +97,7 @@ class InforController extends Controller
         $infor->fill($request->all());
         
         $infor->stt = (isset($request->stt)) ? $request->stt : 999;
+        $infor->user_id = Auth::id();
 
         $infor->save();
     }

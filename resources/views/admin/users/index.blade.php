@@ -23,7 +23,9 @@
             </div>
         </form>
         <div>
+            @can('user-add')
             <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
+            @endcan
         </div>
     </div>
     <div class="card-body">
@@ -35,8 +37,8 @@
                         <th>Tên tài khoản</th>
                         <th>Email tài khoản</th>
                         <!-- <th class="col-2">Vai trò</th> -->
-                        <!-- <th>Image</th> -->
-                        <th class="col-2">Hành động</th>
+                        <th class="col-sm-2">Image</th>
+                        <th class="col-sm-2 text-center">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,14 +47,20 @@
                         <td>{{ (($users->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
                         <td>{{ $val->name }}</td>
                         <td>{{ $val->email }}</td>
-                        <!-- <td><img src="{{ \App\Http\Helpers\Helper::getPath('users',$val->image) }}" alt="" style="width: 100px; height: 100px"></td> -->
-                        <td class="action-buttons">
+                        <td><img src="{{ \App\Http\Helpers\Helper::getPath('users',$val->image) }}"></td>
+                        <td>
+                            @can('user-edit')
                             <a href="{{ asset('admin/users/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
-                            <a href="javascript:void(0);" onclick="confirmDelete('{{ $val->id }}')">Xóa</a>
+                            @endcan
+                            <a href="{{ asset('admin/users') }}">Xóa cache</a> |
+                            <a href="{{ asset('admin/users') }}">Nhân bản</a>
+                            @can('user-delete')
+                            | <a href="javascript:void(0);" onclick="confirmDelete('{{ $val->id }}')">Xóa</a>
                             <form id="deleteForm-{{ $val->id }}" action="{{ route('users.destroy', ['id' => $val->id]) }}" method="post" style="display: none;">
                                 @csrf
                                 @method('DELETE')
                             </form>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach
@@ -66,10 +74,6 @@
 
 @section('css')
 <style>
-    .table-responsive {
-        font-size: 15px;
-    }
-
     .toast-top-center>div {
         width: 400px !important;
     }

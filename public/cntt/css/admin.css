@@ -42,10 +42,14 @@ body {
     overflow-y: auto; /* Bật thanh cuộn dọc */
 }
 
+.table-responsive td a {
+    font-size: 15px;
+}
+
 .table thead th {
     position: sticky !important; /* Làm cho các tiêu đề cố định */
     top: 0; /* Vị trí cố định ở trên cùng */
-    background-color: white; /* Đặt màu nền để tiêu đề không bị trong suốt */
+    background-color: #eee; /* Đặt màu nền để tiêu đề không bị trong suốt */
     z-index: 999; /* Đảm bảo tiêu đề luôn ở trên cùng */
 }
 /* end sticky css */

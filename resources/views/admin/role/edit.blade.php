@@ -36,15 +36,18 @@
                 @foreach($permissionsParent as $parent)
                 <div class="card checkbox-all text-bg-primary mb-3 col-md-12">
                     <div class="card-header">
-                        <input type="checkbox" class="checkbox_wrapper">
+                        <input type="checkbox" class="checkbox_wrapper"
+                            {{ $parent->permissionsChild->every(function($child) use ($permissionsChecked) { return $permissionsChecked->contains('id', $child->id); }) ? 'checked' : '' }}>
                         <label for="">Module {{ $parent->display_name }}</label>
                     </div>
-                    <div class="row">
+                    <div class="d-flex justify-content-center">
                         @foreach($parent->permissionsChild as $child)
-                        <div class="card-body col-md-3">
-                            <input type="checkbox" class="checkbox_childrent" name="permission_id[]"
-                                value="{{ $child->id }}" {{ $permissionsChecked->contains('id', $child->id) ? 'checked' : '' }}>
-                            <label for="">{{ $child->display_name }}</label>
+                        <div class="card-body">
+                            <label for="{{ $child->id }}">
+                                <input type="checkbox" class="checkbox_childrent" name="permission_id[]"
+                                    value="{{ $child->id }}" id="{{ $child->id }}" {{ $permissionsChecked->contains('id', $child->id) ? 'checked' : '' }}>
+                                {{ $child->display_name }}
+                            </label>
                         </div>
                         @endforeach
                     </div>

@@ -23,7 +23,9 @@
             </div>
         </form>
         <div>
+            @can('role-add')
             <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
+            @endcan
         </div>
     </div>
     <div class="card-body">
@@ -36,7 +38,7 @@
                         <th>Mô tả vai trò</th>
                         <!-- <th class="col-2">Vai trò</th> -->
                         <!-- <th>Image</th> -->
-                        <th class="col-2">Hành động</th>
+                        <th class="col-sm-2 text-center">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,13 +48,19 @@
                         <td>{{ $val->name }}</td>
                         <td>{{ $val->display_name }}</td>
                         <!-- <td><img src="{{ \App\Http\Helpers\Helper::getPath('roles',$val->image) }}" alt="" style="width: 100px; height: 100px"></td> -->
-                        <td class="action-buttons">
+                        <td>
+                            @can('role-edit')
                             <a href="{{ asset('admin/roles/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
-                            <a href="javascript:void(0);" onclick="confirmDelete('{{ $val->id }}')">Xóa</a>
+                            @endcan
+                            <a href="{{ asset('admin/roles') }}">Xóa cache</a> |
+                            <a href="{{ asset('admin/roles') }}">Nhân bản</a>
+                            @can('role-delete')
+                            | <a href="javascript:void(0);" onclick="confirmDelete('{{ $val->id }}')">Xóa</a>
                             <form id="deleteForm-{{ $val->id }}" action="{{ route('roles.destroy', ['id' => $val->id]) }}" method="post" style="display: none;">
                                 @csrf
                                 @method('DELETE')
                             </form>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach
@@ -66,10 +74,6 @@
 
 @section('css')
 <style>
-    .table-responsive {
-        font-size: 15px;
-    }
-
     .toast-top-center>div {
         width: 400px !important;
     }

@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('subCategory')->nullable();
             $table->string('slug');
+            $table->unsignedBigInteger('user_id');
             $table->string('related_pro')->nullable();
             $table->string('tag_ids')->nullable();
             $table->string('code', 50);

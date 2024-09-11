@@ -8,6 +8,7 @@ use App\Http\Requests\NewFormRequest;
 use App\Models\CategoryNew;
 use App\Models\CmtNew;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NewController extends Controller
 {
@@ -121,7 +122,8 @@ class NewController extends Controller
         $new->image = $path;
         $new->title_img = (isset($request->title_img)) ? $request->title_img : $request->name;
         $new->alt_img = (isset($request->alt_img)) ? $request->alt_img : $request->name;
-        
+        $new->user_id = Auth::id();
+
         $new->save();
     }
 

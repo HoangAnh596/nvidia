@@ -18,6 +18,7 @@ class CreateIconsTable extends Migration
             $table->string('name');
             $table->string('url',50);
             $table->string('icon',50);
+            $table->unsignedBigInteger('user_id');
             $table->integer('stt')->nullable();
             $table->tinyInteger('is_public')->default(0)->comment('1: hiển thị, 0: không hiển thị');
             $table->timestamps();

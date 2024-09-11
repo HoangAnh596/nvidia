@@ -18,6 +18,7 @@ class CreateCateFooterTable extends Migration
             $table->string('name');
             $table->string('url')->nullable();
             $table->bigInteger('parent_menu');
+            $table->unsignedBigInteger('user_id');
             $table->integer('stt_menu')->nullable();
             // $table->string('image')->nullable();
             $table->tinyInteger('is_public')->default(0)->comment('1: hiển thị, 0: không hiển thị');

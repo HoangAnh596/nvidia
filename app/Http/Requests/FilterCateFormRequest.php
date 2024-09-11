@@ -43,15 +43,8 @@ class FilterCateFormRequest extends FormRequest
             }
         
             // Kiểm tra slug đã tồn tại khi cập nhật
-            $checkSlugUpdate = DB::table('filter_cate')
-                ->select('id')
-                ->where('slug', '=', $params['slug'])
-                ->where('id', '!=', $params['id'])
-                ->value('id');
-        
-            if ($checkSlugUpdate) {
-                $ruleUpdateSlug = 'required | max:255 | regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/';
-            }
+            // Sử dụng unique với ngoại lệ cho bản ghi có id hiện tại
+            $ruleUpdateSlug = 'required|max:255|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/|unique:filter_cate,slug,' . $params['id'];
         }
 
         return [

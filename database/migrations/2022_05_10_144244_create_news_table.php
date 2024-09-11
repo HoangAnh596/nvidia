@@ -19,6 +19,7 @@ class CreateNewsTable extends Migration
             $table->string('slug');
             $table->string('slugParent');
             $table->unsignedBigInteger('cate_id');
+            $table->unsignedBigInteger('user_id');
             $table->tinyInteger('is_outstand')->default(0)->comment('1: nổi bật, 0: không nổi bật');
             $table->string('view_count')->nullable();
             $table->text('desc')->nullable();

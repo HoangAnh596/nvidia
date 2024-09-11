@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CateMenuFormRequest;
 use App\Models\CateMenu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CateMenuController extends Controller
@@ -95,6 +96,7 @@ class CateMenuController extends Controller
             $cateMenu->is_tab = $request->input('is_tab', 0);
         }
         $cateMenu->stt_menu = (isset($request->stt_menu)) ? $request->stt_menu : 999;
+        $cateMenu->user_id = Auth::id();
 
         $cateMenu->save();
     }

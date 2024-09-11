@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Những thông tin xác thực này không khớp với hồ sơ của chúng tôi.',
+    'failed' => 'Email hoặc mật khẩu không chính xác.',
     'password' => 'Mật khẩu không chính xác.',
     'throttle' => 'Quá nhiều lần thử đăng nhập. Vui lòng thử lại sau.',
 

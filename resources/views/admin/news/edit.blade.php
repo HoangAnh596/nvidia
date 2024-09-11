@@ -60,6 +60,7 @@
                 <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
             </div>
         </form>
+        @can('new-delete')
         <form id="deleteForm-{{ $new->id }}" action="{{ route('news.destroy', ['id' => $new->id]) }}" method="post" class="deleteForm">
             @csrf
             @method('Delete')
@@ -67,6 +68,7 @@
                 <i class="fa-solid fa-eraser"></i> Xóa
             </button>
         </form>
+        @endcan
     </div>
 </div>
 @endsection

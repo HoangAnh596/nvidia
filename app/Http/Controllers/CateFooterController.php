@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CateFooterFormRequest;
 use App\Models\CateFooter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CateFooterController extends Controller
@@ -97,6 +98,7 @@ class CateFooterController extends Controller
         }
 
         $cateMenu->stt_menu = (isset($request->stt_menu)) ? $request->stt_menu : 999;
+        $cateMenu->user_id = Auth::id();
 
         $cateMenu->save();
     }

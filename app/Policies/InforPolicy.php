@@ -90,4 +90,14 @@ class InforPolicy
     {
         //
     }
+
+    public function checkbox(User $user)
+    {
+        return $user->checkPermissionAccess(config('permissions.access.checkbox-infor'));
+    }
+
+    public function checkStt(User $user)
+    {
+        return $user->checkPermissionAccess(config('permissions.access.checkStt-infor'));
+    }
 }

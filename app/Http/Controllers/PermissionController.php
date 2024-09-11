@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\Helper;
+use App\Http\Requests\PermissionFormRequest;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,12 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+    public function index() {
+        $catePermission = Permission::where('parent_id', 0)
+            ->with('permissionsChild')
+            ->get();
 
+        return view('admin.permission.index', compact('catePermission'));
     }
 
     /**
@@ -25,7 +29,9 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('admin.permission.add');
+        $catePermission = Permission::where('parent_id', 0)->get();
+
+        return view('admin.permission.add', compact('catePermission'));
     }
 
     /**
@@ -34,29 +40,11 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PermissionFormRequest $request)
     {
-        $permission = Permission::create([
-            'name' => $request->module_parent, // ví dụ: category
-            'display_name' => array_search($request->module_parent, config('permissions.table_module')), // Lấy key tương ứng với module_parent để làm display_name
-            'parent_id' => 0
-        ]);
+        $this->insertOrUpdate($request);
 
-        $moduleChildrentConfig = config('permissions.module_childrent'); // Lấy mảng từ file cấu hình
-
-        foreach ($request->module_childrent as $value) {
-            // Tìm key (nhãn) tương ứng với giá trị hiện tại
-            $name = array_search($value, $moduleChildrentConfig);
-
-            Permission::create([
-                'name' => $value, // Sử dụng nhãn từ cấu hình
-                'display_name' => $name, // Sử dụng nhãn từ cấu hình
-                'parent_id' => $permission->id,
-                'key_code' => $value . '_' . $request->module_parent
-            ]);
-        }
-
-        return back()->with(['message' => "Thêm mới thành công !"]);
+        return redirect(route('permissions.index'))->with(['message' => 'Tạo mới Permission thành công']);
     }
 
     /**
@@ -78,7 +66,10 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+        $permissionsParent = Permission::where('parent_id', 0)->get();
+
+        return view('admin.permission.edit', compact('permission', 'permissionsParent'));
     }
 
     /**
@@ -88,9 +79,11 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PermissionFormRequest $request, $id)
     {
-        //
+        $this->insertOrUpdate($request, $id);
+
+        return back()->with(['message' => "Cập nhật Permission thành công !"]);
     }
 
     /**
@@ -101,6 +94,33 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+        
+        $childPermissions = $permission->where('parent_id', $permission->id)->get();
+        // Xóa tất cả các quyền con (nếu có)
+        foreach ($childPermissions as $child) {
+            // Xóa quan hệ vai trò của các quyền con
+            $child->roles()->detach();
+            // Xóa quyền con
+            $child->delete();
+        }
+        // Xóa tất cả các quan hệ vai trò của người dùng trong bảng permission_role
+        $permission->roles()->detach();
+
+        // Xóa
+        $permission->delete();
+
+        return redirect()->back()->with(['message' => 'Xóa tài khoản thành công']);
+    }
+
+    public function insertOrUpdate(Request $request, $id = '')
+    {
+        $permission = empty($id) ? new Permission() : Permission::findOrFail($id);
+
+        $permission->fill($request->all());
+
+        $permission->parent_id = $request->parent_id == 0 ? 0 : $request->parent_id;
+
+        $permission->save();
     }
 }

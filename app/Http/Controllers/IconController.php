@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\IconFormRequest;
 use App\Models\Icon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IconController extends Controller
 {
@@ -99,6 +100,7 @@ class IconController extends Controller
         $icon->fill($request->all());
         
         $icon->stt = (isset($request->stt)) ? $request->stt : 999;
+        $icon->user_id = Auth::id();
 
         $icon->save();
     }

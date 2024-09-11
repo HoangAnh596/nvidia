@@ -6,6 +6,7 @@ use App\Http\Helpers\Helper;
 use App\Http\Requests\BottomFormRequest;
 use App\Models\Bottom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BottomController extends Controller
 {
@@ -95,6 +96,7 @@ class BottomController extends Controller
         $infor->fill($request->all());
         
         $infor->stt = (isset($request->stt)) ? $request->stt : 999;
+        $infor->user_id = Auth::id();
 
         $infor->save();
     }

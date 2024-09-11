@@ -16,20 +16,22 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-end">
+            @can('menu-add')
             <a href="{{ route('cateMenu.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
+            @endcan
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="col-sm-3 position-relative">Tên Danh Mục Menu</th>
-                            <th class="col-sm-3 position-relative">Địa chỉ đường dẫn</th>
-                            <th class="position-relative text-center">Thứ tự</th>
-                            <th class="position-relative text-center">Hiển thị</th>
-                            <th class="position-relative text-center">Mở Tab</th>
-                            <th class="position-relative text-center">Click</th>
-                            <th class="col-sm-2 position-relative"></th>
+                            <th class="col-sm-3">Tên Danh Mục Menu</th>
+                            <th class="col-sm-3">Địa chỉ đường dẫn</th>
+                            <th class="text-center">Thứ tự</th>
+                            <th class="text-center">Hiển thị</th>
+                            <th class="text-center">Mở Tab</th>
+                            <th class="text-center">Click</th>
+                            <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,9 +53,6 @@
 
     .nested {
         padding-left: 20px;
-    }
-    td a {
-        font-size: 14px;
     }
 </style>
 
@@ -106,12 +105,20 @@
                         });
                     }
                 },
-                error: function() {
-                    toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
-                        progressBar: true,
-                        closeButton: true,
-                        timeOut: 5000
-                    });
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    }
                 }
             });
         });
@@ -144,12 +151,20 @@
                         });
                     }
                 },
-                error: function() {
-                    toastr.error('Lỗi cập nhật trạng thái.', 'Lỗi', {
-                        progressBar: true,
-                        closeButton: true,
-                        timeOut: 5000
-                    });
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    }
                 }
             });
         });

@@ -38,15 +38,15 @@
             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th class="position-relative text-center">#</th>
-                        <th class="col-sm-3 position-relative">Nội dung bình luận</th>
-                        <th class="col-sm-1 position-relative">Tác giả</th>
-                        <th class="col-sm-2 position-relative text-center">Mail</th>
-                        <th class="position-relative text-center">BL Sản Phẩm</th>
-                        <th class="position-relative text-center">Hiển thị</th>
-                        <th class="position-relative text-center">Đánh giá(Star)</th>
-                        <th class="position-relative text-center">Time</th>
-                        <th class="col-sm-2 position-relative"></th>
+                        <th class="text-center">#</th>
+                        <th class="col-sm-3">Nội dung bình luận</th>
+                        <th class="col-sm-1">Tác giả</th>
+                        <th class="col-sm-2 text-center">Mail</th>
+                        <th class="text-center">BL Sản Phẩm</th>
+                        <th class="text-center">Hiển thị</th>
+                        <th class="text-center">Đánh giá(Star)</th>
+                        <th class="text-center">Time</th>
+                        <th class="col-sm-2 text-center">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,10 +65,6 @@
 
 @section('css')
 <style>
-    .table-responsive {
-        font-size: 15px;
-    }
-
     .toast-top-center>div {
         width: 400px !important;
     }
@@ -110,12 +106,20 @@
                         });
                     }
                 },
-                error: function() {
-                    toastr.error('Lỗi cập nhật trạng thái.', 'Lỗi', {
-                        progressBar: true,
-                        closeButton: true,
-                        timeOut: 5000
-                    });
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    }
                 }
             });
         });
@@ -136,13 +140,13 @@
                 },
                 success: function(response) {
                     if (response.success) {
-                        toastr.success('Thứ tự được cập nhật thành công.', 'Thành công', {
+                        toastr.success('Đánh giá star được cập nhật thành công.', 'Thành công', {
                             progressBar: true,
                             closeButton: true,
                             timeOut: 5000
                         });
                     } else {
-                        toastr.error('Không thể cập nhật thứ tự.', 'Lỗi', {
+                        toastr.error('Không thể cập nhật star.', 'Lỗi', {
                             progressBar: true,
                             closeButton: true,
                             timeOut: 5000
@@ -166,6 +170,12 @@
                                 timeOut: 5000
                             });
                         }
+                    } else if (xhr.status === 403) {
+                        toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
                     } else {
                         toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
                             progressBar: true,

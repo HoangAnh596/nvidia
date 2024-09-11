@@ -35,7 +35,9 @@
                 </div>
             </form>
             <div>
+                @can('product-add')
                 <a href="{{ route('product.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
+                @endcan
             </div>
         </div>
         <div class="card-body">
@@ -44,11 +46,11 @@
                     <thead>
                         <tr>
                             <th class="">No.</th>
-                            <th class="col-sm-4">Name</th>
-                            <th class="col-sm-3">Slug</th>
-                            <th class="col-sm-2">Code</th>
-                            <th class="col-sm-1 text-center">Nổi bật</th>
-                            <th class="">Action</th>
+                            <th class="col-sm-4 text-center">Name</th>
+                            <th class="col-sm-3 text-center">Slug</th>
+                            <th class="text-center">Code</th>
+                            <th class="text-center">Nổi bật</th>
+                            <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,8 +66,14 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ asset('admin/products/'.$product->id.'/edit') }}" class="btn-sm">Chỉnh sửa</a> |
-                                <a href="{{ asset('admin/filter-pro/create/?pro_id=' . $product->id) }}" class="btn-sm">Thêm bộ lọc</a>
+                                @can('product-edit')
+                                <a href="{{ asset('admin/products/'.$product->id.'/edit') }}">Chỉnh sửa</a> |
+                                @endcan
+                                @can('filterPro-add')
+                                <a href="{{ asset('admin/filter-pro/create/?pro_id=' . $product->id) }}">Thêm bộ lọc</a> |
+                                @endcan
+                                <a href="{{ asset('admin/products') }}">Xóa cache</a> |
+                                <a href="{{ asset('admin/products') }}">Nhân bản</a>
                             </td>
                         </tr>
                         @endforeach
@@ -119,12 +127,20 @@
                         });
                     }
                 },
-                error: function() {
-                    toastr.error('Lỗi cập nhật trạng thái.', 'Lỗi', {
-                        progressBar: true,
-                        closeButton: true,
-                        timeOut: 5000
-                    });
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    }
                 }
             });
         });

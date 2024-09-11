@@ -144,6 +144,7 @@
                 <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
             </div>
         </form>
+        @can('footer-delete')
         <form id="deleteForm-{{ $category->id }}" action="{{ route('cateFooter.destroy', ['id' => $category->id]) }}" method="post" class="deleteForm">
             @csrf
             @method('Delete')
@@ -151,6 +152,7 @@
                 <i class="fa-solid fa-eraser"></i> Xóa
             </button>
         </form>
+        @endcan
     </div>
 </div>
 

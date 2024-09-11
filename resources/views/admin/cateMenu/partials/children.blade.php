@@ -33,10 +33,11 @@
         </div>
     </td>
     <td>
+        @can('menu-edit')
         <a href="{{ asset('admin/cateMenu/'.$category->id.'/edit') }}" >Chỉnh sửa</a> | 
-        <a href="{{ asset('admin/cateMenu/'.$category->id.'/edit') }}" >Nhân bản</a> | 
-        <a href="{{ asset('admin/cateMenu/'.$category->id.'/edit') }}" >Thêm bộ lọc</a> | 
-        <a href="{{ asset('admin/cateMenu/'.$category->id.'/edit') }}" >Xóa cache</a> | 
+        @endcan
+        <a href="{{ asset('admin/cateMenu/'.$category->id.'/edit') }}" >Xóa cache</a> |
+        <a href="{{ asset('admin/cateMenu/'.$category->id.'/edit') }}" >Nhân bản</a>
         <!-- <a href="{{ asset('admin/cateMenu/'.$category->id) }}" >Chi tiết</a> |  -->
     </td>
 </tr>

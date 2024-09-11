@@ -13,19 +13,18 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Xin chào tới trang quản trị!</h1>
                                 </div>
+                                @if (session('status'))
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
+                                </div>
+                                @endif
                                 <form class="user" method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Nhập địa chỉ email..." name="email">
-                                        @error('email')
-                                        <span class="font-italic text-danger">{{ $message }}</span>
-                                        @enderror
+                                        <input type="email" class="form-control form-control-user" id="exampleInputEmail" value="{{ old('email') }}" aria-describedby="emailHelp" placeholder="Nhập địa chỉ email..." name="email">
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mật khẩu" name="password">
-                                        @error('password')
-                                        <span class="font-italic text-danger">{{ $message }}</span>
-                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">

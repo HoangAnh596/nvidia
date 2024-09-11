@@ -39,9 +39,9 @@
                             Module {{ $parent->display_name }}
                         </label>
                     </div>
-                    <div class="row">
+                    <div class="d-flex justify-content-center">
                         @foreach($parent->permissionsChild as $child)
-                        <div class="card-body col-md-3">
+                        <div class="card-body">
                             <label>
                                 <input type="checkbox" class="checkbox_childrent" name="permission_id[]" value="{{ $child->id }}">
                                 {{ $child->display_name }}

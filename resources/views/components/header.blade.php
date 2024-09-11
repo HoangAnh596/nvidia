@@ -4,16 +4,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Sẵn sàng rời đi ?</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">Chọn "Đăng xuất" bên dưới nếu bạn sẵn sàng kết thúc phiên hiện tại của mình.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                 <a class="btn btn-primary" href="{{ route('logoutUser') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    Logout
+                    Đăng xuất
                 </a>
                 <form id="logout-form" action="{{ route('logoutUser') }}" method="get" class="d-none">
                     @csrf
@@ -36,16 +36,6 @@
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <a class="nav-link" href="{{ route('home.index') }}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>HomePage</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
         <!-- Nav Item - Pages Categories Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('categories.index') }}" data-toggle="collapse" data-target="#collapseCategories" aria-expanded="true" aria-controls="collapseNews">
@@ -55,7 +45,9 @@
             <div id="collapseCategories" class="collapse" aria-labelledby="headingCategories" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('categories.index') }}">Danh sách danh mục</a>
+                    @can('category-add')
                     <a class="collapse-item" href="{{ route('categories.create') }}">Thêm mới danh mục</a>
+                    @endcan
                     <a class="collapse-item" href="{{ route('filter.index') }}">Danh sách bộ lọc</a>
                 </div>
             </div>
@@ -70,7 +62,9 @@
             <div id="collapseProducts" class="collapse" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('product.index') }}">Danh sách sản phẩm</a>
+                    @can('product-add')
                     <a class="collapse-item" href="{{ route('product.create') }}">Thêm mới sản phẩm</a>
+                    @endcan
                 </div>
             </div>
         </li>
@@ -84,7 +78,9 @@
             <div id="collapseCateNews" class="collapse" aria-labelledby="headingCateNews" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('cateNews.index') }}">Danh sách</a>
+                    @can('cateNew-add')
                     <a class="collapse-item" href="{{ route('cateNews.create') }}">Thêm mới</a>
+                    @endcan
                 </div>
             </div>
         </li>
@@ -98,7 +94,9 @@
             <div id="collapseNews" class="collapse" aria-labelledby="headingNews" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('news.index') }}">Danh sách</a>
+                    @can('new-add')
                     <a class="collapse-item" href="{{ route('news.create') }}">Thêm mới</a>
+                    @endcan
                 </div>
             </div>
         </li>
@@ -113,7 +111,9 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('quotes.index') }}">Danh sách báo giá</a>
                     <a class="collapse-item" href="{{ route('infors.index') }}">Danh sách hotline</a>
+                    @can('hotline-add')
                     <a class="collapse-item" href="{{ route('infors.create') }}">Thêm mới hotline</a>
+                    @endcan
                 </div>
             </div>
         </li>
@@ -141,30 +141,17 @@
             <div id="collapseMenus" class="collapse" aria-labelledby="headingMenus" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('cateMenu.index') }}">Danh sách Menu</a>
+                    @can('menu-add')
                     <a class="collapse-item" href="{{ route('cateMenu.create') }}">Thêm mới Menu</a>
+                    @endcan
                     <a class="collapse-item" href="{{ route('cateFooter.index') }}">Danh sách Footer</a>
+                    @can('footer-add')
                     <a class="collapse-item" href="{{ route('cateFooter.create') }}">Thêm mới Footer</a>
+                    @endcan
                 </div>
             </div>
         </li>
 
-        <!-- Nav Item - Pages Users Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('users.index') }}" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
-                <i class="fa-solid fa-users"></i>
-                <span>Tài khoản</span>
-            </a>
-            <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('users.index') }}">Danh sách tài khoản</a>
-                    <a class="collapse-item" href="{{ route('users.create') }}">Thêm mới tài khoản</a>
-                    <a class="collapse-item" href="{{ route('roles.index') }}">Danh sách vai trò</a>
-                    <a class="collapse-item" href="{{ route('roles.create') }}">Thêm mới vai trò</a>
-                    <a class="collapse-item" href="{{ route('permissions.create') }}">Thêm mới Permission</a>
-                </div>
-            </div>
-        </li>
-        
         <!-- Nav Item - Pages Infors -->
         <li class="nav-item">
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseBottoms" aria-expanded="true" aria-controls="collapseBottoms">
@@ -174,15 +161,57 @@
             <div id="collapseBottoms" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('bottoms.index') }}">Danh sách chân trang</a>
+                    @can('bottom-add')
                     <a class="collapse-item" href="{{ route('bottoms.create') }}">Thêm mới chân trang</a>
+                    @endcan
                     <a class="collapse-item" href="{{ route('icons.index') }}">Danh sách icon</a>
+                    @can('icon-add')
                     <a class="collapse-item" href="{{ route('icons.create') }}">Thêm mới icon</a>
+                    @endcan
+                </div>
+            </div>
+        </li>
+        
+        <!-- Nav Item - Pages Users Menu -->
+        @can('user-list')
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('users.index') }}" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
+                <i class="fa-solid fa-user"></i>
+                <span>Tài khoản</span>
+            </a>
+            <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('users.index') }}">Danh sách tài khoản</a>
+                    @can('user-add')
+                    <a class="collapse-item" href="{{ route('users.create') }}">Thêm mới tài khoản</a>
+                    @endcan
+                </div>
+            </div>
+        </li>
+        @endcan
+
+        <!-- Nav Item - Pages Permissions -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('users.index') }}" data-toggle="collapse" data-target="#collapsePermissions" aria-expanded="true" aria-controls="collapsePermissions">
+                <i class="fa-solid fa-users"></i>
+                <span>Phân quyền tài khoản</span>
+            </a>
+            <div id="collapsePermissions" class="collapse" aria-labelledby="headingPermissions" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('roles.index') }}">Danh sách vai trò</a>
+                    @can('role-add')
+                    <a class="collapse-item" href="{{ route('roles.create') }}">Thêm mới vai trò</a>
+                    @endcan
+                    <a class="collapse-item" href="{{ route('permissions.index') }}">Danh sách Permission</a>
+                    @can('permission-add')
+                    <a class="collapse-item" href="{{ route('permissions.create') }}">Thêm mới Permission</a>
+                    @endcan
                 </div>
             </div>
         </li>
 
         <!-- Nav Item - Pages Setting -->
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseSetting" aria-expanded="true" aria-controls="collapseSetting">
                 <i class="fa-solid fa-list-check"></i>
                 <span>Cài đặt Admin</span>
@@ -192,7 +221,7 @@
                     <a class="collapse-item" href="{{ route('setting.edit', ['id' => 1]) }}">Cập nhật email admin</a>
                 </div>
             </div>
-        </li>
+        </li> -->
         <hr class="sidebar-divider d-none d-md-block">
 
         <!-- Sidebar Toggler (Sidebar) -->
@@ -249,7 +278,7 @@
                             <a class="dropdown-item" href="">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Thông tin tài khoản
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('setting.edit', ['id' => 1]) }}">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Cài đặt
                             </a>
                             <a class="dropdown-item" href="#">

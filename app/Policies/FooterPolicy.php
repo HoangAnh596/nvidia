@@ -90,4 +90,14 @@ class FooterPolicy
     {
         //
     }
+
+    public function checkbox(User $user)
+    {
+        return $user->checkPermissionAccess(config('permissions.access.checkbox-footer'));
+    }
+
+    public function checkStt(User $user)
+    {
+        return $user->checkPermissionAccess(config('permissions.access.checkStt-footer'));
+    }
 }

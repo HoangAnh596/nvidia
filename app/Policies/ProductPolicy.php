@@ -75,7 +75,7 @@ class ProductPolicy
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Product $product)
+    public function restore(User $user)
     {
         //
     }
@@ -87,8 +87,13 @@ class ProductPolicy
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Product $product)
+    public function forceDelete(User $user)
     {
         //
+    }
+
+    public function checkbox(User $user)
+    {
+        return $user->checkPermissionAccess(config('permissions.access.checkbox-product'));
     }
 }

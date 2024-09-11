@@ -142,6 +142,7 @@
                 <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
             </div>
         </form>
+        @can('menu-delete')
         <form id="deleteForm-{{ $category->id }}" action="{{ route('cateMenu.destroy', ['id' => $category->id]) }}" method="post" class="deleteForm">
             @csrf
             @method('Delete')
@@ -149,6 +150,7 @@
                 <i class="fa-solid fa-eraser"></i> Xóa
             </button>
         </form>
+        @endcan
     </div>
 </div>
 

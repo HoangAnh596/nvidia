@@ -37,15 +37,21 @@
     </td>
     @endif
     <td class="text-center">
+        @can('commentNew-edit')
         <a href="{{ asset('admin/cmtNews/'.$category->id.'/edit') }}" >Chỉnh sửa</a> |
+        @endcan
+        @can('commentNew-replay')
         @if ($category->parent_id == 0 && $category->replies->isEmpty())
-        <a class="btn btn-primary btn-sm" href="{{ asset('admin/cmtNews/'.$category->id.'/replay') }}" >Trả lời</a> |
+        <a class="btn btn-primary btn-sm" href="{{ asset('admin/cmtNews/'.$category->id.'/replay') }}" >Trả lời</a>
         @endif
-        <a href="javascript:void(0);" onclick="confirmDelete('{{ $category->id }}')">Xóa</a>
-        <form id="deleteForm-{{ $category->id }}" action="{{ route('cmtNews.destroy', ['cmtNews' => $category->id]) }}" method="post" style="display: none;">
+        @endcan
+        @can('commentNew-delete')
+        | <a href="javascript:void(0);" onclick="confirmDelete('{{ $category->id }}')">Xóa</a>
+        <form id="deleteForm-{{ $category->id }}" action="{{ route('cmtNews.destroy', ['id' => $category->id]) }}" method="post" style="display: none;">
             @csrf
             @method('DELETE')
         </form>
+        @endcan
     </td>
 </tr>
 @if ($category->replies)

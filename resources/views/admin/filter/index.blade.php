@@ -37,7 +37,9 @@
                 </div>
             </form>
             <div>
+                @can('filter-add')
                 <a href="{{ route('filter.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới bộ lọc</a>
+                @endcan
             </div>
         </div>
         <div class="card-body">
@@ -52,7 +54,7 @@
                             <th class="col-sm-1 text-center">Đặc biệt</th>
                             <th class="col-sm-1 text-center">Số thứ tự</th>
                             <th class="col-sm-1 text-center">Ẩn/Hiện</th>
-                            <th class="">Action</th>
+                            <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,7 +84,11 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ asset('admin/filters/'.$val->id.'/edit') }}" class="btn-sm">Chỉnh sửa</a>
+                                @can('filter-edit')
+                                <a href="{{ asset('admin/filters/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
+                                @endcan
+                                <a href="{{ asset('admin/filters') }}">Xóa cache</a> |
+                                <a href="{{ asset('admin/filters') }}">Nhân bản</a>
                             </td>
                         </tr>
                         @endforeach
@@ -137,12 +143,20 @@
                         });
                     }
                 },
-                error: function() {
-                    toastr.error('Lỗi cập nhật trạng thái.', 'Lỗi', {
-                        progressBar: true,
-                        closeButton: true,
-                        timeOut: 5000
-                    });
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    }
                 }
             });
         });
@@ -176,12 +190,20 @@
                         });
                     }
                 },
-                error: function() {
-                    toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
-                        progressBar: true,
-                        closeButton: true,
-                        timeOut: 5000
-                    });
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    }
                 }
             });
         });

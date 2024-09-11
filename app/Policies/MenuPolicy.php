@@ -90,4 +90,14 @@ class MenuPolicy
     {
         //
     }
+
+    public function checkbox(User $user)
+    {
+        return $user->checkPermissionAccess(config('permissions.access.checkbox-menu'));
+    }
+
+    public function checkStt(User $user)
+    {
+        return $user->checkPermissionAccess(config('permissions.access.checkStt-menu'));
+    }
 }

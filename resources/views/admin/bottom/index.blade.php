@@ -18,7 +18,9 @@
                 </div>
             </form>
             <div>
+                @can('bottom-add')
                 <a href="{{ route('bottoms.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
+                @endcan
             </div>
         </div>
         <div class="card-body">
@@ -31,7 +33,7 @@
                             <th>Địa chỉ đường dẫn</th>
                             <th>stt</th>
                             <th>Hiển thị</th>
-                            <th>Action</th>
+                            <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,7 +51,18 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ asset('admin/bottoms/'.$val->id.'/edit') }}" >Chỉnh sửa</a> 
+                                @can('bottom-edit')
+                                <a href="{{ asset('admin/bottoms/'.$val->id.'/edit') }}" >Chỉnh sửa</a> |
+                                @endcan
+                                <a href="{{ asset('admin/bottoms') }}" >Xóa cache</a> |
+                                <a href="{{ asset('admin/bottoms') }}" >Nhân bản</a>
+                                @can('bottom-delete')
+                                | <a href="javascript:void(0);" onclick="confirmDelete('{{ $val->id }}')">Xóa</a>
+                                <form id="deleteForm-{{ $val->id }}" action="{{ route('bottoms.destroy', ['id' => $val->id]) }}" method="post" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach
@@ -64,6 +77,13 @@
 </div>
 @endsection
 
+@section('css')
+<style>
+    .toast-top-center>div {
+        width: 400px !important;
+    }
+</style>
+@endsection
 @section('js')
 <script>
     $(document).ready(function() {
@@ -94,12 +114,20 @@
                         });
                     }
                 },
-                error: function() {
-                    toastr.error('Lỗi cập nhật trạng thái.', 'Lỗi', {
-                        progressBar: true,
-                        closeButton: true,
-                        timeOut: 5000
-                    });
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    }
                 }
             });
         });
@@ -133,15 +161,51 @@
                         });
                     }
                 },
-                error: function() {
-                    toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
-                        progressBar: true,
-                        closeButton: true,
-                        timeOut: 5000
-                    });
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    }
                 }
             });
         });
     });
+
+    function confirmDelete(id) {
+        toastr.warning(`
+        <div>Bạn chắc chắn muốn xóa bản ghi bottom này chứ?</div>
+        <div style="margin-top: 15px;">
+            <button type="button" id="confirmButton" class="btn btn-danger btn-sm" style="margin-right: 10px;">Xóa</button>
+            <button type="button" id="cancelButton" class="btn btn-secondary btn-sm">Hủy</button>
+        </div>
+    `, 'Cảnh báo', {
+            closeButton: false,
+            timeOut: 0, // Vô hiệu hóa tự động loại bỏ
+            extendedTimeOut: 0,
+            tapToDismiss: false,
+            positionClass: "toast-top-center",
+            onShown: function() {
+                // Xử lý khi người dùng nhấn "Xóa"
+                document.getElementById('confirmButton').addEventListener('click', function() {
+                    toastr.clear(); // Xóa thông báo toastr
+                    document.getElementById('deleteForm-' + id).submit(); // Gửi form để xóa
+                });
+
+                // Xử lý khi người dùng nhấn "Hủy"
+                document.getElementById('cancelButton').addEventListener('click', function() {
+                    toastr.remove(); // Xóa thông báo toastr khi nhấn nút "Hủy"
+                });
+            }
+        });
+    }
 </script>
 @endsection

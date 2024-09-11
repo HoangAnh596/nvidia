@@ -16,22 +16,24 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-end">
+            @can('category-add')
             <a href="{{ route('categories.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
+            @endcan
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="col-sm-4 position-relative">Tên Danh Mục</th>
-                            <th class="col-sm-2 position-relative">Bộ lọc</th>
-                            <th class="position-relative">Server</th>
-                            <th class="position-relative">Cha</th>
-                            <th class="position-relative">Menu</th>
-                            <th class="position-relative">Nổi bật</th>
-                            <th class="position-relative">Hiển thị</th>
-                            <th class="position-relative">Thứ tự</th>
-                            <th class="col-sm-2 position-relative"></th>
+                            <th class="col-sm-4 ">Tên Danh Mục</th>
+                            <th class="col-sm-2 ">Bộ lọc</th>
+                            <th class="">Server</th>
+                            <th class="">Cha</th>
+                            <th class="">Menu</th>
+                            <th class="">Nổi bật</th>
+                            <th class="">Hiển thị</th>
+                            <th class="">Thứ tự</th>
+                            <th class="col-sm-2  text-center">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,9 +56,6 @@
 
     .nested {
         padding-left: 20px;
-    }
-    td a {
-        font-size: 14px;
     }
 </style>
 
@@ -108,12 +107,20 @@
                         });
                     }
                 },
-                error: function() {
-                    toastr.error('Lỗi cập nhật trạng thái.', 'Lỗi', {
-                        progressBar: true,
-                        closeButton: true,
-                        timeOut: 5000
-                    });
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    }
                 }
             });
         });
@@ -147,12 +154,20 @@
                         });
                     }
                 },
-                error: function() {
-                    toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
-                        progressBar: true,
-                        closeButton: true,
-                        timeOut: 5000
-                    });
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        toastr.error('Bạn không có quyền cập nhật.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    }
                 }
             });
         });

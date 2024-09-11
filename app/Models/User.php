@@ -54,6 +54,21 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany('App\Models\Role', 'role_user', 'user_id', 'role_id');
     }
 
+    public function hasAnyRole($roles)
+    {
+        return $this->roles()->whereIn('name', (array)$roles)->exists();
+    }
+
+    public function permissions()
+    {
+        return $this->roles()->with('permissions')->get()->pluck('permissions')->flatten()->unique('id');
+    }
+
+    public function hasPermission($permission)
+    {
+        return $this->permissions()->contains('key_code', $permission);
+    }
+
     public function checkPermissionAccess($permissionCheck)
     {
         // B1: lấy đc tất cả các quyền của user đang login hệ thống

@@ -19,6 +19,7 @@ class CreateSettingTable extends Migration
             $table->string('mail_pass')->nullable();
             $table->string('mail_text')->nullable();
             $table->string('image')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }

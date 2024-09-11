@@ -4,6 +4,6 @@
 </option>
 @if ($category->children)
     @foreach ($category->children as $child)
-        @include('admin.comment.partials.category_add', ['category' => $child, 'level' => $level + 1])
+        @include('admin.cateNew.partials.category_add', ['category' => $child, 'level' => $level + 1])
     @endforeach
 @endif

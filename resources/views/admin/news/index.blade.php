@@ -35,7 +35,9 @@
                 </div>
             </form>
             <div>
+                @can('new-add')
                 <a href="{{ route('news.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
+                @endcan
             </div>
         </div>
         <div class="card-body">
@@ -48,7 +50,7 @@
                             <th class="col-sm-2">Hình ảnh</th>
                             <th class="col-sm-2">Nổi bật</th>
                             <th class="col-sm-1">Lượt xem</th>
-                            <th class="">Action</th>
+                            <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,7 +68,11 @@
                             </td>
                             <td class="text-center">{{ $new->view_count }}</td>
                             <td>
-                                <a href="{{ asset('admin/news/'.$new->id.'/edit') }}" class="btn-sm">Chỉnh sửa</a>
+                                @can('new-edit')
+                                <a href="{{ asset('admin/news/'.$new->id.'/edit') }}">Chỉnh sửa</a> |
+                                @endcan
+                                <a href="{{ asset('admin/news') }}">Xóa cache</a> |
+                                <a href="{{ asset('admin/news') }}">Nhân bản</a>
                             </td>
                         </tr>
                         @endforeach
@@ -120,12 +126,20 @@
                         });
                     }
                 },
-                error: function() {
-                    toastr.error('Lỗi cập nhật trạng thái.', 'Lỗi', {
-                        progressBar: true,
-                        closeButton: true,
-                        timeOut: 5000
-                    });
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    }
                 }
             });
         });

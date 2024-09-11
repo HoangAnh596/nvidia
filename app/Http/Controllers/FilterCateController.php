@@ -110,14 +110,12 @@ class FilterCateController extends Controller
     public function destroy($id)
     {
         try {
-            // $filter = FilterCate::findOrFail($id);
             $filter = Filter::findOrFail($id);
             $filter->delete();
-            // dd($filter);
             
             return response()->json(['success' => 'Xóa thành công']);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Có lỗi xảy ra, vui lòng thử lại111.'], 500);
+            return response()->json(['error' => 'Có lỗi xảy ra, vui lòng thử lại.'], 500);
         }
     }
 

@@ -17,6 +17,7 @@ class CreateInforsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone', 15);
+            $table->unsignedBigInteger('user_id');
             $table->unsignedTinyInteger('role')->default('0');
             $table->string('skype')->nullable();
             $table->string('zalo')->nullable();

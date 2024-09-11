@@ -19,6 +19,7 @@ class CreateCategoryNewsTable extends Migration
             $table->string('slug');
             $table->string('related_pro')->nullable();
             $table->bigInteger('parent_id');
+            $table->unsignedBigInteger('user_id');
             // $table->string('image')->nullable();
             // $table->text('content')->nullable();
             // $table->string('title_img')->nullable();

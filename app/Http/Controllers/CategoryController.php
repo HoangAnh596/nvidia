@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Http\Requests\CategoryFormRequest;
-use App\Http\Helpers\Helper;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -173,11 +173,6 @@ class CategoryController extends Controller
         }
 
         $category->image = $path;
-        // Xóa ảnh hiện tại nếu checkbox "Xóa Ảnh" được đánh dấu
-        // if ($request->has('delete_image') && $request->input('delete_image') == 1) {
-        //     Storage::delete($category->image);
-        //     $category->image = null;
-        // }
 
         $category->title_img = (isset($request->title_img)) ? $request->title_img : $request->name;
         $category->alt_img = (isset($request->alt_img)) ? $request->alt_img : $request->name;
@@ -185,11 +180,13 @@ class CategoryController extends Controller
         $category->keyword_seo = (isset($request->keyword_seo)) ? $request->keyword_seo : $request->name;
         $category->des_seo = (isset($request->des_seo)) ? $request->des_seo : $request->name;
         $category->stt_cate = (isset($request->stt_cate)) ? $request->stt_cate : 999;
-
+        $category->user_id = Auth::id();
+        
         $category->save();
     }
 
-    public function checkStt(Request $request){
+    public function checkStt(Request $request)
+    {
         $sttCate = $request->input('stt_cate');
         if (!empty($sttCate)) {
             $request->validate([
