@@ -95,14 +95,14 @@
                                     </svg>
                                     <span>Giá bán liên hệ</span>
                                 </button>
-                                <a title="Xem giá list sản phẩm C9300-48P-E" class="check-list-btn" target="_blank" href="/gia-list?key=C9300-48P-E">
+                                <a title="Xem giá list sản phẩm {{ $product->code }}" class="check-list-btn" target="_blank" href="{{ asset('/gia-list?key='. $product->code) }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
                                         <path d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z"></path>
                                     </svg> Check Giá List
                                 </a>
                             </div>
                             @if(!empty($product->filepath))
-                            <a class="datasheet-prd" title="Datasheet C9300-48P-E" href="{{ asset($product->filepath) }}" target="_blank">
+                            <a class="datasheet-prd" title="Datasheet {{ $product->code }}" href="{{ asset($product->filepath) }}" target="_blank">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-file-earmark-bar-graph" viewBox="0 0 16 16">
                                     <path d="M10 13.5a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-6a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v6zm-2.5.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1zm-3 0a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-1z"></path>
                                     <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"></path>
@@ -110,7 +110,7 @@
                                 <span>{{ $product->code }} Datasheet</span>
                             </a>
                             @else
-                            <a class="datasheet-prd" title="Datasheet C9300-48P-E" href="javascript:void(0)">
+                            <a class="datasheet-prd" title="Datasheet {{ $product->code }}" href="javascript:void(0)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-file-earmark-bar-graph" viewBox="0 0 16 16">
                                     <path d="M10 13.5a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-6a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v6zm-2.5.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1zm-3 0a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-1z"></path>
                                     <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"></path>

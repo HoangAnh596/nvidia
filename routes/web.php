@@ -251,6 +251,8 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 // Tìm kiếm
 Route::get('/tim-kiem', [HomeController::class, 'search'])->name('home.search');
 Route::get('/filters', [HomeController::class, 'filters'])->name('home.filters');
+// Giá list
+Route::get('/gia-list', [HomeController::class, 'listPrice'])->name('home.listPrice');
 // Gửi báo giá
 Route::post('/send-price', [QuoteController::class, 'sendRequest'])->name('price.request');
 // Gửi bình luận

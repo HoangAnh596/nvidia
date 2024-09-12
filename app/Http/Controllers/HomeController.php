@@ -494,4 +494,33 @@ class HomeController extends Controller
             return response()->json(['count' => 0]);
         }
     }
+
+    public function listPrice(Request $request)
+    {
+        $titleSeo = config('common.title_seo');
+        $keywordSeo = config('common.keyword_seo');
+        $descriptionSeo = config('common.des_seo');
+
+        $key = $request->key;
+
+        if(!empty($key)){
+            $products = Product::where('code', 'like', "%$key%")
+                ->select('slug', 'image_ids', 'code', 'title_seo')
+                ->latest()->get();
+            
+            foreach ($products as $product) {
+                    $product->loadProductImages();
+                }
+            
+            return view('cntt.home.listPrice', compact(
+                'titleSeo', 'keywordSeo', 'descriptionSeo',
+                'key', 'products'
+            ));
+        }
+
+        return view('cntt.home.listPrice', compact(
+            'titleSeo', 'keywordSeo',
+            'descriptionSeo', 'key'
+        ));
+    }
 }
