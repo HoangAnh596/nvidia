@@ -63,6 +63,7 @@ class NewFormRequest extends FormRequest
         return [
             'name' => $ruleUpdateName,
             'slug' => $slugRule,
+            'cate_id' => 'required',
             'filepath' => 'required',
             'desc' => 'required',
             'stt_new' => (!empty($params['stt_new'])) ? 'integer|min:0' : '',
@@ -82,6 +83,7 @@ class NewFormRequest extends FormRequest
             'slug.unique' => 'URL đã tồn tại. Vui lòng thay đổi url khác.',
             'slug.regex' => 'Url chỉ được phép chứa chữ cái thường, số và dấu gạch ngang.',
             'slug.in' => 'Không được thay đổi slug',
+            'cate_id.required' => 'Danh mục bài viết không được để trống',
             'desc.required' => 'Mô tả ngắn không được để trống',
         ];
     }

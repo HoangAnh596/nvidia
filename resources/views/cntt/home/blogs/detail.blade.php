@@ -25,6 +25,14 @@
             <div class="col-lg-8">
                 <div class="news-body">
                     <h1>{{ $newArt->name }}</h1>
+                    <div class="author_meta mb-3">
+                        <span class="entry-date">{{ $newArt->created_at->format('F d, Y') }}</span>
+                        <span class="meta-sep">by</span>
+                        <span class="author vcard">{{ $newArt->user ? $newArt->user->name : 'Unknown' }}</span>
+                        <!-- <span class="author vcard">
+                                    <a class="url fn n" href="https://blogs.nvidia.com/blog/author/dsalvator/" title="View all posts by Dave Salvator">Dave Salvator</a>
+                                </span> -->
+                    </div>
                     <div id="chi-tiet">
                         {!! $newArt->content !!}
                     </div>

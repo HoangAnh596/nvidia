@@ -20,9 +20,9 @@
                 <span id="slug-error" style="color: red;"></span>
             </div>
             <div class="mb-3">
-                <label for="">Danh mục bài viết</label>
+                <label for="">Danh mục bài viết <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
                 <select name="cate_id" id="new_categories" class="form-control">
-                    <option value="0">Chọn danh mục</option>
+                    <option value="">Chọn danh mục</option>
                     @foreach($categories as $category)
                     @include('admin.news.partials.category_add', ['category' => $category, 'level' => 0, 'selected' => old('parent_id', $category->parent_id)])
                     @endforeach
@@ -40,9 +40,9 @@
                     </button>
                 </span>
             </div>
-            <div id="holder"><img src="{{ old('filepath') }}" alt="" style="height: 5rem;"></div>
+            <div id="holder"><img src="{{ old('filepath') }}"></div>
         </div>
-        <div class="col-3 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 800 x 600 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
+        <div class="col-3 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 500 x 340 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
     </div>
     <div class="row">
         <div class="col-6">

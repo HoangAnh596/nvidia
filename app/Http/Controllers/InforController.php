@@ -84,7 +84,6 @@ class InforController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
         Infor::findOrFail($id)->delete();
 
         return redirect('/infors')->with(['message' => 'Xóa hotline thành công']);

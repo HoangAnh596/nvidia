@@ -48,9 +48,9 @@
                     </button>
                 </span>
             </div>
-            <div id="holder"><img id="out_img" src="{{ \App\Http\Helpers\Helper::getPath($new->image) }}" class="ml-2 img-fluid"></div>
+            <div id="holder"><img id="out_img" src="{{ \App\Http\Helpers\Helper::getPath($new->image) }}"></div>
         </div>
-        <div class="col-3 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 800 x 600 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
+        <div class="col-3 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 500 x 340 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
     </div>
     <div class="row">
         <div class="col">

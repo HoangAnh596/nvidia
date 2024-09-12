@@ -16,13 +16,12 @@ body {
 }
 /* css image */
 #holder {
-    margin: 15px;
-    max-height: 150px;
+    margin: 15px 0;
+    max-height: 15rem;
 }
-/* 
 #holder img {
-    height: 150px !important;
-} */
+    height: 15rem !important;
+}
 #favicon_img {
     width: 36px !important;
     height: 36px !important;

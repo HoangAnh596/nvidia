@@ -18,6 +18,7 @@ use App\Policies\NewPolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\ProductPolicy;
 use App\Policies\RolePolicy;
+use App\Policies\SliderPolicy;
 use App\Policies\UserPolicy;
 
 class PermissionGateAndPolicyAccess {
@@ -30,6 +31,7 @@ class PermissionGateAndPolicyAccess {
         $this->defineNew();
         $this->defineHotline();
         $this->defineMenu();
+        $this->defineSlider();
         $this->defineFooter();
         $this->defineBottom();
         $this->defineComment();
@@ -99,6 +101,15 @@ class PermissionGateAndPolicyAccess {
         Gate::define('menu-delete', [MenuPolicy::class, 'delete']);
         Gate::define('menu-checkbox', [MenuPolicy::class, 'checkbox']);
         Gate::define('menu-checkStt', [MenuPolicy::class, 'checkStt']);
+    }
+
+    public function defineSlider()
+    {
+        Gate::define('slider-add', [SliderPolicy::class, 'create']);
+        Gate::define('slider-edit', [SliderPolicy::class, 'update']);
+        Gate::define('slider-delete', [SliderPolicy::class, 'delete']);
+        Gate::define('slider-checkbox', [SliderPolicy::class, 'checkbox']);
+        Gate::define('slider-checkStt', [SliderPolicy::class, 'checkStt']);
     }
 
     public function defineFooter()

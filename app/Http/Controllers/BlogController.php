@@ -32,7 +32,7 @@ class BlogController extends Controller
             ->where('is_public', 1)
             ->where('slug', '<>', 'blogs')->get();
 
-        $newAll = News::select('name', 'slug', 'desc', 'image', 'alt_img', 'title_img')->latest()->paginate(10);
+        $newAll = News::select('name', 'slug', 'desc', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')->latest()->paginate(10);
         $viewer = News::select('name', 'slug')->orderBy('view_count', 'DESC')->take(10)->get();
         $outstand = News::select('name', 'slug', 'image', 'alt_img', 'title_img')->where('is_outstand', 1)->orderBy('created_at', 'DESC')->take(10)->get();
 
@@ -128,7 +128,7 @@ class BlogController extends Controller
         $keywordSeo = (!empty($titleCate->keyword_seo)) ? $titleCate->keyword_seo : config('common.keyword_seo_blog');
         $descriptionSeo = (!empty($titleCate->des_seo)) ? $titleCate->des_seo : config('common.des_seo_blog');
 
-        $news = News::select('name', 'slug', 'desc', 'image', 'alt_img', 'title_img')
+        $news = News::select('name', 'slug', 'desc', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
             ->whereIn('cate_id', $newArray)
             ->latest()->paginate(10);
         $viewer = News::select('name', 'slug')
@@ -172,7 +172,7 @@ class BlogController extends Controller
         $keywordSeo = (!empty($titleCate->keyword_seo)) ? $titleCate->keyword_seo : config('common.keyword_seo_blog');
         $descriptionSeo = (!empty($titleCate->des_seo)) ? $titleCate->des_seo : config('common.des_seo_blog');
 
-        $news = News::select('name', 'slug', 'desc', 'image', 'alt_img', 'title_img')
+        $news = News::select('name', 'slug', 'desc', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
             ->where('cate_id', $newArray)
             ->latest()->paginate(10);
         $viewer = News::select('name', 'slug')

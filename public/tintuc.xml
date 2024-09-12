@@ -8,15 +8,27 @@
 		<changefreq>daily</changefreq>
 	</url>
 	<url>
+	<loc>http://localhost:8000/huong-dan-cau-hinh-raid-tren-cac-dong-server</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-11T17:23:23+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/server-rack-la-gi-huong-dan-khi-chon-may-chu-rack</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-12T08:21:10+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 	<loc>http://localhost:8000/tao-menu-page</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-10T09:33:25+07:00</lastmod>
+		<lastmod>2024-09-11T15:47:02+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/them-moi</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-05T01:24:04+07:00</lastmod>
+		<lastmod>2024-09-11T15:47:13+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>

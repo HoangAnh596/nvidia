@@ -97,6 +97,14 @@ return [
         'add-filterPro' => 'add_filterpro',
         'edit-filterPro' => 'edit_filterpro',
 
+        // Slider
+        'list-slider' => 'list_slider',
+        'add-slider' => 'add_slider',
+        'edit-slider' => 'edit_slider',
+        'delete-slider' => 'delete_slider',
+        'checkbox-slider' => 'checkbox_slider',
+        'checkStt-slider' => 'checkstt_slider',
+
         // User
         'list-user' => 'list_user',
         'add-user' => 'add_user',

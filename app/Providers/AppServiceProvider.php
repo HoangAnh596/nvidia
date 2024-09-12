@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Bottom;
 use App\Models\CateFooter;
 use App\Models\Category;
+use App\Models\CategoryNew;
 use App\Models\CateMenu;
 use App\Models\Icon;
 use App\Models\Setting;
@@ -76,8 +77,31 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('searchCate', function () {
-            return Category::where('parent_id', 0)->select('id', 'name')->get();
+            // Lấy dữ liệu từ cả hai bảng và hợp lại
+            $categories = Category::where('parent_id', 0)
+                ->select('id', 'name')
+                ->get()
+                ->map(function ($item) {
+                    $item->source = 'prod'; // Gán giá trị 'source' cho Category
+                    return $item;
+                });
+
+            // Lấy dữ liệu từ bảng CategoryNew và thêm trường 'source' để phân biệt
+            $cateNews = CategoryNew::where('parent_id', 0)
+                ->select('id', 'name')
+                ->get()
+                ->map(function ($item) {
+                    $item->source = 'news'; // Gán giá trị 'source' cho CategoryNew
+                    return $item;
+                });
+
+            return $categories->concat($cateNews);
         });
+        // View::composer('*', function ($view) {
+        //     $searchCate = $this->app->make('searchCate');
+
+        //     $view->with('searchCate', $searchCate);
+        // });
         // favicon
         $this->app->singleton('favicon', function () {
             return Setting::where('id', 1)->select('id', 'image')->get();

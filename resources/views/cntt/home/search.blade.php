@@ -6,18 +6,18 @@
         <nav style="--bs-breadcrumb-divider: '»';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-                <li class="breadcrumb-item">Kết quả tìm kiếm: @if(!empty($nameCate)) <strong>{{$nameCate}}</strong>@else <strong>tất cả sản phẩm</strong> @endif @if(!empty($keyword)) -- <strong>{{ $keyword }}</strong> @endif</li>
+                <li class="breadcrumb-item">Kết quả tìm kiếm: @if(!empty($nameCate)) <strong>{{$nameCate}}</strong>@else <strong>Sản phẩm</strong> @endif @if(!empty($keyword)) -- <strong>{{ $keyword }}</strong> @else -- <strong>tất cả</strong> @endif</li>
             </ol>
         </nav>
     </div>
 </div>
 <div class="container">
     <div class="row">
-        <h2 class="text-center search-h2 mt-4">Tìm thấy <strong>{{ $total }}</strong> sản phẩm cho từ khoá <strong>@if(!empty($nameCate)) {{$nameCate}}</strong>@else <strong>tất cả sản phẩm</strong> @endif @if(!empty($keyword)) -- <strong>{{ $keyword }}</strong> @endif</h2>
+        <h2 class="text-center search-h2 mt-4">Tìm thấy <strong>{{ $total }}</strong> sản phẩm cho từ khoá <strong>@if(!empty($nameCate)) {{$nameCate}}</strong>@else <strong>Sản phẩm</strong> @endif @if(!empty($keyword)) -- <strong>{{ $keyword }}</strong> @else -- <strong>tất cả</strong> @endif</h2>
     </div>
     <div class="row">
         <div class="col-md-9 mt-4 res-w100">
-            <div class="row" id="product-data">
+            <div class="row custom-row" id="product-data">
                 @include('cntt.home.partials.search', ['products' => $products])
             </div>
             <nav class="d-flex justify-content-center">

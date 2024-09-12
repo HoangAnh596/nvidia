@@ -685,6 +685,10 @@ button:focus {
     padding-left: 4px;
     padding-right: 4px;
   }
+.row.custom-row .col-s-3 {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
 .img-size {
     width: auto; /* or a relative size like 100% */
     height: auto;
@@ -715,6 +719,12 @@ button:focus {
     line-height: 21px;
     font-size: 1rem !important;
     font-weight: bold !important;
+    height: 76px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
 }
 .card-new p{
     padding: 0 10px 10px 10px;
@@ -1485,6 +1495,10 @@ button:focus {
         flex: 0 0 auto;
         width: 20%;
     }
+    .col-s-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
 }
 
 @media (max-width: 1200px) {    
@@ -1518,10 +1532,11 @@ button:focus {
         display: none;
     } */
     .p-25 {
-        padding-bottom: 9px;
+        padding-top: 8px;
+        padding-bottom: 25px;
     }
     .h-90 {
-        height: 135px;
+        height: 70px;
     }
     .navigation .desktop-nav {
         display: none !important;
@@ -1570,6 +1585,12 @@ button:focus {
         flex: 0 0 auto;
         width: 25%;
     }
+
+    .col-s-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+
     .btn-img {
         padding: 4px;
     }

@@ -198,22 +198,29 @@ class ProductController extends Controller
         $product->des_seo = (isset($request->des_seo)) ? $request->des_seo : $request->name;
         $product->user_id = Auth::id();
         
-        // Thêm mới images con vào bảng Product_Images
-        // dd($request->all());
-        
-        $idPrImage = [];
+        // Thêm mới images con vào bảng Product_Images 
         $images = $request->input('image', []);
         $main_imgs = $request->input('main_img', []);
         $titles = $request->input('title', []);
         $alts = $request->input('alt', []);
         $stt_imgs = $request->input('stt_img', []);
 
+        $idPrImage = [];
+
         for ($i = 0; $i < count($images); $i++) {
+            // Tách lấy phần path từ URL
+            $imagePath = parse_url($images[$i], PHP_URL_PATH);
+
+            // Xóa dấu gạch chéo đầu tiên nếu cần thiết
+            if (strpos($imagePath, '/') === 0) {
+                $imagePath = substr($imagePath, 1);
+            }
+
             $productImage = ProductImages::create([
                 'title' => $titles[$i] ?? $request->name,
                 'alt' => $alts[$i] ?? $request->name,
                 'main_img' => $main_imgs[$i],
-                'image' => $images[$i],
+                'image' => $imagePath,
                 'stt_img' => $stt_imgs[$i] ?? 999,
             ]);
             $idPrImage[] = $productImage->id;

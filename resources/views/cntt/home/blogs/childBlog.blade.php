@@ -39,6 +39,14 @@
                     <div class="col-md-7 padding-left-0">
                         <div class="media-body">
                             <a href="{{ asset('blogs/'.$item->slug) }}">{{ $item->name }}</a>
+                            <div class="author_meta">
+			                    <span class="entry-date">{{ $item->created_at->format('F d, Y') }}</span>
+                                <span class="meta-sep">by</span>
+                                <span class="author vcard">{{ $item->user ? $item->user->name : 'Unknown' }}</span>
+                                <!-- <span class="author vcard">
+                                    <a class="url fn n" href="https://blogs.nvidia.com/blog/author/dsalvator/" title="View all posts by Dave Salvator">Dave Salvator</a>
+                                </span> -->
+                            </div>
                             <span class="media-desc">{{ $item->desc }}</span>
                         </div>
                     </div>

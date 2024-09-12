@@ -144,10 +144,21 @@
                     <div class="input-group">
                         <div class="form-group">
                             <select name="cate" class="form-control">
-                                <option value="">Tất cả sản phẩm</option>
+                                <option value="prod">Tất cả sản phẩm</option>
+                                <option value="news">Tất cả bài viết</option>
                                 @if(isset($searchCate))
                                 @foreach($searchCate as $category)
-                                <option value="{{ $category->id }}" {{ \Request::get('cate') == $category->id ? "selected ='selected'" : "" }}> {{ $category->name }} </option>
+                                @php
+                                $optionValue = $category->source . '_' . $category->id;
+                                $isSelected = \Request::get('cate') == $optionValue ? "selected" : "";
+                                @endphp
+                                <option value="{{ $optionValue }}" {{ $isSelected }}>
+                                    @if($category->source == 'prod')
+                                    {{ $category->name }}--Sản phẩm
+                                    @elseif($category->source == 'news')
+                                    {{ $category->name }}--Bài viết
+                                    @endif
+                                </option>
                                 @endforeach
                                 @endif
                             </select>

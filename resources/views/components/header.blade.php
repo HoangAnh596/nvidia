@@ -136,13 +136,17 @@
         <li class="nav-item">
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseMenus" aria-expanded="true" aria-controls="collapseMenus">
                 <i class="fa-solid fa-bars"></i>
-                <span>QL Menu, Footer</span>
+                <span>QL Menu, Slider, Footer</span>
             </a>
             <div id="collapseMenus" class="collapse" aria-labelledby="headingMenus" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('cateMenu.index') }}">Danh sách Menu</a>
                     @can('menu-add')
                     <a class="collapse-item" href="{{ route('cateMenu.create') }}">Thêm mới Menu</a>
+                    @endcan
+                    <a class="collapse-item" href="{{ route('sliders.index') }}">Danh sách Slider</a>
+                    @can('slider-add')
+                    <a class="collapse-item" href="{{ route('sliders.create') }}">Thêm mới Slider</a>
                     @endcan
                     <a class="collapse-item" href="{{ route('cateFooter.index') }}">Danh sách Footer</a>
                     @can('footer-add')

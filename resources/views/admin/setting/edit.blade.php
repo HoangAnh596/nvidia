@@ -57,7 +57,7 @@
                                 </button>
                             </span>
                         </div>
-                        <div id="holder"><img id="setting_img" src="{{ asset($setting->image) }}" class="ml-2 img-fluid"></div>
+                        <div id="holder"><img id="setting_img" src="{{ asset($setting->image) }}" style="height: auto !important;"></div>
                     </div>
                     <div class="col-3 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 36 x 36 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
                 </div>

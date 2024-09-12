@@ -104,11 +104,28 @@
     font-size: 18px !important;
     color: #404041;
     line-height: 28px;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
     display: block;
     font-weight: bold !important;
     text-decoration: none;
 }
+
+.author_meta {
+    margin-bottom: 6px;
+}
+.entry-date, .meta-sep, .author_meta .author {
+    color: #b2b2b2;
+    font-size: 14px;
+    line-height: 18px;
+}
+.author_meta .author {
+    /* color: inherit; */
+    text-decoration-color: #76B900;
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3125em;
+}
+
 .media-body a:hover {
     color: #76b900 !important;
 }

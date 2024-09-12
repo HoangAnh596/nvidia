@@ -26,6 +26,7 @@ use App\Http\Controllers\ProductTagController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
@@ -158,6 +159,16 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('/cmtNews/checkStar', [CmtNewsController::class, 'checkStar'])->name('cmtNews.star')->middleware('can:cmtNew-checkStar');
     Route::get('/cmtNews/{id}/replay', [CmtNewsController::class, 'replay'])->name('cmtNews.replay')->middleware('can:cmtNew-replay');
     Route::put('cmtNewsRep/{id}', [CmtNewsController::class, 'repUpdate'])->name('cmtNews.repUpdate');
+
+    // Quản lý Slider
+    Route::get('/sliders', [SliderController::class, 'index'])->name('sliders.index');
+    Route::get('/sliders/create', [SliderController::class, 'create'])->name('sliders.create')->middleware('can:slider-add');
+    Route::post('/sliders', [SliderController::class, 'store'])->name('sliders.store');
+    Route::get('/sliders/{id}/edit', [SliderController::class, 'edit'])->name('sliders.edit')->middleware('can:slider-edit');
+    Route::put('sliders/{id}', [SliderController::class, 'update'])->name('sliders.update');
+    Route::delete('sliders/{id}', [SliderController::class, 'destroy'])->name('sliders.destroy')->middleware('can:slider-delete');
+    Route::post('sliders/checkStt', [SliderController::class, 'checkStt'])->name('sliders.checkStt')->middleware('can:slider-checkStt');
+    Route::post('sliders/checkbox', [SliderController::class, 'isCheckbox'])->name('sliders.isCheckbox')->middleware('can:slider-checkbox');
 
     // Quản lý danh mục menu
     Route::get('/cateMenu', [CateMenuController::class, 'index'])->name('cateMenu.index');

@@ -5,13 +5,40 @@
 <!-- Start Banner Hero -->
 <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
     <ol class="carousel-indicators">
-        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
-        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
-        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
-        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="3"></li>
+    @php
+    $totalSlider = $sliders->count();
+    @endphp
+
+    @if($totalSlider > 0)
+        @for($i = 0; $i < $totalSlider; $i++)
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="{{ $i }}" class="{{ $i == 0 ? 'active' : '' }}"></li>
+        @endfor
+    @endif
     </ol>
     <div class="carousel-inner">
-        <div class="carousel-item active bl-carousel">
+        @if(!empty($sliders))
+        @foreach($sliders as $index => $slider)
+        <div class="carousel-item {{ $index == 0 ? 'active' : '' }} {{ $slider->is_color == 1 ? 'wh-carousel' : 'bl-carousel' }}">
+            <div class="container">
+                <div class="h-90"></div>
+                <div class="row">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="{{ asset($slider->image) }}" alt="">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left align-self-center">
+                            <h1>{{ $slider->name }}</h1>
+                            <h3>{{ $slider->title }}</h3>
+                            <p class="p-25">{{ $slider->description }}</p>
+                            <a class="btn-carousel" href="{{ asset($slider->url) }}">{{ $slider->url_text }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        @endif
+        <!-- <div class="carousel-item active bl-carousel">
             <div class="container">
                 <div class="h-90"></div>
                 <div class="row">
@@ -98,7 +125,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
         <i class="fas fa-chevron-left"></i>
