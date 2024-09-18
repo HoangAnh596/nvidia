@@ -121,6 +121,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="compare">
+                    <div class="tcpr">
+                        <p>So sánh với các sản phẩm Switch khác:</p>
+                        <div class="sggProd">
+                            <form action="javascript:void(0)">
+                                <input type="hidden" id="productId" value="{{ $product->id }}">
+                                <input type="hidden" id="slugPro" value="{{ $product->slug }}">
+                                <input id="searchSggCP" value="" type="text" placeholder="Nhập Tên hoặc Mã sản phẩm để so sánh" onkeyup="fetchProducts()">
+                                <button title="So sánh với sản phẩm khác" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                                    </svg>
+                                </button>
+                                <div id="compareResults">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-lg-3">
@@ -672,5 +691,55 @@
             return re.test(email);
         }
     });
+
+    function fetchProducts() {
+        let searchText = $('#searchSggCP').val();
+        let productId = $('#productId').val();
+        let slugPro = $('#slugPro').val();
+
+        // Kiểm tra nếu không có giá trị nhập thì không thực hiện tìm kiếm
+        if (searchText.trim() === '') {
+            $('#compareResults').html(''); // Xóa kết quả nếu không có từ khóa tìm kiếm
+            return;
+        }
+
+        $.ajax({
+            url: '{{ route("home.compareProduct") }}', // Đường dẫn tới API tìm kiếm sản phẩm
+            method: 'GET',
+            data: { 
+                query: searchText,
+                id: productId
+             },
+            success: function(response) {
+                let results = '';
+
+                // Nếu có dữ liệu trả về
+                if (response.length > 0) {
+                    response.forEach(function(product) {
+                        results += `<div class="compare-outer">
+                                    <div class="compare-row">
+                                        <div class="compare-title">
+                                            <a href="so-sanh-${slugPro}-vs-${product.slug}">
+                                                <strong style="color:#ff0000;">${product.code}</strong> ${product.name}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>`;
+                    });
+                    // Hiển thị kết quả tìm kiếm
+                    $('#compareResults').html(results).show();
+                } else {
+                    results = '<div class="search-item">Không tìm thấy sản phẩm</div>';
+                }
+
+                // Hiển thị kết quả tìm kiếm
+                $('#compareResults').html(results);
+            },
+            error: function() {
+                $('#compareResults').html('<div class="search-item">Lỗi khi tìm kiếm sản phẩm</div>');
+            }
+        });
+    }
+
 </script>
 @endsection

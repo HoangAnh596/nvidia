@@ -153,11 +153,11 @@ class PermissionGateAndPolicyAccess {
 
     public function defineCommentNew()
     {
-        Gate::define('commentNew-edit', [CommentNewPolicy::class, 'update']);
-        Gate::define('commentNew-delete', [CommentNewPolicy::class, 'delete']);
-        Gate::define('commentNew-checkbox', [CommentNewPolicy::class, 'checkbox']);
-        Gate::define('commentNew-checkStar', [CommentNewPolicy::class, 'checkStar']);
-        Gate::define('commentNew-replay', [CommentNewPolicy::class, 'replay']);
+        Gate::define('cmtNew-edit', [CommentNewPolicy::class, 'update']);
+        Gate::define('cmtNew-delete', [CommentNewPolicy::class, 'delete']);
+        Gate::define('cmtNew-checkbox', [CommentNewPolicy::class, 'checkbox']);
+        Gate::define('cmtNew-checkStar', [CommentNewPolicy::class, 'checkStar']);
+        Gate::define('cmtNew-replay', [CommentNewPolicy::class, 'replay']);
     }
 
     public function defineFilter()

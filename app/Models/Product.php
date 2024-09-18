@@ -64,6 +64,24 @@ class Product extends Model
         }
     }
 
+    public function getMainImage()
+    {
+        $this->loadProductImages();
+
+        // Lọc ảnh chính
+        $mainImages = $this->product_images->filter(function ($image) {
+            return $image->main_img == 1;
+        });
+
+        // Nếu có ít nhất một ảnh chính, sắp xếp theo updated_at giảm dần và lấy ảnh mới nhất
+        if ($mainImages->isNotEmpty()) {
+            return $mainImages->sortByDesc('updated_at')->first();
+        }
+
+        // Nếu không có ảnh chính nào, trả về null hoặc ảnh mặc định
+        return null;
+    }
+
     public function category()
     {
         return $this->belongsToMany('App\Models\Category', 'product_categories', 'product_id', 'category_id');
@@ -72,6 +90,14 @@ class Product extends Model
     public function filters()
     {
         return $this->belongsToMany('App\Models\Filter', 'filters_products', 'product_id', 'filter_id');
+    }
+
+    // relation compare
+    public function compares()
+    {
+        return $this->belongsToMany(Compare::class, 'compare_products')
+                    ->withPivot('display_compare', 'value_compare')
+                    ->withTimestamps();
     }
 
     public function images()

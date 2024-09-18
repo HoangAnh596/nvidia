@@ -323,6 +323,9 @@ button.pop-gallery {
     padding: 8px 0;
     height: 34px;
 }
+.compare input:focus {
+    outline: none;
+}
 .compare button {
     position: absolute;
     top: 0;

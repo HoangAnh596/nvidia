@@ -49,6 +49,7 @@
                     <a class="collapse-item" href="{{ route('categories.create') }}">Thêm mới danh mục</a>
                     @endcan
                     <a class="collapse-item" href="{{ route('filter.index') }}">Danh sách bộ lọc</a>
+                    <a class="collapse-item" href="{{ route('compares.index') }}">Danh sách so sánh</a>
                 </div>
             </div>
         </li>

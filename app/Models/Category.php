@@ -92,4 +92,14 @@ class Category extends Model
                 ->orderBy('stt_filter', 'ASC')->get();
         }
     }
+
+    public function getCompareCates()
+    {
+        if (!empty($this->compare_ids)) {
+            $compId = json_decode($this->compare_ids);
+            return CompareCate::select('id', 'name', 'cate_id')->whereIn('id', $compId)
+                ->where('is_public', 1)
+                ->orderBy('stt_compare', 'ASC')->get();
+        }
+    }
 }

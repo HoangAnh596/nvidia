@@ -72,8 +72,8 @@
                                 @can('filterPro-add')
                                 <a href="{{ asset('admin/filter-pro/create/?pro_id=' . $product->id) }}">Thêm bộ lọc</a> |
                                 @endcan
-                                <a href="{{ asset('admin/products') }}">Xóa cache</a> |
-                                <a href="{{ asset('admin/products') }}">Nhân bản</a>
+                                <a href="{{ asset('admin/compare-pro/create/?pro_id=' . $product->id) }}">So sánh</a> |
+                                <a href="{{ asset('admin/products') }}">Xóa cache</a>
                             </td>
                         </tr>
                         @endforeach

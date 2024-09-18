@@ -3,7 +3,7 @@
 return [
     // Seo Website
     'title_seo' => "CNTT Shop",
-    'keyword_seo' => "Cntt, Việt Thái Dương",
+    'keyword_seo' => "Cnttshop, Việt Thái Dương",
     'des_seo' => "Chuyên phân phối các sản phẩm về Ram, Card màn hình,...",
     // Seo trang blog
     'title_seo_blog' => "Blogs",

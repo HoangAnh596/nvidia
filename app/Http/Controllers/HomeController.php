@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\CategoryNew;
 use App\Models\Comment;
+use App\Models\CompareProduct;
 use App\Models\Infor;
 use App\Models\News;
 use App\Models\Product;
@@ -78,7 +79,7 @@ class HomeController extends Controller
                     })->select('name', 'slug', 'price', 'image_ids')
                         ->where('is_outstand', 1)
                         ->orderBy('created_at', 'DESC')->get();
-                    
+                    // dd($products);
                     foreach ($products as $product) {
                         $product->loadProductImages();
                     }
@@ -522,5 +523,167 @@ class HomeController extends Controller
             'titleSeo', 'keywordSeo',
             'descriptionSeo', 'key'
         ));
+    }
+
+    public function compareProduct(Request $request)
+    {
+        // dd($request->all());
+        $query = $request->input('query');
+        $prodId = $request->input('id');
+        $products = Product::findOrFail($prodId);
+        
+        // Lấy ra ID của các categories
+        $categoryIds = $products->category()->pluck('categories.id')->first();
+        $category = Category::find($categoryIds);
+        // Kiểm tra nếu danh mục tồn tại
+        if (!$category) {
+            return response()->json(['message' => 'Danh mục không tồn tại'], 404);
+        }
+        
+        $allCategoryIds = array_merge([$categoryIds], $category->getAllChildrenIds());
+        // Lấy danh sách sản phẩm dựa trên từ khóa (tìm theo tên hoặc mã)
+        $products = Product::whereHas('category', function ($query) use ($allCategoryIds) {
+                $query->whereIn('product_categories.category_id', $allCategoryIds);
+            })
+            ->where(function ($q) use ($query) {
+                $q->where('name', 'LIKE', "%$query%")
+                ->orWhere('code', 'LIKE', "%$query%");
+            })
+            ->where('id', '!=', $prodId) // Loại bỏ sản phẩm có ID bằng $prodId
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        // Trả về kết quả dưới dạng JSON
+        return response()->json($products);
+    }
+
+    public function compareCate(Request $request)
+    {
+        // dd($request->all());
+        $search = $request->input('query');
+        $cateId = $request->input('id');
+        $product1 = $request->input('product1'); // 6
+        $product2 = $request->input('product2'); // 7
+        $categories = Category::findOrFail($cateId);
+        // dd($categories);
+        // Lấy tất cả danh mục con (bao gồm cả danh mục cha)
+        $allCategoryIds = $this->getAllCategoryIds($categories);
+
+        // Truy vấn sản phẩm theo danh mục, tên sản phẩm và loại bỏ sản phẩm 1 và 2
+        $products = Product::whereHas('category', function ($query) use ($allCategoryIds) {
+                $query->whereIn('product_categories.category_id', $allCategoryIds); // Lọc theo danh mục
+            })
+            ->when($search, function ($query) use ($search) {
+                // Nếu có giá trị search, tìm kiếm sản phẩm theo tên
+                $query->where('name', 'like', '%' . $search . '%');
+            })
+            ->whereNotIn('id', [$product1, $product2]) // Loại bỏ sản phẩm 1 và 2
+            ->get();
+    
+        // Trả về kết quả dưới dạng JSON
+        return response()->json($products);
+    }
+
+    // Hàm đệ quy để lấy tất cả ID của danh mục con và chính danh mục cha
+    protected function getAllCategoryIds($category)
+    {
+        $categoryIds = collect([$category->id]);
+
+        if ($category->children->isNotEmpty()) {
+            foreach ($category->children as $child) {
+                $categoryIds = $categoryIds->merge($this->getAllCategoryIds($child));
+            }
+        }
+
+        return $categoryIds;
+    }
+
+    public function compare($product)
+    {
+        // Tách chuỗi bằng dấu -vs-
+        $products = explode('-vs-', $product);
+    
+        // Kiểm tra nếu có ít nhất là 2 lớn nhất 3
+        if (count($products) >= 2 && count($products) <= 3) {
+            $prod_1 = trim($products[0]); // dtdd-xiaomi-64gb
+            $prod_2 = trim($products[1]); // dtdd-oppo-64-gb
+            $prod_3 = count($products) === 3 ? trim($products[2]) : null; // Nếu có 3 phần tử, lấy phần tử thứ ba
+
+            // Debug để kiểm tra kết quả
+            $product1 = Product::where('slug', $prod_1)->firstOrFail();
+            $product2 = Product::where('slug', $prod_2)->firstOrFail();
+            $product3 = $prod_3 ? Product::where('slug', $prod_3)->first() : null;
+            
+            // Lấy ID của categories
+            $cateId1 = $product1->category()->pluck('categories.id')->first();
+            $cateId2 = $product2->category()->pluck('categories.id')->first();
+            $cateId3 = $product3 ? $product3->category()->pluck('categories.id')->first() : null;
+            // Lấy ra id của parent_id = 0 
+            $parentId1 = Category::findOrFail($cateId1)->topLevelParent()->id;
+            $parentId2 = Category::findOrFail($cateId2)->topLevelParent()->id;
+            $parentId3 = $cateId3 ? Category::findOrFail($cateId3)->topLevelParent()->id : null;
+            
+            // Kiểm tra nếu danh mục của sản phẩm 1 và 2 không giống nhau
+            if ($parentId1 !== $parentId2 || ($parentId3 && $parentId1 !== $parentId3)) {
+                abort(404, 'Sản phẩm không thuộc cùng một danh mục');
+            }
+            // Lấy categories
+            $category = Category::find($cateId1);
+            $compareCates = $category->getCompareCates();
+            // Lấy dữ liệu từ bảng Compare dựa trên compare_cate_id
+            $compares = [];
+            foreach ($compareCates as $compareCate) {
+                // Truy xuất mối quan hệ với Compare
+                $valueCompares[$compareCate->id] = $compareCate->valueCompares;
+            }
+            
+            // Truy xuất dữ liệu so sánh giữa 2 sản phẩm
+            $compareProduct1 = CompareProduct::where('product_id', $product1->id)->get()->keyBy('compare_id') ?? collect([]);
+            $compareProduct2 = CompareProduct::where('product_id', $product2->id)->get()->keyBy('compare_id') ?? collect([]);
+
+            // Nếu sản phẩm thứ 3 tồn tại, lấy dữ liệu so sánh cho sản phẩm thứ 3, nếu không thì đặt thành một collection rỗng
+            $compareProduct3 = $product3 ? CompareProduct::where('product_id', $product3->id)->get()->keyBy('compare_id') : collect([]);
+            // Lấy ảnh chính của từng sản phẩm nếu có
+            $image1 = $product1 ? $product1->getMainImage() : null;
+            $image2 = $product2 ? $product2->getMainImage() : null;
+            $image3 = $product3 ? $product3->getMainImage() : null;
+
+            $titleSeo = 'So sánh ' . $category->name .' '. $product1->code . ' và ' . $product2->code;
+            if ($product3) {
+                $titleSeo .= ' và ' . $product3->code;
+            }
+            $keywordSeo = config('common.keyword_seo');
+            $descriptionSeo = $titleSeo;
+
+            // Lấy tất cả danh mục con (bao gồm cả danh mục cha)
+            $allCategoryIds = $this->getAllCategoryIds($category);
+
+            // Truy vấn sản phẩm theo danh mục, tên sản phẩm và loại bỏ sản phẩm 1 và 2
+            $saleProducts = Product::whereHas('category', function ($query) use ($allCategoryIds) {
+                    $query->whereIn('product_categories.category_id', $allCategoryIds); // Lọc theo danh mục
+                })->select('id', 'name', 'slug', 'price', 'image_ids')
+                ->where('is_outstand', 1)
+                ->whereNotIn('id', [$product1->id, $product2->id])
+                ->latest('updated_at') // Sắp xếp theo updated_at mới nhất
+                ->take(6) // Lấy 6 bản ghi
+                ->get();
+            
+            // Lấy ảnh chính cho từng sản phẩm
+            $saleProducts->each(function ($product) {
+                $product->main_image = $product->getMainImage(); // Thêm ảnh chính vào đối tượng sản phẩm
+            });
+            
+            // Hiển thị kết quả để kiểm tra
+            
+            return view('cntt.home.compare', compact(
+                'titleSeo', 'keywordSeo', 'descriptionSeo',
+                'product1', 'product2', 'product3', 'category',
+                'compareProduct1', 'compareProduct2', 'compareProduct3',
+                'compareCates', 'valueCompares', 'saleProducts',
+                'image1', 'image2', 'image3'));
+        } else {
+            // Xử lý trường hợp không có dấu -vs- hoặc số phần tử không đúng
+            abort(404, 'URL không hợp lệ');
+        }
     }
 }

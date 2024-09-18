@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->bigInteger('parent_id');
             $table->unsignedBigInteger('user_id');
             $table->string('filter_ids')->nullable();
+            $table->string('compare_ids')->nullable();
             $table->string('image')->nullable();
             $table->text('content')->nullable();
             $table->string('title_img')->nullable();

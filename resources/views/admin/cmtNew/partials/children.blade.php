@@ -37,16 +37,16 @@
     </td>
     @endif
     <td class="text-center">
-        @can('commentNew-edit')
+        @can('cmtNew-edit')
         <a href="{{ asset('admin/cmtNews/'.$category->id.'/edit') }}" >Chỉnh sửa</a> |
         @endcan
-        @can('commentNew-replay')
+        @can('cmtNew-replay')
         @if ($category->parent_id == 0 && $category->replies->isEmpty())
-        <a class="btn btn-primary btn-sm" href="{{ asset('admin/cmtNews/'.$category->id.'/replay') }}" >Trả lời</a>
+        <a class="btn btn-primary btn-sm" href="{{ asset('admin/cmtNews/'.$category->id.'/replay') }}" >Trả lời</a> |
         @endif
         @endcan
-        @can('commentNew-delete')
-        | <a href="javascript:void(0);" onclick="confirmDelete('{{ $category->id }}')">Xóa</a>
+        @can('cmtNew-delete')
+        <a href="javascript:void(0);" onclick="confirmDelete('{{ $category->id }}')">Xóa</a>
         <form id="deleteForm-{{ $category->id }}" action="{{ route('cmtNews.destroy', ['id' => $category->id]) }}" method="post" style="display: none;">
             @csrf
             @method('DELETE')

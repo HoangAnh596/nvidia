@@ -13,6 +13,8 @@ use App\Http\Controllers\CategoryNewController;
 use App\Http\Controllers\CateMenuController;
 use App\Http\Controllers\CmtNewsController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CompareCateController;
+use App\Http\Controllers\CompareProductController;
 use App\Http\Controllers\FilterCateController;
 use App\Http\Controllers\FilterProductController;
 use App\Http\Controllers\HomeController;
@@ -99,6 +101,25 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('/filter-pro', [FilterProductController::class, 'store'])->name('filterPro.store');
     Route::get('/filter-pro/{id}/edit', [FilterProductController::class, 'edit'])->name('filterPro.edit')->middleware('can:filterPro-edit');
     Route::put('filter-pro/{id}', [FilterProductController::class, 'update'])->name('filterPro.update');
+
+    // Quản lý so sánh danh mục
+    Route::get('/compares', [CompareCateController::class, 'index'])->name('compares.index');
+    Route::get('/compares/create', [CompareCateController::class, 'create'])->name('compares.create');
+    Route::post('/compares', [CompareCateController::class, 'store'])->name('compares.store');
+    Route::get('/compares/{id}/edit', [CompareCateController::class, 'edit'])->name('compares.edit');
+    Route::put('compares/{id}', [CompareCateController::class, 'update'])->name('compares.update');
+    Route::delete('/compares/{id}', [CompareCateController::class, 'destroy'])->name('compares.destroy');
+    Route::delete('compareCate/{id}', [CompareCateController::class, 'destroyCate'])->name('compareCate.destroyCate');
+    Route::post('/compares/check-name', [CompareCateController::class, 'checkName'])->name('compares.checkName');
+    Route::post('/compares/checkbox', [CompareCateController::class, 'isCheckbox'])->name('compares.isCheckbox');
+    Route::post('/compares/checkStt', [CompareCateController::class, 'checkStt'])->name('compares.checkStt');
+    
+    Route::post('/detailCompare/checkStt', [CompareCateController::class, 'sttDetail'])->name('detailCompare.checkStt');
+    // Quản lý so sánh của từng sản phẩm thuộc danh mục
+    Route::get('/compare-pro/create', [CompareProductController::class, 'create'])->name('comparePro.create');
+    Route::post('/compare-pro', [CompareProductController::class, 'store'])->name('comparePro.store');
+    Route::get('/compare-pro/{id}/edit', [CompareProductController::class, 'edit'])->name('comparePro.edit');
+    Route::put('compare-pro/{id}', [CompareProductController::class, 'update'])->name('comparePro.update');
 
     // Quản lý danh mục bài viết
     Route::get('/cateNews', [CategoryNewController::class, 'index'])->name('cateNews.index');
@@ -251,6 +272,10 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 // Tìm kiếm
 Route::get('/tim-kiem', [HomeController::class, 'search'])->name('home.search');
 Route::get('/filters', [HomeController::class, 'filters'])->name('home.filters');
+// So sánh sản phẩm
+Route::get('/compare', [HomeController::class, 'compareProduct'])->name('home.compareProduct');
+Route::get('/compare-cate', [HomeController::class, 'compareCate'])->name('home.compareCate');
+Route::get('/so-sanh-{product}', [HomeController::class, 'compare'])->name('home.compare');
 // Giá list
 Route::get('/gia-list', [HomeController::class, 'listPrice'])->name('home.listPrice');
 // Gửi báo giá

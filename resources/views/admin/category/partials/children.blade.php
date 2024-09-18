@@ -48,8 +48,8 @@
         @can('filter-add')
         <a href="{{ asset('admin/filters/create?cate_id=' . $category->id) }}" >Thêm bộ lọc</a> |
         @endcan
-        <a href="{{ asset('admin/categories') }}" >Xóa cache</a> |
-        <a href="{{ asset('admin/categories') }}" >Nhân bản</a>
+        <a href="{{ asset('admin/compares/create?cate_id=' . $category->id) }}" >So sánh</a> |
+        <a href="{{ asset('admin/categories') }}" >Xóa cache</a>
         <!-- <a href="{{ asset('admin/categories/'.$category->id.'/edit') }}" >Nhân bản</a> | 
         
         <a href="{{ asset('admin/categories/'.$category->id.'/edit') }}" >Xóa cache</a> |  -->
