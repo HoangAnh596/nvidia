@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductsCompareExport;
 use App\Models\Category;
 use App\Models\CategoryNew;
 use App\Models\Comment;
 use App\Models\CompareProduct;
+use App\Models\Group;
 use App\Models\Infor;
 use App\Models\News;
 use App\Models\Product;
@@ -14,6 +16,7 @@ use App\Services\CategoryNewSrc;
 use App\Services\CategorySrc;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
 {
@@ -108,6 +111,7 @@ class HomeController extends Controller
         $phoneInfors = Infor::where('is_public', 1)->orderBy('stt', 'ASC')->get();
         $slugs = explode('-', $slug);
         $mainCate = Category::where('slug', $slug)->with('children')->first(); // Lấy ra danh mục chính
+        // dd($mainCate);
         if (!empty($mainCate)) {
             // Seo Website
             $titleSeo = (!empty($mainCate->title_seo)) ? $mainCate->title_seo : config('common.title_seo');
@@ -291,11 +295,20 @@ class HomeController extends Controller
         ->count();
         $user = Auth::user();
 
+        $groupProducts = [];
+        if (!empty($product->group_ids)) {
+            // Chuyển đổi JSON thành mảng
+            $groupIds = json_decode($product->group_ids, true);
+            // Lấy các bản ghi từ bảng Group có id nằm trong groupIds
+            $groupProducts = Group::select('id', 'name')->whereIn('id', $groupIds)->get();
+        }
+        
         return view('cntt.home.show', compact(
             'titleSeo', 'keywordSeo', 'descriptionSeo',
             'phoneInfors', 'product', 'allParents',
             'parent', 'images', 'relatedProducts',
-            'comments', 'totalCommentsCount', 'user'
+            'comments', 'totalCommentsCount', 'user',
+            'groupProducts'
         ));
     }
 
@@ -534,13 +547,15 @@ class HomeController extends Controller
         
         // Lấy ra ID của các categories
         $categoryIds = $products->category()->pluck('categories.id')->first();
-        $category = Category::find($categoryIds);
+        // Lấy ra id của parent_id = 0 
+        $cateId = Category::findOrFail($categoryIds)->topLevelParent()->id;
         // Kiểm tra nếu danh mục tồn tại
-        if (!$category) {
+        if (!$cateId) {
             return response()->json(['message' => 'Danh mục không tồn tại'], 404);
         }
-        
+        $category = Category::findOrFail($cateId);
         $allCategoryIds = array_merge([$categoryIds], $category->getAllChildrenIds());
+        
         // Lấy danh sách sản phẩm dựa trên từ khóa (tìm theo tên hoặc mã)
         $products = Product::whereHas('category', function ($query) use ($allCategoryIds) {
                 $query->whereIn('product_categories.category_id', $allCategoryIds);
@@ -559,7 +574,6 @@ class HomeController extends Controller
 
     public function compareCate(Request $request)
     {
-        // dd($request->all());
         $search = $request->input('query');
         $cateId = $request->input('id');
         $product1 = $request->input('product1'); // 6
@@ -618,6 +632,7 @@ class HomeController extends Controller
             $cateId1 = $product1->category()->pluck('categories.id')->first();
             $cateId2 = $product2->category()->pluck('categories.id')->first();
             $cateId3 = $product3 ? $product3->category()->pluck('categories.id')->first() : null;
+            dd($cateId1);
             // Lấy ra id của parent_id = 0 
             $parentId1 = Category::findOrFail($cateId1)->topLevelParent()->id;
             $parentId2 = Category::findOrFail($cateId2)->topLevelParent()->id;
@@ -628,10 +643,9 @@ class HomeController extends Controller
                 abort(404, 'Sản phẩm không thuộc cùng một danh mục');
             }
             // Lấy categories
-            $category = Category::find($cateId1);
+            $category = Category::find($parentId1);
             $compareCates = $category->getCompareCates();
             // Lấy dữ liệu từ bảng Compare dựa trên compare_cate_id
-            $compares = [];
             foreach ($compareCates as $compareCate) {
                 // Truy xuất mối quan hệ với Compare
                 $valueCompares[$compareCate->id] = $compareCate->valueCompares;
@@ -684,6 +698,58 @@ class HomeController extends Controller
         } else {
             // Xử lý trường hợp không có dấu -vs- hoặc số phần tử không đúng
             abort(404, 'URL không hợp lệ');
+        }
+    }
+
+    public function exportCompare(Request $request)
+    {
+        // Lấy danh sách ID sản phẩm từ request
+        $productIds = $request->input('products');
+        // Kiểm tra số lượng sản phẩm phải nằm trong khoảng từ 2 đến 3
+        if (count($productIds) >= 2 && count($productIds) <= 3) {
+            // $products = Product::whereIn('id', $productIds)->get();
+            // Gán ID sản phẩm vào các biến theo thứ tự
+            $prod_1 = $productIds[0]; // Sản phẩm thứ 1
+            $prod_2 = $productIds[1]; // Sản phẩm thứ 2
+
+            // Nếu có sản phẩm thứ 3 thì gán
+            $prod_3 = isset($productIds[2]) ? $productIds[2] : null;
+
+            // Debug để kiểm tra kết quả
+            $product1 = Product::where('id', $prod_1)->firstOrFail();
+            $product2 = Product::where('id', $prod_2)->firstOrFail();
+            $product3 = $prod_3 ? Product::where('id', $prod_3)->first() : null;
+
+            // Lấy ID của categories
+            $cateId = $product1->category()->pluck('categories.id')->first();
+            $parentId = Category::findOrFail($cateId)->topLevelParent()->id;
+            // Lấy categories
+            $category = Category::find($parentId);
+            $compareCates = $category->getCompareCates();
+            // Lấy dữ liệu từ bảng Compare dựa trên compare_cate_id
+            foreach ($compareCates as $compareCate) {
+                // Truy xuất mối quan hệ với Compare
+                $valueCompares[$compareCate->id] = $compareCate->valueCompares;
+            }
+
+            // Truy xuất dữ liệu so sánh giữa 2 sản phẩm
+            $compareProduct1 = CompareProduct::where('product_id', $product1->id)->get()->keyBy('compare_id') ?? collect([]);
+            $compareProduct2 = CompareProduct::where('product_id', $product2->id)->get()->keyBy('compare_id') ?? collect([]);
+
+            // Nếu sản phẩm thứ 3 tồn tại, lấy dữ liệu so sánh cho sản phẩm thứ 3, nếu không thì đặt thành một collection rỗng
+            $compareProduct3 = $product3 ? CompareProduct::where('product_id', $product3->id)->get()->keyBy('compare_id') : collect([]);
+
+            // Trả về file Excel
+            return Excel::download(new ProductsCompareExport(
+                $product1, $product2, $product3,
+                $compareCates, $valueCompares,
+                $compareProduct1, $compareProduct2, $compareProduct3
+            ), 'products_compare.xlsx');
+        } else {
+            // Nếu không hợp lệ, trả về lỗi hoặc phản hồi tùy ý
+            return response()->json([
+                'error' => 'Số lượng sản phẩm để so sánh phải từ 2 đến 3'
+            ], 400);
         }
     }
 }

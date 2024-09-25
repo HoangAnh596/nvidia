@@ -108,7 +108,9 @@ class CompareCateController extends Controller
     public function destroy($id)
     {
         try {
-            $compare = Compare::findOrFail($id);
+            $compare = CompareCate::findOrFail($id);
+            // $compareId = $compare->id;
+            dd($compare);
             $compare->delete();
             
             return response()->json(['success' => 'Xóa thành công']);

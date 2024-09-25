@@ -8,6 +8,30 @@
 		<changefreq>daily</changefreq>
 	</url>
 	<url>
+	<loc>http://localhost:8000/chuot-may-tinh</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-24T13:50:03+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/cuc-sac-du-phong</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-19T09:03:44+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/ban-phim</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-19T09:06:36+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/phu-kien</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-19T09:03:54+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 	<loc>http://localhost:8000/dtdd-samsung-ram-64-gb</loc>
 		<priority>0.8</priority>
 		<lastmod>2024-09-09T11:05:15+07:00</lastmod>
@@ -46,19 +70,19 @@
 	<url>
 	<loc>http://localhost:8000/geforce-now-cloud</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-09T10:02:58+07:00</lastmod>
+		<lastmod>2024-09-19T09:01:24+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/rtx-ai-pcs</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-09T10:02:56+07:00</lastmod>
+		<lastmod>2024-09-19T08:55:51+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/dien-thoai-thong-minh</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-09T10:00:35+07:00</lastmod>
+		<lastmod>2024-09-19T09:00:14+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -70,7 +94,7 @@
 	<url>
 	<loc>http://localhost:8000/dtdd</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-18T11:35:06+07:00</lastmod>
+		<lastmod>2024-09-18T16:19:53+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 </urlset>

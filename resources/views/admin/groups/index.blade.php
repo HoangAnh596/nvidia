@@ -3,33 +3,14 @@
 @section('content')
 <div class="container-fluid">
     <!-- Page Heading -->
-    <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Danh sách so sánh</h3>
-        <h6 aria-label="breadcrumb">
-            <ol class="breadcrumb bg-light">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">So sánh</a></li>
-                <li class="breadcrumb-item active">Danh sách</li>
-            </ol>
-        </h6>
-    </div>
+    <h3 class="mb-2 text-gray-800">Danh sách nhóm sản phẩm</h3>
     <!-- DataTales Example -->
-
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
                 <div class="input-group">
                     <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Tìm kiếm tên so sánh" aria-label="Search" name="keyword" value="{{ $keyword }}">
-                    </div>
-                    <div class="form-group">
-                        <select name="cate" class="form-control">
-                            <option value="">Danh mục so sánh</option>
-                            @if(isset($categories))
-                            @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ \Request::get('cate') == $category->id ? "selected ='selected'" : "" }}> {{ $category->name }} </option>
-                            @endforeach
-                            @endif
-                        </select>
+                        <input type="search" class="form-control form-outline" placeholder="Tìm kiếm tên nhóm" aria-label="Search" name="keyword" value="">
                     </div>
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit"> <i class="fas fa-search fa-sm"></i> </button>
@@ -37,32 +18,30 @@
                 </div>
             </form>
             <div>
-                <a href="{{ route('compares.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới so sánh</a>
+                <a href="{{ route('groups.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="padding: 0;">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="">No.</th>
-                            <th class="col-sm-4 text-center">Tên bộ lọc</th>
-                            <th class="col-sm-3 text-center">Tên danh mục sản phẩm</th>
-                            <th class="col-sm-1 text-center">Số thứ tự</th>
-                            <th class="col-sm-1 text-center">Ẩn/Hiện</th>
+                            <th>#</th>
+                            <th class="col-sm-3 text-center">Tên nhóm</th>
+                            <th class="col-sm-4 text-center">Danh mục sản phẩm</th>
+                            <th class="text-center">STT</th>
+                            <th class="text-center">Hiển thị</th>
                             <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($compare as $val)
+                        @foreach ($groups as $val)
                         <tr>
-                            <td>{{ (($compare->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
+                            <td>{{ (($groups->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
                             <td>{{ $val->name }}</td>
+                            <td>@if(!empty($val->cate_id)) {{ $val->category->name }} @endif</td>
                             <td class="text-center">
-                                {{ $val->category->name }}
-                            </td>
-                            <td class="text-center">
-                                <input type="text" class="check-stt" name="stt_compare" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_compare', $val->stt_compare) }}">
+                                <input type="text" class="check-stt" name="stt" data-id="{{ $val->id }}" style="width: 40px;text-align: center;" value="{{ old('stt_slider', $val->stt_slider) }}">
                             </td>
                             <td class="text-center">
                                 <div class="form-check">
@@ -70,11 +49,11 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ asset('admin/compares/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
-                                <a href="{{ asset('admin/compares') }}">Xóa cache</a> |
-                                <a href="{{ asset('admin/compares') }}">Nhân bản</a>
+                                <a href="{{ asset('admin/groups/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
+                                <a href="{{ asset('admin/groups/'.$val->id.'/edit') }}">Nhân bản</a> |
+                                <a href="{{ asset('admin/groups/'.$val->id.'/edit') }}">Xóa cache</a>
                                 | <a href="javascript:void(0);" onclick="confirmDelete('{{ $val->id }}')">Xóa</a>
-                                <form id="deleteForm-{{ $val->id }}" action="{{ route('compares.destroy', ['id' => $val->id]) }}" method="post" style="display: none;">
+                                <form id="deleteForm-{{ $val->id }}" action="{{ route('groups.destroy', ['id' => $val->id]) }}" method="post" style="display: none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
@@ -84,7 +63,7 @@
                     </tbody>
                 </table>
                 <nav class="float-right">
-                    {{ $compare->links() }}
+                    {{ $groups->links() }}
                 </nav>
             </div>
         </div>
@@ -92,28 +71,28 @@
 </div>
 @endsection
 
+@section('css')
+<style>
+    .toast-top-center>div {
+        width: 400px !important;
+    }
+</style>
+@endsection
 @section('js')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $('.active-checkbox').change(function() {
-            var cateId = $(this).data('id');
+            var sliderId = $(this).data('id');
             var value = $(this).is(':checked') ? 1 : 0;
 
             $.ajax({
-                url: '{{ route("compares.isCheckbox") }}',
+                url: '{{ route("groups.isCheckbox") }}',
                 method: 'POST',
                 data: {
-                    id: cateId,
-                    is_public: value
+                    id: sliderId,
+                    is_public: value,
+                    _token: '{{ csrf_token() }}',
                 },
                 success: function(response) {
                     if (response.success) {
@@ -149,18 +128,18 @@
         });
 
         $('.check-stt').change(function() {
-            var idCompare = $(this).data('id');
-            var sttCompare = $(this).val();
+            var idSlider = $(this).data('id');
+            var sttSlider = $(this).val();
 
             $.ajax({
-                url: '{{ route("compares.checkStt") }}',
+                url: '{{ route("groups.checkStt") }}',
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data: {
-                    id: idCompare,
-                    stt_compare: sttCompare,
+                    id: idSlider,
+                    stt: sttSlider,
                 },
                 success: function(response) {
                     if (response.success) {
@@ -198,7 +177,7 @@
 
     function confirmDelete(id) {
         toastr.warning(`
-        <div>Bạn chắc chắn xóa danh mục so sánh sản phẩm này chứ?</div>
+        <div>Bạn chắc chắn xóa Slider này chứ?</div>
         <div style="margin-top: 15px;">
             <button type="button" id="confirmButton" class="btn btn-danger btn-sm" style="margin-right: 10px;">Xóa</button>
             <button type="button" id="cancelButton" class="btn btn-secondary btn-sm">Hủy</button>

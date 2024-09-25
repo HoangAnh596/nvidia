@@ -100,6 +100,12 @@ class Product extends Model
                     ->withTimestamps();
     }
 
+    // Thiết lập mối quan hệ với groups
+    public function groups()
+    {
+        return $this->belongsToMany('App\Models\Group', 'group_products', 'product_id', 'group_id');
+    }
+
     public function images()
     {
         return $this->hasMany(ProductImages::class, 'id', 'image_ids');

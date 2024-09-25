@@ -17,6 +17,8 @@ use App\Http\Controllers\CompareCateController;
 use App\Http\Controllers\CompareProductController;
 use App\Http\Controllers\FilterCateController;
 use App\Http\Controllers\FilterProductController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\GroupProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IconController;
 use App\Http\Controllers\InforController;
@@ -120,6 +122,27 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('/compare-pro', [CompareProductController::class, 'store'])->name('comparePro.store');
     Route::get('/compare-pro/{id}/edit', [CompareProductController::class, 'edit'])->name('comparePro.edit');
     Route::put('compare-pro/{id}', [CompareProductController::class, 'update'])->name('comparePro.update');
+
+    // Quản lý nhóm danh mục sản phẩm
+    Route::get('/groups', [GroupController::class, 'index'])->name('groups.index');
+    Route::get('/groups/create', [GroupController::class, 'create'])->name('groups.create');
+    Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
+    Route::get('/groups/{id}/edit', [GroupController::class, 'edit'])->name('groups.edit');
+    Route::put('groups/{id}', [GroupController::class, 'update'])->name('groups.update');
+    Route::delete('groups/{id}', [GroupController::class, 'destroy'])->name('groups.destroy');
+    Route::post('groups/checkStt', [GroupController::class, 'checkStt'])->name('groups.checkStt');
+    Route::post('groups/checkbox', [GroupController::class, 'isCheckbox'])->name('groups.isCheckbox');
+
+    Route::post('groups/add', [GroupController::class, 'addGroup'])->name('groups.add');
+    Route::post('groups/refresh', [GroupController::class, 'refreshGroup'])->name('groups.refresh');
+    Route::post('groups/inherit', [GroupController::class, 'inheritGroup'])->name('groups.inherit');
+    Route::post('groups/save', [GroupController::class, 'saveGroup'])->name('groups.save');
+    // Quản lý nhóm từng sản phẩm
+    Route::get('/group-product', [GroupProductController::class, 'index'])->name('groupPro.index');
+    Route::get('/group-product/create', [GroupProductController::class, 'create'])->name('groupPro.create');
+    Route::post('/group-product', [GroupProductController::class, 'store'])->name('groupPro.store');
+    Route::get('/group-product/{id}/edit', [GroupProductController::class, 'edit'])->name('groupPro.edit');
+    Route::put('group-product/{id}', [GroupProductController::class, 'update'])->name('groupPro.update');
 
     // Quản lý danh mục bài viết
     Route::get('/cateNews', [CategoryNewController::class, 'index'])->name('cateNews.index');
@@ -276,6 +299,8 @@ Route::get('/filters', [HomeController::class, 'filters'])->name('home.filters')
 Route::get('/compare', [HomeController::class, 'compareProduct'])->name('home.compareProduct');
 Route::get('/compare-cate', [HomeController::class, 'compareCate'])->name('home.compareCate');
 Route::get('/so-sanh-{product}', [HomeController::class, 'compare'])->name('home.compare');
+// Xuất file so sánh sản phẩm
+Route::post('/export-compare', [HomeController::class, 'exportCompare'])->name('export.compare');
 // Giá list
 Route::get('/gia-list', [HomeController::class, 'listPrice'])->name('home.listPrice');
 // Gửi báo giá

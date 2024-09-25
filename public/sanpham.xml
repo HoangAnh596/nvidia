@@ -8,6 +8,90 @@
 		<changefreq>daily</changefreq>
 	</url>
 	<url>
+	<loc>http://localhost:8000/dien-thoai-samsung-galaxy-z-flip6-5g-12gb-256gb</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-24T13:59:05+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/ban-phim-ipad-pro-logitech-combo-touch-11-inch-m4</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-24T13:55:42+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/chuot-bluetooth-silent-logitech-m240</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-24T13:54:01+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/chuot-co-day-silent-rapoo-n1200</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-24T13:52:39+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/chuot-sac-khong-day-gaming-logitech-g502-x-plus-lightspeed</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-24T13:51:16+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/iphone-11-ram-128gb</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-24T14:46:43+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/iphone-14-ram-128gb-mau-vang</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-24T08:29:21+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/dien-thoai-samsung-galaxy-z-fold6-5g-12gb-256gb</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-20T08:27:11+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/dien-thoai-sam-sung-note-24-128gb</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-19T17:09:22+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/ban-phim-co-bluetooth-dareu-ek75-pro</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-19T08:57:02+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/ban-phim-bluetooth-logitech-k380s</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-19T08:57:03+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/pin-sac-du-phong-xmobile-m12-3</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-19T08:57:01+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/pin-sac-du-phong-anker-20000mah</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-19T08:57:01+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/pin-sac-du-phong-polymer-10000m</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-09-19T08:57:00+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 	<loc>http://localhost:8000/laptop-gaming-asus-rog-strix-scar-18-g834jyr-r6011w</loc>
 		<priority>0.8</priority>
 		<lastmod>2024-09-12T11:35:50+07:00</lastmod>
@@ -22,7 +106,7 @@
 	<url>
 	<loc>http://localhost:8000/dtdd-oppo-64-gb</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-11T10:19:53+07:00</lastmod>
+		<lastmod>2024-09-19T14:53:03+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -40,7 +124,7 @@
 	<url>
 	<loc>http://localhost:8000/dtdd-iphone-16-pro-max-128gb</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-12T11:59:51+07:00</lastmod>
+		<lastmod>2024-09-23T14:07:45+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>

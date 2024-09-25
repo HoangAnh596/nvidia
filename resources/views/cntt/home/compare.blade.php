@@ -3,9 +3,14 @@
 @section('content')
 
 <div class="container pt-60">
-    <ul class="listproduct pro-compare pro-compare_main sticky-cp">
+    <div class="d-flex justify-content-between">
+        <h3>SO SÁNH SẢN PHẨM</h3>
+        <button class="export-compare"><i class="fa-solid fa-print"></i> Export</button>
+    </div>
+
+    <ul class="listproduct pro-compare pro-compare_main">
         <li>
-            <p class="title-cp">So sánh sản phẩm</p>
+            <p class="title-cp">Tên sản phẩm</p>
             <div class="product-cp">
                 <p class="productname-cp" data-id="{{ $product1->id }}">{{ $product1->name }}</p>
                 <p class="productname-cp" data-id="{{ $product2->id }}">{{ $product2->name }}</p>
@@ -18,7 +23,9 @@
             <a href="{{ asset($product1->slug) }}" class="main-contain">
                 <div class="item-label"></div>
                 <div class="item-img">
+                    @if(!empty($image1))
                     <img class="thumb ls-is-cached lazyloaded" data-src="{{ asset($image1->image) }}" alt="{{ asset($image1->alt) }}" title="{{ asset($image1->title) }}" src="{{ asset($image1->image) }}">
+                    @endif
                 </div>
                 <h3>{{ $product1->name }}</h3>
                 <strong class="price">
@@ -38,7 +45,9 @@
             <a href="{{ asset($product2->slug) }}" class="main-contain">
                 <div class="item-label"></div>
                 <div class="item-img">
+                    @if(!empty($image2))
                     <img class="thumb ls-is-cached lazyloaded" data-src="{{ asset($image2->image) }}" alt="{{ asset($image2->alt) }}" title="{{ asset($image2->title) }}" src="{{ asset($image2->image) }}">
+                    @endif
                 </div>
                 <h3>{{ $product2->name }}</h3>
                 <strong class="price">
@@ -311,6 +320,47 @@
         });
     }
 
+    $('.export-compare').click(function(e) {
+        e.preventDefault();
+        // Tìm tất cả các phần tử có class "productname-cp"
+        let productIds = [];
+        $('.productname-cp').each(function() {
+            productIds.push($(this).data('id'));
+        });
+        console.log(productIds);
+
+        $.ajax({
+            url: '{{ route("export.compare") }}',
+            type: 'POST',
+            data: JSON.stringify({
+                products: productIds
+            }),
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            xhrFields: {
+                responseType: 'blob' // Để tải file
+            },
+            success: function(response) {
+                console.log(response);
+                var blob = new Blob([response]);
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'products_compare.xlsx';
+                link.click();
+            },
+            error: function(xhr) {
+                // Xử lý lỗi không phải validation (500, etc.)
+                toastr.error('Có lỗi xảy ra, vui lòng thử lại.', 'Lỗi', {
+                    progressBar: true,
+                    closeButton: true,
+                    timeOut: 5000
+                });
+            }
+        });
+    });
+
     function DeletedProduct(productId) {
         // Tìm tất cả thẻ li có class product-dt
         const productItems = document.querySelectorAll('li.product-dt');
@@ -376,13 +426,12 @@
 
         // Lấy slug của sale từ data attribute của nút
         const saleSlug = document.querySelector(`a.add-compare[data-id="${saleId}"]`).getAttribute('data-slug');
-        
+
         // Tạo đường dẫn mới
         const comparePath = `so-sanh-${slugs.join('-vs-')}-vs-${saleSlug}`;
-        
+
         // Chuyển hướng đến đường dẫn mới
         window.location.href = `{{ asset('${comparePath}') }}`;
     }
-
 </script>
 @endsection

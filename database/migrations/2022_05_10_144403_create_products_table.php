@@ -29,6 +29,7 @@ class CreateProductsTable extends Migration
             // $table->string('image')->nullable();
             $table->string('filepath')->nullable();
             $table->string('image_ids')->nullable();
+            $table->string('group_ids')->nullable();
             $table->text('des')->nullable();
             $table->text('content')->nullable();
             // $table->string('title_img')->nullable();

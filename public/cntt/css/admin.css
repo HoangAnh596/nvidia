@@ -42,7 +42,7 @@ body {
 }
 
 .table-responsive td a {
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .table thead th {
@@ -153,3 +153,52 @@ body {
 .subCate li.selected {
     background-color: #f0f0f0; /* Bạn có thể thay đổi màu này */
 }
+
+/* Nhóm sản phẩm */
+.vertical-line {
+    border-right: 1px solid gray;
+    /* Đường kẻ */
+    padding-right: 10px;
+    /* Khoảng cách với nội dung */
+    display: flex;
+    align-items: center;
+    /* Căn chỉnh nội dung của cột col-2 theo chiều dọc */
+}
+.group-pro {
+    background-color: #f8f9fc;
+    padding: 0 1.25rem;
+}
+.group-pro .pt-2 {
+    padding-top: 1rem !important;
+}
+.btn-group-prod {
+    padding-left: 0;
+    padding-right: 0;
+}
+.btn-group-prod button {
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.btn-group-prod button:first-child {
+    margin-right: 12px;
+}
+.hidden-add-group {
+    display: none;
+    border: 1px solid #76b900;
+}
+.hidden-add-group .select2, .hidden-add-group input {
+    width: 100% !important;
+}
+.btn-add-complete {
+    margin-right: 12px;
+    font-size: 15px;
+}
+.btn-add-complete button {
+    border-radius: 4px;
+    cursor: pointer;
+}
+.close-group {
+    margin-left: 12px;
+}
+/* Nhóm sản phẩm */

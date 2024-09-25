@@ -1,7 +1,12 @@
 $(document).ready(function() {
-    $('.view-more-option').on('click', function() {
+    $('.group-prod').each(function() {
+        if ($(this).height() > 150) {
+            $(this).find('.group-show-more').show();
+        }
+    });
+    $('.group-show-more').on('click', function() {
         $(this).css('display', 'none'); // Ẩn nút show-more
-        $('.prd-view-more').css('max-height', '10000px'); // Thêm chiều cao cho content-cate
+        $('.group-prod').css('max-height', '10000px'); // Thêm chiều cao cho content-cate
     });
 
     // Đảm bảo rằng ảnh chỉ được thêm vào modal một lần

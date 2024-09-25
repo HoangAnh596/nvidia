@@ -417,40 +417,38 @@ button.pop-gallery {
     text-decoration: underline;
 }
 
-.view-more-option {
-    background-color: #f4f4f4;
-    bottom: 0;
+.group-prod {
+    border-radius: 7px;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
     display: block;
+    margin-right: auto;
+    max-height: 320px;
+    min-height: 0;
+    overflow: hidden;
+    padding: 15px;
+    position: relative;
+    width: 100%;
+}
+.group-show-more {
+    background: linear-gradient(180deg, hsla(0, 0%, 100%, 0), hsla(0, 0%, 100%, .91) 50%, #fff 55%);
+    border-radius: 5px;
+    bottom: 0;
+    display: none;
     left: 0;
     margin-bottom: 0;
+    padding-top: 50px;
     position: absolute;
     right: 0;
     text-align: center;
     width: 100%;
-    padding: 5px 0;
-    z-index: 99;
+    border-bottom: 1px solid #eee;
 }
-.view-more-option button {
+.group-show-more button {
     font-size: .8rem;
-    color: #3d3d3d;
-    padding: 2px 10px;
-    border: 1px solid #ddd;
-    display: inline-block;
-    border-radius: 3px;
-}
-.view-more-option button:hover {
-    cursor: pointer;
-    background-color: #76b900;
-    border-color: #76b900;
-    color: #fff;
-}
-.prd-view-more {
-    display: block;
-    max-height: 310px;
-    min-height: 0;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
+    padding: 3px 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    background-color: #eee;
 }
 
 /* --------------------End Css Product------------------------ */

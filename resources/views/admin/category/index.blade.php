@@ -20,7 +20,7 @@
             <a href="{{ route('categories.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
             @endcan
         </div>
-        <div class="card-body">
+        <div class="card-body" style="padding: 0;">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>

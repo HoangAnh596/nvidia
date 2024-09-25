@@ -50,6 +50,7 @@
                     @endcan
                     <a class="collapse-item" href="{{ route('filter.index') }}">Danh sách bộ lọc</a>
                     <a class="collapse-item" href="{{ route('compares.index') }}">Danh sách so sánh</a>
+                    <a class="collapse-item" href="{{ route('groups.index') }}">Nhóm sản phẩm</a>
                 </div>
             </div>
         </li>
