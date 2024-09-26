@@ -97,6 +97,32 @@ return [
         'add-filterPro' => 'add_filterpro',
         'edit-filterPro' => 'edit_filterpro',
 
+        // Compare Category
+        'list-compare' => 'list_compare',
+        'add-compare' => 'add_compare',
+        'edit-compare' => 'edit_compare',
+        'delete-compare' => 'delete_compare',
+        'checkbox-compare' => 'checkbox_compare',
+        'checkStt-compare' => 'checkstt_compare',
+        // Compare Product
+        'add-comparePro' => 'add_comparePro',
+        'edit-comparePro' => 'edit_comparePro',
+
+        // Group Category
+        'list-group' => 'list_group',
+        'add-group' => 'add_group',
+        'edit-group' => 'edit_group',
+        'delete-group' => 'delete_group',
+        'checkbox-group' => 'checkbox_group',
+        'checkStt-group' => 'checkstt_group',
+        // Group Product
+        'add-groupPro' => 'add_groupPro',
+        'edit-groupPro' => 'edit_groupPro',
+
+        // Phân quyền nhiều loại khác nhau
+        'list-quote' => 'list_quote',
+        'checkbox-quote' => 'checkbox_quote',
+
         // Slider
         'list-slider' => 'list_slider',
         'add-slider' => 'add_slider',

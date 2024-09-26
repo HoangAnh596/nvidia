@@ -65,13 +65,28 @@
 @section('js')
 <script src="{{ asset('cntt/js/slug.js') }}"></script>
 <script type="text/javascript">
-    function validateNumber() {
-        var val = document.getElementById('title_seo').value;
-        if ((val.length >= 150) && (val.length < 170)) {
-            $('#message').text('Tiêu đề SEO nhập đã vượt quá 150 ký tự');
+    let timeout = null; // Khởi tạo biến timeout
+
+    // Hàm chung để kiểm tra độ dài của text input
+    function delayedValidate(fieldId, warningId, minLength, maxLength) {
+        clearTimeout(timeout); // Xóa timeout cũ nếu có, để đặt lại thời gian chờ
+
+        // Đặt một timeout mới, sẽ thực thi sau 2 giây (2000ms)
+        timeout = setTimeout(function() {
+            validateLength(fieldId, warningId, minLength, maxLength);
+        }, 2000);
+    }
+
+    function validateLength(fieldId, warningId, minLength, maxLength) {
+        const fieldValue = document.getElementById(fieldId).value;
+        const warning = document.getElementById(warningId);
+        const fieldLength = fieldValue.length;
+
+        if (fieldLength >= minLength && fieldLength <= maxLength) {
+            warning.textContent = ''; // Không hiển thị cảnh báo nếu hợp lệ
+        } else {
+            warning.textContent = `Độ dài hiện tại: ${fieldLength}. Vui lòng nhập từ ${minLength} đến ${maxLength} ký tự để tối ưu hóa chuẩn SEO.`;
         }
-        if (val.length >= 170)
-            $('#message').text('Tiêu đề SEO nhập đã vượt quá 170 ký tự');
     }
 
     document.getElementById('price').addEventListener('input', function(e) {
@@ -86,7 +101,6 @@
         }
     });
 
-    let timeout = null;
     let updateSlug = true;
 
     document.getElementById('code').addEventListener('input', function(e) {
@@ -398,9 +412,9 @@
             });
         });
 
-        document.getElementById('lfm-file').addEventListener('click', function () {
+        document.getElementById('lfm-file').addEventListener('click', function() {
             window.open('/laravel-filemanager?type=Files', 'FileManager', 'width=900,height=600');
-            window.SetUrl = function (items) {
+            window.SetUrl = function(items) {
                 var file_path = items[0].url;
                 document.getElementById('thumbnail-file').value = file_path;
                 document.getElementById('file-name').textContent = items[0].name;

@@ -106,32 +106,32 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
 
     // Quản lý so sánh danh mục
     Route::get('/compares', [CompareCateController::class, 'index'])->name('compares.index');
-    Route::get('/compares/create', [CompareCateController::class, 'create'])->name('compares.create');
+    Route::get('/compares/create', [CompareCateController::class, 'create'])->name('compares.create')->middleware('can:compare-add');
     Route::post('/compares', [CompareCateController::class, 'store'])->name('compares.store');
-    Route::get('/compares/{id}/edit', [CompareCateController::class, 'edit'])->name('compares.edit');
+    Route::get('/compares/{id}/edit', [CompareCateController::class, 'edit'])->name('compares.edit')->middleware('can:compare-edit');
     Route::put('compares/{id}', [CompareCateController::class, 'update'])->name('compares.update');
-    Route::delete('/compares/{id}', [CompareCateController::class, 'destroy'])->name('compares.destroy');
+    Route::delete('/compares/{id}', [CompareCateController::class, 'destroy'])->name('compares.destroy')->middleware('can:compare-delete');
     Route::delete('compareCate/{id}', [CompareCateController::class, 'destroyCate'])->name('compareCate.destroyCate');
     Route::post('/compares/check-name', [CompareCateController::class, 'checkName'])->name('compares.checkName');
-    Route::post('/compares/checkbox', [CompareCateController::class, 'isCheckbox'])->name('compares.isCheckbox');
-    Route::post('/compares/checkStt', [CompareCateController::class, 'checkStt'])->name('compares.checkStt');
+    Route::post('/compares/checkbox', [CompareCateController::class, 'isCheckbox'])->name('compares.isCheckbox')->middleware('can:compare-checkbox');
+    Route::post('/compares/checkStt', [CompareCateController::class, 'checkStt'])->name('compares.checkStt')->middleware('can:compare-checkStt');
     
     Route::post('/detailCompare/checkStt', [CompareCateController::class, 'sttDetail'])->name('detailCompare.checkStt');
     // Quản lý so sánh của từng sản phẩm thuộc danh mục
-    Route::get('/compare-pro/create', [CompareProductController::class, 'create'])->name('comparePro.create');
+    Route::get('/compare-pro/create', [CompareProductController::class, 'create'])->name('comparePro.create')->middleware('can:comparePro-add');
     Route::post('/compare-pro', [CompareProductController::class, 'store'])->name('comparePro.store');
-    Route::get('/compare-pro/{id}/edit', [CompareProductController::class, 'edit'])->name('comparePro.edit');
+    Route::get('/compare-pro/{id}/edit', [CompareProductController::class, 'edit'])->name('comparePro.edit')->middleware('can:comparePro-edit');
     Route::put('compare-pro/{id}', [CompareProductController::class, 'update'])->name('comparePro.update');
 
     // Quản lý nhóm danh mục sản phẩm
     Route::get('/groups', [GroupController::class, 'index'])->name('groups.index');
-    Route::get('/groups/create', [GroupController::class, 'create'])->name('groups.create');
+    Route::get('/groups/create', [GroupController::class, 'create'])->name('groups.create')->middleware('can:group-add');
     Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
-    Route::get('/groups/{id}/edit', [GroupController::class, 'edit'])->name('groups.edit');
+    Route::get('/groups/{id}/edit', [GroupController::class, 'edit'])->name('groups.edit')->middleware('can:group-edit');
     Route::put('groups/{id}', [GroupController::class, 'update'])->name('groups.update');
-    Route::delete('groups/{id}', [GroupController::class, 'destroy'])->name('groups.destroy');
-    Route::post('groups/checkStt', [GroupController::class, 'checkStt'])->name('groups.checkStt');
-    Route::post('groups/checkbox', [GroupController::class, 'isCheckbox'])->name('groups.isCheckbox');
+    Route::delete('groups/{id}', [GroupController::class, 'destroy'])->name('groups.destroy')->middleware('can:group-delete');
+    Route::post('groups/checkStt', [GroupController::class, 'checkStt'])->name('groups.checkStt')->middleware('can:group-checkStt');
+    Route::post('groups/checkbox', [GroupController::class, 'isCheckbox'])->name('groups.isCheckbox')->middleware('can:group-checkbox');
 
     Route::post('groups/add', [GroupController::class, 'addGroup'])->name('groups.add');
     Route::post('groups/refresh', [GroupController::class, 'refreshGroup'])->name('groups.refresh');
@@ -139,9 +139,9 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('groups/save', [GroupController::class, 'saveGroup'])->name('groups.save');
     // Quản lý nhóm từng sản phẩm
     Route::get('/group-product', [GroupProductController::class, 'index'])->name('groupPro.index');
-    Route::get('/group-product/create', [GroupProductController::class, 'create'])->name('groupPro.create');
+    Route::get('/group-product/create', [GroupProductController::class, 'create'])->name('groupPro.create')->middleware('can:groupPro-add');
     Route::post('/group-product', [GroupProductController::class, 'store'])->name('groupPro.store');
-    Route::get('/group-product/{id}/edit', [GroupProductController::class, 'edit'])->name('groupPro.edit');
+    Route::get('/group-product/{id}/edit', [GroupProductController::class, 'edit'])->name('groupPro.edit')->middleware('can:groupPro-edit');
     Route::put('group-product/{id}', [GroupProductController::class, 'update'])->name('groupPro.update');
 
     // Quản lý danh mục bài viết
@@ -175,8 +175,8 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('/infors/checkStt', [InforController::class, 'checkStt'])->name('infors.checkStt')->middleware('can:hotline-checkStt');
     Route::post('/infors/checkbox', [InforController::class, 'isCheckbox'])->name('infors.isCheckbox')->middleware('can:hotline-checkbox');
     // Báo giá
-    Route::get('/quotes', [QuoteController::class, 'index'])->name('quotes.index');
-    Route::post('/quotes/checkbox', [QuoteController::class, 'isCheckbox'])->name('quotes.isCheckbox');
+    Route::get('/quotes', [QuoteController::class, 'index'])->name('quotes.index')->middleware('can:quote-list');
+    Route::post('/quotes/checkbox', [QuoteController::class, 'isCheckbox'])->name('quotes.isCheckbox')->middleware('can:quote-checkbox');
 
     // Quản lý comment sản phẩm
     Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');

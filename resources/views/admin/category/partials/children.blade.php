@@ -3,53 +3,45 @@
     <td>
         @if ($category->children->isNotEmpty())
         {{ str_repeat('--', $level) }}
-            <button class="toggle-children" data-id="{{ $category->id }}">
-                [+]
-            </button>
+        <button class="toggle-children" data-id="{{ $category->id }}">
+            [+]
+        </button>
         @else
-            <span></span>
+        <span></span>
         @endif
         {{ str_repeat('---|', $level) }} {{ $category->name }}
     </td>
     <td>
     </td>
     <td class="text-center">
-        <div class="form-check">
-            <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_serve" {{ ($category->is_serve == 1) ? 'checked' : '' }}>
-        </div>
+        <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_serve" {{ ($category->is_serve == 1) ? 'checked' : '' }}>
     </td>
     <td class="text-center">
-        <div class="form-check">
-            <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_parent" {{ ($category->is_parent == 1) ? 'checked' : '' }}>
-        </div>
+        <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_parent" {{ ($category->is_parent == 1) ? 'checked' : '' }}>
     </td>
     <td class="text-center">
-        <div class="form-check">
-            <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_menu" {{ ($category->is_menu == 1) ? 'checked' : '' }}>
-        </div>
+        <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_menu" {{ ($category->is_menu == 1) ? 'checked' : '' }}>
     </td>
     <td class="text-center">
-        <div class="form-check">
-            <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_outstand" {{ ($category->is_outstand == 1) ? 'checked' : '' }}>
-        </div>
+        <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_outstand" {{ ($category->is_outstand == 1) ? 'checked' : '' }}>
     </td>
     <td class="text-center">
-        <div class="form-check">
-            <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_public" {{ ($category->is_public == 1) ? 'checked' : '' }}>
-        </div>
+        <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_public" {{ ($category->is_public == 1) ? 'checked' : '' }}>
     </td>
     <td class="text-center">
         <input type="text" class="check-stt" name="stt_cate" data-id="{{ $category->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_cate', $category->stt_cate) }}">
     </td>
     <td>
         @can('category-edit')
-        <a href="{{ asset('admin/categories/'.$category->id.'/edit') }}" >Chỉnh sửa</a> | 
+        <a href="{{ asset('admin/categories/'.$category->id.'/edit') }}">Chỉnh sửa</a> |
         @endcan
         @can('filter-add')
-        <a href="{{ asset('admin/filters/create?cate_id=' . $category->id) }}" >Thêm bộ lọc</a> |
+        <a href="{{ asset('admin/filters/create?cate_id=' . $category->id) }}">Thêm bộ lọc</a> |
         @endcan
-        <a href="{{ asset('admin/compares/create?cate_id=' . $category->id) }}" >So sánh</a> |
-        <a href="{{ asset('admin/categories') }}" >Xóa cache</a>
+        @can('compare-add')
+        <a href="{{ asset('admin/compares/create?cate_id=' . $category->id) }}">So sánh</a> |
+        @endcan
+        <a href="{{ asset('admin/categories') }}">Xóa cache</a>
         <!-- <a href="{{ asset('admin/categories/'.$category->id.'/edit') }}" >Nhân bản</a> | 
         
         <a href="{{ asset('admin/categories/'.$category->id.'/edit') }}" >Xóa cache</a> |  -->

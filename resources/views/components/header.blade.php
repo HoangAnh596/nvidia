@@ -50,7 +50,7 @@
                     @endcan
                     <a class="collapse-item" href="{{ route('filter.index') }}">Danh sách bộ lọc</a>
                     <a class="collapse-item" href="{{ route('compares.index') }}">Danh sách so sánh</a>
-                    <a class="collapse-item" href="{{ route('groups.index') }}">Nhóm sản phẩm</a>
+                    <a class="collapse-item" href="{{ route('groups.index') }}">Danh sách nhóm</a>
                 </div>
             </div>
         </li>
@@ -107,11 +107,13 @@
         <li class="nav-item">
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseInfors" aria-expanded="true" aria-controls="collapseInfors">
                 <i class="fa-solid fa-phone-volume"></i>
-                <span>QL hotline, báo giá</span>
+                <span>QL @can('quote-list') báo giá, @endcan hotline</span>
             </a>
             <div id="collapseInfors" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
+                    @can('quote-list')
                     <a class="collapse-item" href="{{ route('quotes.index') }}">Danh sách báo giá</a>
+                    @endcan
                     <a class="collapse-item" href="{{ route('infors.index') }}">Danh sách hotline</a>
                     @can('hotline-add')
                     <a class="collapse-item" href="{{ route('infors.create') }}">Thêm mới hotline</a>

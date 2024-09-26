@@ -291,8 +291,6 @@
 @endsection
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
     // Nhúng danh sách slugs từ backend vào frontend
     var validSlugs = <?php echo json_encode($slugs); ?>;

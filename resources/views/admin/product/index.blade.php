@@ -13,7 +13,7 @@
         </h6>
     </div>
     <!-- DataTales Example -->
-    
+
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
@@ -46,9 +46,9 @@
                     <thead>
                         <tr>
                             <th class="">No.</th>
-                            <th class="col-sm-4 text-center">Name</th>
-                            <th class="col-sm-3 text-center">Slug</th>
-                            <th class="text-center">Code</th>
+                            <th class="col-sm-4 text-center">Tên sản phẩm</th>
+                            <th class="col-sm-3 text-center">Địa chỉ url</th>
+                            <th class="text-center">Mã Code</th>
                             <th class="text-center">Nổi bật</th>
                             <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
@@ -61,9 +61,7 @@
                             <td>{{ $product->slug }}</td>
                             <td>{{ $product->code }}</td>
                             <td class="text-center">
-                                <div class="form-check">
-                                    <input type="checkbox" class="active-checkbox" data-id="{{ $product->id }}" data-field="is_outstand" {{ ($product->is_outstand == 1) ? 'checked' : '' }}>
-                                </div>
+                                <input type="checkbox" class="active-checkbox" data-id="{{ $product->id }}" data-field="is_outstand" {{ ($product->is_outstand == 1) ? 'checked' : '' }}>
                             </td>
                             <td>
                                 @can('product-edit')
@@ -72,8 +70,16 @@
                                 @can('filterPro-add')
                                 <a href="{{ asset('admin/filter-pro/create/?pro_id=' . $product->id) }}">Thêm bộ lọc</a> |
                                 @endcan
+                                @can('comparePro-add')
                                 <a href="{{ asset('admin/compare-pro/create/?pro_id=' . $product->id) }}">So sánh</a> |
+                                @endcan
+                                @can('groupPro-add')
+                                @if(!empty($product->group_ids))
+                                <a href="{{ asset('admin/group-product/create/?pro_id=' . $product->id) }}" style="color:red;">Nhóm</a> |
+                                @else
                                 <a href="{{ asset('admin/group-product/create/?pro_id=' . $product->id) }}">Nhóm</a> |
+                                @endif
+                                @endcan
                                 <a href="{{ asset('admin/products') }}">Xóa cache</a>
                             </td>
                         </tr>

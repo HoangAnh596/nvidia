@@ -88,13 +88,13 @@
 	<url>
 	<loc>http://localhost:8000/laptops</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-09T09:58:27+07:00</lastmod>
+		<lastmod>2024-09-25T17:15:11+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/dtdd</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-18T16:19:53+07:00</lastmod>
+		<lastmod>2024-09-25T14:32:54+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 </urlset>

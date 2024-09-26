@@ -33,7 +33,7 @@
                 <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
                 <li class="breadcrumb-item"><a href="/blogs">Blogs</a></li>
                 @foreach ($allParents as $parent)
-                    <li class="breadcrumb-item"><a href="{{ asset('/blogs/' . $parent->slug) }}">{{ $parent->name }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ asset('/blogs/' . $parent->slug) }}">{{ $parent->name }}</a></li>
                 @endforeach
                 <li class="breadcrumb-item">{{ $titleCate->name }}</li>
             </ol>
@@ -62,12 +62,15 @@
                         <div class="media-body">
                             <a href="{{ asset('blogs/'.$item->slug) }}">{{ $item->name }}</a>
                             <div class="author_meta">
-			                    <span class="entry-date">{{ $item->created_at->format('F d, Y') }}</span>
+                                <span class="entry-date">{{ $item->created_at->format('F d, Y') }}</span>
                                 <span class="meta-sep">by</span>
                                 <span class="author vcard">{{ $item->user ? $item->user->name : 'Unknown' }}</span>
                                 <!-- <span class="author vcard">
                                     <a class="url fn n" href="https://blogs.nvidia.com/blog/author/dsalvator/" title="View all posts by Dave Salvator">Dave Salvator</a>
                                 </span> -->
+                                @if(!empty($item->view_count))
+                                <span class="view-count"><i class="fa-solid fa-eye"></i> {{ $item->view_count }}</span>
+                                @endif
                             </div>
                             <span class="media-desc">{{ $item->desc }}</span>
                         </div>
@@ -130,7 +133,14 @@
                     <div class="media-products">
                         <div class="media-left">
                             <a href="{{ asset('/'.$value->slug) }}">
-                                <img class="lazyload" src="{{ asset($value->image) }}" data-src="{{ asset($value->image) }}" alt="{{ $value->alt_img }}" title="{{ $value->title_img }}">
+                                @if($value->main_image)
+                                <img class="thumb ls-is-cached lazyloaded" data-src="{{ asset($value->main_image->image) }}"
+                                    alt="{{ $value->main_image->alt }}" title="{{ $value->main_image->title }}" src="{{ asset($value->main_image->image) }}">
+                                @else
+                                <img class="thumb ls-is-cached lazyloaded"
+                                    data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" alt="Image Coming Soon" title="Image Coming Soon"
+                                    src="{{ asset('storage/images/image-coming-soon.jpg') }}">
+                                @endif
                             </a>
                         </div>
                         <div class="media-right">

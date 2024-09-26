@@ -32,7 +32,7 @@ class BlogController extends Controller
             ->where('is_public', 1)
             ->where('slug', '<>', 'blogs')->get();
 
-        $newAll = News::select('name', 'slug', 'desc', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')->latest()->paginate(10);
+        $newAll = News::select('name', 'slug', 'desc', 'view_count', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')->latest()->paginate(10);
         $viewer = News::select('name', 'slug')->orderBy('view_count', 'DESC')->take(10)->get();
         $outstand = News::select('name', 'slug', 'image', 'alt_img', 'title_img')->where('is_outstand', 1)->orderBy('created_at', 'DESC')->take(10)->get();
 
@@ -53,6 +53,9 @@ class BlogController extends Controller
             $titleSeo = (!empty($newArt->title_seo)) ? $newArt->title_seo : config('common.title_seo_blog');
             $keywordSeo = (!empty($newArt->keyword_seo)) ? $newArt->keyword_seo : config('common.keyword_seo_blog');
             $descriptionSeo = (!empty($newArt->des_seo)) ? $newArt->des_seo : config('common.des_seo_blog');
+            // Thêm số lượt xem bài viết vào bảng news
+            $newArt->view_count = $newArt->view_count + 1;
+            $newArt->save();
 
             $sameCate = News::where('cate_id', $newArt->cate_id)
                 ->orderBy('created_at', 'DESC')->take(10)
@@ -121,14 +124,14 @@ class BlogController extends Controller
         $childrenIds = $this->categoryNewSrc->getAllChildrenIds($cateNew);
         $newArray = array_merge([$cateNew], $childrenIds);
 
-        $titleCate = CategoryNew::where('slug', $slug)->first();
+        $titleCate = CategoryNew::findOrFail($cateNew);
         $allParents = $titleCate->getAllParents();
 
-        $titleSeo = (!empty($titleCate->title_seo)) ? $titleCate->title_seo : config('common.title_seo_blog');
-        $keywordSeo = (!empty($titleCate->keyword_seo)) ? $titleCate->keyword_seo : config('common.keyword_seo_blog');
-        $descriptionSeo = (!empty($titleCate->des_seo)) ? $titleCate->des_seo : config('common.des_seo_blog');
+        $titleSeo = $titleCate->title_seo ?? config('common.title_seo_blog');
+        $keywordSeo = $titleCate->keyword_seo ?? config('common.keyword_seo_blog');
+        $descriptionSeo = $titleCate->des_seo ?? config('common.des_seo_blog');
 
-        $news = News::select('name', 'slug', 'desc', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
+        $news = News::select('name', 'slug', 'desc', 'view_count', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
             ->whereIn('cate_id', $newArray)
             ->latest()->paginate(10);
         $viewer = News::select('name', 'slug')
@@ -136,23 +139,21 @@ class BlogController extends Controller
             ->orderBy('view_count', 'DESC')->take(10)->get();
         $outstand = News::select('name', 'slug', 'image', 'alt_img', 'title_img')
             ->whereIn('cate_id', $newArray)->where('is_outstand', 1)
-            ->orderBy('created_at', 'DESC')->take(10)->get();
-        // Lấy ra sản phẩm liên quan
-        $related = CategoryNew::findOrFail($cateNew);
-        if (!empty($related->related_pro)) {
-            $relatedPro = $related->getRelatedPro();
+            ->latest()->take(10)->get();
+        // Lấy sản phẩm liên quan nếu có
+        $relatedPro = !empty($titleCate->related_pro) ? $titleCate->getRelatedPro() : null;
 
-            return view('cntt.home.blogs.cateBlog', compact(
-                'titleSeo', 'keywordSeo', 'descriptionSeo',
-                'cateMenu', 'titleCate', 'news', 'allParents',
-                'viewer', 'outstand', 'relatedPro'
-            ));
+        // Lấy ảnh chính cho từng sản phẩm
+        if(!empty($relatedPro)) {
+            $relatedPro->each(function ($productImg) {
+                $productImg->main_image = $productImg->getMainImage(); // Thêm ảnh chính vào đối tượng sản phẩm
+            });
         }
-
+        
         return view('cntt.home.blogs.cateBlog', compact(
             'titleSeo', 'keywordSeo', 'descriptionSeo',
             'cateMenu', 'titleCate', 'allParents',
-            'news', 'viewer', 'outstand'
+            'news', 'viewer', 'outstand', 'relatedPro'
         ));
     }
 
@@ -166,13 +167,13 @@ class BlogController extends Controller
         $childrenIds = $this->categoryNewSrc->getAllChildrenIds($cateNew);
         $newArray = array_merge([$cateNew], $childrenIds);
 
-        $titleCate = CategoryNew::where('slug', $slugParent)->first();
+        $titleCate = CategoryNew::findOrFail($cateNew);
         $allParents = $titleCate->getAllParents();
-        $titleSeo = (!empty($titleCate->title_seo)) ? $titleCate->title_seo : config('common.title_seo_blog');
-        $keywordSeo = (!empty($titleCate->keyword_seo)) ? $titleCate->keyword_seo : config('common.keyword_seo_blog');
-        $descriptionSeo = (!empty($titleCate->des_seo)) ? $titleCate->des_seo : config('common.des_seo_blog');
+        $titleSeo = $titleCate->title_seo ?? config('common.title_seo_blog');
+        $keywordSeo = $titleCate->keyword_seo ?? config('common.keyword_seo_blog');
+        $descriptionSeo = $titleCate->des_seo ?? config('common.des_seo_blog');
 
-        $news = News::select('name', 'slug', 'desc', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
+        $news = News::select('name', 'slug', 'desc', 'view_count', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
             ->where('cate_id', $newArray)
             ->latest()->paginate(10);
         $viewer = News::select('name', 'slug')
@@ -180,17 +181,15 @@ class BlogController extends Controller
             ->orderBy('view_count', 'DESC')->take(10)->get();
         $outstand = News::select('name', 'slug', 'image', 'alt_img', 'title_img')
             ->where('cate_id', $newArray)->where('is_outstand', 1)
-            ->orderBy('created_at', 'DESC')->take(10)->get();
-        // Lấy ra sản phẩm liên quan
-        $related = CategoryNew::findOrFail($cateNew);
-        if (!empty($related->related_pro)) {
-            $relatedPro = $related->getRelatedPro();
+            ->latest()->take(10)->get();
+        // Lấy sản phẩm liên quan nếu có
+        $relatedPro = !empty($titleCate->related_pro) ? $titleCate->getRelatedPro() : null;
 
-            return view('cntt.home.blogs.childBlog', compact(
-                'titleSeo', 'keywordSeo', 'descriptionSeo',
-                'cateMenu', 'titleCate', 'news', 'viewer',
-                'outstand', 'relatedPro', 'allParents'
-            ));
+        // Lấy ảnh chính cho từng sản phẩm
+        if(!empty($relatedPro)) {
+            $relatedPro->each(function ($productImg) {
+                $productImg->main_image = $productImg->getMainImage(); // Thêm ảnh chính vào đối tượng sản phẩm
+            });
         }
 
         return view('cntt.home.blogs.childBlog', compact(

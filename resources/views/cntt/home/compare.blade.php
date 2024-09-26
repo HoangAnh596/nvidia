@@ -150,7 +150,7 @@
         </div>
     </div>
 </div>
-
+<div class="bg-popup" style="display: none;"></div>
 <!-- Modal -->
 <div class="modal fade compare-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -186,8 +186,8 @@
                                         alt="{{ $sale->main_image->alt }}" title="{{ $sale->main_image->title }}" src="{{ asset($sale->main_image->image) }}">
                                     @else
                                     <img class="thumb ls-is-cached lazyloaded"
-                                        data-src="{{ asset('path/to/default/image.jpg') }}" alt="Default Image" title="Default Image"
-                                        src="{{ asset('path/to/default/image.jpg') }}">
+                                        data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" alt="Image Coming Soon" title="Image Coming Soon"
+                                        src="{{ asset('storage/images/image-coming-soon.jpg') }}">
                                     @endif
                                 </div>
                                 <h3 class="text-center">{{ $sale->name }}</h3>
@@ -206,7 +206,6 @@
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <style>
     .modal-header {
         padding: 15px;
@@ -262,7 +261,6 @@
 </style>
 @endsection
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="{{asset('cntt/js/compare.js')}}"></script>
 <script type="text/javascript">
     function SuggestCompare() {

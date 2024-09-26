@@ -62,9 +62,7 @@
                                 <img src="{{ \App\Http\Helpers\Helper::getPath($new->image) }}" class="img-fluid">
                             </td>
                             <td class="text-center">
-                                <div class="form-check">
-                                    <input type="checkbox" class="active-checkbox" data-id="{{ $new->id }}" data-field="is_outstand" {{ ($new->is_outstand == 1) ? 'checked' : '' }}>
-                                </div>
+                                <input type="checkbox" class="active-checkbox" data-id="{{ $new->id }}" data-field="is_outstand" {{ ($new->is_outstand == 1) ? 'checked' : '' }}>
                             </td>
                             <td class="text-center">{{ $new->view_count }}</td>
                             <td>

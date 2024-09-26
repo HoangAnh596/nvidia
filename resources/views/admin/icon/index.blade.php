@@ -32,8 +32,8 @@
                             <th>Tên Icon</th>
                             <th>Địa chỉ đường dẫn</th>
                             <th>Icon fontawesome</th>
-                            <th>stt</th>
-                            <th>Hiển thị</th>
+                            <th class="text-center">STT</th>
+                            <th class="text-center">Hiển thị</th>
                             <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
                     </thead>
@@ -48,9 +48,7 @@
                                 <input type="text" class="check-stt" name="stt" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt', $val->stt) }}">
                             </td>
                             <td class="text-center">
-                                <div class="form-check">
                                     <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
-                                </div>
                             </td>
                             <td>
                                 @can('icon-edit')

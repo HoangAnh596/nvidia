@@ -36,8 +36,6 @@
                         <th>#</th>
                         <th>Tên tài khoản</th>
                         <th>Mô tả vai trò</th>
-                        <!-- <th class="col-2">Vai trò</th> -->
-                        <!-- <th>Image</th> -->
                         <th class="col-sm-2 text-center">Hành động</th>
                     </tr>
                 </thead>
@@ -47,7 +45,6 @@
                         <td>{{ (($roles->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
                         <td>{{ $val->name }}</td>
                         <td>{{ $val->display_name }}</td>
-                        <!-- <td><img src="{{ \App\Http\Helpers\Helper::getPath('roles',$val->image) }}" alt="" style="width: 100px; height: 100px"></td> -->
                         <td>
                             @can('role-edit')
                             <a href="{{ asset('admin/roles/'.$val->id.'/edit') }}">Chỉnh sửa</a> |

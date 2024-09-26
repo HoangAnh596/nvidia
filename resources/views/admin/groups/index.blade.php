@@ -18,7 +18,9 @@
                 </div>
             </form>
             <div>
-                <a href="{{ route('groups.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
+                @can('group-add')
+                <a href="{{ route('groups.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới nhóm</a>
+                @endcan
             </div>
         </div>
         <div class="card-body" style="padding: 0;">
@@ -41,22 +43,17 @@
                             <td>{{ $val->name }}</td>
                             <td>@if(!empty($val->cate_id)) {{ $val->category->name }} @endif</td>
                             <td class="text-center">
-                                <input type="text" class="check-stt" name="stt" data-id="{{ $val->id }}" style="width: 40px;text-align: center;" value="{{ old('stt_slider', $val->stt_slider) }}">
+                                <input type="text" class="check-stt" name="stt" data-id="{{ $val->id }}" style="width: 40px;text-align: center;" value="{{ old('stt', $val->stt) }}">
                             </td>
                             <td class="text-center">
-                                <div class="form-check">
-                                    <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
-                                </div>
+                                <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
                             </td>
                             <td>
+                                @can('group-edit')
                                 <a href="{{ asset('admin/groups/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
+                                @endcan
                                 <a href="{{ asset('admin/groups/'.$val->id.'/edit') }}">Nhân bản</a> |
                                 <a href="{{ asset('admin/groups/'.$val->id.'/edit') }}">Xóa cache</a>
-                                | <a href="javascript:void(0);" onclick="confirmDelete('{{ $val->id }}')">Xóa</a>
-                                <form id="deleteForm-{{ $val->id }}" action="{{ route('groups.destroy', ['id' => $val->id]) }}" method="post" style="display: none;">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -83,14 +80,14 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('.active-checkbox').change(function() {
-            var sliderId = $(this).data('id');
+            var groupId = $(this).data('id');
             var value = $(this).is(':checked') ? 1 : 0;
 
             $.ajax({
                 url: '{{ route("groups.isCheckbox") }}',
                 method: 'POST',
                 data: {
-                    id: sliderId,
+                    id: groupId,
                     is_public: value,
                     _token: '{{ csrf_token() }}',
                 },
@@ -128,8 +125,8 @@
         });
 
         $('.check-stt').change(function() {
-            var idSlider = $(this).data('id');
-            var sttSlider = $(this).val();
+            var idGroup = $(this).data('id');
+            var sttGroup = $(this).val();
 
             $.ajax({
                 url: '{{ route("groups.checkStt") }}',
@@ -138,8 +135,8 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data: {
-                    id: idSlider,
-                    stt: sttSlider,
+                    id: idGroup,
+                    stt: sttGroup,
                 },
                 success: function(response) {
                     if (response.success) {

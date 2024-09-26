@@ -43,9 +43,7 @@
                         <td>{{ $val->quantity }}</td>
                         <td>@if($val->purpose == 0 ) công ty @else dự án @endif </td>
                         <td class="text-center">
-                            <div class="form-check">
-                                <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="status" {{ ($val->status == 1) ? 'checked' : '' }}>
-                            </div>
+                            <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="status" {{ ($val->status == 1) ? 'checked' : '' }}>
                         </td>
                     </tr>
                     @endforeach

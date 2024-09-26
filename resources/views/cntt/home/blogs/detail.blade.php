@@ -32,6 +32,9 @@
                         <!-- <span class="author vcard">
                                     <a class="url fn n" href="https://blogs.nvidia.com/blog/author/dsalvator/" title="View all posts by Dave Salvator">Dave Salvator</a>
                                 </span> -->
+                        @if(!empty($newArt->view_count))
+                        <span class="view-count"><i class="fa-solid fa-eye"></i> {{ $newArt->view_count }}</span>
+                        @endif
                     </div>
                     <div id="chi-tiet">
                         {!! $newArt->content !!}

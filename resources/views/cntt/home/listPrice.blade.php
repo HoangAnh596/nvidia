@@ -163,7 +163,6 @@
 </style>
 @endsection
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <!-- Link to Swiper's JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="{{asset('cntt/js/product.js')}}"></script>

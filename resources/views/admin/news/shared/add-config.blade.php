@@ -8,8 +8,7 @@
             </div>
             <div class="mb-3">
                 <label for="desc" class="form-label">Mô tả ngắn <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                <!-- <input type="text" id="desc" class="form-control" name="desc" value="{{ old('desc') }}"> -->
-                <textarea name="desc" id="desc" rows="5" style="width: 100%">{{ old('desc') }}</textarea>
+                <textarea name="desc" id="desc" rows="5" class="form-control">{{ old('desc') }}</textarea>
                 <span id="desc-error" style="color: red;"></span>
             </div>
         </div>

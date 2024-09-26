@@ -29,10 +29,6 @@
                     <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
                 </div>
             </div>
-            <!-- <div class="card-body border-top p-9">
-                
-            </div> -->
-
             <div class="card-body border-top p-9">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">

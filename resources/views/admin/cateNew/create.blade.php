@@ -39,7 +39,7 @@
                             <select name="parent_id" id="parent_id" class="form-control">
                                 <option value="0">Chọn danh mục</option>
                                 @foreach($cateNewParents as $category)
-                                    @include('admin.cateNew.partials.category_add', ['category' => $category, 'level' => 0, 'selected' => old('parent_id', $category->parent_id)])
+                                @include('admin.cateNew.partials.category_add', ['category' => $category, 'level' => 0, 'selected' => old('parent_id', $category->parent_id)])
                                 @endforeach
                             </select>
                         </div>
@@ -57,33 +57,32 @@
                     </div>
                 </div>
                 <hr>
+                <h4>Cấu hình SEO :</h4>
                 <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="">Tiêu đề SEO: </label>
-                            <input type="text" name="title_seo" id="title_seo" class="form-control" value="{{ old('title_seo') }}">
-                            <div class="text-danger" id="message" style="padding-top: 10px;"></div>
-                            @error('title_seo')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">Từ khóa SEO: </label>
-                            <input type="text" name="keyword_seo" class="form-control" value="{{ old('keyword_seo') }}">
-                            @error('keyword_seo')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
+                    <div class="col-2 d-flex flex-row-reverse align-items-center vertical-line pb-3">Tiêu đề trang <div class="warningMenu">*</div>
                     </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="">Mô tả chi tiết SEO: </label>
-                            <input type="text" name="des_seo" class="form-control" value="{{ old('des_seo') }}">
-                            @error('des_seo')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
+                    <div class="col-8 pb-3">
+                        <input type="text" name="title_seo" class="form-control" value="{{ old('title_seo') }}" id="title_seo" onkeyup="delayedValidate('title_seo', 'titleSeoWarning', 50, 60)">
+                        <span class="text-danger" id="titleSeoWarning"></span>
                     </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
+                </div>
+                <div class="row">
+                    <div class="col-2 d-flex flex-row-reverse align-items-center vertical-line pb-3">Thẻ từ khóa <div class="warningMenu">*</div>
+                    </div>
+                    <div class="col-8 d-flex align-items-center pb-3">
+                        <input type="text" name="keyword_seo" class="form-control" value="{{ old('keyword_seo') }}">
+                    </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
+                </div>
+                <div class="row">
+                    <div class="col-2 d-flex flex-row-reverse align-items-center vertical-line">Thẻ mô tả <div class="warningMenu">*</div>
+                    </div>
+                    <div class="col-8">
+                        <textarea name="des_seo" class="form-control" id="des_seo" rows="5" onkeyup="delayedValidate('des_seo', 'desSeoWarning', 150, 160)">{{ old('des_seo') }}</textarea>
+                        <span class="text-danger" id="desSeoWarning"></span>
+                    </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
             </div>
 
@@ -102,7 +101,29 @@
 <script>
     let timeout = null;
     let updateSlug = true;
+    
+    // Validate cấu hình SEO
+    function delayedValidate(fieldId, warningId, minLength, maxLength) {
+        clearTimeout(timeout); // Xóa timeout cũ nếu có, để đặt lại thời gian chờ
 
+        // Đặt một timeout mới, sẽ thực thi sau 2 giây (2000ms)
+        timeout = setTimeout(function() {
+            validateLength(fieldId, warningId, minLength, maxLength);
+        }, 2000);
+    }
+
+    function validateLength(fieldId, warningId, minLength, maxLength) {
+        const fieldValue = document.getElementById(fieldId).value;
+        const warning = document.getElementById(warningId);
+        const fieldLength = fieldValue.length;
+
+        if (fieldLength >= minLength && fieldLength <= maxLength) {
+            warning.textContent = ''; // Không hiển thị cảnh báo nếu hợp lệ
+        } else {
+            warning.textContent = `Độ dài hiện tại: ${fieldLength}. Vui lòng nhập từ ${minLength} đến ${maxLength} ký tự để tối ưu hóa chuẩn SEO.`;
+        }
+    }
+    
     function validateSlug(slug) {
         // Biểu thức chính quy để kiểm tra định dạng của slug
         const regex = /^[a-z0-9]+(-[a-z0-9]+)*$/;

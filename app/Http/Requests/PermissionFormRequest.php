@@ -36,7 +36,7 @@ class PermissionFormRequest extends FormRequest
             'key_code' => [
                 'required',
                 Rule::unique('permissions', 'key_code')->ignore($permissionId), // Bỏ qua chính id đang được cập nhật
-                'regex:/^[a-z]+(_[a-z]+)*$/',
+                'regex:/^[a-zA-Z]+(_[a-zA-Z]+)*$/',
             ],
         ];
     }
@@ -55,7 +55,7 @@ class PermissionFormRequest extends FormRequest
             'display_name.max' => 'Tên hiển thị Permission không được vượt quá 150 ký tự.',
             'key_code.required' => 'Mã code không được bỏ trống.',
             'key_code.unique' => 'Mã code không được trùng lặp.',
-            'key_code.regex' => 'Mã code phải là chữ thường và "_" ở giữa, không được chứa các ký tự.',
+            'key_code.regex' => 'Mã code phải là chữ và "_" ở giữa, không được chứa các ký tự.',
         ];
     }
 }

@@ -66,22 +66,16 @@
                                 {{ $val->category->name }}
                             </td>
                             <td class="text-center">
-                                <div class="form-check">
-                                    <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="top_filter" {{ ($val->top_filter == 1) ? 'checked' : '' }}>
-                                </div>
+                                <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="top_filter" {{ ($val->top_filter == 1) ? 'checked' : '' }}>
                             </td>
                             <td class="text-center">
-                                <div class="form-check">
-                                    <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="special" {{ ($val->special == 1) ? 'checked' : '' }}>
-                                </div>
+                                <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="special" {{ ($val->special == 1) ? 'checked' : '' }}>
                             </td>
                             <td class="text-center">
                                 <input type="text" class="check-stt" name="stt_filter" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_filter', $val->stt_filter) }}">
                             </td>
                             <td class="text-center">
-                                <div class="form-check">
-                                    <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
-                                </div>
+                                <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
                             </td>
                             <td>
                                 @can('filter-edit')

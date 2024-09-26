@@ -8,11 +8,16 @@ use App\Policies\CategoryNewPolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\CommentNewPolicy;
 use App\Policies\CommentPolicy;
+use App\Policies\ComparePolicy;
+use App\Policies\CompareProductPolicy;
 use App\Policies\FilterPolicy;
 use App\Policies\FilterProductPolicy;
 use App\Policies\FooterPolicy;
+use App\Policies\GroupPolicy;
+use App\Policies\GroupProductPolicy;
 use App\Policies\IconPolicy;
 use App\Policies\InforPolicy;
+use App\Policies\ManyPolicy;
 use App\Policies\MenuPolicy;
 use App\Policies\NewPolicy;
 use App\Policies\PermissionPolicy;
@@ -39,6 +44,13 @@ class PermissionGateAndPolicyAccess {
         $this->defineIcon();
         $this->defineFilter();
         $this->defineFilterProduct();
+        $this->defineCompare();
+        $this->defineCompareProduct();
+        $this->defineGroup();
+        $this->defineGroupProduct();
+
+        // Phân quyền nhiều loại khác
+        $this->defineMany();
 
         $this->defineUser();
         $this->defineRole();
@@ -174,6 +186,44 @@ class PermissionGateAndPolicyAccess {
     {
         Gate::define('filterPro-add', [FilterProductPolicy::class, 'create']);
         Gate::define('filterPro-edit', [FilterProductPolicy::class, 'update']);
+    }
+
+    public function defineCompare()
+    {
+        // Gate::define('compare-list', [ComparePolicy::class, 'view']);
+        Gate::define('compare-add', [ComparePolicy::class, 'create']);
+        Gate::define('compare-edit', [ComparePolicy::class, 'update']);
+        Gate::define('compare-delete', [ComparePolicy::class, 'delete']);
+        Gate::define('compare-checkbox', [ComparePolicy::class, 'checkbox']);
+        Gate::define('compare-checkStt', [ComparePolicy::class, 'checkStt']);
+    }
+
+    public function defineCompareProduct()
+    {
+        Gate::define('comparePro-add', [CompareProductPolicy::class, 'create']);
+        Gate::define('comparePro-edit', [CompareProductPolicy::class, 'update']);
+    }
+
+    public function defineGroup()
+    {
+        Gate::define('group-add', [GroupPolicy::class, 'create']);
+        Gate::define('group-edit', [GroupPolicy::class, 'update']);
+        Gate::define('group-delete', [GroupPolicy::class, 'delete']);
+        Gate::define('group-checkbox', [GroupPolicy::class, 'checkbox']);
+        Gate::define('group-checkStt', [GroupPolicy::class, 'checkStt']);
+    }
+
+    public function defineGroupProduct()
+    {
+        Gate::define('groupPro-add', [GroupProductPolicy::class, 'create']);
+        Gate::define('groupPro-edit', [GroupProductPolicy::class, 'update']);
+    }
+
+    // Phân quyền nhiều loại khác nhau
+    public function defineMany()
+    {
+        Gate::define('quote-list', [ManyPolicy::class, 'listQuotes']);
+        Gate::define('quote-checkbox', [ManyPolicy::class, 'checkboxQuotes']);
     }
 
     public function defineUser()

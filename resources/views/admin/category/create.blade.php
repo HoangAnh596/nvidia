@@ -69,6 +69,28 @@
     let timeout = null;
     let updateSlug = true;
 
+    // Validate cấu hình SEO
+    function delayedValidate(fieldId, warningId, minLength, maxLength) {
+        clearTimeout(timeout); // Xóa timeout cũ nếu có, để đặt lại thời gian chờ
+
+        // Đặt một timeout mới, sẽ thực thi sau 2 giây (2000ms)
+        timeout = setTimeout(function() {
+            validateLength(fieldId, warningId, minLength, maxLength);
+        }, 2000);
+    }
+
+    function validateLength(fieldId, warningId, minLength, maxLength) {
+        const fieldValue = document.getElementById(fieldId).value;
+        const warning = document.getElementById(warningId);
+        const fieldLength = fieldValue.length;
+
+        if (fieldLength >= minLength && fieldLength <= maxLength) {
+            warning.textContent = ''; // Không hiển thị cảnh báo nếu hợp lệ
+        } else {
+            warning.textContent = `Độ dài hiện tại: ${fieldLength}. Vui lòng nhập từ ${minLength} đến ${maxLength} ký tự để tối ưu hóa chuẩn SEO.`;
+        }
+    }
+
     function validateSlug(slug) {
         // Biểu thức chính quy để kiểm tra định dạng của slug
         const regex = /^[a-z0-9]+(-[a-z0-9]+)*$/;

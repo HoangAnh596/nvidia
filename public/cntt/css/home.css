@@ -1685,6 +1685,33 @@ button:focus {
 .sticky-cp.pro-compare li .item-label, .sticky-cp.pro-compare li .item-rating, .sticky-cp.pro-compare li .deleteProduct, .sticky-cp.pro-compare li .item-bottom, .sticky-cp.pro-compare li .item-txt-online, .sticky-cp.pro-compare li .item-gift {
     display: none;
 }
+.sticky-cp.pro-compare li.productid-0 {
+    display: flex;
+}
+.sticky-cp.pro-compare li.productid-0 .addsp-cp {
+    margin: auto;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.sticky-cp.pro-compare li.productid-0 .addsp-cp .plus {
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+}
+.sticky-cp.pro-compare li .addsp-cp span {
+    margin: 0 0 0 10px;
+}
+.bg-popup {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #000;
+    opacity: .75;
+    z-index: 999999;
+}
 .pro-compare li {
     float: left;
     position: relative;

@@ -1,6 +1,6 @@
 <div class="text-dark">
     <div class="row">
-        <div class="col-3 d-flex flex-row-reverse align-items-center" style="height: 38px;">Tên bộ lọc :<div class="warningMenu">*</div>
+        <div class="col-3 d-flex flex-row-reverse align-items-center" style="height: 38px;">Tên sản phẩm :<div class="warningMenu">*</div>
         </div>
         <div class="col-6">
             <div class="form-group">

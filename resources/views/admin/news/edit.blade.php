@@ -82,6 +82,30 @@
 @endsection
 @section('js')
 <script>
+    let timeout = null; // Khởi tạo biến timeout
+
+    // Hàm chung để kiểm tra độ dài của text input
+    function delayedValidate(fieldId, warningId, minLength, maxLength) {
+        clearTimeout(timeout); // Xóa timeout cũ nếu có, để đặt lại thời gian chờ
+
+        // Đặt một timeout mới, sẽ thực thi sau 2 giây (2000ms)
+        timeout = setTimeout(function() {
+            validateLength(fieldId, warningId, minLength, maxLength);
+        }, 2000);
+    }
+
+    function validateLength(fieldId, warningId, minLength, maxLength) {
+        const fieldValue = document.getElementById(fieldId).value;
+        const warning = document.getElementById(warningId);
+        const fieldLength = fieldValue.length;
+
+        if (fieldLength >= minLength && fieldLength <= maxLength) {
+            warning.textContent = ''; // Không hiển thị cảnh báo nếu hợp lệ
+        } else {
+            warning.textContent = `Độ dài hiện tại: ${fieldLength}. Vui lòng nhập từ ${minLength} đến ${maxLength} ký tự để tối ưu hóa chuẩn SEO.`;
+        }
+    }
+
     function checkDuplicate() {
         const name = document.getElementById('name').value;
         // Xóa thông báo lỗi trước đó

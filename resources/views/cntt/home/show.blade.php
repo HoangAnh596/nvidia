@@ -220,6 +220,7 @@
             <div class="col-lg-9 mt-4">
                 <div id="chi-tiet">{!! $product->content !!}</div>
                 <!-- Nhóm sản phẩm đi kèm -->
+                @if(!empty($product->group_ids))
                 <h3 class="mt-4 panel-heading">Các sản phẩm mua kèm sử dụng cho {{ $product->code }}</h3>
                 @foreach($groupProducts as $group)
                 <div class="pricing prd_di_kem group-prod">
@@ -244,10 +245,40 @@
                         @endforeach
                     </ul>
                     <div class="align-items-center justify-content-center nav-mb group-show-more pb-4">
-                            <button class="btn-group-prod">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
-                        </div>
+                        <button class="btn-group-prod">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
+                    </div>
                 </div>
                 @endforeach
+                @else
+                <h3 class="mt-4 panel-heading">Các sản phẩm mua kèm sử dụng cho {{ $product->code }}</h3>
+                @foreach($groupProducts as $group)
+                <div class="pricing prd_di_kem group-prod">
+                    <div class="panel-subheading">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"></path>
+                        </svg>
+                        <h4>{{ $group->name }}</h4>
+                    </div>
+                    <ul>
+                        @foreach($group->products as $index => $grPro)
+                        <li class="{{ $loop->index % 2 == 0 ? 'mg-r4' : 'mg-r' }}">
+                            @if($grPro->getMainImage())
+                            <img width="76" height="54" src="{{ asset($grPro->getMainImage()->image) }}" data-src="{{ asset($grPro->getMainImage()->image) }}" data-srcset="{{ asset($grPro->getMainImage()->image) }}" alt="{{ asset($grPro->getMainImage()->alt) }}" title="{{ asset($grPro->getMainImage()->title) }}" srcset="{{ asset($grPro->getMainImage()->image) }}">
+                            @else
+                            <img width="76" height="54" src="{{ asset('storage/images/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" width="206" height="206" alt="Image Coming Soon" title="Image Coming Soon">
+                            @endif
+                            <a href="{{ asset($grPro->slug) }}">
+                                <h4>{{ $grPro->name }}</h4>
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                    <div class="align-items-center justify-content-center nav-mb group-show-more pb-4">
+                        <button class="btn-group-prod">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
+                    </div>
+                </div>
+                @endforeach
+                @endif
                 <!-- Bình luận -->
                 <div class="wrap-tab-comments mt-4" id="comment-box">
                     <div class="comment-write" id="rate-box">
@@ -361,11 +392,7 @@
 
 @endsection
 
-@section('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-@endsection
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <!-- Link to Swiper's JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="{{asset('cntt/js/product.js')}}"></script>
@@ -764,7 +791,7 @@
                                         </div>
                                     </div>
                                 </div>`;
-                                $('#compareResults').html(results).show();
+                    $('#compareResults').html(results).show();
                 }
 
                 // Hiển thị kết quả tìm kiếm

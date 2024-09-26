@@ -122,6 +122,10 @@ class NewController extends Controller
         $new->image = $path;
         $new->title_img = (isset($request->title_img)) ? $request->title_img : $request->name;
         $new->alt_img = (isset($request->alt_img)) ? $request->alt_img : $request->name;
+
+        $new->title_seo = (isset($request->title_seo)) ? $request->title_seo : $request->name;
+        $new->keyword_seo = (isset($request->keyword_seo)) ? $request->keyword_seo : $request->name;
+        $new->des_seo = (isset($request->des_seo)) ? $request->des_seo : $request->name;
         $new->user_id = Auth::id();
 
         $new->save();

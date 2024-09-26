@@ -106,12 +106,20 @@
                         });
                     }
                 },
-                error: function() {
-                    toastr.error('Lỗi cập nhật trạng thái.', 'Lỗi', {
-                        progressBar: true,
-                        closeButton: true,
-                        timeOut: 5000
-                    });
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    }
                 }
             });
         });
@@ -138,7 +146,7 @@
                             timeOut: 5000
                         });
                     } else {
-                        toastr.error('Không thể cập nhật thứ tự.', 'Lỗi', {
+                        toastr.error('Không thể cập nhật star.', 'Lỗi', {
                             progressBar: true,
                             closeButton: true,
                             timeOut: 5000
@@ -162,6 +170,12 @@
                                 timeOut: 5000
                             });
                         }
+                    } else if (xhr.status === 403) {
+                        toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
                     } else {
                         toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
                             progressBar: true,

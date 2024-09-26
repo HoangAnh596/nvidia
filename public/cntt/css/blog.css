@@ -113,6 +113,12 @@
 .author_meta {
     margin-bottom: 6px;
 }
+.view-count {
+    color: #b2b2b2;
+    font-size: 12px;
+    line-height: 18px;
+    margin-left: 8px;
+}
 .entry-date, .meta-sep, .author_meta .author {
     color: #b2b2b2;
     font-size: 14px;

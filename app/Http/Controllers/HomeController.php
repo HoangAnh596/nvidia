@@ -301,6 +301,8 @@ class HomeController extends Controller
             $groupIds = json_decode($product->group_ids, true);
             // Lấy các bản ghi từ bảng Group có id nằm trong groupIds
             $groupProducts = Group::select('id', 'name')->whereIn('id', $groupIds)->get();
+        } else {
+            $groupProducts = Group::select('id', 'name')->where('cate_id', $parent->id)->get();
         }
         
         return view('cntt.home.show', compact(
@@ -332,7 +334,6 @@ class HomeController extends Controller
     // Xử lý tìm kiếm
     public function search(Request $request)
     {
-        // dd(1);
         // Seo Website
         $titleSeo = config('common.title_seo');
         $keywordSeo = config('common.keyword_seo');
@@ -540,7 +541,6 @@ class HomeController extends Controller
 
     public function compareProduct(Request $request)
     {
-        // dd($request->all());
         $query = $request->input('query');
         $prodId = $request->input('id');
         $products = Product::findOrFail($prodId);
@@ -554,21 +554,26 @@ class HomeController extends Controller
             return response()->json(['message' => 'Danh mục không tồn tại'], 404);
         }
         $category = Category::findOrFail($cateId);
-        $allCategoryIds = array_merge([$categoryIds], $category->getAllChildrenIds());
-        
-        // Lấy danh sách sản phẩm dựa trên từ khóa (tìm theo tên hoặc mã)
-        $products = Product::whereHas('category', function ($query) use ($allCategoryIds) {
-                $query->whereIn('product_categories.category_id', $allCategoryIds);
-            })
-            ->where(function ($q) use ($query) {
-                $q->where('name', 'LIKE', "%$query%")
-                ->orWhere('code', 'LIKE', "%$query%");
-            })
-            ->where('id', '!=', $prodId) // Loại bỏ sản phẩm có ID bằng $prodId
-            ->orderBy('created_at', 'DESC')
-            ->get();
-        
-        // Trả về kết quả dưới dạng JSON
+        if (!empty($category->compare_ids)) {
+            $allCategoryIds = array_merge([$categoryIds], $category->getAllChildrenIds());
+            
+            // Lấy danh sách sản phẩm dựa trên từ khóa (tìm theo tên hoặc mã)
+            $products = Product::whereHas('category', function ($query) use ($allCategoryIds) {
+                    $query->whereIn('product_categories.category_id', $allCategoryIds);
+                })
+                ->where(function ($q) use ($query) {
+                    $q->where('name', 'LIKE', "%$query%")
+                    ->orWhere('code', 'LIKE', "%$query%");
+                })
+                ->select('id', 'name', 'slug', 'code')
+                ->where('id', '!=', $prodId) // Loại bỏ sản phẩm có ID bằng $prodId
+                ->orderBy('created_at', 'DESC')
+                ->get();
+            
+            // Trả về kết quả dưới dạng JSON
+            return response()->json($products);
+        }
+
         return response()->json($products);
     }
 
@@ -576,10 +581,9 @@ class HomeController extends Controller
     {
         $search = $request->input('query');
         $cateId = $request->input('id');
-        $product1 = $request->input('product1'); // 6
-        $product2 = $request->input('product2'); // 7
+        $product1 = $request->input('product1');
+        $product2 = $request->input('product2');
         $categories = Category::findOrFail($cateId);
-        // dd($categories);
         // Lấy tất cả danh mục con (bao gồm cả danh mục cha)
         $allCategoryIds = $this->getAllCategoryIds($categories);
 
@@ -591,6 +595,7 @@ class HomeController extends Controller
                 // Nếu có giá trị search, tìm kiếm sản phẩm theo tên
                 $query->where('name', 'like', '%' . $search . '%');
             })
+            ->select('id', 'name', 'slug', 'code')
             ->whereNotIn('id', [$product1, $product2]) // Loại bỏ sản phẩm 1 và 2
             ->get();
     
@@ -632,7 +637,7 @@ class HomeController extends Controller
             $cateId1 = $product1->category()->pluck('categories.id')->first();
             $cateId2 = $product2->category()->pluck('categories.id')->first();
             $cateId3 = $product3 ? $product3->category()->pluck('categories.id')->first() : null;
-            dd($cateId1);
+            
             // Lấy ra id của parent_id = 0 
             $parentId1 = Category::findOrFail($cateId1)->topLevelParent()->id;
             $parentId2 = Category::findOrFail($cateId2)->topLevelParent()->id;
@@ -645,6 +650,7 @@ class HomeController extends Controller
             // Lấy categories
             $category = Category::find($parentId1);
             $compareCates = $category->getCompareCates();
+            $valueCompares = [];
             // Lấy dữ liệu từ bảng Compare dựa trên compare_cate_id
             foreach ($compareCates as $compareCate) {
                 // Truy xuất mối quan hệ với Compare
@@ -707,7 +713,6 @@ class HomeController extends Controller
         $productIds = $request->input('products');
         // Kiểm tra số lượng sản phẩm phải nằm trong khoảng từ 2 đến 3
         if (count($productIds) >= 2 && count($productIds) <= 3) {
-            // $products = Product::whereIn('id', $productIds)->get();
             // Gán ID sản phẩm vào các biến theo thứ tự
             $prod_1 = $productIds[0]; // Sản phẩm thứ 1
             $prod_2 = $productIds[1]; // Sản phẩm thứ 2

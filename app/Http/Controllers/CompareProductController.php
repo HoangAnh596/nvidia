@@ -31,17 +31,16 @@ class CompareProductController extends Controller
 
             // Lấy ra id của parent_id = 0 
             $compareIds = Category::findOrFail($idCate)->topLevelParent()->id;
-            $cate = Category::findOrFail($compareIds);
-            $compareCate = $cate->getCompareCates();
-   
+            $parentCate = Category::findOrFail($compareIds);
+            $compareCate = $parentCate->getCompareCates();
             // Lấy ra các bản ghi trong bảng filters_products có product_id = $request->pro_id
             $compareProducts = DB::table('compare_products')
                 ->join('compare', 'compare_products.compare_id', '=', 'compare.id')
                 ->select('compare_products.*', 'compare.key_word', 'compare.compare_cate_id')
                 ->where('compare_products.product_id', $prodId)
                 ->get()->groupBy('compare_cate_id');
-
-            return view('admin.comparePro.create', compact('idCate', 'categories', 'products', 'compareCate', 'compareProducts'));
+            
+            return view('admin.comparePro.create', compact('idCate', 'categories', 'products', 'parentCate', 'compareCate', 'compareProducts'));
         }
 
         return view('admin.comparePro.create', compact('products'));

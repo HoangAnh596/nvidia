@@ -37,7 +37,9 @@
                 </div>
             </form>
             <div>
+                @can('compare-add')
                 <a href="{{ route('compares.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới so sánh</a>
+                @endcan
             </div>
         </div>
         <div class="card-body">
@@ -46,7 +48,7 @@
                     <thead>
                         <tr>
                             <th class="">No.</th>
-                            <th class="col-sm-4 text-center">Tên bộ lọc</th>
+                            <th class="col-sm-4 text-center">Tên so sánh</th>
                             <th class="col-sm-3 text-center">Tên danh mục sản phẩm</th>
                             <th class="col-sm-1 text-center">Số thứ tự</th>
                             <th class="col-sm-1 text-center">Ẩn/Hiện</th>
@@ -65,19 +67,14 @@
                                 <input type="text" class="check-stt" name="stt_compare" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_compare', $val->stt_compare) }}">
                             </td>
                             <td class="text-center">
-                                <div class="form-check">
-                                    <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
-                                </div>
+                                <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
                             </td>
                             <td>
+                                @can('compare-edit')
                                 <a href="{{ asset('admin/compares/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
+                                @endcan
                                 <a href="{{ asset('admin/compares') }}">Xóa cache</a> |
                                 <a href="{{ asset('admin/compares') }}">Nhân bản</a>
-                                | <a href="javascript:void(0);" onclick="confirmDelete('{{ $val->id }}')">Xóa</a>
-                                <form id="deleteForm-{{ $val->id }}" action="{{ route('compares.destroy', ['id' => $val->id]) }}" method="post" style="display: none;">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
                             </td>
                         </tr>
                         @endforeach

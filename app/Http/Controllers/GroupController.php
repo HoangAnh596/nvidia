@@ -140,6 +140,30 @@ class GroupController extends Controller
         }
     }
 
+    public function checkStt(Request $request){
+        $sttGroup = $request->input('stt');
+        if (!empty($sttGroup)) {
+            $request->validate([
+                'stt' => 'integer|min:0'
+            ]);
+        }
+        $id = $request->get('id');
+        $group = Group::findOrFail($id);
+        $group->stt = (isset($sttGroup)) ? $sttGroup : 999;
+        $group->save();
+
+        return response()->json(['success' => true, 'message' => 'Cập nhật Stt thành công.']);
+    }
+
+    public function isCheckbox(Request $request)
+    {
+        $group = Group::findOrFail($request->id);
+        $group->is_public = $request->is_public;
+        $group->save();
+
+        return response()->json(['success' => true]);
+    }
+
     public function addGroup(Request $request)
     {
         try {

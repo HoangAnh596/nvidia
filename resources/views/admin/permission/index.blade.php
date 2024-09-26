@@ -25,10 +25,10 @@
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="col-sm-3 position-relative">Tên Permission</th>
-                            <th class="col-sm-3 position-relative text-center">Tên hiển thị màn hình</th>
-                            <th class="col-sm-3 position-relative text-center">Mã Permission</th>
-                            <th class="col-sm-2 position-relative text-center">Hành động</th>
+                            <th class="col-sm-3">Tên Permission</th>
+                            <th class="col-sm-3">Tên hiển thị màn hình</th>
+                            <th class="col-sm-3">Mã Permission</th>
+                            <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -1,29 +1,25 @@
 <div class="text-dark">
     <div class="row">
-        <div class="col-sm-6">
-            <div class="mb-3 col-xs-12">
-                <label for="title_seo" class="form-label">Tiêu đề SEO:</label>
-                <input type="text" id="title_seo" class="form-control" name="title_seo" value="{{ old('title_seo', $product->title_seo ?? '') }}">
-                @error('title_seo')
-                <span class="font-italic text-danger ">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="mb-3 col-xs-12">
-                <label for="keyword_seo" class="form-label">Từ khóa SEO:</label>
-                <input type="text" id="keyword_seo" class="form-control" name="keyword_seo" value="{{ old('keyword_seo', $product->keyword_seo ?? '') }}">
-                @error('keyword_seo')
-                <span class="font-italic text-danger ">{{ $message }}</span>
-                @enderror
-            </div>
+        <div class="col-2 d-flex flex-row-reverse align-items-center vertical-line pb-3">Tiêu đề trang <div class="warningMenu">*</div></div>
+        <div class="col-8 pb-3">
+            <input type="text" name="title_seo" class="form-control" value="{{old('title_seo', $product->title_seo ?? '') }}" id="title_seo" onkeyup="delayedValidate('title_seo', 'titleSeoWarning', 50, 60)">
+            <span class="text-danger" id="titleSeoWarning"></span>
         </div>
-        <div class="col-sm-6">
-            <div class="mb-3 col-xs-12">
-                <label for="des_seo" class="form-label">Mô tả chi tiết SEO:</label>
-                <input type="text" id="des_seo" class="form-control" name="des_seo" value="{{ old('des_seo', $product->des_seo ?? '') }}">
-                @error('des_seo')
-                <span class="font-italic text-danger ">{{ $message }}</span>
-                @enderror
-            </div>
+        <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
+    </div>
+    <div class="row">
+        <div class="col-2 d-flex flex-row-reverse align-items-center vertical-line pb-3">Thẻ từ khóa <div class="warningMenu">*</div></div>
+        <div class="col-8 d-flex align-items-center pb-3">
+            <input type="text" name="keyword_seo" class="form-control" value="{{ old('keyword_seo', $product->keyword_seo ?? '') }}">
         </div>
+        <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
+    </div>
+    <div class="row">
+        <div class="col-2 d-flex flex-row-reverse align-items-center vertical-line">Thẻ mô tả <div class="warningMenu">*</div></div>
+        <div class="col-8">
+            <textarea name="des_seo" class="form-control" id="des_seo" rows="5" onkeyup="delayedValidate('des_seo', 'desSeoWarning', 150, 160)">{{ old('des_seo', $product->des_seo ?? '') }}</textarea>
+            <span class="text-danger" id="desSeoWarning"></span>
+        </div>
+        <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
     </div>
 </div>

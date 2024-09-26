@@ -47,5 +47,5 @@
         </div>
     @endforeach
 @elseif (empty($compareCate))
-    <div class="col">Chưa có danh mục bộ lọc! Ấn vào <a href="{{ asset('admin/products/'.$products->id.'/edit') }}">link</a> để thêm danh mục sản phẩm</div>
+    <div class="col">Chưa có danh mục so sánh! <a href="{{ asset('admin/compares/create?cate_id=' .$parentCate->id) }}">Ấn vào link</a> để thêm mới danh mục so sánh của sản phẩm</div>
 @endif

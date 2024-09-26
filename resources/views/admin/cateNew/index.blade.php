@@ -25,12 +25,12 @@
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="col-sm-3 position-relative">Tên Danh Mục Tin Tức</th>
-                            <th class="col-sm-3 position-relative">Địa chỉ đường dẫn</th>
-                            <th class="position-relative text-center">Thứ tự</th>
-                            <th class="position-relative text-center">Menu</th>
-                            <th class="position-relative text-center">Hiển thị</th>
-                            <th class="col-sm-2 position-relative">Hành động</th>
+                            <th class="col-sm-3">Tên Danh Mục Tin Tức</th>
+                            <th class="col-sm-3e">Địa chỉ đường dẫn</th>
+                            <th class="text-center">Thứ tự</th>
+                            <th class="text-center">Menu</th>
+                            <th class="text-center">Hiển thị</th>
+                            <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
