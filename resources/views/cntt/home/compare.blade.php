@@ -1,14 +1,18 @@
 @extends('cntt.layouts.app')
 
 @section('content')
-
+<!-- Kiểm tra thiết bị di dộng -->
+@php
+$agent = new Jenssegers\Agent\Agent();
+$isMobile = $agent->isMobile(); // Kiểm tra thiết bị di động
+@endphp
 <div class="container pt-60">
     <div class="d-flex justify-content-between">
         <h3>SO SÁNH SẢN PHẨM</h3>
         <button class="export-compare"><i class="fa-solid fa-print"></i> Export</button>
     </div>
 
-    <ul class="listproduct pro-compare pro-compare_main">
+    <ul class="listproduct pro-compare pro-compare_main {{ $isMobile ? 'sticky-3sp' : '' }}">
         <li>
             <p class="title-cp">Tên sản phẩm</p>
             <div class="product-cp">
@@ -30,9 +34,9 @@
                 <h3>{{ $product1->name }}</h3>
                 <strong class="price">
                     @if($product1->price == 0)
-                    Liên hệ
+                    Giá: Liên hệ
                     @else
-                    {{ number_format($product1->price, 0, ',', '.') }}
+                    Giá: {{ number_format($product1->price, 0, ',', '.') }}
                     @endif
                 </strong>
             </a>
@@ -52,9 +56,9 @@
                 <h3>{{ $product2->name }}</h3>
                 <strong class="price">
                     @if($product2->price == 0)
-                    Liên hệ
+                    Giá: Liên hệ
                     @else
-                    {{ number_format($product2->price, 0, ',', '.') }}
+                    Giá: {{ number_format($product2->price, 0, ',', '.') }}
                     @endif
                 </strong>
             </a>
@@ -73,9 +77,9 @@
                 <h3>{{ $product3->name }}</h3>
                 <strong class="price">
                     @if($product3->price == 0)
-                    Liên hệ
+                    Giá: Liên hệ
                     @else
-                    {{ number_format($product3->price, 0, ',', '.') }}
+                    Giá: {{ number_format($product3->price, 0, ',', '.') }}
                     @endif
                 </strong>
             </a>
@@ -97,8 +101,8 @@
     <div class="fullspecs">
         <div class="parameter-cp col2">
             @foreach($compareCates as $cates)
-            <div class="box-detailcp technologi">
-                <div class="titletechnologi">
+            <div class="{{ $isMobile ? 'box-detailcp-mb technologi-mb' : 'box-detailcp technologi' }}">
+                <div class="{{ $isMobile ? 'title-mb-compare' : 'titletechnologi' }}">
                     <i class="fa-solid fa-circle-chevron-down"></i>
                     <strong>{{ $cates->name }}</strong>
                 </div>
@@ -106,10 +110,44 @@
                     @foreach($valueCompares[$cates->id] as $compare)
                     <div class="part-detail">
                         <div class="boxDesktop">
-                            <aside class="hasprod">
+                            <aside class="{{ $isMobile ? 'hasprod-mb' : 'hasprod' }}">
                                 <p><span><strong>{{ $compare->key_word }}</strong></span></p>
                             </aside>
+                            @if($isMobile)
+                            <div class="hasprod_product">
+                                <!-- Lấy giá trị so sánh cho sản phẩm 1 -->
+                                <aside class="hasprod-mb-pr" data-id="{{ $product1->id }}">
+                                    <p class="prop">
+                                        <span>
+                                            @if(isset($compareProduct1[$compare->id]))
+                                            {{ $compareProduct1[$compare->id]->display_compare }}
+                                            @endif
+                                        </span>
+                                    </p>
+                                </aside>
 
+                                <!-- Lấy giá trị so sánh cho sản phẩm 2 -->
+                                <aside class="hasprod-mb-pr" data-id="{{ $product2->id }}">
+                                    <p class="prop">
+                                        <span>
+                                            @if(isset($compareProduct2[$compare->id]))
+                                            {{ $compareProduct2[$compare->id]->display_compare }}
+                                            @endif
+                                        </span>
+                                    </p>
+                                </aside>
+                                <!-- Lấy giá trị so sánh cho sản phẩm 3 -->
+                                <aside class="hasprod-mb-pr">
+                                    <p class="prop">
+                                        @if(isset($compareProduct3[$compare->id]))
+                                        <span>
+                                            {{ $compareProduct3[$compare->id]->display_compare }}
+                                        </span>
+                                        @endif
+                                    </p>
+                                </aside>
+                            </div>
+                            @else
                             <!-- Lấy giá trị so sánh cho sản phẩm 1 -->
                             <aside class="hasprod" data-id="{{ $product1->id }}">
                                 <p class="prop">
@@ -140,6 +178,7 @@
                                     </span>
                                 </p>
                             </aside>
+                            @endif
                             @endif
                         </div>
                     </div>

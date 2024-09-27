@@ -15,6 +15,7 @@ use App\Policies\FilterProductPolicy;
 use App\Policies\FooterPolicy;
 use App\Policies\GroupPolicy;
 use App\Policies\GroupProductPolicy;
+use App\Policies\HeaderTagPolicy;
 use App\Policies\IconPolicy;
 use App\Policies\InforPolicy;
 use App\Policies\ManyPolicy;
@@ -34,6 +35,7 @@ class PermissionGateAndPolicyAccess {
         $this->defineProduct();
         $this->defineCategoryNew();
         $this->defineNew();
+        $this->defineHeaderTag();
         $this->defineHotline();
         $this->defineMenu();
         $this->defineSlider();
@@ -93,6 +95,14 @@ class PermissionGateAndPolicyAccess {
         Gate::define('new-edit', [NewPolicy::class, 'update']);
         Gate::define('new-delete', [NewPolicy::class, 'delete']);
         Gate::define('new-checkbox', [NewPolicy::class, 'checkbox']);
+    }
+
+    public function defineHeaderTag()
+    {
+        Gate::define('header-tags-add', [HeaderTagPolicy::class, 'create']);
+        Gate::define('header-tags-edit', [HeaderTagPolicy::class, 'update']);
+        Gate::define('header-tags-delete', [HeaderTagPolicy::class, 'delete']);
+        Gate::define('header-tags-checkbox', [HeaderTagPolicy::class, 'checkbox']);
     }
 
     public function defineHotline()

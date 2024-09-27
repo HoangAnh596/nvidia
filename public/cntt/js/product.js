@@ -19,8 +19,6 @@ $(document).ready(function() {
 
     // Khi nhấn vào .gallery-trigger img, hiển thị modal và cuộn tới vị trí ảnh đã nhấp
     $('.gallery-trigger img').on('click', function(e) {
-        console.log(1111);
-        
         e.preventDefault();
     
         const modal = $('#imageModal');

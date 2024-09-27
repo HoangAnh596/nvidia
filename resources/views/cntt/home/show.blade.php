@@ -47,24 +47,15 @@
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
                         </div>
-                        <div thumbsSlider="" class="swiper mySwiper">
-                            <div class="swiper-wrapper">
-                                @if(!empty($images))
-                                @foreach ($images as $img)
-                                @php
-                                $imagePath = $img->image;
-                                $directory = dirname($imagePath);
-                                $filename = basename($imagePath);
-                                $newDirectory = $directory . '/small';
-                                $newImagePath = $newDirectory . '/' . $filename;
-                                @endphp
-                                <div class="swiper-slide">
-                                    <img class="prod-img lazyload" src="{{ asset($newImagePath) }}" data-src="{{ asset(str_replace('storage/images/san-pham/', 'storage/images/san-pham/small/', $img->image)) }}" alt="{{ $img->alt }}" title="{{ $img->title }}">
-                                </div>
-                                @endforeach
-                                @endif
-                            </div>
+                        <div class="view-more-image">
+                            @if($product->main_image)
+                            <button href="#" class="pop-gallery">
+                                <img alt="Xem 6 ảnh sản phẩm" width="96" height="72" class="" src="{{ asset(str_replace('storage/images/san-pham/', 'storage/images/san-pham/small/', $product->main_image->image)) }}">
+                                <div class="over-gallery">Xem {{ count($totalImgCount) }} hình</div>
+                            </button>
+                            @endif
                         </div>
+                        
                         <div id="imageModal" class="modal">
                             <button class="close btn btn-success">x Đóng</button>
                             <div class="modal-content">
@@ -73,6 +64,20 @@
                                 <img class="modal-image lazyload" src="{{ asset($image->image) }}" data-src="{{ asset($image->image) }}" alt="{{ $image->alt }}" title="{{ $image->title }}">
                                 @endforeach
                                 @endif
+                            </div>
+                        </div>
+                        <div class="col-viewmore-item">
+                            <i class="fa-solid fa-comments"></i>
+                            <div class="title-spec">
+                                <a href="#comment-box">
+                                    Có {{ $totalCommentsCount }} bình luận. </a>
+                            </div>
+                        </div>
+                        <div class="col-viewmore-item">
+                            <i class="fa-solid fa-star"></i>
+                            <div class="title-spec">
+                                <a href="#comment-box">
+                                    Có {{ $totalCommentsCount }} đánh giá. </a>
                             </div>
                         </div>
                     </div>
@@ -123,7 +128,11 @@
                 </div>
                 <div class="compare">
                     <div class="tcpr">
-                        <p>So sánh với các sản phẩm Switch khác:</p>
+                        <p>
+                            So sánh với các sản phẩm @foreach ($allParents as $key)
+                            {{ $key->name }}
+                            @endforeach khác:
+                        </p>
                         <div class="sggProd">
                             <form action="javascript:void(0)">
                                 <input type="hidden" id="productId" value="{{ $product->id }}">
@@ -397,23 +406,13 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="{{asset('cntt/js/product.js')}}"></script>
 <script type="text/javascript">
-    var swiper = new Swiper(".mySwiper", {
-        spaceBetween: 10,
-        slidesPerView: 4,
-        freeMode: true,
-        watchSlidesProgress: true,
-    });
     var swiper2 = new Swiper(".mySwiper2", {
         spaceBetween: 10,
         navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
         },
-        thumbs: {
-            swiper: swiper,
-        },
     });
-
 
     // Báo giá
     document.querySelector('.send-price').addEventListener('click', function(e) {
@@ -802,5 +801,15 @@
             }
         });
     }
+
+    // Lấy phần tử modal và nút pop-gallery
+    const modal = document.getElementById("imageModal");
+    const popGalleryButton = document.querySelector(".pop-gallery");
+
+    // Khi nhấn vào nút pop-gallery, mở modal
+    popGalleryButton.addEventListener("click", function(event) {
+        event.preventDefault(); // Ngăn chặn việc chuyển trang nếu là link
+        modal.style.display = "block"; // Hiển thị modal
+    });
 </script>
 @endsection

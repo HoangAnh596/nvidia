@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGroupProductsTable extends Migration
+class CreateHeaderTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateGroupProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('group_products', function (Blueprint $table) {
+        Schema::create('header_tags', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('group_id');
-            $table->bigInteger('product_id');
+            $table->string('tag_name');
+            $table->text('content');
+            $table->tinyInteger('is_public')->default(0)->comment('1: hiển thị, 0: không hiển thị');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateGroupProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_product');
+        Schema::dropIfExists('header_tags');
     }
 }

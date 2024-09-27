@@ -1249,7 +1249,8 @@ button:focus {
 /* search */
 .modal {
     z-index: 999999999;
-    top: 55px;
+    top: 44px;
+    /* top: 55px; */
 }
 
 
@@ -1329,7 +1330,11 @@ button:focus {
     margin: 0 10px 3px 25px;
     color: #333;
     line-height: 1.5em;
-    font-size: .9rem !important;
+    font-size: 14px !important;
+}
+.content-comments p {
+    line-height: 1.5em;
+    font-size: 14px !important;
 }
 .relate-comment {
     margin-left: 25px;
@@ -1343,7 +1348,7 @@ button:focus {
     color: #222b45;
     cursor: pointer;
     font-weight: 400 !important;
-    font-size: .9rem !important;
+    font-size: 14px !important;
 }
 
 .bg-comments.level-2, .bg-comments.level-3, .bg-comments.level-4, .bg-comments.level-5, .bg-comments.level-6 {
@@ -1432,9 +1437,11 @@ button:focus {
 }
 .comment-replay-like span {
     padding-right: 12px;
+    font-size: 14px !important;
 }
 .comment-replay-like span:first-child {
     font-size: 0.8rem;
+    color: #b2b2b2;
 }
 .reply-btn {
     cursor: pointer;
@@ -1651,7 +1658,7 @@ button:focus {
     background: #fff;
     box-shadow: 0 4px 4px rgba(0, 0, 0, .25);
     z-index: 99999;
-    max-width: 1300px;
+    max-width: 1296px;
     margin: auto;
     max-height: 90px;
 }
@@ -1867,6 +1874,56 @@ button:focus {
     color: #222;
     margin: 3px 0 0 10px;
 }
+/* css reponsive so sánh sản phẩm màn hình điện thoại */
+.sticky-cp.sticky-3sp.pro-compare li a {
+    padding: 5px;
+}
+.sticky-cp.sticky-3sp.pro-compare li .item-img {
+    display: none;
+    width: unset;
+}
+.sticky-3sp.pro-compare li .box-p, .sticky-3sp.pro-compare li strong.price {
+    padding: 0 0 3px 0 !important;
+}
+.sticky-3sp.pro-compare li h3 {
+    padding: 0 5px 3px 0 !important;
+    font-size: 14px !important;
+}
+.technologi-mb .title-mb-compare {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    border-bottom: 1.5px solid #222;
+    padding-top: 30px;
+    text-transform: uppercase;
+}
+.hasprod_product {
+    display: flex;
+}
+.hasprod_product aside {
+    flex: 1 1 30%;
+    border: 1px solid #f1f1f1;
+}
+.box-detailcp-mb aside p {
+    padding: 8px 8px;
+    margin-bottom: 0;
+}
+aside.hasprod-mb p span {
+    font-size: 14px !important;
+    color: #333;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+}
+aside.hasprod-mb-pr {
+    background-color: #f6fdff;
+}
+.hasprod_product aside p span {
+    font-size: 14px !important;
+}
 .box-detailcp .listtechnologi {
     margin-top: 10px;
     border-left: .5px solid #e0e0e0;
@@ -1995,6 +2052,11 @@ button:focus {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
         max-width: 1300px;
     } */
+}
+@media (max-width: 1200px) {
+    .sticky-cp {
+        max-width: 936px;
+    }
 }
 @media (min-width: 1200px) {
     .mobile-filter {
@@ -2168,6 +2230,9 @@ button:focus {
     .show-filter-mb, .navbar-toggler {
         color: #212529;
     }
+    .sticky-cp {
+        max-width: 696px;
+    }
 }
 @media (min-width: 992px) {
     .navbar-mobile {
@@ -2241,6 +2306,9 @@ button:focus {
         padding-left: 10px;
         padding-bottom: 9px;
         z-index: 3;
+    }
+    .sticky-cp {
+        max-width: 516px;
     }
 }
 

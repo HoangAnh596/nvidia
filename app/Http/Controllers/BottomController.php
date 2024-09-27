@@ -86,7 +86,7 @@ class BottomController extends Controller
     {
         Bottom::findOrFail($id)->delete();
 
-        return redirect('/bottoms')->with(['message' => 'Xóa thành công']);
+        return redirect('admin/bottoms')->with(['message' => 'Xóa thành công']);
     }
 
     public function insertOrUpdate(Request $request, $id = '')

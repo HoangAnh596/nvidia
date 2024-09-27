@@ -19,6 +19,7 @@ use App\Http\Controllers\FilterCateController;
 use App\Http\Controllers\FilterProductController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\GroupProductController;
+use App\Http\Controllers\HeaderTagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IconController;
 use App\Http\Controllers\InforController;
@@ -164,6 +165,15 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::delete('news/{id}', [NewController::class, 'destroy'])->name('news.destroy')->middleware('can:new-delete');
     Route::post('/news/check-name', [NewController::class, 'checkName'])->name('news.checkName');
     Route::post('/news/checkbox', [NewController::class, 'isCheckbox'])->name('news.isCheckbox')->middleware('can:new-checkbox');
+
+    // Quản lý thẻ tiếp thị
+    Route::get('/header-tags', [HeaderTagController::class, 'index'])->name('header-tags.index');
+    Route::get('/header-tags/create', [HeaderTagController::class, 'create'])->name('header-tags.create')->middleware('can:header-tags-add');
+    Route::post('/header-tags', [HeaderTagController::class, 'store'])->name('header-tags.store');
+    Route::get('/header-tags/{id}/edit', [HeaderTagController::class, 'edit'])->name('header-tags.edit')->middleware('can:header-tags-edit');
+    Route::put('header-tags/{id}', [HeaderTagController::class, 'update'])->name('header-tags.update');
+    Route::delete('header-tags/{id}', [HeaderTagController::class, 'destroy'])->name('header-tags.destroy')->middleware('can:header-tags-delete');
+    Route::post('/header-tags/checkbox', [HeaderTagController::class, 'isCheckbox'])->name('header-tags.isCheckbox')->middleware('can:header-tags-checkbox');
 
     // Quản lý thông tin hotline nhân viên,
     Route::get('/infors', [InforController::class, 'index'])->name('infors.index');

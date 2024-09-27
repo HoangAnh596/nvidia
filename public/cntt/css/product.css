@@ -116,11 +116,12 @@ button.pop-gallery {
 .col-viewmore-item:hover {
     cursor: pointer;
 }
-.col-viewmore-item:hover svg, .col-viewmore-item:hover a {
+.col-viewmore-item:hover i, .col-viewmore-item:hover a {
     color: #76b900;
 }
-.col-viewmore-item svg {
+.col-viewmore-item i {
     color: #ff6903;
+    font-size: 1.5rem;
 }
 
 .content-des h1 {
@@ -480,6 +481,10 @@ button.pop-gallery {
   .mySwiper .swiper-slide-thumb-active {
     opacity: 1;
   }
+  .mySwiper .swiper-slide-thumb-active img {
+    border: 1px solid #76b900;
+    border-radius: 6px;
+  }
 
   .swiper-slide img {
     display: block;
@@ -491,6 +496,12 @@ button.pop-gallery {
   .swiper-button-next,
 .swiper-button-prev {
     color: #76b900;
+}
+.reviewer i{
+    color: #76b900;
+}
+.reviewer a:first-of-type {
+    margin-right: 10px;
 }
 
 :root {

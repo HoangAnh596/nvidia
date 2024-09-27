@@ -90,7 +90,7 @@ class IconController extends Controller
     {
         Icon::findOrFail($id)->delete();
 
-        return redirect('/icons')->with(['message' => 'Xóa thành công']);
+        return redirect('admin/icons')->with(['message' => 'Xóa thành công']);
     }
 
     public function insertOrUpdate(IconFormRequest $request, $id = '')

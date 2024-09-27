@@ -31,7 +31,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
                 <?php $countMb = 0 ?>
-                @foreach ($menus as $item)
+                @foreach ($globalMenus as $item)
                 <?php $countMb++;
                 $countMb ?>
                 @if($item->children->isNotEmpty())
@@ -86,7 +86,7 @@
             </button>
             <div class="navbar-content" id="navbarNav">
                 <?php $count = 0 ?>
-                @foreach($menus as $category)
+                @foreach($globalMenus as $category)
                 <?php $count++;
                 $count ?>
                 @if($category->children->isNotEmpty())

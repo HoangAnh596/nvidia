@@ -94,7 +94,7 @@ class SliderController extends Controller
     {
         Slider::findOrFail($id)->delete();
 
-        return redirect('/sliders')->with(['message' => 'Xóa slider thành công']);
+        return redirect('admin/sliders')->with(['message' => 'Xóa slider thành công']);
     }
 
     public function insertOrUpdate(Request $request, $id = '')

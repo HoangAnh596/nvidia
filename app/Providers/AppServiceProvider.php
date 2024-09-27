@@ -7,6 +7,7 @@ use App\Models\CateFooter;
 use App\Models\Category;
 use App\Models\CategoryNew;
 use App\Models\CateMenu;
+use App\Models\HeaderTag;
 use App\Models\Icon;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Schema;
@@ -97,11 +98,11 @@ class AppServiceProvider extends ServiceProvider
 
             return $categories->concat($cateNews);
         });
-        // View::composer('*', function ($view) {
-        //     $searchCate = $this->app->make('searchCate');
 
-        //     $view->with('searchCate', $searchCate);
-        // });
+        // Thẻ tiếp thị
+        $this->app->singleton('headerTags', function () {
+            return HeaderTag::where('is_public', 1)->select('id', 'content')->get();
+        });
         // favicon
         $this->app->singleton('favicon', function () {
             return Setting::where('id', 1)->select('id', 'image')->get();
@@ -127,15 +128,17 @@ class AppServiceProvider extends ServiceProvider
         }
         
         View::composer('*', function ($view) {
-            $menus = $this->app->make('menus');
-            $footers = $this->app->make('footers');
+            $globalMenus = $this->app->make('menus');
+            $globalFooters = $this->app->make('footers');
             $searchCate = $this->app->make('searchCate');
-            $favi = $this->app->make('favicon');
+            $globalFavi = $this->app->make('favicon');
+            $globalHeaderTags = $this->app->make('headerTags');
             $iconGlobal = $this->app->make('icon');
             $ft_bottom = $this->app->make('bottom');
-
-            $view->with('menus', $menus)->with('footers', $footers)
-                ->with('searchCate', $searchCate)->with('favi', $favi)
+            // dd($headerTags);
+            $view->with('globalMenus', $globalMenus)->with('globalFooters', $globalFooters)
+                ->with('searchCate', $searchCate)->with('globalFavi', $globalFavi)
+                ->with('globalHeaderTags', $globalHeaderTags)
                 ->with('iconGlobal', $iconGlobal)
                 ->with('ft_bottom', $ft_bottom);
         });

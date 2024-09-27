@@ -304,13 +304,19 @@ class HomeController extends Controller
         } else {
             $groupProducts = Group::select('id', 'name')->where('cate_id', $parent->id)->get();
         }
-        
+
+        // Lấy ảnh chính cho từng sản phẩm
+        $product->main_image = $product->getMainImage();
+        // $totalImgCount = $product->image_ids;
+        // Chuyển chuỗi JSON thành mảng
+        $totalImgCount = json_decode($product->image_ids, true);
+        // dd($totalImgCount); // "["34","35","36","37","38","39","40"]"
         return view('cntt.home.show', compact(
             'titleSeo', 'keywordSeo', 'descriptionSeo',
             'phoneInfors', 'product', 'allParents',
             'parent', 'images', 'relatedProducts',
             'comments', 'totalCommentsCount', 'user',
-            'groupProducts'
+            'groupProducts', 'totalImgCount'
         ));
     }
 

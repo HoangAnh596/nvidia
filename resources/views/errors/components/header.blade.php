@@ -30,7 +30,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
-                @foreach ($menus as $item)
+                @foreach ($globalMenus as $item)
                 <li class="nav-item nav-item-mobile">
                     @if($item->children->isNotEmpty())
                     <a class="active nav-link-mb" id="nav-link-mb-{{ $item->id }}" aria-current="page" href="{{ asset($item->url) }}" data-id="{{ $item->id }}">
@@ -70,7 +70,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-content" id="navbarNav">
-                @foreach($menus as $category)
+                @foreach($globalMenus as $category)
                 @if($category->location == 1)
                     @if($category->children->isNotEmpty())
                     <div class="nav-item">
@@ -97,7 +97,7 @@
             </div>
             <div class="d-flex" id="templatemo_main_nav">
                 <ul class="navbar-nav main-nav-link">
-                    @foreach($menus as $category)
+                    @foreach($globalMenus as $category)
                     @if($category->location == 0)
                     <li class="nav-item">
                         <a class="nav-link active nav-link-web" aria-current="page" href="#">{{ $category->name }}</a>

@@ -25,6 +25,13 @@ return [
         'checkbox-cateNew' => 'checkbox_cateNew',
         'checkStt-cateNew' => 'checkstt_cateNew',
 
+        // header-tag
+        'list-header-tag' => 'list_headerTag',
+        'add-header-tag' => 'add_headerTag',
+        'edit-header-tag' => 'edit_headerTag',
+        'delete-header-tag' => 'delete_headerTag',
+        'checkbox-header-tag' => 'checkbox_headerTag',
+
         // New
         'list-new' => 'list_new',
         'add-new' => 'add_new',

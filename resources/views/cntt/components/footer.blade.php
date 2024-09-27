@@ -2,7 +2,7 @@
 <footer class="ft-black" id="tempaltemo_footer">
     <div class="container">
         <div class="row">
-            @foreach ($footers as $val)
+            @foreach ($globalFooters as $val)
             <div class="col-md-4">
                 <div class="page-footer">{{ $val->name }}</div>
                 <ul class="list-unstyled footer-link">

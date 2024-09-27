@@ -75,29 +75,33 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('cateNews.index') }}" data-toggle="collapse" data-target="#collapseCateNews" aria-expanded="true" aria-controls="collapseCateNews">
                 <i class="fa-solid fa-newspaper"></i>
-                <span>Danh mục bài viết</span>
+                <span>Quản lý bài viết</span>
             </a>
             <div id="collapseCateNews" class="collapse" aria-labelledby="headingCateNews" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('cateNews.index') }}">Danh sách</a>
+                    <a class="collapse-item" href="{{ route('cateNews.index') }}">Danh mục bài viết</a>
                     @can('cateNew-add')
-                    <a class="collapse-item" href="{{ route('cateNews.create') }}">Thêm mới</a>
+                    <a class="collapse-item" href="{{ route('cateNews.create') }}">Thêm danh mục bài viết</a>
+                    @endcan
+                    <a class="collapse-item" href="{{ route('news.index') }}">Danh sách bài viết</a>
+                    @can('new-add')
+                    <a class="collapse-item" href="{{ route('news.create') }}">Thêm mới bài viết</a>
                     @endcan
                 </div>
             </div>
         </li>
 
-        <!-- Nav Item - Pages News Menu -->
+        <!-- Nav Item - Pages HeaderTags Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('news.index') }}" data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
+            <a class="nav-link collapsed" href="{{ route('header-tags.index') }}" data-toggle="collapse" data-target="#collapseHeaderTags" aria-expanded="true" aria-controls="collapseHeaderTags">
                 <i class="fa-solid fa-radio"></i>
-                <span>Bài viết</span>
+                <span>Ql thẻ tiếp thị</span>
             </a>
-            <div id="collapseNews" class="collapse" aria-labelledby="headingNews" data-parent="#accordionSidebar">
+            <div id="collapseHeaderTags" class="collapse" aria-labelledby="headingHeaderTags" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('news.index') }}">Danh sách</a>
-                    @can('new-add')
-                    <a class="collapse-item" href="{{ route('news.create') }}">Thêm mới</a>
+                    <a class="collapse-item" href="{{ route('header-tags.index') }}">Danh sách</a>
+                    @can('header-tags-add')
+                    <a class="collapse-item" href="{{ route('header-tags.create') }}">Thêm mới</a>
                     @endcan
                 </div>
             </div>
@@ -117,6 +121,10 @@
                     <a class="collapse-item" href="{{ route('infors.index') }}">Danh sách hotline</a>
                     @can('hotline-add')
                     <a class="collapse-item" href="{{ route('infors.create') }}">Thêm mới hotline</a>
+                    @endcan
+                    <a class="collapse-item" href="{{ route('header-tags.index') }}">Danh sách</a>
+                    @can('header-tags-add')
+                    <a class="collapse-item" href="{{ route('header-tags.create') }}">Thêm mới</a>
                     @endcan
                 </div>
             </div>
