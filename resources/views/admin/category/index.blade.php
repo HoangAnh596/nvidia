@@ -28,7 +28,7 @@
                             <th class="col-sm-4 ">Tên Danh Mục</th>
                             <th class="col-sm-2 ">Bộ lọc</th>
                             <th class="">Server</th>
-                            <th class="">Cha</th>
+                            <!-- <th class="">Cha</th> -->
                             <th class="">Menu</th>
                             <th class="">Nổi bật</th>
                             <th class="">Hiển thị</th>

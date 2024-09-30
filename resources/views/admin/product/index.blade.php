@@ -19,7 +19,7 @@
             <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
                 <div class="input-group sr-product">
                     <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Tìm kiếm tên, code sản phẩm" aria-label="Search" name="keyword" value="{{ $keyword }}">
+                        <input type="search" class="form-control" placeholder="Tìm kiếm tên, mã code or Url sản phẩm" aria-label="Search" name="keyword" value="{{ $keyword }}">
                     </div>
                     <div class="form-group">
                         <select name="cate" class="form-control">
@@ -47,7 +47,7 @@
                         <tr>
                             <th class="">No.</th>
                             <th class="col-sm-4 text-center">Tên sản phẩm</th>
-                            <th class="col-sm-3 text-center">Địa chỉ url</th>
+                            <th class="col-sm-3 text-center">Danh mục</th>
                             <th class="text-center">Mã Code</th>
                             <th class="text-center">Nổi bật</th>
                             <th class="col-sm-2 text-center">Hành động</th>
@@ -58,7 +58,11 @@
                         <tr>
                             <td>{{ (($products->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->slug }}</td>
+                            <td>
+                                @foreach ($product->category as $cate)
+                                {{ $cate->name }}
+                                @endforeach
+                            </td>
                             <td>{{ $product->code }}</td>
                             <td class="text-center">
                                 <input type="checkbox" class="active-checkbox" data-id="{{ $product->id }}" data-field="is_outstand" {{ ($product->is_outstand == 1) ? 'checked' : '' }}>

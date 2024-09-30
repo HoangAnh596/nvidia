@@ -82,7 +82,7 @@ class HomeController extends Controller
                     })->select('name', 'slug', 'price', 'image_ids')
                         ->where('is_outstand', 1)
                         ->orderBy('created_at', 'DESC')->get();
-                    // dd($products);
+                    
                     foreach ($products as $product) {
                         $product->loadProductImages();
                     }
@@ -111,7 +111,7 @@ class HomeController extends Controller
         $phoneInfors = Infor::where('is_public', 1)->orderBy('stt', 'ASC')->get();
         $slugs = explode('-', $slug);
         $mainCate = Category::where('slug', $slug)->with('children')->first(); // Lấy ra danh mục chính
-        // dd($mainCate);
+        
         if (!empty($mainCate)) {
             // Seo Website
             $titleSeo = (!empty($mainCate->title_seo)) ? $mainCate->title_seo : config('common.title_seo');
@@ -302,15 +302,16 @@ class HomeController extends Controller
             // Lấy các bản ghi từ bảng Group có id nằm trong groupIds
             $groupProducts = Group::select('id', 'name')->whereIn('id', $groupIds)->get();
         } else {
-            $groupProducts = Group::select('id', 'name')->where('cate_id', $parent->id)->get();
+            // Xử lý id category cha con
+            $cateIds = $parent->getAllParentIds();
+            $groupProducts = Group::select('id', 'name')->whereIn('cate_id', $cateIds)->get();
         }
 
         // Lấy ảnh chính cho từng sản phẩm
         $product->main_image = $product->getMainImage();
-        // $totalImgCount = $product->image_ids;
         // Chuyển chuỗi JSON thành mảng
         $totalImgCount = json_decode($product->image_ids, true);
-        // dd($totalImgCount); // "["34","35","36","37","38","39","40"]"
+
         return view('cntt.home.show', compact(
             'titleSeo', 'keywordSeo', 'descriptionSeo',
             'phoneInfors', 'product', 'allParents',
@@ -348,10 +349,9 @@ class HomeController extends Controller
 
         $keyword = $request->keyword;
         $searchCate = $request->cate;
-        // dd($searchCate); // news;prod
         $nameCate = null;
-        // Tách source và id từ giá trị searchCate 
 
+        // Tách source và id từ giá trị searchCate
         if (strpos($searchCate, '_') !== false) {
             list($source, $searchId) = explode('_', $searchCate);
 
@@ -630,8 +630,8 @@ class HomeController extends Controller
     
         // Kiểm tra nếu có ít nhất là 2 lớn nhất 3
         if (count($products) >= 2 && count($products) <= 3) {
-            $prod_1 = trim($products[0]); // dtdd-xiaomi-64gb
-            $prod_2 = trim($products[1]); // dtdd-oppo-64-gb
+            $prod_1 = trim($products[0]);
+            $prod_2 = trim($products[1]);
             $prod_3 = count($products) === 3 ? trim($products[2]) : null; // Nếu có 3 phần tử, lấy phần tử thứ ba
 
             // Debug để kiểm tra kết quả

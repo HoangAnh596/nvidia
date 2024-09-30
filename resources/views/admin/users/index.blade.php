@@ -13,8 +13,9 @@
                 <div class="form-group">
                     <select name="role" class="form-control">
                         <option value="">Vai trò</option>
-                        <option value="1">Quản trị viên</option>
-                        <option value="0">Người dùng</option>
+                        @foreach($roles as $key)
+                        <option value="{{ $key->id }}">{{ $key->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="input-group-append">
@@ -36,7 +37,7 @@
                         <th>#</th>
                         <th>Tên tài khoản</th>
                         <th>Email tài khoản</th>
-                        <!-- <th class="col-2">Vai trò</th> -->
+                        <th class="col-2">Vai trò</th>
                         <th class="col-sm-2">Image</th>
                         <th class="col-sm-2 text-center">Hành động</th>
                     </tr>
@@ -47,7 +48,12 @@
                         <td>{{ (($users->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
                         <td>{{ $val->name }}</td>
                         <td>{{ $val->email }}</td>
-                        <td><img src="{{ \App\Http\Helpers\Helper::getPath('users',$val->image) }}"></td>
+                        <td>
+                            @foreach ($val->roles as $role)
+                            {{ $role->name }}
+                            @endforeach
+                        </td>
+                        <td class="text-center" style="padding: 0;"><img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}"></td>
                         <td>
                             @can('user-edit')
                             <a href="{{ asset('admin/users/'.$val->id.'/edit') }}">Chỉnh sửa</a> |

@@ -164,11 +164,11 @@
                     <p>✓ Chăm Sóc Khách Hàng Trước, Trong và Sau Khi Mua Hàng Tận Tâm.</p>
                     <p class="uytin-10"><b>CNTTShop.vn</b> - 19 năm Uy tín cung cấp Thiết bị mạng &amp; Dịch vụ Mạng trên toàn quốc.</p>
                     <span class="addhn">
-                        <i class="maphn"></i> NTT03, Thống Nhất Complex, Thanh Xuân, <b>Hà Nội</b>.
+                        <i class="fa-solid fa-location-dot"></i> NTT03, Thống Nhất Complex, Thanh Xuân, <b>Hà Nội</b>.
                         <a title="Chỉ đường đến CNTTShop.vn" href="https://www.google.com/maps/dir//C%C3%B4ng+ty+Vi%E1%BB%87t+Th%C3%A1i+D%C6%B0%C6%A1ng+-+CNTTShop.vn+-+Ph%C3%A2n+ph%E1%BB%91i+Cisco,+NTT+03,+Line+1,+Th%E1%BB%91ng+Nh%E1%BA%A5t+Complex,+%C4%90%C6%B0%E1%BB%9Dng+Nguy%E1%BB%85n+Tu%C3%A2n,+Thanh+Xu%C3%A2n,+H%C3%A0+N%E1%BB%99i,+Vi%E1%BB%87t+Nam/@21.0017807,105.808972,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3135ac8d687d3479:0x863cceda2da3be36!2m2!1d105.8049987!2d20.9977409?hl=vi" target="_blank" rel="noopener noreferrer"><i class="directions"></i></a>
                     </span>
                     <span class="addhnhcm">
-                        <i class="maphcm"></i> Số 31B, Đường 1, Phường An Phú, Quận 2 (Thủ Đức), <b>TP HCM</b>.
+                        <i class="fa-solid fa-location-dot"></i> Số 31B, Đường 1, Phường An Phú, Quận 2 (Thủ Đức), <b>TP HCM</b>.
                         <a title="Chỉ đường đến CNTTShop.vn" href="https://www.google.com/maps/dir//31b+%C4%90%C6%B0%E1%BB%9Dng+s%E1%BB%91+1,+An+Ph%C3%BA,+Qu%E1%BA%ADn+2,+Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh,+Vietnam/@10.8088314,106.7506978,17z/data=!4m8!4m7!1m0!1m5!1m1!1s0x31752641f7cf5b8b:0x5573c2cda7b199cb!2m2!1d106.7528865!2d10.8088261?hl=vi" target="_blank" rel="noopener noreferrer"><i class="directions"></i></a>
                     </span>
                 </div>
@@ -349,13 +349,13 @@
                     </div>
                     <div class="title-outstand-prod">
                         <div class="row mt-3">
-                            <div><span class="top-heading">Hỗ trợ kinh doanh</span></div>
+                            <div><span class="top-heading">Hỗ trợ kinh doanh <i class="fa-solid fa-money-check-dollar"></i></span></div>
                             @foreach($phoneInfors as $val)
                             @if($val->role == 0)
                             <div class="contact-infor">
-                                <span class="user-heading"> <i class="fa fa-user" aria-hidden="true"></i>{{ $val->name }}</span>
+                                <span class="user-heading"><i class="fa-solid fa-user-check"></i> {{ $val->name }}</span>
                                 <div class="sp-online">
-                                    <span title="Mobile"><i class="fa fa-phone" aria-hidden="true"></i>{{ $val->phone }}</span>
+                                    <span title="Mobile"><i class="fa-solid fa-headset"></i> {{ $val->phone }}</span>
 
                                     <a href="{{ $val->skype }} " title="Chat với {{ $val->name }} qua Skype">
                                         <i class="i-skype"></i>
@@ -370,13 +370,13 @@
                             </div>
                             @endif
                             @endforeach
-                            <div class="mt-3"><span class="top-heading">Hỗ trợ kỹ thuật</span></div>
+                            <div class="mt-3"><span class="top-heading">Hỗ trợ kỹ thuật <i class="fa-solid fa-gear"></i></span></div>
                             @foreach($phoneInfors as $val)
                             @if($val->role == 1)
                             <div class="contact-infor">
-                                <span class="user-heading"> <i class="fa fa-user" aria-hidden="true"></i>{{ $val->name }}</span>
+                                <span class="user-heading"><i class="fa-solid fa-user-check"></i> {{ $val->name }}</span>
                                 <div class="sp-online">
-                                    <span title="Mobile"><i class="fa fa-phone" aria-hidden="true"></i>{{ $val->phone }}</span>
+                                    <span title="Mobile"><i class="fa-solid fa-headset"></i> {{ $val->phone }}</span>
 
                                     <a href="{{ $val->skype }} " title="Chat với {{ $val->name }} qua Skype">
                                         <i class="i-skype"></i>

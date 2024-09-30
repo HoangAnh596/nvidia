@@ -12,7 +12,6 @@ class ProductImagesController extends Controller
     public function destroy($id)
     {
         $image = ProductImages::findOrFail($id);
-        // dd($image->image); // http://localhost:8000/storage/images/san-pham/card.jpg
         // Tìm sản phẩm liên quan
         $product = Product::whereJsonContains('image_ids', $id)->firstOrFail();
 

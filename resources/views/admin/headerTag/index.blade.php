@@ -31,7 +31,7 @@
                             <th>ID</th>
                             <th class="text-center">Tên</th>
                             <th class="text-center">Nội dung</th>
-                            <th class="text-center">Trạng thái</th>
+                            <th class="text-center">Ẩn/Hiện</th>
                             <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
                     </thead>

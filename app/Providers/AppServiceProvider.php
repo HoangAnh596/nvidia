@@ -135,7 +135,7 @@ class AppServiceProvider extends ServiceProvider
             $globalHeaderTags = $this->app->make('headerTags');
             $iconGlobal = $this->app->make('icon');
             $ft_bottom = $this->app->make('bottom');
-            // dd($headerTags);
+            
             $view->with('globalMenus', $globalMenus)->with('globalFooters', $globalFooters)
                 ->with('searchCate', $searchCate)->with('globalFavi', $globalFavi)
                 ->with('globalHeaderTags', $globalHeaderTags)

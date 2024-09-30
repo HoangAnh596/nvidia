@@ -91,40 +91,22 @@
             </div>
         </li>
 
-        <!-- Nav Item - Pages HeaderTags Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('header-tags.index') }}" data-toggle="collapse" data-target="#collapseHeaderTags" aria-expanded="true" aria-controls="collapseHeaderTags">
-                <i class="fa-solid fa-radio"></i>
-                <span>Ql thẻ tiếp thị</span>
-            </a>
-            <div id="collapseHeaderTags" class="collapse" aria-labelledby="headingHeaderTags" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('header-tags.index') }}">Danh sách</a>
-                    @can('header-tags-add')
-                    <a class="collapse-item" href="{{ route('header-tags.create') }}">Thêm mới</a>
-                    @endcan
-                </div>
-            </div>
-        </li>
-
         <!-- Nav Item - Pages Hotline -->
         <li class="nav-item">
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseInfors" aria-expanded="true" aria-controls="collapseInfors">
                 <i class="fa-solid fa-phone-volume"></i>
-                <span>QL @can('quote-list') báo giá, @endcan hotline</span>
+                <span>QL báo giá, hotline</span>
             </a>
             <div id="collapseInfors" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    @can('quote-list')
                     <a class="collapse-item" href="{{ route('quotes.index') }}">Danh sách báo giá</a>
-                    @endcan
                     <a class="collapse-item" href="{{ route('infors.index') }}">Danh sách hotline</a>
                     @can('hotline-add')
                     <a class="collapse-item" href="{{ route('infors.create') }}">Thêm mới hotline</a>
                     @endcan
-                    <a class="collapse-item" href="{{ route('header-tags.index') }}">Danh sách</a>
+                    <a class="collapse-item" href="{{ route('header-tags.index') }}">Danh sách thẻ tiếp thị</a>
                     @can('header-tags-add')
-                    <a class="collapse-item" href="{{ route('header-tags.create') }}">Thêm mới</a>
+                    <a class="collapse-item" href="{{ route('header-tags.create') }}">Thêm mới thẻ tiếp thị</a>
                     @endcan
                 </div>
             </div>

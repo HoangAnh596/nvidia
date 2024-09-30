@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         $this->role = $role;
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -28,19 +28,25 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        $role = $request->role;
+        $roleId = $request->role;
 
         $userQuery = User::where(function ($query) use ($keyword) {
             $query->where('name', 'like', "%" . Helper::escape_like($keyword) . "%")
                 ->orWhere('email', 'like', "%" . Helper::escape_like($keyword) . "%");
         });
-        if ($role !== null && $role !== '') {
-            $userQuery->where('role', $role);
+
+        if ($roleId) {
+            $userQuery->whereHas('roles', function ($query) use ($roleId) {
+                $query->where('roles.id', $roleId); // Lọc theo ID của role
+            });
         }
 
-        $users = $userQuery->latest()->paginate(config('common.default_page_size'))->appends($request->except('page'));
+        $users = $userQuery->with('roles')->latest()
+            ->paginate(config('common.default_page_size'))
+            ->appends($request->except('page'));
+        $roles = $this->role->all();
 
-        return view('admin.users.index', compact('users', 'keyword'));
+        return view('admin.users.index', compact('users', 'keyword', 'roles'));
     }
 
     /**
@@ -67,17 +73,18 @@ class UserController extends Controller
             // Bengin transaction
             DB::beginTransaction();
 
+            $path = parse_url($request->filepath, PHP_URL_PATH);
+            // Xóa dấu gạch chéo đầu tiên nếu cần thiết
+            if (strpos($path, '/') === 0) {
+                $path = substr($path, 1);
+            }
+
             $user = User::create([
                 'email' => $request->email,
                 'name' => $request->name,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
+                'image' => $path
             ]);
-
-            if ($request->hasFile('image')) {
-                $newFileName = uniqid() . '-' . $request->image->getClientOriginalName();
-                $imagePath = $request->image->storeAs(config('common.default_image_path') . 'users', $newFileName);
-                $user->image = str_replace(config('common.default_image_path') . 'users', '', $imagePath);
-            }
 
             $user->save();
             $user->roles()->attach($request->role_id);
@@ -93,17 +100,6 @@ class UserController extends Controller
             // Xử lý lỗi (có thể ghi log, hiển thị thông báo lỗi, ...)
             return redirect()->back()->with(['error' => 'Đã xảy ra lỗi. Vui lòng thử lại sau.']);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -138,17 +134,21 @@ class UserController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
                 'password' => 'nullable|string|min:8|confirmed',
-            ], []);
+            ], [
+                'name.required' => 'Tên tài khoản không được để trống.',
+            ]);
 
-            $data = $request->only(['name', 'email']);
+            $data = $request->only(['name', 'email', 'filepath']);
             if ($request->filled('password')) {
                 $data['password'] = Hash::make($request->password);
             }
-            if ($request->hasFile('image')) {
-                $newFileName = uniqid() . '-' . $request->image->getClientOriginalName();
-                $imagePath = $request->image->storeAs(config('common.default_image_user') . 'public/images/tai-khoan', $newFileName);
-                $data['image'] = str_replace('public', 'storage', $imagePath);
+
+            $path = parse_url($request->filepath, PHP_URL_PATH);
+            // Xóa dấu gạch chéo đầu tiên nếu cần thiết
+            if (strpos($path, '/') === 0) {
+                $path = substr($path, 1);
             }
+            $data['image'] = $path;
 
             $user->update($data);
             $user->roles()->sync($request->role_id);

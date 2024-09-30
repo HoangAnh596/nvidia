@@ -24,8 +24,10 @@
                     <tr>
                         <th>#</th>
                         <th class="text-center">Tên KH</th>
+                        @can('quote-list')
                         <th class="text-center">Số điện thoại</th>
                         <th class="text-center">Gmail báo giá</th>
+                        @endcan
                         <th class="text-center">Sản phẩm</th>
                         <th class="text-center">Số lượng SP</th>
                         <th class="text-center">Mục đích</th>
@@ -37,8 +39,10 @@
                     <tr>
                         <td>{{ $val->id }}</td>
                         <td>{{ $val->name }}</td>
+                        @can('quote-list')
                         <td>{{ $val->phone }}</td>
                         <td>{{ $val->gmail }}</td>
+                        @endcan
                         <td>{{ $val->product }}</td>
                         <td>{{ $val->quantity }}</td>
                         <td>@if($val->purpose == 0 ) công ty @else dự án @endif </td>
@@ -87,12 +91,20 @@
                         });
                     }
                 },
-                error: function() {
-                    toastr.error('Lỗi cập nhật trạng thái.', 'Lỗi', {
-                        progressBar: true,
-                        closeButton: true,
-                        timeOut: 5000
-                    });
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 5000
+                        });
+                    }
                 }
             });
         });

@@ -42,7 +42,6 @@
                         <th class="col-sm-3">Nội dung bình luận</th>
                         <th class="col-sm-1">Tác giả</th>
                         <th class="col-sm-2 text-center">Mail</th>
-                        <th class="text-center">BL Bài viết</th>
                         <th class="text-center">Hiển thị</th>
                         <th class="text-center">Đánh giá(Star)</th>
                         <th class="text-center">Time</th>

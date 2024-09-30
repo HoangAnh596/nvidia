@@ -6,8 +6,10 @@
     <!-- <marquee direction="right">HNA_CMS</marquee> -->
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Top 10 Products</h1>
-        <a href="{{ route('product.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add Product</a>
+        <h1 class="h3 mb-0 text-gray-800">Top 10 sản phẩm</h1>
+        @can('product-add')
+        <a href="{{ route('product.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Thêm sản phẩm</a>
+        @endcan
     </div>
     <div class="row">
         @foreach($products as $item)
@@ -31,8 +33,10 @@
     </div>
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Top 10 Users</h1>
-        <a href="{{ route('users.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add User</a>
+        <h1 class="h3 mb-0 text-gray-800">Top 10 tài khoản</h1>
+        @can('user-add')
+        <a href="{{ route('users.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Thêm tài khoản</a>
+        @endcan
     </div>
     <div class="row">
         @foreach($users as $item)

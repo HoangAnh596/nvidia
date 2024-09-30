@@ -39,7 +39,8 @@ class ProductController extends Controller
 
         $products = Product::where(function ($query) use ($keyword) {
             $query->where('name', 'like', "%" . $keyword . "%")
-                  ->orWhere('code', 'like', "%" . $keyword . "%");
+                  ->orWhere('code', 'like', "%" . $keyword . "%")
+                  ->orWhere('slug', 'like', "%" . $keyword . "%");
         })->when(!empty($categoryIds), function ($query) use ($categoryIds) {
             $query->whereHas('category', function ($q) use ($categoryIds) {
                 $q->whereIn('category_id', $categoryIds);
@@ -162,8 +163,7 @@ class ProductController extends Controller
     public function insertOrUpdate(ProductFormRequest $request, $id = '')
     {
         $product = empty($id) ? new Product() : Product::findOrFail($id);
-            
-        // dd($request->all());
+
         if(!empty($request['subCategory'])) {
             $request->merge(['subCategory' => $request->subCategory]);
         }
@@ -267,7 +267,7 @@ class ProductController extends Controller
         $codeExists = Product::where('code', $code)
             ->where('id', '!=', $id)
             ->exists();
-        // dd($codeExists);
+        
         return response()->json([
             'code_exists' => $codeExists,
         ]);

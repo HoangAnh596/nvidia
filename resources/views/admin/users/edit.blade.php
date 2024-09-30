@@ -43,16 +43,24 @@
                         </select>
                     </div>
                 </div>
-            </div>
-            <!-- <div class="row">
                 <div class="col-6">
-                    <div class="form-group">
-                        <img src="{{ \App\Http\Helpers\Helper::getPath($user->image) }}" alt="" style="width: 100px; height: 100px">
-                        <label for="exampleFormControlFile1">Avatar</label>
-                        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
+                    <label for="">Hình ảnh</label>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="input-group">
+                                <input id="thumbnail" class="form-control" type="hidden" name="filepath">
+                                <span class="input-group-btn">
+                                    <button id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-outline-dark hiddenButton">
+                                        <i class="fa fa-picture-o"></i> Chọn ảnh từ thư viện
+                                    </button>
+                                </span>
+                            </div>
+                            <div id="holder"><img id="out_img" src="{{ \App\Http\Helpers\Helper::getPath($user->image) }}"></div>
+                        </div>
+                        <div class="col-6 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 800 x 800 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">

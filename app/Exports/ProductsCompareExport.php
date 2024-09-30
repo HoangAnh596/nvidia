@@ -32,7 +32,6 @@ class ProductsCompareExport implements FromView
 
     public function view(): View
     {
-        // dd($this->compareCates);
         return view('exports.products_compare', [
             'product1' => $this->product1,
             'product2' => $this->product2,

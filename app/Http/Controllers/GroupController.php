@@ -36,12 +36,13 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $idCate = $request->cate_id;
         $categories = Category::with('children')->where('parent_id', 0)->get();
         $products = Product::select('id', 'name')->get();
 
-        return view('admin.groups.add', compact('categories', 'products'));
+        return view('admin.groups.add', compact('idCate', 'categories', 'products'));
     }
 
     /**
@@ -289,7 +290,6 @@ class GroupController extends Controller
                 if (!empty($groupIdsOld)) {
                     // Tìm các phần tử có trong $groupIdsOld nhưng không có trong $groupIds
                     $groupIdsToDelete = array_diff($groupIdsOld, $groupIds);
-                    // dd($groupIdsToDelete);
                     if (!empty($groupIdsToDelete)) {
                         // Lặp qua từng id và xóa ở bảng group_products
                         DB::table('group_products')

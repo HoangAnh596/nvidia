@@ -39,6 +39,7 @@ class GroupsFormRequest extends FormRequest
 
         return [
             'name' => (isset($ruleUpdateName)) ? $ruleUpdateName : 'required | unique:groups',
+            'cate_id' => 'required',
         ];
     }
 
@@ -50,6 +51,7 @@ class GroupsFormRequest extends FormRequest
         return [
             'name.required' => 'Tên nhóm không được bỏ trống.',
             'name.unique' => 'Tên nhóm đã tồn tại. Vui lòng thay đổi tên khác.',
+            'cate_id.required' => 'Danh mục sản phẩm không được bỏ trống.',
         ];
     }
 }

@@ -107,7 +107,6 @@ class CmtNewsController extends Controller
         $comment = CmtNew::findOrFail($id);
         $new = News::where('id', $comment->new_id)->first();
         $user = Auth::user();
-        // dd($user->name);
 
         return view('admin.cmtNew.replay', compact('comment', 'new', 'user'));
     }

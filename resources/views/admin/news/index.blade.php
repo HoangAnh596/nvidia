@@ -46,10 +46,10 @@
                     <thead>
                         <tr>
                             <th class="">No.</th>
-                            <th class="col-sm-4">Tên bài viết</th>
+                            <th class="col-sm-5">Tên bài viết</th>
                             <th class="col-sm-2">Hình ảnh</th>
-                            <th class="col-sm-2">Nổi bật</th>
-                            <th class="col-sm-1">Lượt xem</th>
+                            <th class="col-sm-1 text-center">Nổi bật</th>
+                            <th class="col-sm-1 text-center">Lượt xem</th>
                             <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
                     </thead>

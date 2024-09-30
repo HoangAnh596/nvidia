@@ -16,9 +16,9 @@
     <td class="text-center">
         <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_serve" {{ ($category->is_serve == 1) ? 'checked' : '' }}>
     </td>
-    <td class="text-center">
+    <!-- <td class="text-center">
         <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_parent" {{ ($category->is_parent == 1) ? 'checked' : '' }}>
-    </td>
+    </td> -->
     <td class="text-center">
         <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_menu" {{ ($category->is_menu == 1) ? 'checked' : '' }}>
     </td>
@@ -41,10 +41,11 @@
         @can('compare-add')
         <a href="{{ asset('admin/compares/create?cate_id=' . $category->id) }}">So sánh</a> |
         @endcan
-        <a href="{{ asset('admin/categories') }}">Xóa cache</a>
-        <!-- <a href="{{ asset('admin/categories/'.$category->id.'/edit') }}" >Nhân bản</a> | 
-        
-        <a href="{{ asset('admin/categories/'.$category->id.'/edit') }}" >Xóa cache</a> |  -->
+        @can('group-add')
+        <a href="{{ asset('admin/groups/create?cate_id=' . $category->id) }}">Nhóm</a> |
+        @endcan
+        <a href="{{ asset('admin/categories') }}" >Xóa cache</a>
+        <!-- <a href="{{ route('categories.duplicate', $category->id) }}" >Nhân bản</a> -->
         <!-- <a href="{{ asset('admin/categories/'.$category->id) }}" >Chi tiết</a> |  -->
     </td>
 </tr>

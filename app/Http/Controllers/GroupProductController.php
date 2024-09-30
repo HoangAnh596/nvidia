@@ -2,22 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Group;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class GroupProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-       //
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -29,8 +20,13 @@ class GroupProductController extends Controller
         $product = Product::findOrFail($id);
         $imgProduct = $product->getMainImage();
         
-        $selectedCateIds = $product->category->pluck('id')->toArray();
+        $cateIds = $product->category->pluck('id')->toArray();
 
+        // Lấy danh mục đầu tiên trong các danh mục gắn với sản phẩm
+        $category = Category::find($cateIds[0]);
+        // Tìm các id danh mục cha
+        $selectedCateIds = $category->getAllParentIds();
+        
         $groupSelected = [];
         if (!empty($product->group_ids)) {
             // Chuyển đổi JSON thành mảng
@@ -57,7 +53,7 @@ class GroupProductController extends Controller
             ->where('cate_id', 0)
             ->where('parent_id', $product->id)
             ->get();
-        // dd($groupProducts);
+        
         $allProducts = Product::all();
 
         return view('admin.groupPro.add', compact(

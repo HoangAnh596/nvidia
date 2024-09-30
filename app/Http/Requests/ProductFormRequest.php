@@ -26,7 +26,6 @@ class ProductFormRequest extends FormRequest
     public function rules()
     {
         $params = $this->request->all();
-        // dd($params);
         $productId = $params['id'] ?? null;
         $imageIds = json_decode($params['image_ids'] ?? '[]', true);
         // Đảm bảo $imageIds là một mảng, nếu không chuyển nó thành một mảng rỗng

@@ -27,7 +27,7 @@
             </div>
             <div class="mb-3">
                 <label for="status" class="form-label">Tình trạng</label>
-                <select class="form-select" id="status" aria-label="Default" name="status">
+                <select class="form-control" id="status" aria-label="Default" name="status">
                     <option value="1">Còn hàng</option>
                     <option value="0">Hết hàng</option>
                 </select>

@@ -76,6 +76,21 @@ class Category extends Model
         }
         return $parents;
     }
+
+    // Lấy ra các id cha của nó và cả chính nó
+    public function getAllParentIds()
+    {
+        $category = $this;
+        $ids = collect(); // Tạo một collection để lưu các ID
+
+        // Vòng lặp đệ quy để lấy ID của tất cả các danh mục cha
+        while ($category) {
+            $ids->push($category->id); // Thêm ID của chính nó hoặc cha vào danh sách
+            $category = $category->parent; // Tiếp tục di chuyển lên danh mục cha
+        }
+
+        return $ids->toArray(); // Trả về mảng các ID
+    }
     
     // Thiết lập mối quan hệ với FilterCate
     public function filters()
@@ -101,5 +116,22 @@ class Category extends Model
                 ->where('is_public', 1)
                 ->orderBy('stt_compare', 'ASC')->get();
         }
+    }
+
+    // Nhân bản
+    function cloneCategory($categoryId)
+    {
+        // Lấy thông tin của danh mục cần sao chép
+        $category = Category::findOrFail($categoryId);
+
+        // Sao chép danh mục chính (không bao gồm id)
+        $newCategory = $category->replicate(); // Tạo một bản sao nhưng chưa lưu vào database
+        $newCategory->name = $newCategory->name . ' (Copy)'; // Thêm chuỗi để phân biệt với bản gốc
+        $newCategory->save(); // Lưu bản sao mới
+
+        // // Sao chép danh mục con (nếu có)
+        // cloneChildCategories($category->id, $newCategory->id);
+
+        return $newCategory; // Trả về danh mục đã sao chép
     }
 }

@@ -2,6 +2,10 @@
 body {
     color: #080808;
 }
+.container, .container-fluid {
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
 .text-gray-800 {
     color: #000 !important;
 }

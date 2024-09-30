@@ -158,7 +158,7 @@ class CategoryController extends Controller
         }
         Category::findOrFail($id)->delete();
 
-        return redirect(route('categories.index'))->with(['message' => 'Xóa thành công !']);
+        return redirect(route('categories.index'))->with(['message' => 'Xóa thành công danh mục sản phẩm!']);
     }
 
     public function insertOrUpdate(CategoryFormRequest $request, $id = '')
@@ -183,6 +183,14 @@ class CategoryController extends Controller
         $category->user_id = Auth::id();
         
         $category->save();
+    }
+
+    // Nhân bản
+    public function duplicateCategory($id)
+    {
+        Category::findOrFail($id)->cloneCategory($id);
+
+        return redirect()->back()->with('message', 'Danh mục đã được nhân bản thành công!');
     }
 
     public function checkStt(Request $request)

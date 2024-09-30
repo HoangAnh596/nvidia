@@ -24,7 +24,7 @@ $isMobile = $agent->isMobile(); // Kiểm tra thiết bị di động
             </div>
         </li>
         <li class="product-dt" data-id="{{ $product1->id }}" data-slug="{{ $product1->slug }}">
-            <a href="{{ asset($product1->slug) }}" class="main-contain">
+            <a href="{{ asset($product1->slug) }}">
                 <div class="item-label"></div>
                 <div class="item-img">
                     @if(!empty($image1))
@@ -46,7 +46,7 @@ $isMobile = $agent->isMobile(); // Kiểm tra thiết bị di động
             <a href="javascript:;" class="deleteProduct" onclick="DeletedProduct({{ $product1->id }})"><i class="fa-regular fa-circle-xmark"></i></a>
         </li>
         <li class="product-dt" data-id="{{ $product2->id }}" data-slug="{{ $product2->slug }}">
-            <a href="{{ asset($product2->slug) }}" class="main-contain">
+            <a href="{{ asset($product2->slug) }}">
                 <div class="item-label"></div>
                 <div class="item-img">
                     @if(!empty($image2))
@@ -69,7 +69,7 @@ $isMobile = $agent->isMobile(); // Kiểm tra thiết bị di động
         </li>
         @if(!empty($product3))
         <li class="product-dt" data-id="{{ $product3->id }}" data-slug="{{ $product3->slug }}">
-            <a href="{{ asset($product3->slug) }}" class="main-contain">
+            <a href="{{ asset($product3->slug) }}">
                 <div class="item-label"></div>
                 <div class="item-img">
                     <img class="thumb ls-is-cached lazyloaded" data-src="{{ asset($image3->image) }}" alt="{{ asset($image3->alt) }}" title="{{ asset($image3->title) }}" src="{{ asset($image3->image) }}">

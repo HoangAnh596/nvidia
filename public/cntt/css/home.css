@@ -461,7 +461,7 @@ hr {
     padding: 0;
 }
 .filter-item {
-    padding: 8px 12px;
+    padding: 5px 10px;
     border: 2px solid #e5e7eb;
     border-radius: 5px;
     background-color: #eee;
@@ -912,6 +912,9 @@ button:focus {
 
 .sp-online {
     margin-top: 4px;
+}
+.top-heading i, .sp-online i {
+    color: #76b900;
 }
 .i-skype {
     background: url(../img/skype-icon-min.png) no-repeat 0px 0 / 33px;

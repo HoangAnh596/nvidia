@@ -162,9 +162,6 @@
                         @foreach($prOutstand as $data)
                         <div class="row mt-3">
                             <div class="col-md-4 col-4" style="padding:0;">
-                                <!-- <a class="btn-outstand" href="{{ $data->slug }}">
-                                    <img class="card-img-top lazyload" src="{{ asset($data->image) }}" data-src="{{ asset($data->image) }}" alt="{{ $data->alt_img }}" title="{{ $data->title_img }}">
-                                </a> -->
                                 @php
                                 $mainImage = $data->product_images->firstWhere('main_img', 1);
                                 @endphp
@@ -225,13 +222,13 @@
                     </div>
                     <div class="title-outstand-prod">
                         <div class="row mt-3">
-                            <div><span class="top-heading">Hỗ trợ kinh doanh</span></div>
+                            <div><span class="top-heading">Hỗ trợ kinh doanh <i class="fa-solid fa-money-check-dollar"></i></span></div>
                             @foreach($phoneInfors as $val)
                             @if($val->role == 0)
                             <div class="contact-infor">
-                                <span class="user-heading"> <i class="fa fa-user" aria-hidden="true"></i>{{ $val->name }}</span>
+                                <span class="user-heading"><i class="fa-solid fa-user-check"></i> {{ $val->name }}</span>
                                 <div class="sp-online">
-                                    <span title="Mobile"><i class="fa fa-phone" aria-hidden="true"></i>{{ $val->phone }}</span>
+                                    <span title="Mobile"><i class="fa-solid fa-headset"></i> {{ $val->phone }}</span>
 
                                     <a href="{{ $val->skype }} " title="Chat với {{ $val->name }} qua Skype">
                                         <i class="i-skype"></i>
@@ -246,13 +243,13 @@
                             </div>
                             @endif
                             @endforeach
-                            <div class="mt-3"><span class="top-heading">Hỗ trợ kỹ thuật</span></div>
+                            <div class="mt-3"><span class="top-heading">Hỗ trợ kỹ thuật <i class="fa-solid fa-gear"></i></span></div>
                             @foreach($phoneInfors as $val)
                             @if($val->role == 1)
                             <div class="contact-infor">
-                                <span class="user-heading"> <i class="fa fa-user" aria-hidden="true"></i>{{ $val->name }}</span>
+                                <span class="user-heading"><i class="fa-solid fa-user-check"></i> {{ $val->name }}</span>
                                 <div class="sp-online">
-                                    <span title="Mobile"><i class="fa fa-phone" aria-hidden="true"></i>{{ $val->phone }}</span>
+                                    <span title="Mobile"><i class="fa-solid fa-headset"></i> {{ $val->phone }}</span>
 
                                     <a href="{{ $val->skype }} " title="Chat với {{ $val->name }} qua Skype">
                                         <i class="i-skype"></i>

@@ -68,6 +68,7 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('/categories/checkbox', [CategoryController::class, 'isCheckbox'])->name('categories.isCheckbox')->middleware('can:category-checkbox');
     Route::post('/categories/checkStt', [CategoryController::class, 'checkStt'])->name('categories.checkStt')->middleware('can:category-checkStt');
     Route::get('/categories/slugs', [CategoryController::class, 'getSlugs'])->name('categories.getSlugs');
+    Route::get('/categories/duplicate/{id}', [CategoryController::class, 'duplicateCategory'])->name('categories.duplicate');
 
     // Quản lý Sản phẩm
     Route::get('/products', [ProductController::class, 'index'])->name('product.index');
@@ -185,7 +186,7 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::post('/infors/checkStt', [InforController::class, 'checkStt'])->name('infors.checkStt')->middleware('can:hotline-checkStt');
     Route::post('/infors/checkbox', [InforController::class, 'isCheckbox'])->name('infors.isCheckbox')->middleware('can:hotline-checkbox');
     // Báo giá
-    Route::get('/quotes', [QuoteController::class, 'index'])->name('quotes.index')->middleware('can:quote-list');
+    Route::get('/quotes', [QuoteController::class, 'index'])->name('quotes.index');
     Route::post('/quotes/checkbox', [QuoteController::class, 'isCheckbox'])->name('quotes.isCheckbox')->middleware('can:quote-checkbox');
 
     // Quản lý comment sản phẩm

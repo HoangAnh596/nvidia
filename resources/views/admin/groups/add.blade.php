@@ -44,7 +44,7 @@
                         <div class="form-group">
                             <select name="cate_id" id="cate_id" class="form-select" size="10" style="width: 100%;">
                                 @foreach($categories as $category)
-                                @include('admin.groups.partials.category_add', ['category' => $category, 'level' => 0, 'prefix' => '|---'])
+                                @include('admin.groups.partials.category_add', ['category' => $category, 'level' => 0, 'prefix' => '|---', 'selected' => old('cate_id', $idCate)])
                                 @endforeach
                             </select>
                         </div>
@@ -65,7 +65,6 @@
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
             </div>
-
             <div class="mt-4 pb-4 mr-4 float-right">
                 <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
             </div>

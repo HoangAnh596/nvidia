@@ -15,9 +15,6 @@
         {{ $category->email }}
     </td>
     <td class="text-center">
-        <a href="{{ asset('/blogs/' . $category->slugNew) }}" target="_blank">Xem link</a>
-    </td>
-    <td class="text-center">
         <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_public" {{ ($category->is_public == 1) ? 'checked' : '' }}>
     </td>
     @if ($category->user_id == null)

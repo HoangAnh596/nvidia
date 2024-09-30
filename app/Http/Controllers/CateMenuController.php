@@ -50,7 +50,7 @@ class CateMenuController extends Controller
     {
         $category = CateMenu::findOrFail($id);
         $categories = CateMenu::with('children')->where('parent_menu', 0)->get();
-        // dd($category);
+        
         return view('admin.cateMenu.edit', compact('category', 'categories'));
     }
 
