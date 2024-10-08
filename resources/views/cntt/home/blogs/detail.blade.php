@@ -131,6 +131,9 @@
                             @endif
                         </div>
                         @include('cntt.home.blogs.partials.comment', ['comments' => $comments, 'user' => $user])
+                        <nav class="d-flex justify-content-center mt-2 paginate-cmt">
+                            {{ $comments->links() }}
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -433,6 +436,38 @@
             var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return re.test(email);
         }
+
+        // Phân trang bình luận
+        function addPaginationListeners() {
+            const paginationLinks = document.querySelectorAll('.paginate-cmt a');
+
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const url = this.href;
+
+                    fetch(url)
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById('app').innerHTML = html;
+                            // Cuộn đến rate-reviews với một khoảng offset
+                            var commentBox = document.getElementById('rate-reviews');
+                            var offset = -50; // Điều chỉnh khoảng lệch để đảm bảo hiển thị tốt
+                            var commentBoxPosition = commentBox.getBoundingClientRect().top + window.pageYOffset + offset;
+
+                            // Cuộn đến vị trí đã điều chỉnh
+                            window.scrollTo({
+                                top: commentBoxPosition,
+                                behavior: 'smooth'
+                            });
+                            addPaginationListeners(); // Gọi lại hàm này sau khi tải nội dung mới
+                        })
+                        .catch(error => console.error('Error loading page:', error));
+                });
+            });
+        }
+        // Gọi hàm ban đầu để thiết lập lắng nghe
+        addPaginationListeners();
     });
 </script>
 @endsection

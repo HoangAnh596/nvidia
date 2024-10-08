@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SettingFormRequest;
 use App\Models\Setting;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 
 class SettingController extends Controller
 {
@@ -38,18 +39,17 @@ class SettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SettingFormRequest $request, $id)
     {
         $setting = Setting::findOrFail(1);
 
-        $path = parse_url($request->filepath, PHP_URL_PATH);
-        // Xóa dấu gạch chéo đầu tiên nếu cần thiết
-        if (strpos($path, '/') === 0) {
-            $path = substr($path, 1);
-        }
+        $path = !empty($request->filepath) 
+                ? ltrim(parse_url($request->filepath, PHP_URL_PATH), '/') // Xóa dấu gạch chéo đầu tiên
+                : $setting->image;
 
         $setting->fill($request->all());
         $setting->image = $path;
+        $setting->user_id = Auth::id();
         $setting->save();
 
         return back()->with(['message' => 'Cập nhật hình ảnh setting thành công']);

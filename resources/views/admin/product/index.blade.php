@@ -67,7 +67,7 @@
                             <td class="text-center">
                                 <input type="checkbox" class="active-checkbox" data-id="{{ $product->id }}" data-field="is_outstand" {{ ($product->is_outstand == 1) ? 'checked' : '' }}>
                             </td>
-                            <td>
+                            <td class="action">
                                 @can('product-edit')
                                 <a href="{{ asset('admin/products/'.$product->id.'/edit') }}">Chỉnh sửa</a> |
                                 @endcan

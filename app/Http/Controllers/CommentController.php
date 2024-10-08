@@ -195,7 +195,7 @@ class CommentController extends Controller
 
             $sendCmt->fill($request->all());
 
-            if (Auth::check() && Auth::user()->hasPermission('check_cmt')) {
+            if (Auth::check() && Auth::user()->hasPermission('replay_comment')) {
                 $sendCmt->is_public = 1;
             } else {
                 $sendCmt->is_public = 0;

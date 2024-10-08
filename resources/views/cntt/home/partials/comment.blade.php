@@ -11,12 +11,7 @@ use Carbon\Carbon;
         <div data-id="{{ $cmt->id }}" id="review-item-{{ $cmt->id }}" class="view-comments-item level-{{ $level ?? 1 }}" data-fname="{{ $cmt->name }}">
             <div class="bg-comments level-{{ $level ?? 1 }}">
                 <div class="img-member-thumb">{{ strtoupper(mb_substr($cmt->name, 0, 1, 'UTF-8')) }}</div>
-                <div class="name-member">{{ $cmt->name }} @if(!empty($cmt->user_id)) <b class="qtv">Quản trị viên</b> @endif</div>
-                <div class="star-rated" title="5 sao"><i class="i-star"></i></div>
-                <div class="content-comments">{!! $cmt->content !!}</div>
-                <div class="relate-comment">
-                    <div class="comment-replay-like">
-                        <span>
+                <div class="name-member">{{ $cmt->name }} @if(!empty($cmt->user_id)) <b class="qtv">Quản trị viên</b> @endif <span>
                         @if ($time->diffInMinutes($now) < 60)
                             {{ $time->diffInMinutes($now) }} phút
                         @elseif ($time->diffInHours($now) < 24)
@@ -24,8 +19,12 @@ use Carbon\Carbon;
                         @else
                             {{ $time->format('d-m-Y') }}
                         @endif
-                        </span>
-                        <span class="reply-btn" data-comment-id="{{ $cmt->id }}" title="trả lời comments">Trả lời</span>
+                        </span></div>
+                <div class="star-rated" title="5 sao"><i class="i-star"></i></div>
+                <div class="content-comments">{!! $cmt->content !!}</div>
+                <div class="relate-comment">
+                    <div class="comment-replay-like">
+                        <span class="reply-btn" data-comment-id="{{ $cmt->id }}" title="trả lời comments"><i class="fa-solid fa-reply"></i> Trả lời</span>
                         <div class="relate-com-item like-comment"><i class="far fa-thumbs-up"></i> Thích</div>
                     </div>
                 </div>
@@ -70,7 +69,7 @@ use Carbon\Carbon;
         {{-- Gọi đệ quy cho các bình luận con --}}
         @if ($cmt->cmtChild->isNotEmpty())
         <div class="child-replies">
-            @include('cntt.home.partials.comment', ['comments' => $cmt->cmtChild, 'user' => $user, 'level' => ($level ?? 1) + 1])
+            @include('cntt.home.partials.comment', ['comments' => $cmt->cmtChild, 'level' => ($level ?? 1) + 1])
         </div>
         @endif
     </div>

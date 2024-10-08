@@ -98,7 +98,14 @@ class IconController extends Controller
         $icon = empty($id) ? new Icon() : Icon::findOrFail($id);
 
         $icon->fill($request->all());
-        
+
+        $path = parse_url($request->filepath, PHP_URL_PATH);
+        // Xóa dấu gạch chéo đầu tiên nếu cần thiết
+        if (strpos($path, '/') === 0) {
+            $path = substr($path, 1);
+        }
+
+        $icon->image = $path;
         $icon->stt = (isset($request->stt)) ? $request->stt : 999;
         $icon->user_id = Auth::id();
 

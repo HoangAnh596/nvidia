@@ -71,6 +71,14 @@ return [
         'checkbox-icon' => 'checkbox_icon',
         'checkStt-icon' => 'checkstt_icon',
 
+        // Icon
+        'list-contact-icon' => 'list_contact_icon',
+        'add-contact-icon' => 'add_contact_icon',
+        'edit-contact-icon' => 'edit_contact_icon',
+        'delete-contact-icon' => 'delete_contact_icon',
+        'checkbox-contact-icon' => 'checkbox_contact_icon',
+        'checkStt-contact-icon' => 'checkstt_contact_icon',
+
         // Bottom
         'list-bottom' => 'list_bottom',
         'add-bottom' => 'add_bottom',
@@ -129,6 +137,7 @@ return [
         // Phân quyền nhiều loại khác nhau
         'list-quote' => 'list_quote',
         'checkbox-quote' => 'checkbox_quote',
+        'setting-edit' => 'setting_edit',
 
         // Slider
         'list-slider' => 'list_slider',

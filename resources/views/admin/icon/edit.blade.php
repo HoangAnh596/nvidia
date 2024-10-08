@@ -35,10 +35,6 @@
                     <div class="col-6">
                         <div class="form-group">
                             <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $icon->name ?? '') }}">
-                            <span id="name-error" style="color: red;"></span>
-                            @error('name')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -49,9 +45,6 @@
                     <div class="col-6">
                         <div class="form-group">
                             <input type="text" name="url" id="url" class="form-control" value="{{ old('url', $icon->url ?? '') }}">
-                            @error('url')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -62,9 +55,6 @@
                     <div class="col-6">
                         <div class="form-group">
                             <input type="text" name="icon" id="icon" class="form-control" value="{{ old('icon', $icon->icon ?? '') }}">
-                            @error('icon')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -73,7 +63,7 @@
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Hiển thị :</div>
                     <div class="col-1 d-flex align-items-center">
                         <select class="form-select" aria-label="Default" name="is_public">
-                            <<option value="1"
+                            <option value="1"
                                 @if(!empty($icon) && $icon->is_public == \App\Models\Icon::IS_PUBLIC) selected @endif>
                                 Hiển thị
                             </option>

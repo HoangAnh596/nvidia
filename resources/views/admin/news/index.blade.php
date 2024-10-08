@@ -65,7 +65,7 @@
                                 <input type="checkbox" class="active-checkbox" data-id="{{ $new->id }}" data-field="is_outstand" {{ ($new->is_outstand == 1) ? 'checked' : '' }}>
                             </td>
                             <td class="text-center">{{ $new->view_count }}</td>
-                            <td>
+                            <td class="action">
                                 @can('new-edit')
                                 <a href="{{ asset('admin/news/'.$new->id.'/edit') }}">Chỉnh sửa</a> |
                                 @endcan

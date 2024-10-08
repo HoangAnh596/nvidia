@@ -50,11 +50,10 @@
                             <td class="text-center">
                                 <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
                             </td>
-                            <td>
+                            <td class="action">
                                 @can('slider-edit')
                                 <a href="{{ asset('admin/sliders/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
                                 @endcan
-                                <a href="{{ asset('admin/sliders/'.$val->id.'/edit') }}">Nhân bản</a> |
                                 <a href="{{ asset('admin/sliders/'.$val->id.'/edit') }}">Xóa cache</a>
                                 @can('slider-delete')
                                 | <a href="javascript:void(0);" onclick="confirmDelete('{{ $val->id }}')">Xóa</a>

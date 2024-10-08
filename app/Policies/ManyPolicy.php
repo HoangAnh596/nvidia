@@ -18,4 +18,10 @@ class ManyPolicy
     {
         return $user->checkPermissionAccess(config('permissions.access.checkbox-quote'));
     }
+
+    // Phân quyền setting website
+    public function settingEdit(User $user)
+    {
+        return $user->checkPermissionAccess(config('permissions.access.setting-edit'));
+    }
 }

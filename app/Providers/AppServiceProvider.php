@@ -7,6 +7,7 @@ use App\Models\CateFooter;
 use App\Models\Category;
 use App\Models\CategoryNew;
 use App\Models\CateMenu;
+use App\Models\ContactIcon;
 use App\Models\HeaderTag;
 use App\Models\Icon;
 use App\Models\Setting;
@@ -115,6 +116,14 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('bottom', function () {
             return Bottom::where('is_public', 1)->orderBy('stt', 'ASC')->select('id', 'name', 'url')->get();
         });
+        // Cấu hình SEO
+        $this->app->singleton('seoWeb', function () {
+            return Setting::where('id', 1)->select('title_seo', 'keyword_seo', 'des_seo')->first();
+        });
+        // Cấu hình icon liên hệ
+        $this->app->singleton('contact-icons', function () {
+            return ContactIcon::where('is_public', 1)->orderBy('stt', 'ASC')->select('id', 'url', 'name', 'image', 'animation')->get();
+        });
 
         // Cấu hình gửi mail báo
         $settings = Setting::where('id', 1)->select('id', 'mail_name', 'mail_pass', 'mail_text')->first();
@@ -135,12 +144,16 @@ class AppServiceProvider extends ServiceProvider
             $globalHeaderTags = $this->app->make('headerTags');
             $iconGlobal = $this->app->make('icon');
             $ft_bottom = $this->app->make('bottom');
+            $globalSeo = $this->app->make('seoWeb');
+            $contactIconGlobal = $this->app->make('contact-icons');
             
             $view->with('globalMenus', $globalMenus)->with('globalFooters', $globalFooters)
                 ->with('searchCate', $searchCate)->with('globalFavi', $globalFavi)
                 ->with('globalHeaderTags', $globalHeaderTags)
                 ->with('iconGlobal', $iconGlobal)
-                ->with('ft_bottom', $ft_bottom);
+                ->with('ft_bottom', $ft_bottom)
+                ->with('globalSeo', $globalSeo)
+                ->with('contactIconGlobal', $contactIconGlobal);
         });
     }
 }

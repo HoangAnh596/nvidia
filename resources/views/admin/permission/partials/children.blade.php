@@ -17,7 +17,7 @@
     <td>
         {{ $category->key_code }}
     </td>
-    <td>
+    <td class="action">
         @can('permission-edit')
         <a href="{{ asset('admin/permissions/'.$category->id.'/edit') }}">Chỉnh sửa</a> |
         @endcan

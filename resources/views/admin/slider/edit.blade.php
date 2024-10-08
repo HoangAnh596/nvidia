@@ -63,7 +63,7 @@
                             </div>
                             <div class="col-7">
                                 <div class="form-group">
-                                    <input type="text" name="url" id="name" class="form-control" value="{{ old('url_text', $slider->url ?? '') }}">
+                                    <input type="text" name="url" id="name" class="form-control" value="{{ old('url', $slider->url ?? '') }}">
                                 </div>
                             </div>
                             <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>

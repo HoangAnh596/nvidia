@@ -19,7 +19,7 @@
             <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
                 <div class="input-group">
                     <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Tìm kiếm tên bài viết" aria-label="Search" name="keyword" value="{{ $keyword }}">
+                        <input type="search" class="form-control" placeholder="Tìm kiếm tên bình luận" aria-label="Search" name="keyword" value="{{ $keyword }}">
                     </div>
                     <div class="form-group">
                         <select name="is_public" class="form-control">
@@ -40,10 +40,10 @@
                     <tr>
                         <th class="text-center">#</th>
                         <th class="col-sm-3">Nội dung bình luận</th>
-                        <th class="col-sm-1">Tác giả</th>
+                        <th class="text-center">Tác giả</th>
                         <th class="col-sm-2 text-center">Mail</th>
                         <th class="text-center">Hiển thị</th>
-                        <th class="text-center">Đánh giá(Star)</th>
+                        <th class="text-center">Star</th>
                         <th class="text-center">Time</th>
                         <th class="col-sm-2 text-center">Hành động</th>
                     </tr>

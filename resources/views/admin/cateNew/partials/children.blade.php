@@ -23,7 +23,7 @@
     <td class="text-center">
         <input type="checkbox" class="checkbox-cateNew" data-id="{{ $category->id }}" data-field="is_public" {{ ($category->is_public == 1) ? 'checked' : '' }}>
     </td>
-    <td>
+    <td class="action">
         @can('cateNew-edit')
         <a href="{{ asset('admin/cateNews/'.$category->id.'/edit') }}">Chỉnh sửa</a> |
         @endcan

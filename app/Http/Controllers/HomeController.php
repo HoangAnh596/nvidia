@@ -36,16 +36,17 @@ class HomeController extends Controller
     public function index()
     {
         // Seo Website
-        $titleSeo = config('common.title_seo');
-        $keywordSeo = config('common.keyword_seo');
-        $descriptionSeo = config('common.des_seo');
+        $globalSeo = app('seoWeb');
+        $titleSeo = $globalSeo->title_seo;
+        $keywordSeo = $globalSeo->keyword_seo;
+        $descriptionSeo = $globalSeo->des_seo;
 
         // Sliders
         $sliders = Slider::where('is_public', 1)
             ->select('id', 'name', 'image', 'url', 'url_text', 'title', 'description', 'stt_slider', 'is_color')
             ->orderBy('stt_slider', 'ASC')
             ->orderBy('updated_at', 'DESC')->get();
-        // $totalSlider = $sliders->count();
+        
         // Tin tức
         $blogs = News::where('is_outstand', 1)
             ->select('id', 'name', 'image', 'slug', 'alt_img', 'title_img', 'desc')
@@ -53,7 +54,6 @@ class HomeController extends Controller
             ->limit(12)->get();
         $cateBlogs = CategoryNew::where('is_menu', 1)->select('name', 'slug')->orderBy('created_at', 'ASC')->get();
 
-        // Trang chủ ngoài
         // Lấy tất cả các danh mục có parent_id = 0
         $categories = Category::where('is_public', 1)
             ->select('id', 'name', 'slug', 'image', 'title_img', 'alt_img', 'is_serve')
@@ -105,6 +105,8 @@ class HomeController extends Controller
 
     public function category(Request $request, $slug)
     {
+        // Seo Website
+        $globalSeo = app('seoWeb');
         $cateMenu = Category::all();
         $cateMenu = $this->buildTree($cateMenu);
 
@@ -114,9 +116,9 @@ class HomeController extends Controller
         
         if (!empty($mainCate)) {
             // Seo Website
-            $titleSeo = (!empty($mainCate->title_seo)) ? $mainCate->title_seo : config('common.title_seo');
-            $keywordSeo = (!empty($mainCate->keyword_seo)) ? $mainCate->keyword_seo : config('common.keyword_seo');
-            $descriptionSeo = (!empty($mainCate->des_seo)) ? $mainCate->des_seo : config('common.des_seo');
+            $titleSeo = (!empty($mainCate->title_seo)) ? $mainCate->title_seo : $globalSeo->title_seo;
+            $keywordSeo = (!empty($mainCate->keyword_seo)) ? $mainCate->keyword_seo : $globalSeo->keyword_seo;
+            $descriptionSeo = (!empty($mainCate->des_seo)) ? $mainCate->des_seo : $globalSeo->des_seo;
 
             // Lấy ra id của parent_id = 0 
             $cateParent = $mainCate->topLevelParent();
@@ -134,9 +136,11 @@ class HomeController extends Controller
             foreach ($prOutstand as $product) {
                     $product->loadProductImages();
                 }
-           
+            
             // Bộ lọc sản phẩm
             $filters = $request->all();
+            // Loại bỏ 'page' khỏi bộ lọc nếu tồn tại
+            unset($filters['page']);
             if (!empty($filters)) {
                 $products = Product::query();
                 $filterConditions = [];
@@ -179,6 +183,9 @@ class HomeController extends Controller
                     $currentPage = $lastPage;
                 }
                 $products = $products->orderBy('created_at', 'DESC')->paginate(10, ['*'], 'page', $currentPage);
+                foreach ($products as $product) {
+                    $product->loadProductImages();
+                }
                 // Lấy URL hiện tại và xử lý chuỗi query
                 $currentUrl = request()->fullUrl();
                 $currentUrl = preg_replace('/(&|\?)page=\d+/', '', $currentUrl);
@@ -240,11 +247,12 @@ class HomeController extends Controller
         $categoryId = $product->category->pluck('id')->first();
         $parent = Category::where('id', $categoryId)->first();
         $allParents = $parent->getAllParents();
+        $parentCate = $parent->topLevelParent();
 
         // Seo Website
-        $titleSeo = (!empty($product->title_seo)) ? $product->title_seo : config('common.title_seo');
-        $keywordSeo = (!empty($product->keyword_seo)) ? $product->keyword_seo : config('common.keyword_seo');
-        $descriptionSeo = (!empty($product->des_seo)) ? $product->des_seo : config('common.des_seo');
+        $titleSeo = (!empty($product->title_seo)) ? $product->title_seo : $globalSeo->title_seo;
+        $keywordSeo = (!empty($product->keyword_seo)) ? $product->keyword_seo : $globalSeo->keyword_seo;
+        $descriptionSeo = (!empty($product->des_seo)) ? $product->des_seo : $globalSeo->des_seo;
 
         $relatedProducts = $product->getRelatedProducts();
         $images = $product->getProductImages();
@@ -253,12 +261,14 @@ class HomeController extends Controller
         $commentsQuery = Comment::query(); // Khởi tạo query builder cho bảng comments
         
         if (Auth::check() && Auth::user()->role == 1) {
+            dd(1);
             // Nếu role = 1, lấy tất cả các comments cho sản phẩm này
             $commentsQuery->where('comments.product_id', $idPro)
                         ->where('comments.parent_id', 0)
                         ->with('replies') // Load các bình luận con
                         ->orderBy('comments.created_at', 'DESC');
         } else {
+            // dd(1);
             // Nếu role khác 1, lấy các bình luận public hoặc bình luận của chính người dùng đó
             $commentsQuery->where('comments.product_id', $idPro)
                           ->where('comments.parent_id', 0)
@@ -269,11 +279,14 @@ class HomeController extends Controller
                                         $query->whereNotNull('comments.user_id')->where('comments.user_id', Auth::id());
                                     });
                             })
-                          ->with('cmtChild') // Load các bình luận con
-                          ->orderBy('comments.created_at', 'DESC');
+                          ->with('cmtChild'); // Load các bình luận con
+                        //   ->orderBy('comments.created_at', 'DESC');
         }
 
-        $comments = $commentsQuery->get();
+        $comments = $commentsQuery->orderBy('created_at', 'DESC')->paginate(5);
+        if ($request->ajax()) {
+            return view('cntt.home.partials.comment', compact('comments'))->render(); // Trả về view khi gọi bằng AJAX
+        }
 
         // Tính tổng số bình luận (cha + con)
         $totalCommentsCount = Comment::where('product_id', $idPro)
@@ -293,6 +306,7 @@ class HomeController extends Controller
             }
         })
         ->count();
+        $totalStarCount = Comment::where('product_id', $idPro)->sum('star');
         $user = Auth::user();
 
         $groupProducts = [];
@@ -316,8 +330,9 @@ class HomeController extends Controller
             'titleSeo', 'keywordSeo', 'descriptionSeo',
             'phoneInfors', 'product', 'allParents',
             'parent', 'images', 'relatedProducts',
-            'comments', 'totalCommentsCount', 'user',
-            'groupProducts', 'totalImgCount'
+            'comments', 'user',
+            'totalCommentsCount', 'totalStarCount',
+            'groupProducts', 'totalImgCount', 'parentCate'
         ));
     }
 
@@ -342,9 +357,10 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         // Seo Website
-        $titleSeo = config('common.title_seo');
-        $keywordSeo = config('common.keyword_seo');
-        $descriptionSeo = config('common.des_seo');
+        $globalSeo = app('seoWeb');
+        $titleSeo = $globalSeo->title_seo;
+        $keywordSeo = $globalSeo->keyword_seo;
+        $descriptionSeo = $globalSeo->des_seo;
         $phoneInfors = Infor::where('is_public', 1)->orderBy('stt', 'ASC')->get();
 
         $keyword = $request->keyword;
@@ -518,13 +534,17 @@ class HomeController extends Controller
 
     public function listPrice(Request $request)
     {
-        $titleSeo = config('common.title_seo');
-        $keywordSeo = config('common.keyword_seo');
-        $descriptionSeo = config('common.des_seo');
-
+        // Seo Website
+        $globalSeo = app('seoWeb');
+        
         $key = $request->key;
+        $products = [];
 
         if(!empty($key)){
+            $titleSeo = 'Giá ' . $key;
+            $keywordSeo = $globalSeo->keyword_seo;
+            $descriptionSeo = 'Bảng Báo Giá ' . $key;
+            
             $products = Product::where('code', 'like', "%$key%")
                 ->select('slug', 'image_ids', 'code', 'title_seo')
                 ->latest()->get();
@@ -539,9 +559,13 @@ class HomeController extends Controller
             ));
         }
 
+        $titleSeo = 'Check Giá List sản phẩm' . $key;
+        $keywordSeo = $globalSeo->keyword_seo;
+        $descriptionSeo = 'Bảng Báo Giá sản phẩm' . $key;
+
         return view('cntt.home.listPrice', compact(
-            'titleSeo', 'keywordSeo',
-            'descriptionSeo', 'key'
+            'titleSeo', 'keywordSeo', 'descriptionSeo',
+            'key', 'products'
         ));
     }
 
@@ -678,7 +702,9 @@ class HomeController extends Controller
             if ($product3) {
                 $titleSeo .= ' và ' . $product3->code;
             }
-            $keywordSeo = config('common.keyword_seo');
+            // Seo Website
+            $globalSeo = app('seoWeb');
+            $keywordSeo = $globalSeo->keyword_seo;
             $descriptionSeo = $titleSeo;
 
             // Lấy tất cả danh mục con (bao gồm cả danh mục cha)

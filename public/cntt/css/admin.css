@@ -2,6 +2,10 @@
 body {
     color: #080808;
 }
+p, td a {
+    font-size: 15px;
+    margin-bottom: 0;
+}
 .container, .container-fluid {
     padding-left: .5rem;
     padding-right: .5rem;
@@ -45,7 +49,7 @@ body {
     overflow-y: auto; /* Bật thanh cuộn dọc */
 }
 
-.table-responsive td a {
+.action a {
     font-size: 14px;
 }
 

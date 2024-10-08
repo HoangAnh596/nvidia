@@ -10,7 +10,7 @@
             <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
                 <div class="input-group">
                     <div class="form-group">
-                        <input type="search" class="form-control form-outline" placeholder="Search hotline" aria-label="Search" name="keyword" value="">
+                        <input type="search" class="form-control form-outline" placeholder="Tìm kiếm theo tên" aria-label="Search" name="keyword" value="">
                     </div>
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit"> <i class="fas fa-search fa-sm"></i> </button>
@@ -48,7 +48,7 @@
                             <td class="text-center">
                                 <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
                             </td>
-                            <td>
+                            <td class="action">
                                 @can('bottom-edit')
                                 <a href="{{ asset('admin/bottoms/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
                                 @endcan

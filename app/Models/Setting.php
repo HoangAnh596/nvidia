@@ -12,7 +12,8 @@ class Setting extends Model
     protected $table = 'setting';
 
     protected $fillable = [
-        'mail_name', 'mail_pass',
-        'mail_text', 'image',
+        'title_seo', 'keyword_seo', 'des_seo',
+        'mail_name', 'mail_pass', 'mail_text',
+        'image', 'user_id'
     ];
 }

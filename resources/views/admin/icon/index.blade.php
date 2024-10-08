@@ -48,15 +48,15 @@
                                 <input type="text" class="check-stt" name="stt" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt', $val->stt) }}">
                             </td>
                             <td class="text-center">
-                                    <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
+                                <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
                             </td>
-                            <td>
+                            <td class="action">
                                 @can('icon-edit')
                                 <a href="{{ asset('admin/icons/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
                                 @endcan
-                                <a href="{{ asset('admin/icons') }}">Xóa cache</a> |
+                                <a href="{{ asset('admin/icons') }}">Xóa cache</a>
                                 @can('icon-delete')
-                                <a href="javascript:void(0);" onclick="confirmDelete('{{ $val->id }}')">Xóa</a>
+                                | <a href="javascript:void(0);" onclick="confirmDelete('{{ $val->id }}')">Xóa</a>
                                 <form id="deleteForm-{{ $val->id }}" action="{{ route('icons.destroy', ['id' => $val->id]) }}" method="post" style="display: none;">
                                     @csrf
                                     @method('DELETE')

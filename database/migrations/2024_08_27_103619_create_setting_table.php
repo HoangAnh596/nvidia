@@ -15,6 +15,9 @@ class CreateSettingTable extends Migration
     {
         Schema::create('setting', function (Blueprint $table) {
             $table->id();
+            $table->string('title_seo')->nullable();
+            $table->string('keyword_seo')->nullable();
+            $table->string('des_seo')->nullable();
             $table->string('mail_name')->nullable();
             $table->string('mail_pass')->nullable();
             $table->string('mail_text')->nullable();

@@ -49,7 +49,7 @@
             </div>
         </div>
     </div>
-
+    <a href="#top" class="back-to-top" id="top-link" aria-label="Go to top"><i class="fa-solid fa-circle-chevron-up"></i></a>
 </footer>
 <div class="global-footer-container container">
     <div class="global-footer" id="globalFooter">

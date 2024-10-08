@@ -45,7 +45,7 @@
                         <td>{{ (($roles->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
                         <td>{{ $val->name }}</td>
                         <td>{{ $val->display_name }}</td>
-                        <td>
+                        <td class="action">
                             @can('role-edit')
                             <a href="{{ asset('admin/roles/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
                             @endcan

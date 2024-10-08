@@ -8,6 +8,12 @@
 		<changefreq>daily</changefreq>
 	</url>
 	<url>
+	<loc>http://localhost:8000/dien-thoai-iphone-ram-256gb</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-10-07T08:36:02+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 	<loc>http://localhost:8000/chuot-may-tinh</loc>
 		<priority>0.8</priority>
 		<lastmod>2024-09-24T13:50:03+07:00</lastmod>
@@ -94,7 +100,7 @@
 	<url>
 	<loc>http://localhost:8000/dtdd</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-27T11:22:37+07:00</lastmod>
+		<lastmod>2024-10-04T13:52:08+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 </urlset>

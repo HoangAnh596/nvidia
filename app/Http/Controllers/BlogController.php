@@ -6,6 +6,7 @@ use App\Models\CategoryNew;
 use App\Models\CmtNew;
 use App\Models\News;
 use App\Services\CategoryNewSrc;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
@@ -42,7 +43,7 @@ class BlogController extends Controller
         ));
     }
 
-    public function cateBlog($slug)
+    public function cateBlog(Request $request, $slug)
     {
         $cateMenu = CategoryNew::select('name', 'slug')->orderBy('stt_new', 'ASC')
             ->where('is_public', 1)
@@ -87,8 +88,10 @@ class BlogController extends Controller
                     ->orderBy('cmt_news.created_at', 'DESC');
             }
 
-            $comments = $commentsQuery->get();
-
+            $comments = $commentsQuery->orderBy('created_at', 'DESC')->paginate(5);
+            if ($request->ajax()) {
+                return view('cntt.home.blogs.partials.comment', compact('comments'))->render(); // Trả về view khi gọi bằng AJAX
+            }
             // Tính tổng số bình luận (cha + con)
             $totalCommentsCount = CmtNew::where('new_id', $newArt->id)
                 ->where(function ($query) {

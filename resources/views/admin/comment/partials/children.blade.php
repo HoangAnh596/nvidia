@@ -35,7 +35,7 @@
         {{ $category->created_at->format('d-m-Y H:i') }}
     </td>
     @endif
-    <td class="text-center">
+    <td class="text-center action">
         @can('comment-edit')
         <a href="{{ asset('admin/comments/'.$category->id.'/edit') }}" >Chỉnh sửa</a>
         @endcan

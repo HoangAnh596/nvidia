@@ -36,7 +36,9 @@
                     <tr>
                         <th>#</th>
                         <th>Tên tài khoản</th>
+                        @can('user-edit')
                         <th>Email tài khoản</th>
+                        @endcan
                         <th class="col-2">Vai trò</th>
                         <th class="col-sm-2">Image</th>
                         <th class="col-sm-2 text-center">Hành động</th>
@@ -47,14 +49,16 @@
                     <tr>
                         <td>{{ (($users->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
                         <td>{{ $val->name }}</td>
+                        @can('user-edit')
                         <td>{{ $val->email }}</td>
+                        @endcan
                         <td>
                             @foreach ($val->roles as $role)
                             {{ $role->name }}
                             @endforeach
                         </td>
                         <td class="text-center" style="padding: 0;"><img src="{{ \App\Http\Helpers\Helper::getPath($val->image) }}"></td>
-                        <td>
+                        <td class="action">
                             @can('user-edit')
                             <a href="{{ asset('admin/users/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
                             @endcan

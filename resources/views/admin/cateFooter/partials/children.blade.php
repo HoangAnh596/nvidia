@@ -23,7 +23,7 @@
     <td class="text-center">
         <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_click" {{ ($category->is_click == 1) ? 'checked' : '' }}>
     </td>
-    <td>
+    <td class="action">
         @can('footer-edit')
         <a href="{{ asset('admin/cateFooter/'.$category->id.'/edit') }}">Chỉnh sửa</a> |
         @endcan

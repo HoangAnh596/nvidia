@@ -7,6 +7,7 @@
 } */
 body {
     color: #333;
+    position: relative; /* hoặc position: absolute; */
 }
 /* css header */
 #templatemo_main_nav {
@@ -21,6 +22,24 @@ h4 {
 }
 .bg-gr {
     background-color: #76b900;
+}
+
+#add-cart {
+    display: inline-block;
+    position: relative;
+    width: 25px; /* Chiều rộng của khu vực hiển thị */
+    height: 25px; /* Chiều cao của khu vực hiển thị */
+    border: 1px solid #000; /* Đường viền cho khu vực hiển thị */
+    background-color: #fff; /* Màu nền cho khu vực hiển thị */
+}
+
+.plus {
+    position: absolute;
+    font-size: 24px;
+    color: red;
+    pointer-events: none; /* Để không ảnh hưởng đến sự kiện chuột */
+    transition: transform 1s; /* Sử dụng transition để tạo animation */
+    z-index: 999999999999;
 }
 
 a {
@@ -1247,6 +1266,23 @@ button:focus {
     font-size: 9pt !important;
     line-height: 15px;
 }
+
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: none;
+    z-index: 1000;
+    cursor: pointer;
+}
+.back-to-top i {
+    font-size: 2.6rem;
+    color: #76b900;
+}
+.back-to-top.active {
+    display: block;
+}
+
 /* --------------------End Css Footer------------------------ */
 
 /* search */
@@ -1297,7 +1333,7 @@ button:focus {
     color: #fff;
     cursor: pointer;
     text-align: center;
-    padding: 5px 40px;
+    padding: 5px 16px;
     line-height: 28px;
 }
 .review-row {
@@ -1329,6 +1365,12 @@ button:focus {
     color: #666;
     display: inline-block;
 }
+.name-member span {
+    font-size: 0.8rem;
+    color: #b2b2b2;
+    font-weight: 100 !important;
+    margin-left: 5px;
+}
 .content-comments {
     margin: 0 10px 3px 25px;
     color: #333;
@@ -1338,6 +1380,7 @@ button:focus {
 .content-comments p {
     line-height: 1.5em;
     font-size: 14px !important;
+    margin-bottom: 0;
 }
 .relate-comment {
     margin-left: 25px;
@@ -1403,7 +1446,7 @@ button:focus {
     color: #333;
     font-weight: 400;
     display: inline-block;
-    margin: 5px 0 0 10px;
+    margin-left: 10px;
 }
 .like-comment a {
     color: #222b45;
@@ -1427,6 +1470,7 @@ button:focus {
 }
 .rating > label {
     margin-right: 3px;
+    cursor: pointer;
 }
 .rating svg {
     color: #ddd;
@@ -1442,10 +1486,10 @@ button:focus {
     padding-right: 12px;
     font-size: 14px !important;
 }
-.comment-replay-like span:first-child {
+/* .comment-replay-like span:first-child {
     font-size: 0.8rem;
     color: #b2b2b2;
-}
+} */
 .reply-btn {
     cursor: pointer;
 }

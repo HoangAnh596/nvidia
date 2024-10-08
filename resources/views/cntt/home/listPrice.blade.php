@@ -99,7 +99,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Yêu cầu nhận giá tốt về sản phẩm <span class="price-code">{{ $product->code }}</span></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Yêu cầu nhận giá tốt về sản phẩm <span class="price-code">@if (!empty($products)){{ $product->code }} @endif</span></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -128,7 +128,7 @@
                         <label><input value="1" name="purpose" type="radio" style="margin-left: 15px; margin-right: 5px;">Dự án</label>
                     </div>
                 </div>
-                @if (!empty($product))
+                @if (!empty($products))
                 <input type="hidden" name="code" id="code" value="{{ $product->code }}">
                 <input type="hidden" name="slug" id="slug" value="{{ $product->slug }}">
                 @endif

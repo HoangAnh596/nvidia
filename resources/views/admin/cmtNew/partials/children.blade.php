@@ -33,7 +33,7 @@
         {{ $category->created_at->format('d-m-Y H:i') }}
     </td>
     @endif
-    <td class="text-center">
+    <td class="text-center action">
         @can('cmtNew-edit')
         <a href="{{ asset('admin/cmtNews/'.$category->id.'/edit') }}" >Chỉnh sửa</a> |
         @endcan

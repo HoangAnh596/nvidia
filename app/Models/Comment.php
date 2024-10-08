@@ -34,7 +34,7 @@ class Comment extends Model
             ->where('is_public', 1)
             ->with(['cmtChild' => function ($query) {
                 $query->where('is_public', 1);
-            }]);
+            }])->orderBy('created_at', 'DESC');
     }
 
     public function getAllChildrenIds()

@@ -77,7 +77,7 @@
                             <i class="fa-solid fa-star"></i>
                             <div class="title-spec">
                                 <a href="#comment-box">
-                                    Có {{ $totalCommentsCount }} đánh giá. </a>
+                                    Có {{ $totalStarCount }} đánh giá. </a>
                             </div>
                         </div>
                     </div>
@@ -128,13 +128,10 @@
                 </div>
                 <div class="compare">
                     <div class="tcpr">
-                        <p>
-                            So sánh với các sản phẩm @foreach ($allParents as $key)
-                            {{ $key->name }}
-                            @endforeach khác:
-                        </p>
+                        <p>So sánh với các sản phẩm {{ $parentCate->name }} khác:</p>
                         <div class="sggProd">
                             <form action="javascript:void(0)">
+                            @csrf
                                 <input type="hidden" id="productId" value="{{ $product->id }}">
                                 <input type="hidden" id="slugPro" value="{{ $product->slug }}">
                                 <input id="searchSggCP" value="" type="text" placeholder="Nhập Tên hoặc Mã sản phẩm để so sánh" onkeyup="fetchProducts()">
@@ -294,6 +291,7 @@
                         <h3>Bạn đang cần tư vấn về sản phẩm: {{ $product->code }} ?</h3>
                         <div class="form-comment">
                             <form id="rate-form" method="post">
+                            @csrf
                                 <input type="hidden" id="idUser" name="user_id" value="{{ Auth::id() }}">
                                 <input type="hidden" id="idprd" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" id="slugPrd" name="slugPrd" value="{{ $product->slug }}">
@@ -304,23 +302,64 @@
                                         Bạn đang cần tư vấn về sản phẩm {{ $product->code }} và giải pháp mạng? Vui lòng để lại số điện thoại hoặc lời nhắn, nhân viên cnttshop.vn sẽ liên hệ trả lời bạn sớm nhất.
                                     </span>
                                 </div>
-                                <div class="input-account-form mt-2" id="review-info-pad">
+                                <div class="input-account-form" id="review-info-pad">
                                     <div id="review-info" style="display: none">
                                         <p>Cung cấp thông tin cá nhân</p>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Họ và tên:</label>
-                                                    <input type="text" name="name" id="comment-name" class="form-control" value="{{ old('name') }}" placeholder="Nhập tên của bạn">
+                                                    <input type="text" name="name" id="comment-name" class="form-control" value="{{ old('name') }}" placeholder="Nhập họ và tên">
                                                     <span id="name-error" style="color: red;"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Email:</label>
-                                                    <input type="text" name="email" id="comment-email" class="form-control" value="{{ old('email') }}" placeholder="Địa chỉ email - không bắt buộc">
+                                                    <input type="text" name="email" id="comment-email" class="form-control" value="{{ old('email') }}" placeholder="Nhập Email (nhận thông báo phản hồi)">
                                                     <span id="email-error" style="color: red;"></span>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="rate-stars-row">
+                                        <span class="form-item-title">Đánh giá:</span>
+                                        <div class="prod-rate">
+                                            <fieldset class="rating">
+                                                <input type="radio" class="rate-poin-rdo" data-point="1" id="star1" name="rating" value="1">
+                                                <label class="full" for="star1" title="Thất vọng: cho 1 sao">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                                    </svg>
+                                                </label>
+                                                <input type="radio" class="rate-poin-rdo" data-point="2" id="star2" name="rating" value="2">
+                                                <label class="full" for="star2" title="Trung bình: cho 2 sao">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                                    </svg>
+                                                </label>
+                                                <input type="radio" class="rate-poin-rdo" data-point="3" id="star3" name="rating" value="3">
+                                                <label class="full" for="star3" title="Bình thường: cho 3 sao">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                                    </svg>
+                                                </label>
+                                                <input type="radio" class="rate-poin-rdo" data-point="4" id="star4" name="rating" value="4">
+                                                <label class="full" for="star4" title="Hài lòng: cho 4 sao">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                                    </svg>
+                                                </label>
+                                                <input type="radio" class="rate-poin-rdo" data-point="5" id="star5" name="rating" value="5">
+                                                <label class="full" for="star5" title="Rất hài lòng: cho 5 sao">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                                    </svg>
+                                                </label>
+                                            </fieldset>
+                                            <div class="rate-stars">
+                                                <input type="hidden" id="rate-record" name="rate-record" value="0">
+                                                <input type="text" id="rate-point" name="rate-point" style="position: absolute; left: -2000px" title="Bạn cho sản phẩm này bao nhiêu ★">
                                             </div>
                                         </div>
                                     </div>
@@ -337,6 +376,9 @@
                             @endif
                         </div>
                         @include('cntt.home.partials.comment', ['comments' => $comments, 'user' => $user])
+                        <nav class="d-flex justify-content-center mt-2 paginate-cmt">
+                            {{ $comments->links() }}
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -360,7 +402,7 @@
                                     <a href="{{ $val->skype }} " title="Chat với {{ $val->name }} qua Skype">
                                         <i class="i-skype"></i>
                                     </a>
-                                    <a href="https://zalo.me/{{ $val->zalo }} " title="Chat {{ $val->name }} qua Zalo">
+                                    <a href="https://zalo.me/{{ $val->zalo }}" title="Chat {{ $val->name }} qua Zalo">
                                         <i class="i-zalo"></i>
                                     </a>
                                     <a target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $val->gmail }} " title="Gửi mail tới: {{ $val->name }} ">
@@ -642,6 +684,21 @@
             }
         });
 
+        document.querySelectorAll('.rate-poin-rdo').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                let value = this.value;
+
+                // Reset fill for all stars
+                document.querySelectorAll('.rating label svg').forEach(function(star) {
+                    star.style.fill = '#ddd';
+                });
+
+                // Fill stars up to the selected one
+                for (let i = 1; i <= value; i++) {
+                    document.querySelector('#star' + i + ' ~ label svg').style.fill = '#ffc107';
+                }
+            });
+        });
         // Khi nhấn nút gửi bình luận trong form trả lời
         $(document).on('click', '.submit-reply', function(e) {
             console.log('submit');
@@ -744,6 +801,38 @@
             var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return re.test(email);
         }
+
+        // Phân trang bình luận
+        // function addPaginationListeners() {
+        //     const paginationLinks = document.querySelectorAll('.paginate-cmt a');
+
+        //     paginationLinks.forEach(link => {
+        //         link.addEventListener('click', function(event) {
+        //             event.preventDefault();
+        //             const url = this.href;
+
+        //             fetch(url)
+        //                 .then(response => response.text())
+        //                 .then(html => {
+        //                     document.getElementById('app').innerHTML = html;
+        //                     // Cuộn đến rate-reviews với một khoảng offset
+        //                     var commentBox = document.getElementById('rate-reviews');
+        //                     var offset = -50; // Điều chỉnh khoảng lệch để đảm bảo hiển thị tốt
+        //                     var commentBoxPosition = commentBox.getBoundingClientRect().top + window.pageYOffset + offset;
+
+        //                     // Cuộn đến vị trí đã điều chỉnh
+        //                     window.scrollTo({
+        //                         top: commentBoxPosition,
+        //                         behavior: 'smooth'
+        //                     });
+        //                     addPaginationListeners(); // Gọi lại hàm này sau khi tải nội dung mới
+        //                 })
+        //                 .catch(error => console.error('Error loading page:', error));
+        //         });
+        //     });
+        // }
+        // // Gọi hàm ban đầu để thiết lập lắng nghe
+        // addPaginationListeners();
     });
 
     function fetchProducts() {

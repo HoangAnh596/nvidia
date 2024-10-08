@@ -31,7 +31,7 @@
     <td class="text-center">
         <input type="text" class="check-stt" name="stt_cate" data-id="{{ $category->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_cate', $category->stt_cate) }}">
     </td>
-    <td>
+    <td class="action">
         @can('category-edit')
         <a href="{{ asset('admin/categories/'.$category->id.'/edit') }}">Chỉnh sửa</a> |
         @endcan

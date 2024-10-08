@@ -10,6 +10,7 @@ use App\Policies\CommentNewPolicy;
 use App\Policies\CommentPolicy;
 use App\Policies\ComparePolicy;
 use App\Policies\CompareProductPolicy;
+use App\Policies\ContactIconPolicy;
 use App\Policies\FilterPolicy;
 use App\Policies\FilterProductPolicy;
 use App\Policies\FooterPolicy;
@@ -44,6 +45,7 @@ class PermissionGateAndPolicyAccess {
         $this->defineComment();
         $this->defineCommentNew();
         $this->defineIcon();
+        $this->defineContactIcon();
         $this->defineFilter();
         $this->defineFilterProduct();
         $this->defineCompare();
@@ -164,6 +166,15 @@ class PermissionGateAndPolicyAccess {
         Gate::define('icon-checkStt', [IconPolicy::class, 'checkStt']);
     }
 
+    public function defineContactIcon()
+    {
+        Gate::define('contact-icon-add', [ContactIconPolicy::class, 'create']);
+        Gate::define('contact-icon-edit', [ContactIconPolicy::class, 'update']);
+        Gate::define('contact-icon-delete', [ContactIconPolicy::class, 'delete']);
+        Gate::define('contact-icon-checkbox', [ContactIconPolicy::class, 'checkbox']);
+        Gate::define('contact-icon-checkStt', [ContactIconPolicy::class, 'checkStt']);
+    }
+
     public function defineComment()
     {
         Gate::define('comment-edit', [CommentPolicy::class, 'update']);
@@ -234,6 +245,7 @@ class PermissionGateAndPolicyAccess {
     {
         Gate::define('quote-list', [ManyPolicy::class, 'listQuotes']);
         Gate::define('quote-checkbox', [ManyPolicy::class, 'checkboxQuotes']);
+        Gate::define('setting-edit', [ManyPolicy::class, 'settingEdit']);
     }
 
     public function defineUser()

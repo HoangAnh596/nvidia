@@ -77,7 +77,7 @@
                             <td class="text-center">
                                 <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
                             </td>
-                            <td>
+                            <td class="action">
                                 @can('filter-edit')
                                 <a href="{{ asset('admin/filters/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
                                 @endcan

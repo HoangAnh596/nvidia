@@ -1,0 +1,77 @@
+/* Định nghĩa animation pulse */
+@keyframes spread-fade {
+    0% {
+        opacity: 0.7;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+    100% {
+        opacity: 2;
+        transform: scale(3);
+    }
+}
+.contact-icon {
+    position: fixed;
+    left: 24px;
+    border-radius: 5px;
+    width: auto;
+    z-index: 150;
+    bottom: 50px;
+    padding-top: 10px;
+}
+.contact-icon ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.contact-icon ul>li {
+    position: relative; /* Thêm vị trí tương đối cho li */
+}
+.contact-icon ul li {
+    list-style: none !important;
+    margin-bottom: .6em;
+}
+.contact-icon ul>li a {
+    border: none;
+    padding: 3px;
+    display: block;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 10px !important;
+    line-height: 15px;
+    color: #515151;
+    font-weight: 700 !important;
+    max-width: 72.19px;
+    max-height: 54px;
+    text-decoration: none;
+}
+.contact-icon ul>li a i {
+    margin: auto;
+}
+
+.contact-icon ul>li .animation-icon:before {
+    display: block;
+    animation: spread-fade 1s ease-in infinite;
+}
+.contact-icon ul>li .animation-icon:before {
+    content: "";
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid #76b900;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    margin-left: -10px;
+    margin-top: -10px;
+    opacity: 0;
+    transform: scale(0);
+}
+.contact-icon ul>li .animation-icon:after {
+    display: block;
+    animation: spread-fade 1s .2s ease-in infinite;
+}

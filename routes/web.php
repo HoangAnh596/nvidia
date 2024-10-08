@@ -15,6 +15,7 @@ use App\Http\Controllers\CmtNewsController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompareCateController;
 use App\Http\Controllers\CompareProductController;
+use App\Http\Controllers\ContactIconController;
 use App\Http\Controllers\FilterCateController;
 use App\Http\Controllers\FilterProductController;
 use App\Http\Controllers\GroupController;
@@ -264,9 +265,19 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::delete('bottoms/{id}', [BottomController::class, 'destroy'])->name('bottoms.destroy')->middleware('can:bottom-delete');
     Route::post('/bottoms/checkStt', [BottomController::class, 'checkStt'])->name('bottoms.checkStt')->middleware('can:bottom-checkStt');
     Route::post('/bottoms/checkbox', [BottomController::class, 'isCheckbox'])->name('bottoms.isCheckbox')->middleware('can:bottom-checkbox');
+
+    // Quản lý icon phía dưới chân trang
+    Route::get('/contact-icons', [ContactIconController::class, 'index'])->name('contact-icons.index');
+    Route::get('/contact-icons/create', [ContactIconController::class, 'create'])->name('contact-icons.create')->middleware('can:contact-icon-add');
+    Route::post('/contact-icons', [ContactIconController::class, 'store'])->name('contact-icons.store');
+    Route::get('/contact-icons/{id}/edit', [ContactIconController::class, 'edit'])->name('contact-icons.edit')->middleware('can:contact-icon-edit');
+    Route::put('contact-icons/{id}', [ContactIconController::class, 'update'])->name('contact-icons.update');
+    Route::delete('contact-icons/{id}', [ContactIconController::class, 'destroy'])->name('contact-icons.destroy')->middleware('can:contact-icon-delete');
+    Route::post('/contact-icons/checkStt', [ContactIconController::class, 'checkStt'])->name('contact-icons.checkStt')->middleware('can:contact-icon-checkStt');
+    Route::post('/contact-icons/checkbox', [ContactIconController::class, 'isCheckbox'])->name('contact-icons.isCheckbox')->middleware('can:contact-icon-checkbox');
     
     // Quản lý tài khoản đăng nhập
-    Route::get('/users', [UserController::class, 'index'])->name('users.index')->middleware('can:user-list');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create')->middleware('can:user-add');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit')->middleware('can:user-edit');
@@ -290,7 +301,7 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::delete('permissions/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy')->middleware('can:permission-delete');
 
     // Quản lý email admin, favicon và setting của website
-    Route::get('/setting/{id}/edit', [SettingController::class, 'edit'])->name('setting.edit');
+    Route::get('/setting/{id}/edit', [SettingController::class, 'edit'])->name('setting.edit')->middleware('can:setting-edit');
     Route::put('setting/{id}', [SettingController::class, 'update'])->name('setting.update');
 
     Route::post('upload', [ContentController::class, 'upload'])->name('upload.image');

@@ -33,9 +33,6 @@
                         <div class="form-group">
                             <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}">
                             <span id="name-error" style="color: red;"></span>
-                            @error('name')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -46,9 +43,6 @@
                     <div class="col-6">
                         <div class="form-group">
                             <input type="text" name="url" id="url" class="form-control" value="{{ old('url') }}">
-                            @error('url')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -59,9 +53,6 @@
                     <div class="col-6">
                         <div class="form-group">
                             <input type="text" name="icon" id="icon" class="form-control" value="{{ old('icon') }}">
-                            @error('icon')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>

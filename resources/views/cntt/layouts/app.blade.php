@@ -37,6 +37,7 @@
     <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" /> -->
     <link rel="stylesheet" href="{{asset('cntt/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/home.css')}}">
+    <link rel="stylesheet" href="{{asset('cntt/css/social.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @yield('css')
 
@@ -48,6 +49,7 @@
         <main>
             @yield('content')
         </main>
+        @include('cntt.components.contact-icon')
         @include('cntt.components.footer')
     </div>
 
@@ -58,6 +60,7 @@
     <script src="{{asset('cntt/js/templatemo.js')}}"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script> -->
     <script src="{{asset('cntt/js/custom.js')}}"></script>
+    <script src="{{asset('cntt/js/homepage.js')}}"></script>
     <script src="{{asset('cntt/js/slick.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @yield('js')
