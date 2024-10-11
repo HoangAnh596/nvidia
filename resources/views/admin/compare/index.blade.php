@@ -56,6 +56,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if($compare->isEmpty())
+                        <tr>
+                            <td colspan="6" class="text-center">Không có bản ghi nào phù hợp !...</td>
+                        </tr>
+                        @else
                         @foreach ($compare as $val)
                         <tr>
                             <td>{{ (($compare->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
@@ -78,6 +83,7 @@
                             </td>
                         </tr>
                         @endforeach
+                        @endif
                     </tbody>
                 </table>
                 <nav class="float-right">

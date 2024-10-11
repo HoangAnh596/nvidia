@@ -38,6 +38,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if($sliders->isEmpty())
+                            <tr>
+                                <td colspan="7" class="text-center">Không có bản ghi nào phù hợp !...</td>
+                            </tr>
+                        @else
                         @foreach ($sliders as $val)
                         <tr>
                             <td>{{ (($sliders->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
@@ -65,6 +70,7 @@
                             </td>
                         </tr>
                         @endforeach
+                        @endif
                     </tbody>
                 </table>
                 <nav class="float-right">

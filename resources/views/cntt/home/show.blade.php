@@ -70,14 +70,14 @@
                             <i class="fa-solid fa-comments"></i>
                             <div class="title-spec">
                                 <a href="#comment-box">
-                                    Có {{ $totalCommentsCount }} bình luận. </a>
+                                   @if($totalCommentsCount != 0) Có {{ $totalCommentsCount }} @else Thêm @endif bình luận. </a>
                             </div>
                         </div>
                         <div class="col-viewmore-item">
                             <i class="fa-solid fa-star"></i>
                             <div class="title-spec">
                                 <a href="#comment-box">
-                                    Có {{ $totalStarCount }} đánh giá. </a>
+                                @if($totalStarCount != 0) Có {{ $totalStarCount }} @else Thêm @endif đánh giá. </a>
                             </div>
                         </div>
                     </div>

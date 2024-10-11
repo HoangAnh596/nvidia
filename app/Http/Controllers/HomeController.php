@@ -79,11 +79,29 @@ class HomeController extends Controller
                     // Lấy tất cả sản phẩm thuộc các danh mục đó
                     $products = Product::whereHas('category', function ($query) use ($allCategoryIds) {
                         $query->whereIn('product_categories.category_id', $allCategoryIds);
-                    })->select('name', 'slug', 'price', 'image_ids')
+                    })->select('id', 'name', 'slug', 'price', 'image_ids')
                         ->where('is_outstand', 1)
                         ->orderBy('created_at', 'DESC')->get();
                     
                     foreach ($products as $product) {
+                        // Lấy tổng số sao từ bảng comments
+                        $totalStarCount = Comment::where('product_id', $product->id)->sum('star');
+                        // Lấy tổng số bản ghi có sao (comment)
+                        $totalCommentsWithStar = Comment::where('product_id', $product->id)
+                            ->whereNotNull('star') // Loại bỏ các bản ghi có giá trị star là null
+                            ->where('star', '>', 0)->count();
+
+                        // Tính trung bình sao nếu có bản ghi comment
+                        if ($totalCommentsWithStar > 0) {
+                            $averageStar = $totalStarCount / $totalCommentsWithStar; // làm ví dụ 4.4
+                        } else {
+                            $averageStar = 0; // Nếu không có comment, trung bình là 0
+                        }
+
+                        // Gán tổng số sao và trung bình sao vào sản phẩm
+                        $product->average_star = $averageStar;
+                        $product->totalCmt = $totalCommentsWithStar;
+
                         $product->loadProductImages();
                     }
 

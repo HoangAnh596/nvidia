@@ -131,13 +131,14 @@
                         <div class="text-dark hover-gr">
                             <a href="{{ $product->slug }}" class="text-decoration-none btn-link">{{ $product->name }}</a>
                         </div>
-                        <ul class="list-unstyled d-flex justify-content-between">
+                        <ul class="list-unstyled d-flex justify-content-between total-review-home">
                             <li>
                                 <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
+                                <span>
+                                @if ($product->totalCmt > 0)
+                                    {{ number_format($product->average_star, 1) }} ({{ $product->totalCmt }})
+                                @endif
+                                </span>
                             </li>
                             <li class="text-muted text-right"><i class="fa-solid fa-heart icon-heart"></i></li>
                         </ul>

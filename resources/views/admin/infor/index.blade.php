@@ -38,6 +38,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if($infors->isEmpty())
+                        <tr>
+                            <td colspan="7" class="text-center">Không có bản ghi nào phù hợp !...</td>
+                        </tr>
+                        @else
                         @foreach ($infors as $val)
                         <tr>
                             <td>{{ $val->id }}</td>
@@ -68,6 +73,7 @@
                             </td>
                         </tr>
                         @endforeach
+                        @endif
                     </tbody>
                 </table>
                 <nav class="float-right">

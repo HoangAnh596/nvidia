@@ -22,13 +22,6 @@
                         <input type="search" class="form-control" placeholder="Tìm kiếm tên bình luận" aria-label="Search" name="keyword" value="{{ $keyword }}">
                     </div>
                     <div class="form-group">
-                        <select name="is_public" class="form-control">
-                            <option value="">Ẩn/Hiện</option>
-                            <option value="0" {{ $isPublic === '0' ? 'selected' : '' }}>Ẩn</option>
-                            <option value="1" {{ $isPublic === '1' ? 'selected' : '' }}>Hiển thị</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <select name="is_reply" class="form-control">
                             <option value="">Trạng thái</option>
                             <option value="0" {{ $isReply === '0' ? 'selected' : '' }}>Chưa trả lời</option>
@@ -56,9 +49,15 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if($comments->isEmpty())
+                    <tr>
+                        <td colspan="8" class="text-center">Không có bản ghi nào</td>
+                    </tr>
+                    @else
                     @foreach ($comments as $category)
                     @include('admin.comment.partials.children', ['category' => $category, 'level' => 0])
                     @endforeach
+                    @endif
                 </tbody>
             </table>
             <nav class="float-right">

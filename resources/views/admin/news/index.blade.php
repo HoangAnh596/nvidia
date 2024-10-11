@@ -54,6 +54,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if($news->isEmpty())
+                        <tr>
+                            <td colspan="6" class="text-center">Không có bản ghi nào phù hợp !...</td>
+                        </tr>
+                        @else
                         @foreach ($news as $new)
                         <tr>
                             <td>{{ (($news->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
@@ -74,6 +79,7 @@
                             </td>
                         </tr>
                         @endforeach
+                        @endif
                     </tbody>
                 </table>
                 <nav class="float-right">

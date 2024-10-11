@@ -775,6 +775,9 @@ button:focus {
     text-align: center;
     font-weight: 600;
 }
+.total-review-home li{
+    font-size: .8rem !important;
+}
 .nav-mb li {
     padding-left: 15px;
     /* background-color: #eee; */
@@ -1096,7 +1099,7 @@ button:focus {
     line-height: 30px;
 }
 .ft-link:hover {
-    color: #76b900;
+    color: white;
 }
 
 

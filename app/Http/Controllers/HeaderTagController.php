@@ -16,11 +16,17 @@ class HeaderTagController extends Controller
      */
     public function index(Request $request)
     {
-        $keyWord = $request->input('keyword');
-        $headerTags = HeaderTag::where('tag_name', 'like', "%" . Helper::escape_like($keyWord) . "%")
-            ->latest()
-            ->paginate(config('common.default_page_size'));
-        
+        $keyWord = $request->input('keyWord');
+        // Khởi tạo query cho việc tìm kiếm
+        $headerTag = HeaderTag::query();
+
+        // Áp dụng tìm kiếm theo nội dung nếu có từ khóa
+        if ($keyWord) {
+            $headerTag->where('content', 'like', "%" . $keyWord . "%");
+        }
+
+        $headerTags = $headerTag->latest()->paginate(config('common.default_page_size'));
+
         return view('admin.headerTag.index', compact('headerTags', 'keyWord'));
     }
 

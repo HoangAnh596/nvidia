@@ -22,7 +22,6 @@ class CmtNewsController extends Controller
     {
         // Lấy các tham số tìm kiếm từ request
         $keyword = $request->input('keyword');
-        $isPublic = $request->input('is_public');
         $isReply = $request->input('is_reply');
 
         // Khởi tạo query cho việc tìm kiếm
@@ -30,11 +29,6 @@ class CmtNewsController extends Controller
         // Áp dụng tìm kiếm theo nội dung nếu có từ khóa
         if ($keyword) {
             $cmtQuery->where('content', 'like', "%" . Helper::escape_like($keyword) . "%");
-        }
-        // Nhưng ở trong backend content kia lưu dạng <p>xin cảm ơn hihi</p> không tìm ra được
-        // Áp dụng lọc theo trạng thái công khai nếu có giá trị
-        if ($isPublic !== null) {
-            $cmtQuery->where('is_public', $isPublic);
         }
 
         // Áp dụng lọc theo trạng thái công khai nếu có giá trị
@@ -59,7 +53,7 @@ class CmtNewsController extends Controller
             ->paginate(20);
 
         // Trả về view cùng với dữ liệu cần thiết
-        return view('admin.cmtNew.index', compact('comments', 'keyword', 'isPublic', 'isReply'));
+        return view('admin.cmtNew.index', compact('comments', 'keyword', 'isReply'));
     }
 
     /**

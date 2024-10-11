@@ -46,6 +46,11 @@ use Carbon\Carbon;
                     </tr>
                 </thead>
                 <tbody>
+                    @if($quotes->isEmpty())
+                        <tr>
+                            <td colspan="9" class="text-center">Không có bản ghi nào phù hợp !...</td>
+                        </tr>
+                    @else
                     @foreach ($quotes as $val)
                     @php
                         $time = Carbon::parse($val->created_at);
@@ -76,6 +81,7 @@ use Carbon\Carbon;
                         <td class="text-center">Xóa</td>
                     </tr>
                     @endforeach
+                    @endif
                 </tbody>
             </table>
             <nav class="float-right">

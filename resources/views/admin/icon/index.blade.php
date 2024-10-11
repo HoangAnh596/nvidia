@@ -38,6 +38,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if($icons->isEmpty())
+                        <tr>
+                            <td colspan="7" class="text-center">Không có bản ghi nào phù hợp !...</td>
+                        </tr>
+                        @else
                         @foreach ($icons as $val)
                         <tr>
                             <td>{{ $val->id }}</td>
@@ -65,6 +70,7 @@
                             </td>
                         </tr>
                         @endforeach
+                        @endif
                     </tbody>
                 </table>
                 <nav class="float-right">

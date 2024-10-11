@@ -40,6 +40,11 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if($roles->isEmpty())
+                        <tr>
+                            <td colspan="4" class="text-center">Không có bản ghi nào phù hợp !...</td>
+                        </tr>
+                    @else
                     @foreach($roles as $val)
                     <tr>
                         <td>{{ (($roles->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
@@ -61,6 +66,7 @@
                         </td>
                     </tr>
                     @endforeach
+                    @endif
                 </tbody>
             </table>
             {{$roles->appends(request()->query())->links()}}

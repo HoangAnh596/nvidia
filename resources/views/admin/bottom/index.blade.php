@@ -37,6 +37,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if($bottoms->isEmpty())
+                        <tr>
+                            <td colspan="6" class="text-center">Không có bản ghi nào phù hợp !...</td>
+                        </tr>
+                        @else
                         @foreach ($bottoms as $val)
                         <tr>
                             <td>{{ $val->id }}</td>
@@ -64,6 +69,7 @@
                             </td>
                         </tr>
                         @endforeach
+                        @endif
                     </tbody>
                 </table>
                 <nav class="float-right">

@@ -21,7 +21,6 @@ class CommentController extends Controller
     {
         // Lấy các tham số tìm kiếm từ request
         $keyword = $request->input('keyword');
-        $isPublic = $request->input('is_public');
         $isReply = $request->input('is_reply');
 
         // Khởi tạo query cho việc tìm kiếm
@@ -30,11 +29,6 @@ class CommentController extends Controller
         // Áp dụng tìm kiếm theo nội dung nếu có từ khóa
         if ($keyword) {
             $cmtQuery->where('content', 'like', "%" . Helper::escape_like($keyword) . "%");
-        }
-
-        // Áp dụng lọc theo trạng thái công khai nếu có giá trị
-        if ($isPublic !== null) {
-            $cmtQuery->where('is_public', $isPublic);
         }
 
         // Áp dụng lọc theo trạng thái công khai nếu có giá trị
@@ -59,7 +53,7 @@ class CommentController extends Controller
             ->paginate(20);
 
         // Trả về view cùng với dữ liệu cần thiết
-        return view('admin.comment.index', compact('comments', 'keyword', 'isPublic', 'isReply'));
+        return view('admin.comment.index', compact('comments', 'keyword', 'isReply'));
     }
 
     /**
