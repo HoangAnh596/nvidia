@@ -261,14 +261,12 @@ class HomeController extends Controller
         $commentsQuery = Comment::query(); // Khởi tạo query builder cho bảng comments
         
         if (Auth::check() && Auth::user()->role == 1) {
-            dd(1);
             // Nếu role = 1, lấy tất cả các comments cho sản phẩm này
             $commentsQuery->where('comments.product_id', $idPro)
                         ->where('comments.parent_id', 0)
                         ->with('replies') // Load các bình luận con
                         ->orderBy('comments.created_at', 'DESC');
         } else {
-            // dd(1);
             // Nếu role khác 1, lấy các bình luận public hoặc bình luận của chính người dùng đó
             $commentsQuery->where('comments.product_id', $idPro)
                           ->where('comments.parent_id', 0)

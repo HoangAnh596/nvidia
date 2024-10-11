@@ -1,3 +1,6 @@
+@php
+use Carbon\Carbon;
+@endphp
 @extends('layouts.app')
 
 @section('content')
@@ -12,13 +15,20 @@
                     <div class="form-group">
                         <input type="search" class="form-control form-outline" placeholder="Tìm kiếm báo giá" aria-label="Search" name="keyword" value="">
                     </div>
+                    <div class="form-group">
+                        <select name="status" class="form-control">
+                            <option value="">Trạng thái báo giá</option>
+                            <option value="0" {{ $isStatus === '0' ? 'selected' : '' }}>Chưa báo giá</option>
+                            <option value="1" {{ $isStatus === '1' ? 'selected' : '' }}>Đã báo giá</option>
+                        </select>
+                    </div>
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit"> <i class="fas fa-search fa-sm"></i> </button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="table-responsive">
+        <div class="table-responsive quote-table">
             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -29,26 +39,41 @@
                         <th class="text-center">Gmail báo giá</th>
                         @endcan
                         <th class="text-center">Sản phẩm</th>
-                        <th class="text-center">Số lượng SP</th>
+                        <th class="text-center">SL</th>
                         <th class="text-center">Mục đích</th>
-                        <th class="text-center">Đã báo giá</th>
+                        <th class="col-md-2 text-center">Đã báo giá</th>
+                        <th class="text-center">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($quotes as $val)
+                    @php
+                        $time = Carbon::parse($val->created_at);
+                        $timeUpdate = Carbon::parse($val->updated_at);
+                        $now = Carbon::now();
+                    @endphp
                     <tr>
-                        <td>{{ $val->id }}</td>
+                        <td>{{ (($quotes->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
                         <td>{{ $val->name }}</td>
                         @can('quote-list')
                         <td>{{ $val->phone }}</td>
-                        <td>{{ $val->gmail }}</td>
-                        @endcan
-                        <td>{{ $val->product }}</td>
-                        <td>{{ $val->quantity }}</td>
-                        <td>@if($val->purpose == 0 ) công ty @else dự án @endif </td>
-                        <td class="text-cente r">
-                            <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="status" {{ ($val->status == 1) ? 'checked' : '' }}>
+                        <td>
+                            {{ $val->gmail }} <br>
+                            <span class="note-admin">Ngày gửi: {{ $time->format('H:i') }} {{ $time->format('d-m-Y') }}</span>
                         </td>
+                        @endcan
+                        <td class="text-center">{{ $val->product }}</td>
+                        <td class="text-center">{{ $val->quantity }}</td>
+                        <td class="text-center">@if($val->purpose == 0 ) công ty @else dự án @endif </td>
+                        <td class="text-center">
+                            <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="status" {{ ($val->status == 1) ? 'checked' : '' }}>
+                            <br>
+                            @if($val->user)
+                            {{ $val->user->name }}
+                            <span class="note-admin">{{ $timeUpdate->format('H:i') }} {{ $timeUpdate->format('d-m-Y') }}</span>
+                            @endif
+                        </td>
+                        <td class="text-center">Xóa</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -61,6 +86,13 @@
 </div>
 @endsection
 
+@section('css')
+<style>
+    .quote-table table td, .quote-table table th{
+        padding: .75rem .25rem;
+    }
+</style>
+@endsection
 @section('js')
 <script>
     $(document).ready(function() {
@@ -83,6 +115,9 @@
                             closeButton: true,
                             timeOut: 5000
                         });
+                        setTimeout(function() {
+                            location.reload();
+                        }, 5000); // Delay 5 giây trước khi reload trang
                     } else {
                         toastr.error('Không thể cập nhật trạng thái.', 'Lỗi', {
                             progressBar: true,
@@ -96,8 +131,11 @@
                         toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
                             progressBar: true,
                             closeButton: true,
-                            timeOut: 5000
+                            timeOut: 3000
                         });
+                        setTimeout(function() {
+                            window.location.reload()
+                        }, 3000);
                     } else {
                         toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
                             progressBar: true,

@@ -156,7 +156,7 @@
                 @if(!$prOutstand->isEmpty())
                 <div class="outstand-prod mb-3">
                     <div class="bg-prod d-flex align-items-center">
-                        <h2>Sản phẩm nổi bật</h2>
+                        <h2><i class="fa-brands fa-gripfire"></i> Sản phẩm nổi bật</h2>
                     </div>
                     <div class="title-outstand-prod">
                         @foreach($prOutstand as $data)
@@ -218,7 +218,7 @@
                 <!-- Hotline -->
                 <div class="support-prod new-prod mb-3">
                     <div class="bg-prod d-flex align-items-center">
-                        <h2>Bạn cần báo giá tốt nhất</h2>
+                        <h2><i class="fa-solid fa-file-invoice-dollar"></i> Bạn cần báo giá tốt nhất</h2>
                     </div>
                     <div class="title-outstand-prod">
                         <div class="row mt-3">

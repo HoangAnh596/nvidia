@@ -30,7 +30,7 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#social-tab" type="button" role="tab">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#wallet-tab" type="button" role="tab">
                             <i class="fa-solid fa-gear"></i>
                             Cấu hình website
                         </button>

@@ -16,4 +16,10 @@ class Quote extends Model
         'product', 'quantity',
         'purpose', 'status'
     ];
+
+    // Thiết lập quan hệ đến User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

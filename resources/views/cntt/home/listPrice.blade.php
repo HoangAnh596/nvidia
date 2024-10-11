@@ -131,6 +131,7 @@
                 @if (!empty($products))
                 <input type="hidden" name="code" id="code" value="{{ $product->code }}">
                 <input type="hidden" name="slug" id="slug" value="{{ $product->slug }}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 @endif
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -171,6 +172,7 @@
     document.querySelector('.send-price').addEventListener('click', function(e) {
         e.preventDefault();
         let submitButton = this;
+        let csrfToken = document.querySelector('input[name="_token"]').value;
 
         // Vô hiệu hóa nút submit để ngăn gửi nhiều lần
         submitButton.disabled = true;
@@ -244,7 +246,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'X-CSRF-TOKEN': csrfToken,
                 },
                 body: JSON.stringify(data),
             })

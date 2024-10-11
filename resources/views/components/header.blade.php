@@ -1,3 +1,8 @@
+@php
+use Carbon\Carbon;
+
+$totalComments = $commentGlobal->count() + $cmtNewGlobal->count();
+@endphp
 @auth
 <!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -209,6 +214,9 @@
                     @can('contact-icon-add')
                     <a class="collapse-item" href="{{ route('contact-icons.create') }}">Thêm mới icon</a>
                     @endcan
+
+                    <a class="collapse-item" href="{{ route('setting.images') }}">Dọn dẹp hình ảnh</a>
+
                 </div>
             </div>
         </li>
@@ -236,7 +244,7 @@
                 </button>
 
                 <!-- Topbar Navbar -->
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto notification">
                     <!-- Nav Item - Alerts -->
                     <li class="nav-item dropdown no-arrow mx-1">
                         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -245,14 +253,68 @@
                             <span class="badge badge-danger badge-counter"></span>
                         </a>
                     </li>
-                    <!-- Nav Item - Messages -->
                     <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-envelope fa-fw"></i>
-                            <!-- Counter - Messages -->
-                            <span class="badge badge-danger badge-counter"></span>
+                        <a class="nav-link dropdown-toggle" href="#" id="commentsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-comment"></i>
+                            <!-- Counter - Alerts -->
+                            <span class="badge badge-danger badge-counter">{{ $totalComments }}</span>
                         </a>
-
+                        @if($totalComments != 0)
+                        <!-- Dropdown - Thông tin comments -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="quotesDropdown">
+                            <h5 class="dropdown-item">Bình luận chưa trả lời</h5>
+                            <div class="dropdown-divider"></div>
+                            @if($commentGlobal->count())
+                            <a class="dropdown-item" href="{{ url('admin/comments?is_reply=0') }}">
+                                Có <strong>{{ $commentGlobal->count() }}</strong> bình luận sản phẩm
+                            </a>
+                            @endif
+                            @if($cmtNewGlobal->count())
+                            <a class="dropdown-item" href="{{ url('admin/cmtNews?is_reply=0') }}">
+                                Có <strong>{{ $cmtNewGlobal->count() }}</strong> bình luận bài viết
+                            </a>
+                            @endif
+                        </div>
+                        @endif
+                    </li>
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a class="nav-link dropdown-toggle" href="#" id="quotesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-file-invoice-dollar"></i>
+                            <!-- Counter - Alerts -->
+                            <span class="badge badge-danger badge-counter">@if($quoteGlobal->count()) {{ $quoteGlobal->count() }} @endif</span>
+                        </a>
+                        <!-- Dropdown - Thông tin báo giá -->
+                        @if($quoteGlobal->count())
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="quotesDropdown">
+                            <h5 class="dropdown-item">Chưa báo giá</h5>
+                            <div class="dropdown-divider"></div>
+                            @foreach($quoteGlobal as $quote)
+                            @php
+                            $time = Carbon::parse($quote->created_at);
+                            $now = Carbon::now();
+                            @endphp
+                            <a class="dropdown-item" href="{{ url('admin/quotes?keyword=' . $quote->id) }}">
+                                Báo giá cho sản phẩm <strong>{{ $quote->product }}</strong>
+                                <br>
+                                <span>
+                                    @if ($time->diffInMinutes($now) < 60)
+                                        {{ $time->diffInMinutes($now) }} phút trước
+                                    @elseif ($time->diffInHours($now) < 24)
+                                        {{ $time->diffInHours($now) }} giờ trước
+                                    @elseif ($time->diffInDays($now) < 7)
+                                        {{ $time->diffInDays($now) }} ngày trước
+                                    @elseif ($time->diffInWeeks($now) < 4)
+                                        {{ $time->diffInWeeks($now) }} tuần trước
+                                    @elseif ($time->diffInMonths($now) < 12)
+                                        {{ $time->diffInMonths($now) }} tháng trước
+                                    @else
+                                        {{ $time->format('H:i') }} {{ $time->format('d-m-Y') }}
+                                    @endif
+                                </span>
+                            </a>
+                            @endforeach
+                        </div>
+                        @endif
                     </li>
 
                     <div class="topbar-divider d-none d-sm-block"></div>

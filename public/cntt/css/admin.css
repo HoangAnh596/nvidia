@@ -210,3 +210,20 @@ p, td a {
     margin-left: 12px;
 }
 /* Nhóm sản phẩm */
+
+/* Thông báo */
+.dropdown-item span {
+    color: blue;
+}
+.notification .dropdown-item {
+    padding: .25rem .8rem;
+}
+.topbar.navbar-light .navbar-nav .nav-item .nav-link {
+    color: #696969;
+}
+/* Thông báo */
+.note-admin {
+    font-size: 14px;
+    color:red;
+    padding: .75rem .25rem
+}

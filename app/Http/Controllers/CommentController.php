@@ -22,6 +22,7 @@ class CommentController extends Controller
         // Lấy các tham số tìm kiếm từ request
         $keyword = $request->input('keyword');
         $isPublic = $request->input('is_public');
+        $isReply = $request->input('is_reply');
 
         // Khởi tạo query cho việc tìm kiếm
         $cmtQuery = Comment::query();
@@ -36,6 +37,21 @@ class CommentController extends Controller
             $cmtQuery->where('is_public', $isPublic);
         }
 
+        // Áp dụng lọc theo trạng thái công khai nếu có giá trị
+        if ($isReply !== null) {
+            if ($isReply == 0) {
+                // Lấy các comment không có replies
+                $cmtQuery->where('parent_id', 0)
+                         ->whereDoesntHave('replies') // Lọc các comment không có replies
+                         ->with('replies'); // Nếu bạn vẫn muốn lấy replies khi cần (mặc dù không có)
+            } elseif ($isReply == 1) {
+                // Lấy các comment có replies
+                $cmtQuery->where('parent_id', 0)
+                         ->whereHas('replies') // Lọc các comment có replies
+                         ->with('replies'); // Lấy các replies cùng với comment
+            }
+        }
+
         // Lấy danh sách comment cha và các reply, đồng thời phân trang
         $comments = $cmtQuery->where('parent_id', 0)
             ->with('replies')
@@ -43,7 +59,7 @@ class CommentController extends Controller
             ->paginate(20);
 
         // Trả về view cùng với dữ liệu cần thiết
-        return view('admin.comment.index', compact('comments', 'keyword', 'isPublic'));
+        return view('admin.comment.index', compact('comments', 'keyword', 'isPublic', 'isReply'));
     }
 
     /**

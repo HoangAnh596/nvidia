@@ -1366,7 +1366,7 @@ button:focus {
     display: inline-block;
 }
 .name-member span {
-    font-size: 0.8rem;
+    font-size: 12px;
     color: #b2b2b2;
     font-weight: 100 !important;
     margin-left: 5px;
@@ -1477,10 +1477,19 @@ button:focus {
     transition: fill 0.2s ease-in-out;
 }
 .cmt-reply {
-    padding: 15px;
+    padding: .5rem;
     border: solid 1px #ccc;
     margin-bottom: 10px;
     border-radius: 5px;
+    background-color: #f8f8f8;
+}
+.infor-cmt {
+    font-size: 14px !important;
+}
+.close-cmt {
+    font-size: 1rem !important;
+    padding-right: .5rem;
+    cursor: pointer;
 }
 .comment-replay-like span {
     padding-right: 12px;

@@ -8,9 +8,15 @@
 		<changefreq>daily</changefreq>
 	</url>
 	<url>
+	<loc>http://localhost:8000/nvidia-blackwell-la-gi-gpu-manh-me-voi-cong-nghe-dot-pha-cho-ai-va-hpc</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-10-11T08:16:42+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 	<loc>http://localhost:8000/huong-dan-cau-hinh-raid-tren-cac-dong-server</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-10-03T16:04:05+07:00</lastmod>
+		<lastmod>2024-10-09T09:38:21+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>

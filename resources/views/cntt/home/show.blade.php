@@ -55,7 +55,7 @@
                             </button>
                             @endif
                         </div>
-                        
+
                         <div id="imageModal" class="modal">
                             <button class="close btn btn-success">x Đóng</button>
                             <div class="modal-content">
@@ -86,11 +86,11 @@
                             <h1>{{ $product->name }}</h1>
                             <div class="product-des">{!! $product->des !!}</div>
                             <div class="fk-main">
-                                <span>✓ Mã sản phẩm:</span>
+                                <span><span style="font-weight: bold;">✓</span> Mã sản phẩm:</span>
                                 <span>{{ $product->code }}</span>
                             </div>
                             <div class="fk-main">
-                                <span>✓ Tình trạng:</span>
+                                <span><span style="font-weight: bold;">✓</span> Tình trạng:</span>
                                 <span>@if($product->status == 1) Còn hàng @else Hết hàng @endif</span>
                             </div>
                             <div class="price">
@@ -131,7 +131,7 @@
                         <p>So sánh với các sản phẩm {{ $parentCate->name }} khác:</p>
                         <div class="sggProd">
                             <form action="javascript:void(0)">
-                            @csrf
+                                @csrf
                                 <input type="hidden" id="productId" value="{{ $product->id }}">
                                 <input type="hidden" id="slugPro" value="{{ $product->slug }}">
                                 <input id="searchSggCP" value="" type="text" placeholder="Nhập Tên hoặc Mã sản phẩm để so sánh" onkeyup="fetchProducts()">
@@ -152,13 +152,13 @@
             <div class="cam-ket-sp">
                 <div class="product-note">
                     <p class="cam_ket"><i class="uytin"></i> Cam Kết Bán Hàng</p>
-                    <p>✓ Sản Phẩm Chính Hãng 100% Đầy Đủ CO/CQ</p>
-                    <p>✓ Giá Cạnh Tranh Rẻ Nhất Thị Trường</p>
-                    <p>✓ Ưu Đãi Lớn Cho Đại Lý Và Dự Án</p>
-                    <p>✓ Bảo Hành, Đổi Trả Nhanh Chóng</p>
-                    <p>✓ Giao Hàng Trên Toàn Quốc</p>
-                    <p>✓ Hỗ Trợ Kỹ Thuật Chuyên Nghiệp, Nhiệt Tình</p>
-                    <p>✓ Chăm Sóc Khách Hàng Trước, Trong và Sau Khi Mua Hàng Tận Tâm.</p>
+                    <p><span style="font-weight: bold;">✓</span> Sản Phẩm Chính Hãng 100% Đầy Đủ CO/CQ</p>
+                    <p><span style="font-weight: bold;">✓</span> Giá Cạnh Tranh Rẻ Nhất Thị Trường</p>
+                    <p><span style="font-weight: bold;">✓</span> Ưu Đãi Lớn Cho Đại Lý Và Dự Án</p>
+                    <p><span style="font-weight: bold;">✓</span> Bảo Hành, Đổi Trả Nhanh Chóng</p>
+                    <p><span style="font-weight: bold;">✓</span> Giao Hàng Trên Toàn Quốc</p>
+                    <p><span style="font-weight: bold;">✓</span> Hỗ Trợ Kỹ Thuật Chuyên Nghiệp, Nhiệt Tình</p>
+                    <p><span style="font-weight: bold;">✓</span> Chăm Sóc Khách Hàng Trước, Trong và Sau Khi Mua Hàng Tận Tâm.</p>
                     <p class="uytin-10"><b>CNTTShop.vn</b> - 19 năm Uy tín cung cấp Thiết bị mạng &amp; Dịch vụ Mạng trên toàn quốc.</p>
                     <span class="addhn">
                         <i class="fa-solid fa-location-dot"></i> NTT03, Thống Nhất Complex, Thanh Xuân, <b>Hà Nội</b>.
@@ -211,6 +211,7 @@
                 @if (!empty($product))
                 <input type="hidden" name="code" id="code" value="{{ $product->code }}">
                 <input type="hidden" name="slug" id="slug" value="{{ $product->slug }}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 @endif
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -291,7 +292,7 @@
                         <h3>Bạn đang cần tư vấn về sản phẩm: {{ $product->code }} ?</h3>
                         <div class="form-comment">
                             <form id="rate-form" method="post">
-                            @csrf
+                                @csrf
                                 <input type="hidden" id="idUser" name="user_id" value="{{ Auth::id() }}">
                                 <input type="hidden" id="idprd" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" id="slugPrd" name="slugPrd" value="{{ $product->slug }}">
@@ -375,7 +376,9 @@
                             @include('cntt.home.partials.cmt', ['sendCmt' => $sendCmt])
                             @endif
                         </div>
-                        @include('cntt.home.partials.comment', ['comments' => $comments, 'user' => $user])
+                        <div id="comments-list">
+                            @include('cntt.home.partials.comment', ['comments' => $comments, 'user' => $user])
+                        </div>
                         <nav class="d-flex justify-content-center mt-2 paginate-cmt">
                             {{ $comments->links() }}
                         </nav>
@@ -460,6 +463,7 @@
     document.querySelector('.send-price').addEventListener('click', function(e) {
         e.preventDefault();
         let submitButton = this;
+        let csrfToken = document.querySelector('.send-price input[name="_token"]').value;
 
         // Vô hiệu hóa nút submit để ngăn gửi nhiều lần
         submitButton.disabled = true;
@@ -533,7 +537,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'X-CSRF-TOKEN': csrfToken,
                 },
                 body: JSON.stringify(data),
             })
@@ -541,7 +545,7 @@
             .then(data => {
                 if (data.success) {
                     // Đóng modal bằng Bootstrap JavaScript API
-                    let modalElement = document.querySelector('#priceModal'); // Thay '#yourModalId' bằng ID của modal
+                    let modalElement = document.querySelector('#priceModal');
                     let modal = bootstrap.Modal.getInstance(modalElement);
                     if (modal) {
                         modal.hide();
@@ -574,265 +578,272 @@
 
     // Chức năng comments
     $(document).ready(function() {
-        $('#send-comment').on('click', function(event) {
-            event.preventDefault(); // Ngăn chặn form submit
+        function bindCommentFormEvents() {
+            document.querySelectorAll('.rate-poin-rdo').forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    let value = this.value;
 
-            var isValid = true;
+                    // Reset fill for all stars
+                    document.querySelectorAll('.rating label svg').forEach(function(star) {
+                        star.style.fill = '#ddd';
+                    });
 
-            // Lấy giá trị của các trường
-            var cmtContent = $('#comment-content').val().trim();
-            var cmtName = $('#comment-name').val().trim();
-            var cmtEmail = $('#comment-email').val().trim();
-
-            // Xóa các thông báo lỗi cũ
-            $('#name-error').text('');
-            $('#email-error').text('');
-            $('#content-error').text('');
-            $('#comment-content').css('border-color', '');
-            $('#comment-name').css('border-color', '');
-            $('#comment-email').css('border-color', '');
-
-            // Kiểm tra trường comment-content
-            if (cmtContent === '') {
-                $('#content-error').text('Nội dung bình luận / nhận xét không được để trống.');
-                $('#comment-content').css('border-color', 'red').focus();
-                isValid = false;
-            }
-
-            // Kiểm tra trường comment-name
-            if (cmtName === '') {
-                $('#name-error').text('Họ và tên không được để trống.');
-                $('#comment-name').css('border-color', 'red').focus();
-                isValid = false;
-            }
-
-            // Kiểm tra trường comment-email
-            if (cmtEmail === '') {
-                $('#email-error').text('Email không được để trống.');
-                $('#comment-email').css('border-color', 'red').focus();
-                isValid = false;
-            } else if (!validateEmail(cmtEmail)) {
-                $('#email-error').text('Email không đúng định dạng.');
-                $('#comment-email').css('border-color', 'red').focus();
-                isValid = false;
-            }
-
-            $('#review-info').show();
-            // Nếu không có lỗi, gọi AJAX để lưu bình luận
-            if (isValid) {
-                // Disable nút gửi để ngăn chặn việc nhấn nhiều lần
-                $('#send-comment').prop('disabled', true);
-                $.ajax({
-                    url: '{{ route("comments.sendCmt") }}', // Sử dụng URL từ Laravel route
-                    method: 'POST',
-                    data: {
-                        product_id: $('#idprd').val(),
-                        slugProduct: $('#slugPrd').val(),
-                        user_id: $('#idUser').val(),
-                        parent_id: 0,
-                        content: cmtContent,
-                        name: cmtName,
-                        email: cmtEmail,
-                        _token: "{{ csrf_token() }}"
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            // Xóa các giá trị của form sau khi gửi thành công
-                            $('#rate-reviews-list').prepend(response.comment_html);
-
-                            // Cập nhật số lượng bình luận
-                            var countElement = $('.countcomments');
-                            var currentCount = parseInt(countElement.text().match(/\d+/)[0]); // Lấy số lượng bình luận hiện tại
-                            countElement.text('Có ' + (currentCount + 1) + ' bình luận:'); // Cập nhật số lượng bình luận
-
-                            $('#rate-form')[0].reset();
-                            $('#review-info').hide();
-                            $('#send-comment').prop('disabled', false);
-                            toastr.success('Cập nhật thành công! Vui lòng đợi phản hồi từ Admin', 'Thành công', {
-                                progressBar: true,
-                                closeButton: true,
-                                timeOut: 10000
-                            });
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        toastr.error('Đã xảy ra lỗi khi gửi bình luận.', 'Lỗi', {
-                            progressBar: true,
-                            closeButton: true,
-                            timeOut: 5000
-                        });
-                        $('#send-comment').prop('disabled', false);
+                    // Fill stars up to the selected one
+                    for (let i = 1; i <= value; i++) {
+                        document.querySelector('#star' + i + ' ~ label svg').style.fill = '#ffc107';
                     }
                 });
-            }
-        });
+            });
 
-        $('.reply-btn').on('click', function(e) {
-            e.preventDefault();
-            let commentId = $(this).data('comment-id');
-            console.log(commentId);
+            $('.reply-btn').on('click', function(e) {
+                e.preventDefault();
+                let commentId = $(this).data('comment-id');
 
-            // Kiểm tra phần tử có được tìm thấy không
-            let targetForm = $(`.reply-form[data-comment-id="${commentId}"]`);
-            // Kiểm tra nếu form đang ẩn, thì hiển thị và ẩn tất cả các form khác
-            if (targetForm.is(':hidden')) {
-                $('.reply-form').hide(); // Ẩn tất cả các form khác
-                targetForm.show(); // Hiển thị form tương ứng với comment ID
-            } else {
-                // Nếu form đang hiển thị, thì ẩn nó đi
-                targetForm.hide();
-            }
-        });
-
-        document.querySelectorAll('.rate-poin-rdo').forEach(function(radio) {
-            radio.addEventListener('change', function() {
-                let value = this.value;
-
-                // Reset fill for all stars
-                document.querySelectorAll('.rating label svg').forEach(function(star) {
-                    star.style.fill = '#ddd';
-                });
-
-                // Fill stars up to the selected one
-                for (let i = 1; i <= value; i++) {
-                    document.querySelector('#star' + i + ' ~ label svg').style.fill = '#ffc107';
+                // Kiểm tra phần tử có được tìm thấy không
+                let targetForm = $(`.reply-form[data-comment-id="${commentId}"]`);
+                // Kiểm tra nếu form đang ẩn, thì hiển thị và ẩn tất cả các form khác
+                if (targetForm.is(':hidden')) {
+                    $('.reply-form').hide(); // Ẩn tất cả các form khác
+                    targetForm.show(); // Hiển thị form tương ứng với comment ID
+                } else {
+                    // Nếu form đang hiển thị, thì ẩn nó đi
+                    targetForm.hide();
                 }
             });
-        });
-        // Khi nhấn nút gửi bình luận trong form trả lời
-        $(document).on('click', '.submit-reply', function(e) {
-            console.log('submit');
 
-            e.preventDefault();
-            var isValid = true;
+            // Xử lý khi nhấn nút close-cmt
+            $('.close-cmt').on('click', function() {
+                // Tìm form reply gần nhất và ẩn nó
+                $(this).closest('.reply-form').hide();
+            });
 
-            // Lấy form hiện tại
-            var form = $(this).closest('form');
+            // Khi nhấn nút gửi bình luận trong form trả lời
+            $(document).on('click', '.submit-reply', function(e) {
+                e.preventDefault();
+                var isValid = true;
 
-            // Lấy giá trị của các trường trong form hiện tại
-            var replyCmtContent = form.find('.reply-cmt-content').val().trim();
-            var replyCmtName = form.find('.reply-cmt-name').val().trim();
-            var replyCmtEmail = form.find('.reply-cmt-email').val().trim();
+                // Lấy form hiện tại
+                var form = $(this).closest('form');
 
-            // Xóa các thông báo lỗi cũ
-            form.find('.rpl-name-err').text('');
-            form.find('.rpl-email-err').text('');
-            form.find('.rpl-content-err').text('');
-            form.find('.reply-cmt-content').css('border-color', '');
-            form.find('.reply-cmt-name').css('border-color', '');
-            form.find('.reply-cmt-email').css('border-color', '');
+                // Lấy giá trị của các trường trong form hiện tại
+                var replyCmtContent = form.find('.reply-cmt-content').val().trim();
+                var replyCmtName = form.find('.reply-cmt-name').val().trim();
+                var replyCmtEmail = form.find('.reply-cmt-email').val().trim();
 
-            // Kiểm tra trường reply-cmt-content
-            if (replyCmtContent === '') {
-                form.find('.rpl-content-err').text('Nội dung bình luận / nhận xét không được để trống.');
-                form.find('.reply-cmt-content').css('border-color', 'red').focus();
-                isValid = false;
-            }
+                // Xóa các thông báo lỗi cũ
+                form.find('.rpl-name-err').text('');
+                form.find('.rpl-email-err').text('');
+                form.find('.rpl-content-err').text('');
+                form.find('.reply-cmt-content').css('border-color', '');
+                form.find('.reply-cmt-name').css('border-color', '');
+                form.find('.reply-cmt-email').css('border-color', '');
 
-            // Kiểm tra trường reply-cmt-name
-            if (replyCmtName === '') {
-                form.find('.rpl-name-err').text('Họ và tên không được để trống.');
-                form.find('.reply-cmt-name').css('border-color', 'red').focus();
-                isValid = false;
-            }
+                // Kiểm tra trường reply-cmt-content
+                if (replyCmtContent === '') {
+                    form.find('.rpl-content-err').text('Nội dung bình luận / nhận xét không được để trống.');
+                    form.find('.reply-cmt-content').css('border-color', 'red').focus();
+                    isValid = false;
+                }
 
-            // Kiểm tra trường reply-cmt-email
-            if (replyCmtEmail === '') {
-                form.find('.rpl-email-err').text('Email không được để trống.');
-                form.find('.reply-cmt-email').css('border-color', 'red').focus();
-                isValid = false;
-            } else if (!validateEmail(replyCmtEmail)) {
-                form.find('.rpl-email-err').text('Email không đúng định dạng.');
-                form.find('.reply-cmt-email').css('border-color', 'red').focus();
-                isValid = false;
-            }
+                // Kiểm tra trường reply-cmt-name
+                if (replyCmtName === '') {
+                    form.find('.rpl-name-err').text('Họ và tên không được để trống.');
+                    form.find('.reply-cmt-name').css('border-color', 'red').focus();
+                    isValid = false;
+                }
 
-            // Nếu không có lỗi, gọi AJAX để lưu bình luận
-            if (isValid) {
-                $.ajax({
-                    url: '{{ route("cmt.replyCmt") }}', // Sử dụng URL từ Laravel route
-                    method: 'POST',
-                    data: {
-                        product_id: $('#idprd').val(),
-                        slugProduct: $('#slugPrd').val(),
-                        user_id: $('#idUser').val(),
-                        parent_id: form.find('#reply-cmt-parent').val(),
-                        content: replyCmtContent,
-                        name: replyCmtName,
-                        email: replyCmtEmail,
-                        _token: "{{ csrf_token() }}"
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            // Xóa các giá trị của form sau khi gửi thành công
-                            form.find('.reply-cmt-content').val('');
-                            form.find('.reply-cmt-name').val('');
-                            form.find('.reply-cmt-email').val('');
-                            form.find('#reply-cmt-parent').val('');
+                // Kiểm tra trường reply-cmt-email
+                if (replyCmtEmail === '') {
+                    form.find('.rpl-email-err').text('Email không được để trống.');
+                    form.find('.reply-cmt-email').css('border-color', 'red').focus();
+                    isValid = false;
+                } else if (!validateEmail(replyCmtEmail)) {
+                    form.find('.rpl-email-err').text('Email không đúng định dạng.');
+                    form.find('.reply-cmt-email').css('border-color', 'red').focus();
+                    isValid = false;
+                }
 
-                            // Chèn phần bình luận trả lời ngay phía dưới form trả lời
-                            form.after(response.comment_html);
+                // Nếu không có lỗi, gọi AJAX để lưu bình luận
+                if (isValid) {
+                    $.ajax({
+                        url: '{{ route("cmt.replyCmt") }}', // Sử dụng URL từ Laravel route
+                        method: 'POST',
+                        data: {
+                            product_id: $('#idprd').val(),
+                            slugProduct: $('#slugPrd').val(),
+                            user_id: $('#idUser').val(),
+                            parent_id: form.find('#reply-cmt-parent').val(),
+                            content: replyCmtContent,
+                            name: replyCmtName,
+                            email: replyCmtEmail,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                // Xóa các giá trị của form sau khi gửi thành công
+                                form.find('.reply-cmt-content').val('');
+                                form.find('.reply-cmt-name').val('');
+                                form.find('.reply-cmt-email').val('');
+                                form.find('#reply-cmt-parent').val('');
 
-                            // Cập nhật số lượng bình luận
-                            var countElement = $('.countcomments');
-                            var currentCount = parseInt(countElement.text().match(/\d+/)[0]); // Lấy số lượng bình luận hiện tại
-                            countElement.text('Có ' + (currentCount + 1) + ' bình luận:'); // Cập nhật số lượng bình luận
-                            form.hide(); // Ẩn form đã gửi thành công
-                            toastr.success('Cập nhật thành công! Vui lòng đợi phản hồi từ Admin', 'Thành công', {
+                                // Chèn phần bình luận trả lời ngay phía dưới form trả lời
+                                form.after(response.comment_html);
+
+                                // Cập nhật số lượng bình luận
+                                var countElement = $('.countcomments');
+                                var currentCount = parseInt(countElement.text().match(/\d+/)[0]); // Lấy số lượng bình luận hiện tại
+                                countElement.text('Có ' + (currentCount + 1) + ' bình luận:'); // Cập nhật số lượng bình luận
+                                form.hide(); // Ẩn form đã gửi thành công
+                                toastr.success('Cập nhật thành công! Vui lòng đợi phản hồi từ Admin', 'Thành công', {
+                                    progressBar: true,
+                                    closeButton: true,
+                                    timeOut: 10000
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            toastr.error('Đã xảy ra lỗi khi gửi bình luận.', 'Lỗi', {
                                 progressBar: true,
                                 closeButton: true,
-                                timeOut: 10000
+                                timeOut: 5000
                             });
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        toastr.error('Đã xảy ra lỗi khi gửi bình luận.', 'Lỗi', {
-                            progressBar: true,
-                            closeButton: true,
-                            timeOut: 5000
-                        });
-                    }
-                });
+                    });
+                }
+            });
+
+            // Hàm kiểm tra định dạng email
+            function validateEmail(email) {
+                var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
             }
-        });
 
-        // Hàm kiểm tra định dạng email
-        function validateEmail(email) {
-            var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
+            $('#send-comment').on('click', function(event) {
+                event.preventDefault(); // Ngăn chặn form submit
+
+                var isValid = true;
+
+                // Lấy giá trị của các trường
+                var cmtContent = $('#comment-content').val().trim();
+                var cmtName = $('#comment-name').val().trim();
+                var cmtEmail = $('#comment-email').val().trim();
+
+                // Xóa các thông báo lỗi cũ
+                $('#name-error').text('');
+                $('#email-error').text('');
+                $('#content-error').text('');
+                $('#comment-content').css('border-color', '');
+                $('#comment-name').css('border-color', '');
+                $('#comment-email').css('border-color', '');
+
+                // Kiểm tra trường comment-content
+                if (cmtContent === '') {
+                    $('#content-error').text('Nội dung bình luận / nhận xét không được để trống.');
+                    $('#comment-content').css('border-color', 'red').focus();
+                    isValid = false;
+                }
+
+                // Kiểm tra trường comment-name
+                if (cmtName === '') {
+                    $('#name-error').text('Họ và tên không được để trống.');
+                    $('#comment-name').css('border-color', 'red').focus();
+                    isValid = false;
+                }
+
+                // Kiểm tra trường comment-email
+                if (cmtEmail === '') {
+                    $('#email-error').text('Email không được để trống.');
+                    $('#comment-email').css('border-color', 'red').focus();
+                    isValid = false;
+                } else if (!validateEmail(cmtEmail)) {
+                    $('#email-error').text('Email không đúng định dạng.');
+                    $('#comment-email').css('border-color', 'red').focus();
+                    isValid = false;
+                }
+
+                $('#review-info').show();
+                // Nếu không có lỗi, gọi AJAX để lưu bình luận
+                if (isValid) {
+                    // Disable nút gửi để ngăn chặn việc nhấn nhiều lần
+                    $('#send-comment').prop('disabled', true);
+                    $.ajax({
+                        url: '{{ route("comments.sendCmt") }}', // Sử dụng URL từ Laravel route
+                        method: 'POST',
+                        data: {
+                            product_id: $('#idprd').val(),
+                            slugProduct: $('#slugPrd').val(),
+                            user_id: $('#idUser').val(),
+                            parent_id: 0,
+                            content: cmtContent,
+                            name: cmtName,
+                            email: cmtEmail,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                // Xóa các giá trị của form sau khi gửi thành công
+                                $('#rate-reviews-list').prepend(response.comment_html);
+
+                                // Cập nhật số lượng bình luận
+                                var countElement = $('.countcomments');
+                                var currentCount = parseInt(countElement.text().match(/\d+/)[0]); // Lấy số lượng bình luận hiện tại
+                                countElement.text('Có ' + (currentCount + 1) + ' bình luận:'); // Cập nhật số lượng bình luận
+
+                                $('#rate-form')[0].reset();
+                                $('#review-info').hide();
+                                $('#send-comment').prop('disabled', false);
+                                toastr.success('Cập nhật thành công! Vui lòng đợi phản hồi từ Admin', 'Thành công', {
+                                    progressBar: true,
+                                    closeButton: true,
+                                    timeOut: 10000
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            toastr.error('Đã xảy ra lỗi khi gửi bình luận.', 'Lỗi', {
+                                progressBar: true,
+                                closeButton: true,
+                                timeOut: 5000
+                            });
+                            $('#send-comment').prop('disabled', false);
+                        }
+                    });
+                }
+            });
         }
-
         // Phân trang bình luận
-        // function addPaginationListeners() {
-        //     const paginationLinks = document.querySelectorAll('.paginate-cmt a');
+        function addPaginationListeners() {
+            const paginationLinks = document.querySelectorAll('.paginate-cmt a');
 
-        //     paginationLinks.forEach(link => {
-        //         link.addEventListener('click', function(event) {
-        //             event.preventDefault();
-        //             const url = this.href;
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const url = this.href;
 
-        //             fetch(url)
-        //                 .then(response => response.text())
-        //                 .then(html => {
-        //                     document.getElementById('app').innerHTML = html;
-        //                     // Cuộn đến rate-reviews với một khoảng offset
-        //                     var commentBox = document.getElementById('rate-reviews');
-        //                     var offset = -50; // Điều chỉnh khoảng lệch để đảm bảo hiển thị tốt
-        //                     var commentBoxPosition = commentBox.getBoundingClientRect().top + window.pageYOffset + offset;
+                    fetch(url)
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById('app').innerHTML = html;
+                            // Cuộn đến rate-reviews với một khoảng offset
+                            var commentBox = document.getElementById('rate-reviews');
+                            var offset = -50; // Điều chỉnh khoảng lệch để đảm bảo hiển thị tốt
+                            var commentBoxPosition = commentBox.getBoundingClientRect().top + window.pageYOffset + offset;
 
-        //                     // Cuộn đến vị trí đã điều chỉnh
-        //                     window.scrollTo({
-        //                         top: commentBoxPosition,
-        //                         behavior: 'smooth'
-        //                     });
-        //                     addPaginationListeners(); // Gọi lại hàm này sau khi tải nội dung mới
-        //                 })
-        //                 .catch(error => console.error('Error loading page:', error));
-        //         });
-        //     });
-        // }
-        // // Gọi hàm ban đầu để thiết lập lắng nghe
-        // addPaginationListeners();
+                            // Cuộn đến vị trí đã điều chỉnh
+                            window.scrollTo({
+                                top: commentBoxPosition,
+                                behavior: 'smooth'
+                            });
+                            addPaginationListeners(); // Gọi lại hàm này sau khi tải nội dung mới
+                            bindCommentFormEvents();
+                        })
+                        .catch(error => console.error('Error loading page:', error));
+                });
+            });
+        }
+        // Gọi các sự kiện ban đầu
+        addPaginationListeners();
+        bindCommentFormEvents(); // Lắng nghe sự kiện cho form bình luận
     });
 
     function fetchProducts() {

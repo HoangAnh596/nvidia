@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helpers\Helper;
 use App\Mail\PriceRequestMail;
 use App\Models\Infor;
 use App\Models\Quote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class QuoteController extends Controller
@@ -19,16 +19,38 @@ class QuoteController extends Controller
     public function index(Request $request)
     {
         $keyWord = $request->input('keyword');
-        $quotes = Quote::where('name', 'like', "%" . Helper::escape_like($keyWord) . "%")
-            ->latest()
-            ->paginate(config('common.default_page_size'));
+        $isStatus = $request->input('status');
+        // Tạo query cơ bản
+        $quotes = Quote::query();
 
-        return view('admin.quote.index', compact('quotes', 'keyWord'));
+        // Nếu $keyWord là số, tìm kiếm theo id chính xác
+        if (is_numeric($keyWord)) {
+            $quotes->where('id', $keyWord);
+        } else {
+            // Tìm kiếm theo name nếu $keyWord là chuỗi
+            $quotes->where('name', 'like', "%" . $keyWord . "%");
+        }
+
+        // Áp dụng lọc theo trạng thái công khai nếu có giá trị
+        if ($isStatus !== null) {
+            $quotes->where('status', $isStatus);
+        }
+
+        // Thêm sắp xếp và phân trang
+        $quotes = $quotes->latest()->paginate(config('common.default_page_size'));
+
+        return view('admin.quote.index', compact('quotes', 'keyWord', 'isStatus'));
     }
 
     public function isCheckbox(Request $request)
     {
         $quote = Quote::findOrFail($request->id);
+
+        if ($request->status == 1) {
+            $quote->user_id = Auth::id();
+        } else {
+            $quote->user_id = 0;
+        }
         $quote->status = $request->status;
         $quote->save();
 

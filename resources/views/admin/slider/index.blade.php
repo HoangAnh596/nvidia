@@ -118,8 +118,11 @@
                         toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
                             progressBar: true,
                             closeButton: true,
-                            timeOut: 5000
+                            timeOut: 3000
                         });
+                        setTimeout(function() {
+                            window.location.reload()
+                        }, 3000);
                     } else {
                         toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
                             progressBar: true,
@@ -165,8 +168,11 @@
                         toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
                             progressBar: true,
                             closeButton: true,
-                            timeOut: 5000
+                            timeOut: 3000
                         });
+                        setTimeout(function() {
+                            window.location.reload()
+                        }, 3000);
                     } else {
                         toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
                             progressBar: true,

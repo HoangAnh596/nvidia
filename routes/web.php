@@ -303,6 +303,9 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     // Quản lý email admin, favicon và setting của website
     Route::get('/setting/{id}/edit', [SettingController::class, 'edit'])->name('setting.edit')->middleware('can:setting-edit');
     Route::put('setting/{id}', [SettingController::class, 'update'])->name('setting.update');
+    // Xóa ảnh không dùng tới
+    Route::get('setting/images', [SettingController::class, 'images'])->name('setting.images');
+    Route::post('setting/delete-images', [SettingController::class, 'cleanup'])->name('setting.cleanup');
 
     Route::post('upload', [ContentController::class, 'upload'])->name('upload.image');
     Route::post('/delete-image', [ContentController::class, 'deleteImage'])->name('delete.image');

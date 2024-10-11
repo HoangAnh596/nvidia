@@ -7,9 +7,12 @@ use App\Models\CateFooter;
 use App\Models\Category;
 use App\Models\CategoryNew;
 use App\Models\CateMenu;
+use App\Models\CmtNew;
+use App\Models\Comment;
 use App\Models\ContactIcon;
 use App\Models\HeaderTag;
 use App\Models\Icon;
+use App\Models\Quote;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Pagination\Paginator;
@@ -135,6 +138,23 @@ class AppServiceProvider extends ServiceProvider
             Config::set('mail.from.name', $settings->mail_text);
             // Cập nhật các giá trị khác tương tự
         }
+
+        // Cấu hình thông báo website
+        $this->app->singleton('comments', function () {
+            return Comment::where('parent_id', 0)
+                  ->whereDoesntHave('replies') // Lấy các comment không có replies
+                  ->with('replies') // Để có thể lấy các replies nếu cần
+                  ->get();
+        });
+        $this->app->singleton('cmtNew', function () {
+            return CmtNew::where('parent_id', 0)
+                  ->whereDoesntHave('replies') // Lấy các comment không có replies
+                  ->with('replies') // Để có thể lấy các replies nếu cần
+                  ->get();
+        });
+        $this->app->singleton('quotes', function () {
+            return Quote::where('status', 0)->orderBy('created_at', 'DESC')->select('id', 'name', 'product', 'created_at')->get();
+        });
         
         View::composer('*', function ($view) {
             $globalMenus = $this->app->make('menus');
@@ -146,14 +166,20 @@ class AppServiceProvider extends ServiceProvider
             $ft_bottom = $this->app->make('bottom');
             $globalSeo = $this->app->make('seoWeb');
             $contactIconGlobal = $this->app->make('contact-icons');
-            
+            $quoteGlobal = $this->app->make('quotes');
+            $commentGlobal = $this->app->make('comments');
+            $cmtNewGlobal = $this->app->make('cmtNew');
+            // dd($quoteGlobal);
             $view->with('globalMenus', $globalMenus)->with('globalFooters', $globalFooters)
                 ->with('searchCate', $searchCate)->with('globalFavi', $globalFavi)
                 ->with('globalHeaderTags', $globalHeaderTags)
                 ->with('iconGlobal', $iconGlobal)
                 ->with('ft_bottom', $ft_bottom)
                 ->with('globalSeo', $globalSeo)
-                ->with('contactIconGlobal', $contactIconGlobal);
+                ->with('contactIconGlobal', $contactIconGlobal)
+                ->with('commentGlobal', $commentGlobal)
+                ->with('cmtNewGlobal', $cmtNewGlobal)
+                ->with('quoteGlobal', $quoteGlobal);
         });
     }
 }

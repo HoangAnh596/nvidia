@@ -23,9 +23,16 @@
                     </div>
                     <div class="form-group">
                         <select name="is_public" class="form-control">
+                            <option value="">Ẩn/Hiện</option>
+                            <option value="0" {{ $isPublic === '0' ? 'selected' : '' }}>Ẩn</option>
+                            <option value="1" {{ $isPublic === '1' ? 'selected' : '' }}>Hiển thị</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="is_reply" class="form-control">
                             <option value="">Trạng thái</option>
-                            <option value="0" {{ $isPublic === '0' ? 'selected' : '' }}>Chưa trả lời</option>
-                            <option value="1" {{ $isPublic === '1' ? 'selected' : '' }}>Đã trả lời</option>
+                            <option value="0" {{ $isReply === '0' ? 'selected' : '' }}>Chưa trả lời</option>
+                            <option value="1" {{ $isReply === '1' ? 'selected' : '' }}>Đã trả lời</option>
                         </select>
                     </div>
                     <div class="input-group-append">
@@ -110,8 +117,11 @@
                         toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
                             progressBar: true,
                             closeButton: true,
-                            timeOut: 5000
+                            timeOut: 3000
                         });
+                        setTimeout(function() {
+                            window.location.reload()
+                        }, 3000);
                     } else {
                         toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
                             progressBar: true,
@@ -173,8 +183,11 @@
                         toastr.warning('Bạn không có quyền cập nhật.', 'Cảnh báo', {
                             progressBar: true,
                             closeButton: true,
-                            timeOut: 5000
+                            timeOut: 3000
                         });
+                        setTimeout(function() {
+                            window.location.reload()
+                        }, 3000);
                     } else {
                         toastr.error('Lỗi cập nhật thứ tự.', 'Lỗi', {
                             progressBar: true,

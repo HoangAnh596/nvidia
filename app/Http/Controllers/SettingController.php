@@ -54,4 +54,40 @@ class SettingController extends Controller
 
         return back()->with(['message' => 'Cập nhật hình ảnh setting thành công']);
     }
+
+    public function images()
+    {
+        return view('admin.setting.delete');
+    }
+
+    public function cleanup(Request $request)
+    {
+        $type = $request->input('type');
+
+        switch ($type) {
+            case 'products':
+                \Illuminate\Support\Facades\Artisan::call('cleanup:product-img');
+                $message = 'Dọn dẹp ảnh sản phẩm thành công';
+                break;
+            case 'categories':
+                \Illuminate\Support\Facades\Artisan::call('cleanup:category-img');
+                $message = 'Dọn dẹp ảnh danh mục thành công';
+                break;
+            case 'news':
+                \Illuminate\Support\Facades\Artisan::call('cleanup:new-img');
+                $message = 'Dọn dẹp ảnh tin tức thành công';
+                break;
+            case 'all':
+                \Illuminate\Support\Facades\Artisan::call('cleanup:product-img');
+                \Illuminate\Support\Facades\Artisan::call('cleanup:category-img');
+                \Illuminate\Support\Facades\Artisan::call('cleanup:new-img');
+                $message = 'Dọn dẹp tất cả ảnh thành công';
+                break;
+            default:
+                $message = 'Không hợp lệ';
+                break;
+        }
+
+        return response()->json(['message' => $message]);
+    }
 }

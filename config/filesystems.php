@@ -76,8 +76,8 @@ return [
 
         'tin_tuc_images' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/images/tin-tuc'),
-            'url' => env('APP_URL').'/storage/images/tin-tuc',
+            'root' => storage_path('app/public/images/bai-viet'),
+            'url' => env('APP_URL').'/storage/images/bai-viet',
             'visibility' => 'public',
         ],
     ],

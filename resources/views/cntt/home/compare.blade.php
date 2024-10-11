@@ -384,7 +384,7 @@ $isMobile = $agent->isMobile(); // Kiểm tra thiết bị di động
                 var blob = new Blob([response]);
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
-                link.download = 'products_compare.xlsx';
+                link.download = 'bang-so-sanh.xlsx';
                 link.click();
             },
             error: function(xhr) {
