@@ -125,8 +125,8 @@ class HomeController extends Controller
     {
         // Seo Website
         $globalSeo = app('seoWeb');
-        $cateMenu = Category::all();
-        $cateMenu = $this->buildTree($cateMenu);
+        // $cateMenu = Category::all();
+        // $cateMenu = $this->buildTree($cateMenu);
 
         $phoneInfors = Infor::where('is_public', 1)->orderBy('stt', 'ASC')->get();
         $slugs = explode('-', $slug);
@@ -144,8 +144,9 @@ class HomeController extends Controller
             $filterCate = $cateParent->getFilterCates();
             $categoryIds = $mainCate->getAllChildrenIds();
             array_unshift($categoryIds, $mainCate->id); // Thêm ID danh mục chính vào danh sách
-
-            $prOutstand = Product::where('is_outstand', 1)
+            
+            $prOutstand = Product::select('id', 'name', 'slug', 'price', 'image_ids')
+                ->where('is_outstand', 1)
                 ->whereHas('category', function ($query) use ($categoryIds) {
                     $query->whereIn('category_id', $categoryIds);
                 })->orderBy('created_at', 'DESC')
@@ -160,7 +161,7 @@ class HomeController extends Controller
             // Loại bỏ 'page' khỏi bộ lọc nếu tồn tại
             unset($filters['page']);
             if (!empty($filters)) {
-                $products = Product::query();
+                $products = Product::query()->select('id', 'name', 'slug', 'price', 'image_ids');
                 $filterConditions = [];
 
                 foreach ($filters as $key => $value) {
@@ -202,6 +203,24 @@ class HomeController extends Controller
                 }
                 $products = $products->orderBy('created_at', 'DESC')->paginate(10, ['*'], 'page', $currentPage);
                 foreach ($products as $product) {
+                    // Lấy tổng số sao từ bảng comments
+                    $totalStarCount = Comment::where('product_id', $product->id)->sum('star');
+                    // Lấy tổng số bản ghi có sao (comment)
+                    $totalCommentsWithStar = Comment::where('product_id', $product->id)
+                        ->whereNotNull('star') // Loại bỏ các bản ghi có giá trị star là null
+                        ->where('star', '>', 0)->count();
+
+                    // Tính trung bình sao nếu có bản ghi comment
+                    if ($totalCommentsWithStar > 0) {
+                        $averageStar = $totalStarCount / $totalCommentsWithStar; // làm ví dụ 4.4
+                    } else {
+                        $averageStar = 0; // Nếu không có comment, trung bình là 0
+                    }
+
+                    // Gán tổng số sao và trung bình sao vào sản phẩm
+                    $product->average_star = $averageStar;
+                    $product->totalCmt = $totalCommentsWithStar;
+
                     $product->loadProductImages();
                 }
                 // Lấy URL hiện tại và xử lý chuỗi query
@@ -223,11 +242,12 @@ class HomeController extends Controller
                 ));
             }
 
-            $products = Product::where(function ($query) use ($categoryIds) {
-                // Truy vấn các sản phẩm thuộc danh mục chính
-                $query->whereHas('category', function ($query) use ($categoryIds) {
-                    $query->whereIn('category_id', $categoryIds);
-                });
+            $products = Product::select('id', 'name', 'slug', 'price', 'image_ids')
+                ->where(function ($query) use ($categoryIds) {
+                    // Truy vấn các sản phẩm thuộc danh mục chính
+                    $query->whereHas('category', function ($query) use ($categoryIds) {
+                        $query->whereIn('category_id', $categoryIds);
+                    });
                 // Truy vấn các sản phẩm có danh mục phụ nằm trong danh sách các danh mục con của danh mục chính
                 $query->orWhere(function ($query) use ($categoryIds) {
                     foreach ($categoryIds as $categoryId) {
@@ -237,6 +257,24 @@ class HomeController extends Controller
             })->orderBy('created_at', 'DESC')->paginate(10);
 
             foreach ($products as $product) {
+                // Lấy tổng số sao từ bảng comments
+                $totalStarCount = Comment::where('product_id', $product->id)->sum('star');
+                // Lấy tổng số bản ghi có sao (comment)
+                $totalCommentsWithStar = Comment::where('product_id', $product->id)
+                    ->whereNotNull('star') // Loại bỏ các bản ghi có giá trị star là null
+                    ->where('star', '>', 0)->count();
+
+                // Tính trung bình sao nếu có bản ghi comment
+                if ($totalCommentsWithStar > 0) {
+                    $averageStar = $totalStarCount / $totalCommentsWithStar; // làm ví dụ 4.4
+                } else {
+                    $averageStar = 0; // Nếu không có comment, trung bình là 0
+                }
+
+                // Gán tổng số sao và trung bình sao vào sản phẩm
+                $product->average_star = $averageStar;
+                $product->totalCmt = $totalCommentsWithStar;
+
                 $product->loadProductImages();
             }
 
@@ -295,8 +333,7 @@ class HomeController extends Controller
                                         $query->whereNotNull('comments.user_id')->where('comments.user_id', Auth::id());
                                     });
                             })
-                          ->with('cmtChild'); // Load các bình luận con
-                        //   ->orderBy('comments.created_at', 'DESC');
+                          ->with('cmtChild');
         }
 
         $comments = $commentsQuery->orderBy('created_at', 'DESC')->paginate(5);
@@ -306,22 +343,20 @@ class HomeController extends Controller
 
         // Tính tổng số bình luận (cha + con)
         $totalCommentsCount = Comment::where('product_id', $idPro)
-        ->where(function ($query) {
-            $query->where('parent_id', 0) // Bình luận cha
-                ->orWhere(function ($query) {
-                    $query->where('parent_id', '>', 0); // Bình luận con
+            ->where(function ($query) {
+                $query->where('parent_id', 0) // Bình luận cha
+                    ->orWhere('parent_id', '>', 0); // Bình luận con
+            })
+            ->when(!Auth::check() || Auth::user()->role != 1, function($query) {
+                $query->where(function($query) {
+                    $query->where('is_public', 1) // Hiển thị bình luận công khai
+                        ->orWhere(function($query) {
+                            $query->where('user_id', Auth::id())
+                                ->whereNotNull('user_id'); // Chỉ hiển thị của user hiện tại
+                        });
                 });
-        })
-        ->where(function($query) {
-            if (!Auth::check() || Auth::user()->role != 1) {
-                $query->where('is_public', 1) // Hiển thị bình luận công khai
-                    ->orWhere(function($query) {
-                        $query->whereNotNull('user_id')
-                                ->where('user_id', Auth::id());
-                    });
-            }
-        })
-        ->count();
+            })
+            ->count();
         $totalStarCount = Comment::where('product_id', $idPro)->sum('star');
         $user = Auth::user();
 
@@ -330,11 +365,15 @@ class HomeController extends Controller
             // Chuyển đổi JSON thành mảng
             $groupIds = json_decode($product->group_ids, true);
             // Lấy các bản ghi từ bảng Group có id nằm trong groupIds
-            $groupProducts = Group::select('id', 'name')->whereIn('id', $groupIds)->get();
+            $groupProducts = Group::with(['products' => function ($query) {
+                $query->select('products.id', 'products.name', 'products.slug', 'products.image_ids');
+            }])->select('id', 'name')->whereIn('id', $groupIds)->get();
         } else {
             // Xử lý id category cha con
             $cateIds = $parent->getAllParentIds();
-            $groupProducts = Group::select('id', 'name')->whereIn('cate_id', $cateIds)->get();
+            $groupProducts = Group::with(['products' => function ($query) {
+                $query->select('products.id', 'products.name', 'products.slug', 'products.image_ids');
+            }])->select('id', 'name')->whereIn('cate_id', $cateIds)->get();
         }
 
         // Lấy ảnh chính cho từng sản phẩm
@@ -352,22 +391,22 @@ class HomeController extends Controller
         ));
     }
 
-    private function buildTree($cateMenu, $parentId = 0)
-    {
-        $branch = [];
+    // private function buildTree($cateMenu, $parentId = 0)
+    // {
+    //     $branch = [];
 
-        foreach ($cateMenu as $category) {
-            if ($category->parent_id == $parentId) {
-                $children = $this->buildTree($cateMenu, $category->id);
-                if ($children) {
-                    $category->children = $children;
-                }
-                $branch[] = $category;
-            }
-        }
+    //     foreach ($cateMenu as $category) {
+    //         if ($category->parent_id == $parentId) {
+    //             $children = $this->buildTree($cateMenu, $category->id);
+    //             if ($children) {
+    //                 $category->children = $children;
+    //             }
+    //             $branch[] = $category;
+    //         }
+    //     }
 
-        return $branch;
-    }
+    //     return $branch;
+    // }
 
     // Xử lý tìm kiếm
     public function search(Request $request)

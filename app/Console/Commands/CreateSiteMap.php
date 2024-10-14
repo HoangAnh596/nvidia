@@ -77,7 +77,7 @@ class CreateSiteMap extends Command
         $sitemap = App::make('sitemap');
 
         $sitemap->add(env('APP_URL'), '', '1.0', 'daily');
-        $categories = Category::orderBy('id', 'DESC')->get();
+        $categories = Category::orderBy('id', 'DESC')->paginate(500);
         foreach ($categories as $category) {
             $sitemap->add(env('APP_URL'). "/{$category->slug}", $category->updated_at, '0.8', 'weekly');
         }
@@ -93,7 +93,7 @@ class CreateSiteMap extends Command
         $sitemap = App::make('sitemap');
 
         $sitemap->add(env('APP_URL'), '', '1.0', 'daily');
-        $products = Product::orderBy('id', 'DESC')->get();
+        $products = Product::orderBy('id', 'DESC')->paginate(500);
         foreach ($products as $pro) {
             $sitemap->add(env('APP_URL'). "/{$pro->slug}", $pro->updated_at, '0.8', 'weekly');
         }
@@ -109,7 +109,7 @@ class CreateSiteMap extends Command
         $sitemap = App::make('sitemap');
 
         $sitemap->add(env('APP_URL'), '', '1.0', 'daily');
-        $news = News::orderBy('id', 'DESC')->get();
+        $news = News::orderBy('id', 'DESC')->paginate(500);
         foreach ($news as $new) {
             $sitemap->add(env('APP_URL'). "/{$new->slug}", $new->updated_at, '0.8', 'weekly');
         }

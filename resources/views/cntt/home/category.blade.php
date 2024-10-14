@@ -16,9 +16,6 @@
 </div>
 <div class="filter">
     <div class="container">
-        <div class="row mt-3">
-            <h1>Chọn theo tiêu chí</h1>
-        </div>
         @php
         $agent = new Jenssegers\Agent\Agent();
         @endphp
@@ -26,6 +23,9 @@
         <!-- begin navbar mobile -->
         @if($agent->isMobile())
         @if(!empty($filterCate))
+        <div class="row mt-3">
+            <h1>Chọn theo tiêu chí</h1>
+        </div>
         <div class="mobile-filter ft-fixed mt-3" data-url="{{ route('home.filters') }}">
             <div class="container" style="padding: 0;">
                 <div class="splide">
@@ -59,6 +59,9 @@
         @endif
         @else
         @if(!empty($filterCate))
+        <div class="row mt-3">
+            <h1>Chọn theo tiêu chí</h1>
+        </div>
         <div class="row web-filter mt-3" data-url="{{ route('home.filters') }}">
             <ul class="nav nav-filter ft-fixed">
                 <div class="container cont-fixed">
@@ -133,6 +136,7 @@
 </div>
 <div class="container">
     <div class="show-prod-cate">
+        <h2 class="mt-3">{{ $mainCate->name }}</h2>
         <div class="row custom-row mt-3" id="product-data">
             @include('cntt.home.partials.products', ['products' => $products])
         </div>
@@ -147,7 +151,7 @@
                     <div>
                         {!! $mainCate->content !!}
                     </div>
-                    <div class="align-items-center justify-content-center btn-show-more show-more pb-4">
+                    <div class="align-items-center justify-content-center btn-show-more show-more pb-3">
                         <button class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
@@ -183,33 +187,33 @@
                                 </a>
                                 @endif
                             </div>
-                            <div class="col-md-8 col-8 d-flex flex-column bd-highlight" style="height: 100px; overflow: hidden;">
-                                <div class="bd-highlight">
+                            <div class="col-md-8 col-8 d-flex flex-column bd-highlight text-outstand">
+                                <div class="bd-highlight r-2">
                                     <a class="btn-link" href="{{ $data->slug }}">{{ $data->name }}</a>
                                 </div>
-                                <div class="bd-highlight">
-                                    @if($data->price == 0)
-                                    <span class="lien-he-price">Liên hệ</span>
-                                    @else
-                                    <a href="{{ $data->slug }}" class="text-decoration-none text-danger">{{ number_format($data->price, 0, ',', '.') }}đ </a>
-                                    @endif
-                                </div>
                                 <div class="mt-auto bd-highlight">
-                                    <ul class="list-unstyled d-flex justify-content-between">
+                                    <ul class="list-unstyled d-flex justify-content-between align-items-center total-review-home infor-outs">
                                         <li>
-                                            <i class="text-warning fa fa-star"></i>
-                                            <i class="text-warning fa fa-star"></i>
-                                            <i class="text-warning fa fa-star"></i>
-                                            <i class="text-muted fa fa-star"></i>
-                                            <i class="text-muted fa fa-star"></i>
+                                            @if($data->price == 0)
+                                            <span class="lien-he-price">Liên hệ</span>
+                                            @else
+                                            <a href="{{ $data->slug }}" class="text-decoration-none text-danger">{{ number_format($data->price, 0, ',', '.') }}đ </a>
+                                            @endif
                                         </li>
-                                        <li class="text-muted text-right"><i class="fa-solid fa-heart icon-heart"></i></li>
+                                        <li class="text-muted text-right">
+                                            <i class="text-warning fa fa-star"></i>
+                                            <span>
+                                                @if ($data->totalCmt > 0)
+                                                {{ number_format($data->average_star, 1) }} ({{ $data->totalCmt }})
+                                                @endif
+                                            </span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         @endforeach
-                        <div class="align-items-center justify-content-center nav-mb outstand-show-more btn-show-more pb-4">
+                        <div class="align-items-center justify-content-center nav-mb outstand-show-more btn-show-more pb-3">
                             <button class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
                         </div>
                     </div>
@@ -333,15 +337,15 @@
             } else {
                 // Ẩn tất cả các child-filter khác và xóa border-blue từ các show-filter không có btn-child-filter nào được chọn
                 $('.child-filter-mb').each(function(i) {
-                var $siblingChildFilter = $(this);
-                var $siblingShowFilter = $('.show-filter-mb').eq(i);
-                
-                // Kiểm tra nếu child-filter hiện tại đang hiển thị và không có btn-child-filter-mb nào được chọn
-                if ($siblingChildFilter.is(':visible') && $siblingChildFilter.find('.btn-child-filter-mb.border-blue').length === 0) {
-                    $siblingChildFilter.hide(); // Ẩn child-filter hiện tại
-                    $siblingShowFilter.removeClass('border-blue'); // Xóa border-blue từ nút show-filter-mb tương ứng
-                }
-            });
+                    var $siblingChildFilter = $(this);
+                    var $siblingShowFilter = $('.show-filter-mb').eq(i);
+
+                    // Kiểm tra nếu child-filter hiện tại đang hiển thị và không có btn-child-filter-mb nào được chọn
+                    if ($siblingChildFilter.is(':visible') && $siblingChildFilter.find('.btn-child-filter-mb.border-blue').length === 0) {
+                        $siblingChildFilter.hide(); // Ẩn child-filter hiện tại
+                        $siblingShowFilter.removeClass('border-blue'); // Xóa border-blue từ nút show-filter-mb tương ứng
+                    }
+                });
 
                 $childFilter.show(); // Hiển thị child-filter tương ứng
                 $showFilter.addClass('border-blue'); // Thêm border-blue cho nút hiện tại
@@ -351,7 +355,7 @@
         // Đóng menu thả xuống khi nhấp vào bên ngoài
         $(document).on('click', function(e) {
             if (!$(e.target).closest('.show-filter-mb, .child-filter-mb').length) {
-                $('.child-filter-mb').slideUp();  // Ẩn tất cả các child-filter
+                $('.child-filter-mb').slideUp(); // Ẩn tất cả các child-filter
                 $('.show-filter-mb').each(function() {
                     var $showFilter = $(this);
                     var index = $('.show-filter-mb').index($showFilter); // Lấy chỉ số của nút show-filter
@@ -481,7 +485,7 @@
         // Khởi tạo trạng thái ban đầu từ query parameters
         function initFiltersMbFromUrl() {
             var queryParams = new URLSearchParams(window.location.search);
-            
+
             queryParams.forEach(function(value, key) {
                 var values = value.split(',');
                 selectedFiltersMb[key] = values;

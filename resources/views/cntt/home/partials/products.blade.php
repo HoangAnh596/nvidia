@@ -32,25 +32,25 @@
         </a>
         @endif
         <div class="card-body">
-            <div class="text-center h-30">
-                @if($product->price == 0)
-                <span class="lien-he-price">Liên hệ</span>
-                @else
-                <a href="{{ $product->slug }}" class="text-decoration-none text-danger">{{ number_format($product->price, 0, ',', '.') }}đ </a>
-                @endif
-            </div>
-            <div class="text-dark hover-gr">
+            <div class="text-dark">
                 <a href="{{ $product->slug }}" class="text-decoration-none btn-link">{{ $product->name }}</a>
             </div>
-            <ul class="list-unstyled d-flex justify-content-between">
+            <ul class="list-unstyled d-flex justify-content-between align-items-center total-review-home">
                 <li>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-muted fa fa-star"></i>
-                    <i class="text-muted fa fa-star"></i>
+                    @if($product->price == 0)
+                    <span class="lien-he-price">Liên hệ</span>
+                    @else
+                    <a href="{{ $product->slug }}" class="text-decoration-none text-danger">{{ number_format($product->price, 0, ',', '.') }}đ </a>
+                    @endif
                 </li>
-                <li class="text-muted text-right"><i class="fa-solid fa-heart icon-heart"></i></li>
+                <li class="text-muted text-right">
+                    <i class="text-warning fa fa-star"></i>
+                    <span>
+                        @if ($product->totalCmt > 0)
+                        {{ number_format($product->average_star, 1) }} ({{ $product->totalCmt }})
+                        @endif
+                    </span>
+                </li>
             </ul>
         </div>
     </div>

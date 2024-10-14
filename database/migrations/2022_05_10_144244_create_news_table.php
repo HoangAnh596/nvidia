@@ -24,7 +24,6 @@ class CreateNewsTable extends Migration
             $table->string('view_count')->nullable();
             $table->text('desc')->nullable();
             $table->string('image')->nullable();
-            $table->string('image_ids')->nullable();
             $table->text('content')->nullable();
             $table->string('title_img')->nullable();
             $table->string('alt_img')->nullable();

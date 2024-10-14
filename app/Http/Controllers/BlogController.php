@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CategoryNew;
 use App\Models\CmtNew;
 use App\Models\News;
+use App\Models\User;
 use App\Services\CategoryNewSrc;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,14 @@ class BlogController extends Controller
             ->where('slug', '<>', 'blogs')->get();
 
         $newAll = News::select('name', 'slug', 'desc', 'view_count', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')->latest()->paginate(10);
+        // Nếu số trang hiện tại vượt quá số trang cuối cùng, điều chỉnh trang hiện tại về trang cuối cùng
+        if ($newAll->currentPage() > $newAll->lastPage()) {
+            // Lấy dữ liệu của trang cuối cùng
+            $newAll = News::select('name', 'slug', 'desc', 'view_count', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
+                ->latest()
+                ->paginate(10, ['*'], 'page', $newAll->lastPage());
+        }
+
         $viewer = News::select('name', 'slug')->orderBy('view_count', 'DESC')->take(10)->get();
         $outstand = News::select('name', 'slug', 'image', 'alt_img', 'title_img')->where('is_outstand', 1)->orderBy('created_at', 'DESC')->take(10)->get();
 
@@ -58,7 +67,9 @@ class BlogController extends Controller
             $newArt->view_count = $newArt->view_count + 1;
             $newArt->save();
 
-            $sameCate = News::where('cate_id', $newArt->cate_id)
+            $sameCate = News::select('name', 'slug', 'image', 'alt_img', 'title_img')
+                ->where('cate_id', $newArt->cate_id)
+                ->where('id', '!=', $newArt->id)
                 ->orderBy('created_at', 'DESC')->take(10)
                 ->get();
 
@@ -137,6 +148,14 @@ class BlogController extends Controller
         $news = News::select('name', 'slug', 'desc', 'view_count', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
             ->whereIn('cate_id', $newArray)
             ->latest()->paginate(10);
+        // Nếu số trang hiện tại vượt quá số trang cuối cùng, điều chỉnh trang hiện tại về trang cuối cùng
+        if ($news->currentPage() > $news->lastPage()) {
+            // Chuyển hướng đến trang cuối cùng
+            $news = News::select('name', 'slug', 'desc', 'view_count', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
+                ->whereIn('cate_id', $newArray)
+                ->latest()
+                ->paginate(10, ['*'], 'page', $news->lastPage());
+        }
         $viewer = News::select('name', 'slug')
             ->whereIn('cate_id', $newArray)
             ->orderBy('view_count', 'DESC')->take(10)->get();
@@ -179,6 +198,14 @@ class BlogController extends Controller
         $news = News::select('name', 'slug', 'desc', 'view_count', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
             ->where('cate_id', $newArray)
             ->latest()->paginate(10);
+        // Nếu số trang hiện tại vượt quá số trang cuối cùng, điều chỉnh trang hiện tại về trang cuối cùng
+        if ($news->currentPage() > $news->lastPage()) {
+            // Chuyển hướng đến trang cuối cùng
+            $news = News::select('name', 'slug', 'desc', 'view_count', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
+                ->where('cate_id', $newArray)
+                ->latest()
+                ->paginate(10, ['*'], 'page', $news->lastPage());
+        }
         $viewer = News::select('name', 'slug')
             ->where('cate_id', $newArray)
             ->orderBy('view_count', 'DESC')->take(10)->get();

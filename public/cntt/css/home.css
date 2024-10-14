@@ -444,7 +444,7 @@ hr {
 .hp-category a:hover {
     color: #76b900;
 }
-.filter-cate h1{
+.filter-cate h1, .show-prod-cate h2{
     font-size: 1.5rem;
     font-weight: 700;
 }
@@ -763,7 +763,7 @@ button:focus {
     margin-top: 6px;
 }
 .h-30 {
-    height: 30px;
+    height: 25px;
 }
 .lien-he-price {
     font-size: .9rem;
@@ -777,6 +777,23 @@ button:focus {
 }
 .total-review-home li{
     font-size: .8rem !important;
+}
+/* .text-outstand .total-review-home {
+    margin: 0 !important;
+} */
+.infor-outs {
+    margin-top: .25rem;
+}
+.text-outstand .r-2 {
+    margin-right: -12px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
+.text-outstand a {
+    font-size: .9rem !important;
 }
 .nav-mb li {
     padding-left: 15px;
@@ -800,13 +817,13 @@ button:focus {
     box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
 }
 .text-dark {
-    height: 66px;
+    height: 70px;
     overflow: hidden;
 }
 
 .card-body ul {
-    margin-top: 0.5rem;
-    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
 }
 .icon-heart {
     color: #76b900;
@@ -967,38 +984,27 @@ button:focus {
     border: 1px solid #eee;
     border-radius: 5px;
 }
-.show-more {
+.show-more, .outstand-show-more {
     background: linear-gradient(180deg, hsla(0, 0%, 100%, 0), hsla(0, 0%, 100%, .91) 50%, #fff 55%);
     border-radius: 5px;
     bottom: 0;
     display: none;
     left: 0;
     margin-bottom: 0;
-    padding-top: 50px;
+    padding-top: 30px;
     position: absolute;
     right: 0;
     text-align: center;
     width: 100%;
 }
 .btn-show-more button{
-    padding: 5px 10px;
+    padding: 4px 8px;
     border: 1px solid #e5e7eb;
-    border-radius: 5px;
+    border-radius: 10px;
+    font-size: .9rem;
     background-color: #eee;
 }
-.outstand-show-more {
-    background: linear-gradient(180deg, hsla(0, 0%, 100%, 0), hsla(0, 0%, 100%, .91) 50%, #fff 55%);
-    border-radius: 5px;
-    bottom: 0;
-    display: none;
-    left: 0;
-    margin-bottom: 0;
-    padding-top: 50px;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    width: 100%;
-}
+
 .nothing-show-more .icon {
     fill: #76b900;
     height: 50px;

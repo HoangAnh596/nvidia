@@ -59,9 +59,9 @@ class Category extends Model
     // Lấy ra id của cha có parent_id = 0
     public function topLevelParent()
     {
-        $category = $this;
+        $category = $this->select('id', 'parent_id', 'name')->where('id', $this->id)->first();
         while ($category->parent_id != 0) {
-            $category = $category->parent;
+            $category = $category->parent()->select('id', 'parent_id', 'name')->first();
         }
         return $category;
     }
@@ -69,10 +69,10 @@ class Category extends Model
     public function getAllParents()
     {
         $parents = collect();
-        $parent = $this->parent;
+        $parent = $this->parent()->select('id', 'parent_id', 'name', 'slug')->first();
         while ($parent) {
             $parents->prepend($parent);
-            $parent = $parent->parent;
+            $parent = $parent->parent()->select('id', 'parent_id', 'name', 'slug')->first();
         }
         return $parents;
     }

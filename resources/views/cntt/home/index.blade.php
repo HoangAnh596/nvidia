@@ -5,15 +5,16 @@
 <!-- Start Banner Hero -->
 <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
     <ol class="carousel-indicators">
-    @php
-    $totalSlider = $sliders->count();
-    @endphp
+        @php
+        $totalSlider = $sliders->count();
+        @endphp
 
-    @if($totalSlider > 0)
+        @if($totalSlider > 0)
         @for($i = 0; $i < $totalSlider; $i++)
-            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="{{ $i }}" class="{{ $i == 0 ? 'active' : '' }}"></li>
-        @endfor
-    @endif
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="{{ $i }}" class="{{ $i == 0 ? 'active' : '' }}">
+            </li>
+            @endfor
+            @endif
     </ol>
     <div class="carousel-inner">
         @if(!empty($sliders))
@@ -23,7 +24,7 @@
                 <div class="h-90"></div>
                 <div class="row">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="{{ asset($slider->image) }}" alt="">
+                        <img class="img-fluid" src="{{ asset($slider->image) }}" alt="{{ $slider->name }}">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left align-self-center">
@@ -121,26 +122,25 @@
                     </a>
                     @endif
                     <div class="card-body">
-                        <div class="text-center h-30">
-                            @if($product->price == 0)
-                            <span class="lien-he-price">Liên hệ</span>
-                            @else
-                            <a href="{{ $product->slug }}" class="text-decoration-none text-danger">{{ number_format($product->price, 0, ',', '.') }}đ </a>
-                            @endif
-                        </div>
-                        <div class="text-dark hover-gr">
+                        <div class="text-dark">
                             <a href="{{ $product->slug }}" class="text-decoration-none btn-link">{{ $product->name }}</a>
                         </div>
-                        <ul class="list-unstyled d-flex justify-content-between total-review-home">
+                        <ul class="list-unstyled d-flex justify-content-between align-items-center total-review-home">
                             <li>
+                                @if($product->price == 0)
+                                <span class="lien-he-price">Liên hệ</span>
+                                @else
+                                <a href="{{ $product->slug }}" class="text-decoration-none text-danger">{{ number_format($product->price, 0, ',', '.') }}đ </a>
+                                @endif
+                            </li>
+                            <li class="text-muted text-right">
                                 <i class="text-warning fa fa-star"></i>
                                 <span>
-                                @if ($product->totalCmt > 0)
+                                    @if ($product->totalCmt > 0)
                                     {{ number_format($product->average_star, 1) }} ({{ $product->totalCmt }})
-                                @endif
+                                    @endif
                                 </span>
                             </li>
-                            <li class="text-muted text-right"><i class="fa-solid fa-heart icon-heart"></i></li>
                         </ul>
                     </div>
                 </div>
@@ -237,6 +237,7 @@
         justify-content: center;
         align-items: center;
     }
+
     .owl-carousel .owl-nav button.owl-prev:hover,
     .owl-carousel .owl-nav button.owl-next:hover {
         background-color: #76b900;
@@ -249,21 +250,28 @@
     .owl-carousel .owl-nav button.owl-next {
         right: -35px;
     }
+
     .owl-carousel .owl-stage-outer {
         padding-bottom: 20px;
     }
+
     .owl-theme .owl-nav {
         margin-top: 0px;
     }
-    .owl-theme .owl-dots .owl-dot.active span,.owl-theme .owl-dots .owl-dot:hover span {
+
+    .owl-theme .owl-dots .owl-dot.active span,
+    .owl-theme .owl-dots .owl-dot:hover span {
         background: #76b900;
     }
+
     @media (max-width: 768px) {
+
         .owl-carousel .owl-nav button.owl-prev,
         .owl-carousel .owl-nav button.owl-next {
             width: 24px;
             height: 24px;
         }
+
         .owl-carousel .owl-nav button.owl-prev {
             left: 0;
         }
@@ -271,8 +279,10 @@
         .owl-carousel .owl-nav button.owl-next {
             right: 0;
         }
+
         .owl-carousel .item {
-            padding: 0px; /* Khoảng cách giữa các item */
+            padding: 0px;
+            /* Khoảng cách giữa các item */
         }
     }
 </style>

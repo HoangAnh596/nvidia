@@ -14,13 +14,12 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
-        // $ids = Category::pluck('id')->toArray();
         return [
             'name' => $this->faker->name,
             'slug' => $this->faker->slug,
-            // 'parent_id' => empty($ids) ? null : $this->faker->optional(0.9, null)->randomElement($ids),
-            'parent_id' => random_int(0, 1),
-            'image' => $this->faker->image('storage/app/public/images/categories', 640, 480, null, false),
+            'parent_id' => random_int(0, 100),
+            'user_id' => random_int(0, 1),
+            'image' => 'storage/images/aaaa.jpg',
             'content' => $this->faker->text(20),
             'title_img' => $this->faker->name,
             'alt_img' => $this->faker->name,

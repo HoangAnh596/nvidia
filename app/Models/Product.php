@@ -27,6 +27,31 @@ class Product extends Model
         'subCategory' => 'array'
     ];
 
+    protected $appends = ['average_star', 'totalCmt'];
+
+    // Getter for average_star
+    public function getAverageStarAttribute()
+    {
+        // Tính trung bình sao từ bảng comments
+        $totalStarCount = Comment::where('product_id', $this->id)->sum('star');
+        $totalCommentsWithStar = Comment::where('product_id', $this->id)
+            ->whereNotNull('star')
+            ->where('star', '>', 0)
+            ->count();
+
+        return $totalCommentsWithStar > 0 ? $totalStarCount / $totalCommentsWithStar : 0;
+    }
+
+    // Getter for totalCmt
+    public function getTotalCmtAttribute()
+    {
+        // Lấy tổng số bản ghi comment có sao
+        return Comment::where('product_id', $this->id)
+            ->whereNotNull('star')
+            ->where('star', '>', 0)
+            ->count();
+    }
+
     public function getRelatedProducts()
     {
         if (!empty($this->related_pro)) {
