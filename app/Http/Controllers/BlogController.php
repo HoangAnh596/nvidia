@@ -34,11 +34,13 @@ class BlogController extends Controller
             ->where('is_public', 1)
             ->where('slug', '<>', 'blogs')->get();
 
-        $newAll = News::select('name', 'slug', 'desc', 'view_count', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')->latest()->paginate(10);
+        $newAll = News::select('name', 'slug', 'desc', 'view_count', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
+            ->with(['user:id,name,slug'])->latest()->paginate(10);
         // Nếu số trang hiện tại vượt quá số trang cuối cùng, điều chỉnh trang hiện tại về trang cuối cùng
         if ($newAll->currentPage() > $newAll->lastPage()) {
             // Lấy dữ liệu của trang cuối cùng
             $newAll = News::select('name', 'slug', 'desc', 'view_count', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
+                ->with(['user:id,name,slug'])
                 ->latest()
                 ->paginate(10, ['*'], 'page', $newAll->lastPage());
         }
@@ -75,6 +77,14 @@ class BlogController extends Controller
 
             $titleCate = CategoryNew::where('id', $newArt->cate_id)->first();
             $allParents = $titleCate->getAllParents();
+            // Lấy sản phẩm liên quan nếu có
+            $relatedPro = !empty($titleCate->related_pro) ? $titleCate->getRelatedPro() : null;
+            // Lấy ảnh chính cho từng sản phẩm
+            if(!empty($relatedPro)) {
+                $relatedPro->each(function ($productImg) {
+                    $productImg->main_image = $productImg->getMainImage(); // Thêm ảnh chính vào đối tượng sản phẩm
+                });
+            }
             // Comments 
             $commentsQuery = CmtNew::query(); // Khởi tạo query builder cho bảng comments
 
@@ -126,7 +136,7 @@ class BlogController extends Controller
             return view('cntt.home.blogs.detail', compact(
                 'titleSeo', 'keywordSeo', 'descriptionSeo',
                 'cateMenu', 'newArt', 'allParents',
-                'sameCate', 'titleCate',
+                'sameCate', 'titleCate', 'relatedPro',
                 'comments', 'totalCommentsCount', 'user'
             ));
         }
@@ -226,6 +236,89 @@ class BlogController extends Controller
             'titleSeo', 'keywordSeo', 'descriptionSeo',
             'cateMenu', 'titleCate', 'news',
             'viewer', 'outstand', 'allParents'
+        ));
+    }
+
+    public function author()
+    {
+        $users = User::select('id', 'name', 'slug', 'content', 'image', 'title_img', 'alt_img',
+            'facebook', 'twitter', 'instagram', 'skype', 'linkedin')
+            ->whereHas('roles')
+            ->with('roles')->latest()->paginate(10);
+
+        // Seo website
+        $titleSeo = 'Author at Nvidiavn';
+        $keywordSeo = 'Nvidiavn';
+        $descriptionSeo = 'Author at Nvidiavn';
+
+        // Nếu số trang hiện tại vượt quá số trang cuối cùng, điều chỉnh trang hiện tại về trang cuối cùng
+        if ($users->currentPage() > $users->lastPage()) {
+            // Lấy dữ liệu của trang cuối cùng
+            $user = User::select('id', 'name', 'slug', 'content', 'image', 'title_img', 'alt_img',
+            'facebook', 'twitter', 'instagram', 'skype', 'linkedin')
+                ->whereHas('roles')
+                ->with('roles')
+                ->latest()
+                ->paginate(10, ['*'], 'page', $users->lastPage());
+        }
+
+        $cateMenu = CategoryNew::select('name', 'slug')->orderBy('stt_new', 'ASC')
+            ->where('is_public', 1)
+            ->where('slug', '<>', 'blogs')->get();
+        $viewer = News::select('name', 'slug')
+            ->orderBy('view_count', 'DESC')
+            ->take(10)->get();
+
+        return view('cntt.home.blogs.author', compact(
+            'titleSeo', 'keywordSeo', 'descriptionSeo',
+            'cateMenu', 'viewer', 'users'
+        ));
+    }
+
+    public function inforAuthor($slug)
+    {
+        $user = User::select('id', 'name', 'slug', 'content', 'image', 'title_img', 'alt_img',
+            'facebook', 'twitter', 'instagram', 'skype', 'linkedin')
+            ->where('slug', $slug)->first();
+        if(empty($user)) {
+            abort(404, 'URL không hợp lệ');
+        }
+        // Seo website
+        $titleSeo = $user->name . ' - Author at Nvidiavn';
+        $keywordSeo = $user->name;
+        $descriptionSeo = $user->name . ' - ' . $user->alt_img;
+        
+        $cateMenu = CategoryNew::select('name', 'slug')->orderBy('stt_new', 'ASC')
+            ->where('is_public', 1)
+            ->where('slug', '<>', 'blogs')->get();
+
+        $newAll = News::select('name', 'slug', 'desc', 'view_count', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
+            ->with('user:id,name') // Eager load quan hệ user với các cột cần thiết
+            ->where('user_id', $user->id)
+            ->latest()->paginate(10);
+        // Nếu số trang hiện tại vượt quá số trang cuối cùng, điều chỉnh trang hiện tại về trang cuối cùng
+        if ($newAll->currentPage() > $newAll->lastPage()) {
+            // Lấy dữ liệu của trang cuối cùng
+            $newAll = News::select('name', 'slug', 'desc', 'view_count', 'image', 'alt_img', 'title_img', 'user_id', 'created_at')
+                ->with('user:id,name') // Eager load quan hệ user với các cột cần thiết
+                ->where('user_id', $user->id)
+                ->latest()
+                ->paginate(10, ['*'], 'page', $newAll->lastPage());
+        }
+
+        $viewer = News::select('name', 'slug')
+            ->where('user_id', $user->id)
+            ->orderBy('view_count', 'DESC')
+            ->take(10)->get();
+        $outstand = News::select('name', 'slug', 'image', 'alt_img', 'title_img')
+            ->where('user_id', $user->id)
+            ->where('is_outstand', 1)
+            ->orderBy('created_at', 'DESC')
+            ->take(10)->get();
+
+        return view('cntt.home.blogs.authorInfor', compact(
+            'titleSeo', 'keywordSeo', 'descriptionSeo',
+            'cateMenu', 'viewer', 'outstand', 'newAll', 'user'
         ));
     }
 }

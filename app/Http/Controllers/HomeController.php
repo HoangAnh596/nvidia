@@ -10,6 +10,7 @@ use App\Models\CompareProduct;
 use App\Models\Group;
 use App\Models\Infor;
 use App\Models\News;
+use App\Models\Partner;
 use App\Models\Product;
 use App\Models\Slider;
 use App\Services\CategoryNewSrc;
@@ -59,6 +60,10 @@ class HomeController extends Controller
             ->select('id', 'name', 'slug', 'image', 'title_img', 'alt_img', 'is_serve')
             ->orderBy('stt_cate', 'ASC')
             ->get();
+        // Đối tác
+        $partners = Partner::where('is_public', 1)
+            ->select('title', 'image', 'url', 'stt', 'is_tab')
+            ->orderBy('stt', 'ASC')->get();
 
         // Lấy danh mục có is_serve = 1 có stt_cate từ nhỏ tới lớn 
         $cate = $categories->where('is_serve', 1);
@@ -68,7 +73,7 @@ class HomeController extends Controller
             return view('cntt.home.index', compact(
                 'titleSeo', 'keywordSeo', 'descriptionSeo',
                 'categories', 'blogs', 'cateBlogs',
-                'sliders'));
+                'sliders', 'partners'));
         } else {
             $categoriesWithProducts = collect();
             foreach ($ids as $idCate) {
@@ -116,7 +121,7 @@ class HomeController extends Controller
             return view('cntt.home.index', compact(
                 'titleSeo', 'keywordSeo', 'descriptionSeo',
                 'categories', 'blogs', 'cateBlogs',
-                'categoriesWithProducts', 'sliders'
+                'categoriesWithProducts', 'sliders', 'partners'
             ));
         }
     }
@@ -150,7 +155,7 @@ class HomeController extends Controller
                 ->whereHas('category', function ($query) use ($categoryIds) {
                     $query->whereIn('category_id', $categoryIds);
                 })->orderBy('created_at', 'DESC')
-                ->take(10)->get();
+                ->take(8)->get();
 
             foreach ($prOutstand as $product) {
                     $product->loadProductImages();
@@ -195,13 +200,13 @@ class HomeController extends Controller
                 // Xử lý phân trang
                 $currentPage = $request->input('page', 1);
                 // Tính số trang tối đa dựa trên số lượng sản phẩm và số lượng sản phẩm mỗi trang
-                $lastPage = ceil($total / 10); // 10 là số sản phẩm mỗi trang, điều chỉnh nếu cần
+                $lastPage = ceil($total / 15);
                 
                 // Nếu số trang yêu cầu vượt quá số trang hiện có, đặt nó về trang cuối cùng
                 if ($currentPage > $lastPage) {
                     $currentPage = $lastPage;
                 }
-                $products = $products->orderBy('created_at', 'DESC')->paginate(10, ['*'], 'page', $currentPage);
+                $products = $products->orderBy('created_at', 'DESC')->paginate(15, ['*'], 'page', $currentPage);
                 foreach ($products as $product) {
                     // Lấy tổng số sao từ bảng comments
                     $totalStarCount = Comment::where('product_id', $product->id)->sum('star');
@@ -230,9 +235,6 @@ class HomeController extends Controller
 
                 // Gán URL đã xử lý vào phân trang
                 $products->withPath($currentUrl);
-
-                // Gán URL đã xử lý vào phân trang
-                $products->withPath($currentUrl);
                 
                 return view('cntt.home.category', compact(
                     'titleSeo', 'keywordSeo', 'descriptionSeo',
@@ -254,7 +256,7 @@ class HomeController extends Controller
                         $query->orWhereJsonContains('subCategory', (string)$categoryId);
                     }
                 });
-            })->orderBy('created_at', 'DESC')->paginate(10);
+            })->orderBy('created_at', 'DESC')->paginate(15);
 
             foreach ($products as $product) {
                 // Lấy tổng số sao từ bảng comments

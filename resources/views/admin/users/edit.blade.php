@@ -1,92 +1,139 @@
 @extends('layouts.app')
 @section('content')
-<div class="card shadow mb-4">
-    <div class="text-center">
-        <h1 class="h4 text-gray-900 mb-4">Chỉnh sửa tài khoản</h1>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-flex justify-content-between">
+        <h3 class="mb-2 text-gray-800">Chỉnh sửa thông tin tài khoản</h3>
+        <h6 aria-label="breadcrumb">
+            <ol class="breadcrumb bg-light">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Tài khoản</a></li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
+            </ol>
+        </h6>
     </div>
-    <form class="user" action="{{ route('users.update', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
-        @method('PUT')
-        @csrf
-        <div class="card-header d-flex justify-content-between">
-            <a href="{{ route('users.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
-            <div>
-                <button class="btn btn-primary btn-sm" id="submit" type="submitCateNew"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
-                <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
-            </div>
-        </div>
-        <div class="text-dark card-body border-top">
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="">Tên tài khoản <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                        <input type="text" name="name" class="form-control" id="exampleFirstName" value="{{ old('name', $user->name ?? '') }}">
-                        <span id="name-error" style="color: red;"></span>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="">Email tài khoản <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                        <input type="text" name="email" class="form-control" id="exampleInputEmail" value="{{ old('email', $user->email ?? '') }}">
-                        <span id="email-error" style="color: red;"></span>
-                    </div>
+    <!-- DataTales Example -->
+    <div class="card shadow">
+        <form class="user" action="{{ route('users.update', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
+            @method('PUT')
+            @csrf
+            @if (!empty($user))
+            <input type="hidden" name="id" value="{{ $user->id }}">
+            @endif
+            <div class="card-header d-flex justify-content-between">
+                <a href="{{ route('users.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
+                <div>
+                    <button class="btn btn-primary btn-sm" id="submit" type="submitCateNew"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="">Vai trò <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                        <select name="role_id[]" class="form-control select2_init" multiple>
-                            <option value=""></option>
-                            @foreach($roles as $role)
-                            <option {{ $user->roles->contains('id', $role->id) ? 'selected' : ''}} value="{{ $role->id }}">{{ $role->name }}</option>
-                            @endforeach
-                        </select>
+            <div class="text-dark card-body border-top">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#info-tab" type="button" role="tab">
+                            <i class="fa-solid fa-user"></i>
+                            Thông tin tài khoản
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#wallet-tab" type="button" role="tab">
+                            <i class="fa-solid fa-square-share-nodes"></i>
+                            Cấu hình mạng xã hội
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#password-tab" type="button" role="tab">
+                            <i class="fa-solid fa-lock"></i>
+                            Cấu hình đăng nhập
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="info-tab" role="tabpanel">
+                        @include("admin.users.shared.edit-config")
                     </div>
-                </div>
-                <div class="col-6">
-                    <label for="">Hình ảnh</label>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="input-group">
-                                <input id="thumbnail" class="form-control" type="hidden" name="filepath">
-                                <span class="input-group-btn">
-                                    <button id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-outline-dark hiddenButton">
-                                        <i class="fa fa-picture-o"></i> Chọn ảnh từ thư viện
-                                    </button>
-                                </span>
-                            </div>
-                            <div id="holder"><img id="out_img" src="{{ \App\Http\Helpers\Helper::getPath($user->image) }}"></div>
-                        </div>
-                        <div class="col-6 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 800 x 800 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
+                    <div class="tab-pane fade" id="wallet-tab" role="tabpanel">
+                        @include("admin.users.shared.edit-social")
+                    </div>
+                    <div class="tab-pane fade" id="password-tab" role="tabpanel">
+                        @include("admin.users.shared.edit-pass")
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="">Mật khẩu <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                        <input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="Password">
-                        <span id="name-error" style="color: red;"></span>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="">Lặp lại mật khẩu <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                        <input type="password" name="password_confirmation" class="form-control" id="exampleRepeatPassword" placeholder="Repeat Password">
-                        <span id="email-error" style="color: red;"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 @endsection
 
 @section('js')
+<script src="{{ asset('cntt/js/slug.js') }}"></script>
 <script>
     $('.select2_init').select2({
         placeholder: 'Chọn vai trò',
         allowClear: true,
+    });
+
+    let timeout = null;
+    let updateSlug = true;
+
+    function validateSlug(slug) {
+        // Biểu thức chính quy để kiểm tra định dạng của slug
+        const regex = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+        return regex.test(slug);
+    }
+
+    function checkDuplicate() {
+        clearTimeout(timeout);
+        timeout = setTimeout(async function() {
+            if (updateSlug) {
+                await createSlug();
+            }
+
+            const name = document.getElementById('name').value;
+            const slug = document.getElementById('slug').value;
+
+            // Xóa thông báo lỗi trước đó
+            document.getElementById('name-error').innerText = "";
+            document.getElementById('slug-error').innerText = "";
+            // Chỉ kiểm tra nếu slug không rỗng
+            if (updateSlug && name.trim() !== "") {
+                await createSlug();
+            }
+            // Kiểm tra định dạng slug
+            if (slug.trim() === "") {
+                document.getElementById('slug-error').innerText = 'Url không được để trống';
+            } else if (!validateSlug(slug)) {
+                document.getElementById('slug-error').innerText = 'Url không hợp lệ. Chỉ chấp nhận chữ cái thường, số và dấu gạch ngang.';
+            } else {
+                // Nếu slug hợp lệ, kiểm tra trùng lặp
+                await $.ajax({
+                    url: "{{ route('users.checkName') }}",
+                    type: 'POST',
+                    data: {
+                        name: name,
+                        slug: slug,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(data) {
+                        if (data.slug_exists) {
+                            document.getElementById('slug-error').innerText = 'Url đã tồn tại';
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+            }
+        }, 1000);
+    }
+    // Đặt updateSlug là true khi tên thay đổi
+    document.getElementById('name').addEventListener('input', function() {
+        updateSlug = true;
+        checkDuplicate();
+    });
+
+    // Đặt updateSlug là false khi slug thay đổi
+    document.getElementById('slug').addEventListener('input', function() {
+        updateSlug = false;
+        checkDuplicate();
     });
 </script>
 @endsection

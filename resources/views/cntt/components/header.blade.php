@@ -13,7 +13,7 @@
                     <i class="fa-solid fa-bars"></i>
                 </span>
             </button>
-            <a class="navbar-brand" href="/" title="Artificial Intelligence Computing Leadership from NVIDIA" alt="Artificial Intelligence Computing Leadership from NVIDIA" aria-labelledby="nvidia_logo_desktop"> <svg enable-background="new 0 0 974.7 179.7" version="1.1" viewBox="0 0 974.7 179.7" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" width="110" height="44">
+            <a class="navbar-brand" href="{{ asset('/') }}" title="Artificial Intelligence Computing Leadership from NVIDIA" alt="Artificial Intelligence Computing Leadership from NVIDIA" aria-labelledby="nvidia_logo_desktop"> <svg enable-background="new 0 0 974.7 179.7" version="1.1" viewBox="0 0 974.7 179.7" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" width="110" height="44">
                     <title>Artificial Intelligence Computing Leadership from NVIDIA</title>
                     <path d="m962.1 144.1v-2.7h1.7c0.9 0 2.2 0.1 2.2 1.2s-0.7 1.5-1.8 1.5h-2.1m0 1.9h1.2l2.7 4.7h2.9l-3-4.9c1.5 0.1 2.7-1 2.8-2.5v-0.4c0-2.6-1.8-3.4-4.8-3.4h-4.3v11.2h2.5v-4.7m12.6-0.9c0-6.6-5.1-10.4-10.8-10.4s-10.8 3.8-10.8 10.4 5.1 10.4 10.8 10.4 10.8-3.8 10.8-10.4m-3.2 0c0.2 4.2-3.1 7.8-7.3 8h-0.3c-4.4 0.2-8.1-3.3-8.3-7.7s3.3-8.1 7.7-8.3 8.1 3.3 8.3 7.7c-0.1 0.1-0.1 0.2-0.1 0.3z"></path>
                     <path d="m578.2 34v118h33.3v-118h-33.3zm-262-0.2v118.1h33.6v-91.7l26.2 0.1c8.6 0 14.6 2.1 18.7 6.5 5.3 5.6 7.4 14.7 7.4 31.2v53.9h32.6v-65.2c0-46.6-29.7-52.9-58.7-52.9h-59.8zm315.7 0.2v118h54c28.8 0 38.2-4.8 48.3-15.5 7.2-7.5 11.8-24.1 11.8-42.2 0-16.6-3.9-31.4-10.8-40.6-12.2-16.5-30-19.7-56.6-19.7h-46.7zm33 25.6h14.3c20.8 0 34.2 9.3 34.2 33.5s-13.4 33.6-34.2 33.6h-14.3v-67.1zm-134.7-25.6l-27.8 93.5-26.6-93.5h-36l38 118h48l38.4-118h-34zm231.4 118h33.3v-118h-33.3v118zm93.4-118l-46.5 117.9h32.8l7.4-20.9h55l7 20.8h35.7l-46.9-117.8h-44.5zm21.6 21.5l20.2 55.2h-41l20.8-55.2z"></path>
@@ -74,7 +74,7 @@
     <!-- Begin navbar web -->
     <nav class="navbar navbar-expand-lg navbar-light global-nav fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="/" title="Artificial Intelligence Computing Leadership from NVIDIA" alt="Artificial Intelligence Computing Leadership from NVIDIA" aria-labelledby="nvidia_logo_desktop"> <svg enable-background="new 0 0 974.7 179.7" version="1.1" viewBox="0 0 974.7 179.7" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" width="110" height="44">
+            <a class="navbar-brand" href="{{ asset('/') }}" title="Artificial Intelligence Computing Leadership from NVIDIA" alt="Artificial Intelligence Computing Leadership from NVIDIA" aria-labelledby="nvidia_logo_desktop"> <svg enable-background="new 0 0 974.7 179.7" version="1.1" viewBox="0 0 974.7 179.7" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" width="110" height="44">
                     <title>Artificial Intelligence Computing Leadership from NVIDIA</title>
                     <path d="m962.1 144.1v-2.7h1.7c0.9 0 2.2 0.1 2.2 1.2s-0.7 1.5-1.8 1.5h-2.1m0 1.9h1.2l2.7 4.7h2.9l-3-4.9c1.5 0.1 2.7-1 2.8-2.5v-0.4c0-2.6-1.8-3.4-4.8-3.4h-4.3v11.2h2.5v-4.7m12.6-0.9c0-6.6-5.1-10.4-10.8-10.4s-10.8 3.8-10.8 10.4 5.1 10.4 10.8 10.4 10.8-3.8 10.8-10.4m-3.2 0c0.2 4.2-3.1 7.8-7.3 8h-0.3c-4.4 0.2-8.1-3.3-8.3-7.7s3.3-8.1 7.7-8.3 8.1 3.3 8.3 7.7c-0.1 0.1-0.1 0.2-0.1 0.3z"></path>
                     <path d="m578.2 34v118h33.3v-118h-33.3zm-262-0.2v118.1h33.6v-91.7l26.2 0.1c8.6 0 14.6 2.1 18.7 6.5 5.3 5.6 7.4 14.7 7.4 31.2v53.9h32.6v-65.2c0-46.6-29.7-52.9-58.7-52.9h-59.8zm315.7 0.2v118h54c28.8 0 38.2-4.8 48.3-15.5 7.2-7.5 11.8-24.1 11.8-42.2 0-16.6-3.9-31.4-10.8-40.6-12.2-16.5-30-19.7-56.6-19.7h-46.7zm33 25.6h14.3c20.8 0 34.2 9.3 34.2 33.5s-13.4 33.6-34.2 33.6h-14.3v-67.1zm-134.7-25.6l-27.8 93.5-26.6-93.5h-36l38 118h48l38.4-118h-34zm231.4 118h33.3v-118h-33.3v118zm93.4-118l-46.5 117.9h32.8l7.4-20.9h55l7 20.8h35.7l-46.9-117.8h-44.5zm21.6 21.5l20.2 55.2h-41l20.8-55.2z"></path>
@@ -143,7 +143,7 @@
                 <form method="GET" action="{{ route('home.search') }}" class="modal-content modal-body border-0 p-0">
                     <div class="input-group">
                         <div class="form-group">
-                            <select name="cate" class="form-control">
+                            <select name="cate" class="form-control border">
                                 <option value="prod">Tất cả sản phẩm</option>
                                 <option value="news">Tất cả bài viết</option>
                                 @if(isset($searchCate))

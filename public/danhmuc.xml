@@ -76,19 +76,19 @@
 	<url>
 	<loc>http://localhost:8000/geforce-now-cloud</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-19T09:01:24+07:00</lastmod>
+		<lastmod>2024-10-16T13:53:24+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/rtx-ai-pcs</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-19T08:55:51+07:00</lastmod>
+		<lastmod>2024-10-16T13:53:03+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/dien-thoai-thong-minh</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-19T09:00:14+07:00</lastmod>
+		<lastmod>2024-10-16T13:53:04+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>

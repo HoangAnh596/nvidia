@@ -70,6 +70,7 @@ class AppServiceProvider extends ServiceProvider
             // Lấy danh mục con trực tiếp của các danh mục cha
             $children = CateFooter::whereIn('parent_menu', $parents->pluck('id'))
                 ->select('id', 'name', 'url', 'is_tab', 'parent_menu')
+                ->where('is_public', 1)
                 ->orderBy('stt_menu', 'ASC')
                 ->get();
 

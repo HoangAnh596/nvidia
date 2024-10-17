@@ -13,9 +13,9 @@
                         </div>
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="Tên tài khoản" name="name" value="{{ old('name') }}">         
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Địa chỉ email" name="email" value="{{ old('email') }}" >
                             </div>

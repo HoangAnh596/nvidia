@@ -131,7 +131,7 @@ $totalComments = $commentGlobal->count() + $cmtNewGlobal->count();
         <li class="nav-item">
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseMenus" aria-expanded="true" aria-controls="collapseMenus">
                 <i class="fa-solid fa-bars"></i>
-                <span>QL Menu, Slider, Footer</span>
+                <span>Quản lý chung</span>
             </a>
             <div id="collapseMenus" class="collapse" aria-labelledby="headingMenus" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -147,6 +147,8 @@ $totalComments = $commentGlobal->count() + $cmtNewGlobal->count();
                     @can('footer-add')
                     <a class="collapse-item" href="{{ route('cateFooter.create') }}">Thêm mới Footer</a>
                     @endcan
+                    <a class="collapse-item" href="{{ route('partners.index') }}">Danh sách đối tác</a>
+                    <a class="collapse-item" href="{{ route('partners.create') }}">Thêm mới đối tác</a>
                 </div>
             </div>
         </li>
@@ -285,7 +287,7 @@ $totalComments = $commentGlobal->count() + $cmtNewGlobal->count();
                         </a>
                         <!-- Dropdown - Thông tin báo giá -->
                         @if($quoteGlobal->count())
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="quotesDropdown">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in scroll-noti" aria-labelledby="quotesDropdown">
                             <h5 class="dropdown-item">Chưa báo giá</h5>
                             <div class="dropdown-divider"></div>
                             @foreach($quoteGlobal as $quote)
@@ -327,12 +329,14 @@ $totalComments = $commentGlobal->count() + $cmtNewGlobal->count();
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="">
+                            <a class="dropdown-item" href="{{ route('users.edit', ['id' => Auth::id()]) }}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Thông tin tài khoản
                             </a>
-                            <a class="dropdown-item" href="{{ route('users.edit', ['id' => Auth::id()]) }}">
+                            @can('setting-edit')
+                            <a class="dropdown-item" href="{{ route('setting.edit', ['id' => 1]) }}">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Cài đặt
                             </a>
+                            @endcan
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> Nhật ký hoạt động
                             </a>

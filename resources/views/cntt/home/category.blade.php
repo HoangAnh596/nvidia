@@ -283,7 +283,7 @@
 <style>
     .new-prod {
         position: sticky;
-        top: 116px;
+        top: 55px;
         left: 0;
         width: 100%;
         z-index: 999;

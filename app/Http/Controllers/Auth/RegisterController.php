@@ -55,13 +55,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'min:3', 'max:150'],
+            // 'name' => ['required', 'string', 'min:3', 'max:150'],
             'email' => ['required', 'string', 'email', 'max:150', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ], [
-            'name.required' => 'Họ tên không được để trống.',
-            'name.min' => 'Họ tên ít nhất 3 ký tự.',
-            'name.max' => 'Họ tên không được vượt quá 150 ký tự.',
+            // 'name.required' => 'Họ tên không được để trống.',
+            // 'name.min' => 'Họ tên ít nhất 3 ký tự.',
+            // 'name.max' => 'Họ tên không được vượt quá 150 ký tự.',
             'email.required' => 'Email không được để trống.',
             'email.max' => 'Email không được vượt quá 150 ký tự.',
             'email.unique' => 'Email đã tồn tại.',
@@ -80,7 +80,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user = User::create([
-            'name' => $data['name'],
+            // 'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

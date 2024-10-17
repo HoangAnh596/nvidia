@@ -296,6 +296,14 @@ hr {
     margin-right: 4rem;
     margin-top: 0;
 }
+
+.modal-search .border {
+    border-top-left-radius: .25rem;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: 0;
+}
+
 .modal-backdrop {
     top: 44px;
 }
@@ -433,7 +441,7 @@ hr {
 
 /* --------------------Begin Css Danh mục sản phẩm------------------------ */
 .hp-category {
-    margin: 1rem 0;
+    margin: 1.5rem 0;
     background-color: #eee;
     border-radius: 5px;
 }
@@ -444,13 +452,14 @@ hr {
 .hp-category a:hover {
     color: #76b900;
 }
-.filter-cate h1, .show-prod-cate h2{
-    font-size: 1.5rem;
+.filter-cate h1, .show-prod-cate h2, .text-cate h2{
+    font-size: 22px;
     font-weight: 700;
+    margin-bottom: 0;
 }
 /* Bộ lọc */
 .filter h1{
-    font-size: 1.5rem;
+    font-size: 22px;
     font-weight: 700;
     margin: 0;
 }
@@ -695,19 +704,22 @@ button:focus {
     margin: 0;
 }
 .btn-img {
-    padding: 5.5px;
+    padding: 10px;
 }
 .custom-row {
     margin: 0 -4px;
 }
 .row.custom-row .col-w-5 {
-    padding-left: 4px;
-    padding-right: 4px;
-  }
+    padding-left: 6px;
+    padding-right: 6px;
+}
 .row.custom-row .col-s-3 {
-    padding-left: 4px;
-    padding-right: 4px;
-  }
+    padding-left: 6px;
+    padding-right: 6px;
+}
+.mb-custom {
+    margin-top: 12px;
+}
 .img-size {
     width: auto; /* or a relative size like 100% */
     height: auto;
@@ -718,8 +730,7 @@ button:focus {
     margin-bottom: 0;
 }
 .btn-img-new {
-    padding: 6px;
-    /* height: 200px; */
+    padding: 10px;
 }
 .btn-img-new img {
     border-top-left-radius: 10px;
@@ -729,7 +740,7 @@ button:focus {
     overflow: hidden;
     transition: scale .5s ease;
 }
-.card-new:hover {
+.btn-img-new img:hover, .btn-img img:hover {
     scale: 1.05;
     transition: scale .5s ease;
 }
@@ -783,6 +794,7 @@ button:focus {
 } */
 .infor-outs {
     margin-top: .25rem;
+    margin-bottom: 0;
 }
 .text-outstand .r-2 {
     margin-right: -12px;
@@ -2109,6 +2121,95 @@ aside.hasprod-mb-pr {
 }
 /* End Compare Products  */
 
+/* Begin Service */
+.service-section {
+    background-color: #f4faff;
+    padding: 20px 0;
+}
+.service-section h2 {
+    font-size: 26px;
+    padding-bottom: 10px;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+.section-title {
+    margin-bottom: 20px;
+}
+.section-title.text-center .decor {
+    margin: 0 auto;
+}
+.section-title .decor {
+    position: relative;
+    display: block;
+    height: 2px;
+    width: 200px;
+}
+.section-title .decor:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #76b900;
+}
+.service-item .icon_box {
+    width: 60px;
+    float: left;
+    padding: 10px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+.service-item .inner-box p.why_us {
+    text-transform: uppercase;
+    color: #272727;
+    font-weight: 600 !important;
+    margin-top: 0.5rem;
+    margin-bottom: .5rem;
+}
+.service-item .inner-box .text {
+    color: #696969;
+}
+/* End Service */
+
+/* Begin Partner */
+.partner-section {
+    padding: 20px 0;
+}
+.partner-section h2 {
+    font-size: 26px;
+    padding-bottom: 10px;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+.section-title {
+    margin-bottom: 20px;
+}
+.section-title.text-center .decor {
+    margin: 0 auto;
+}
+.section-title .decor {
+    position: relative;
+    display: block;
+    height: 2px;
+    width: 200px;
+}
+.section-title .decor:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #76b900;
+}
+.partner-autoplay img {
+    border: 1px solid #dedede;
+    border-radius: 7px;
+}
+
+/* End Partner */
+
 /* -------------------Begin Responsive ------------------- */
 @media (min-width: 1400px) {
     /* .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
@@ -2142,6 +2243,9 @@ aside.hasprod-mb-pr {
     .col-s-3 {
         flex: 0 0 auto;
         width: 25%;
+    }
+    .partner-autoplay img {
+        padding: 6px;
     }
 }
 
@@ -2231,6 +2335,10 @@ aside.hasprod-mb-pr {
     .subscribe-container .center-content {
         display: flex;
         justify-content: center;
+    }
+    .service-section .sm-6 {
+        flex: 0 0 auto;
+        width: 50%;
     }
 }
 @media screen and (min-width: 992px) and (max-width: 1200px) {

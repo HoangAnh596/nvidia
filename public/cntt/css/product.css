@@ -58,7 +58,9 @@ button.pop-gallery {
     top: 0;
     padding-top: 24px;
 }
-
+.pop-gallery img {
+    border-radius: 3px;
+}
 
 /* Modal */
 #imageModal .modal {
@@ -488,8 +490,7 @@ button.pop-gallery {
 
   .swiper-slide img {
     display: block;
-    /* width: 100%;
-    height: 100%; */
+    border-radius: 7px;
     object-fit: cover;
     cursor: pointer;
   }

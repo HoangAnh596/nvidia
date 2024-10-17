@@ -66,6 +66,9 @@ class CategoryFormRequest extends FormRequest
             'filepath' => 'required',
             'stt_cate' => (!empty($params['stt_cate'])) ? 'integer|min:0' : '',
             'slug' => $slugRule,
+            'title_seo' => 'required',
+            'keyword_seo' => 'required',
+            'des_seo' => 'required',
         ];
     }
 
@@ -85,6 +88,9 @@ class CategoryFormRequest extends FormRequest
             'slug.unique' => 'URL đã tồn tại. Vui lòng thay đổi url khác.',
             'slug.regex' => 'Url chỉ được phép chứa chữ cái thường, số và dấu gạch ngang.',
             'slug.in' => 'Không được thay đổi slug',
+            'title_seo.required' => 'Tiêu đề trang không được bỏ trống.',
+            'keyword_seo.required' => 'Thẻ từ khóa không được bỏ trống.',
+            'des_seo.required' => 'Thẻ mô tả không được bỏ trống.',
         ];
     }
 }

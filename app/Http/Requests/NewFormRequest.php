@@ -68,6 +68,9 @@ class NewFormRequest extends FormRequest
             'desc' => 'required',
             'stt_new' => (!empty($params['stt_new'])) ? 'integer|min:0' : '',
             'content'=>'required',
+            'title_seo' => 'required',
+            'keyword_seo' => 'required',
+            'des_seo' => 'required',
         ];
     }
     // validate
@@ -85,6 +88,9 @@ class NewFormRequest extends FormRequest
             'slug.in' => 'Không được thay đổi slug',
             'cate_id.required' => 'Danh mục bài viết không được để trống',
             'desc.required' => 'Mô tả ngắn không được để trống',
+            'title_seo.required' => 'Tiêu đề trang không được bỏ trống.',
+            'keyword_seo.required' => 'Thẻ từ khóa không được bỏ trống.',
+            'des_seo.required' => 'Thẻ mô tả không được bỏ trống.',
         ];
     }
 }

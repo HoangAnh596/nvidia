@@ -21,6 +21,9 @@
         <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_public" {{ ($category->is_public == 1) ? 'checked' : '' }}>
     </td>
     <td class="text-center">
+        <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_tab" {{ ($category->is_tab == 1) ? 'checked' : '' }}>
+    </td>
+    <td class="text-center">
         <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_click" {{ ($category->is_click == 1) ? 'checked' : '' }}>
     </td>
     <td class="action">

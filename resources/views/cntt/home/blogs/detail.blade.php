@@ -9,7 +9,7 @@
         <nav style="--bs-breadcrumb-divider: '»';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-                <li class="breadcrumb-item"><a href="/blogs">Blogs</a></li>
+                <li class="breadcrumb-item"><a href="{{ asset('/blogs') }}">Blogs</a></li>
                 @foreach ($allParents as $parent)
                 <li class="breadcrumb-item"><a href="{{ asset('/blogs/' . $parent->slug) }}">{{ $parent->name }}</a></li>
                 @endforeach
@@ -21,7 +21,7 @@
 </div>
 <section id="news-list">
     <div class="container">
-        <div class="row mt-4 mb-4">
+        <div class="row mt-3 mb-3">
             <div class="col-lg-8">
                 <div class="news-body">
                     <h1>{{ $newArt->name }}</h1>
@@ -139,24 +139,25 @@
             </div>
             <div class="col-lg-4">
                 <!--  -->
-                <div class="head-blog mb-4">
+                <div class="head-blog bgeee mb-3">
                     <span>Chuyên mục chính</span>
                 </div>
                 <ul class="news_cate_hot">
                     @foreach($cateMenu as $val)
                     <li>
-                        <a href="{{ asset('blogs/'.$val->slug) }}">✓ {{ $val->name }}</a>
+                        <a href="{{ asset('blogs/'.$val->slug) }}"><span style="font-weight: bold;">✓</span> {{ $val->name }}</a>
                     </li>
                     @endforeach
                 </ul>
-                <!--  -->
-                <div class="head-blog mb-4">
+                @if(!$sameCate->isEmpty())
+                <!-- Bài viết cùng danh mục -->
+                <div class="head-blog bgeee mb-3">
                     <span>Bài viết cùng danh mục</span>
                 </div>
                 <div class="hot-news">
                     @foreach($sameCate as $val)
                     <div class="media">
-                        <div class="media-left">
+                        <div class="media-left img-border">
                             <a href="{{ asset('blogs/'.$val->slug) }}">
                                 <img class="lazyload" src="{{ asset($val->image) }}" data-src="{{ asset($val->image) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
                             </a>
@@ -167,6 +168,35 @@
                     </div>
                     @endforeach
                 </div>
+                @endif
+                <!-- Sản phẩm liên quan -->
+                @if(!empty($relatedPro))
+                <div class="head-blog bgeee mb-3">
+                    <span>Sản phẩm liên quan</span>
+                </div>
+                <div class="related-products">
+                    @foreach($relatedPro as $value)
+                    <div class="media-products">
+                        <div class="media-left img-border">
+                            <a href="{{ asset('/'.$value->slug) }}">
+                                @if($value->main_image)
+                                <img class="thumb ls-is-cached lazyloaded" data-src="{{ asset($value->main_image->image) }}"
+                                    alt="{{ $value->main_image->alt }}" title="{{ $value->main_image->title }}" src="{{ asset($value->main_image->image) }}">
+                                @else
+                                <img class="thumb ls-is-cached lazyloaded"
+                                    data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" alt="Image Coming Soon" title="Image Coming Soon"
+                                    src="{{ asset('storage/images/image-coming-soon.jpg') }}">
+                                @endif
+                            </a>
+                        </div>
+                        <div class="media-right">
+                            <a href="{{ asset('/'.$value->slug) }}">{{ $value->name }}</a>
+                            <span class="new-price">Liên hệ</span>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                @endif
             </div>
         </div>
     </div>

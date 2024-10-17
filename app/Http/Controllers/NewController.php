@@ -23,7 +23,8 @@ class NewController extends Controller
         $keyword = $request->keyword;
         $categoryId = $request->cateNew;
 
-        $newsQuery = News::where('name', 'like', "%" . Helper::escape_like($keyword) . "%");
+        $newsQuery = News::where('name', 'like', "%" . $keyword . "%")
+            ->orWhere('slug', 'like', "%" . $keyword . "%");
         // Nếu có danh mục được chọn, thêm điều kiện lọc theo danh mục
         if ($categoryId) {
             $newsQuery->where('cate_id', $categoryId);

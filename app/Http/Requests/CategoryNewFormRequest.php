@@ -76,6 +76,9 @@ class CategoryNewFormRequest extends FormRequest
             'stt_new' => (!empty($params['stt_new'])) ? 'integer|min:0' : '',
             'related_pro' => 'nullable|array',
             'related_pro.*' => 'integer',
+            'title_seo' => 'required',
+            'keyword_seo' => 'required',
+            'des_seo' => 'required',
         ];
     }
 
@@ -95,6 +98,9 @@ class CategoryNewFormRequest extends FormRequest
             // 'content.required' => 'Mô tả không được để trống',
             'stt_new.integer' => 'Số thứ tự phải là số nguyên.',
             'stt_new.min' => 'Số thứ tự phải lớn 0',
+            'title_seo.required' => 'Tiêu đề trang không được bỏ trống.',
+            'keyword_seo.required' => 'Thẻ từ khóa không được bỏ trống.',
+            'des_seo.required' => 'Thẻ mô tả không được bỏ trống.',
         ];
     }
 }

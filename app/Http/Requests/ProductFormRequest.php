@@ -78,6 +78,9 @@ class ProductFormRequest extends FormRequest
             ],
             'related_pro' => 'nullable|array',
             'related_pro.*' => 'integer',
+            'title_seo' => 'required',
+            'keyword_seo' => 'required',
+            'des_seo' => 'required',
         ];
     }
     /**
@@ -98,6 +101,9 @@ class ProductFormRequest extends FormRequest
             'slug.unique' => 'URL đã tồn tại. Vui lòng thay đổi url khác.',
             'slug.regex' => 'Url chỉ được phép chứa chữ cái thường, số và dấu gạch ngang.',
             'slug.in' => 'Không được thay đổi slug',
+            'title_seo.required' => 'Tiêu đề trang không được bỏ trống.',
+            'keyword_seo.required' => 'Thẻ từ khóa không được bỏ trống.',
+            'des_seo.required' => 'Thẻ mô tả không được bỏ trống.',
         ];
     }
 }

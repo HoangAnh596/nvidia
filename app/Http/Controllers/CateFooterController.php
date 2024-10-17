@@ -126,7 +126,7 @@ class CateFooterController extends Controller
             $field = $request->field;
             $value = $request->value;
             // Kiểm tra xem trường có tồn tại trong bảng user không
-            if (in_array($field, ['is_public', 'is_click'])) {
+            if (in_array($field, ['is_public', 'is_tab', 'is_click'])) {
                 $category->$field = $value;
 
                 $category->save();

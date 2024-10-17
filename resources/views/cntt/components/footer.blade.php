@@ -7,7 +7,7 @@
                 <div class="page-footer">{{ $val->name }}</div>
                 <ul class="list-unstyled footer-link">
                     @foreach ($val->children as $child)
-                    <li><a class="text-decoration-none ft-link" href="{{ $child->url }}" target="@if($child->is_tab == 1) _blank @endif">{{ $child->name }}</a></li>
+                    <li><a class="text-decoration-none ft-link" href="{{ asset($child->url) }}" target="@if($child->is_tab == 1) _blank @endif">{{ $child->name }}</a></li>
                     @endforeach
                 </ul>
             </div>

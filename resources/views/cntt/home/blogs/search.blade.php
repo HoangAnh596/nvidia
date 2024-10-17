@@ -13,9 +13,9 @@
 </div>
 <div class="container">
     <div class="row">
-    <h2 class="text-center search-h2 mt-4">Tìm thấy <strong>{{ $total }}</strong> bài viết cho từ khoá <strong>@if(!empty($nameCate)) {{$nameCate}}</strong>@else <strong>Bài viết</strong> @endif @if(!empty($keyword)) -- <strong>{{ $keyword }}</strong> @else -- <strong>tất cả</strong> @endif</h2>
+    <h2 class="text-center search-h2 mt-3">Tìm thấy <strong>{{ $total }}</strong> bài viết cho từ khoá <strong>@if(!empty($nameCate)) {{$nameCate}}</strong>@else <strong>Bài viết</strong> @endif @if(!empty($keyword)) -- <strong>{{ $keyword }}</strong> @else -- <strong>tất cả</strong> @endif</h2>
     </div>
-    <div class="row mt-4 res-w100 custom-row" id="product-data">
+    <div class="row mt-3 res-w100 custom-row" id="product-data">
         @include('cntt.home.blogs.partials.search', ['news' => $news])
     </div>
     <nav class="d-flex justify-content-center">

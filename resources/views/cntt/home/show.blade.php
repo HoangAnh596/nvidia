@@ -69,14 +69,14 @@
                         <div class="col-viewmore-item">
                             <i class="fa-solid fa-comments"></i>
                             <div class="title-spec">
-                                <a href="#comment-box">
+                                <a href="#comment-box" class="scrollToRateBox">
                                    @if($totalCommentsCount != 0) Có {{ $totalCommentsCount }} @else Thêm @endif bình luận. </a>
                             </div>
                         </div>
                         <div class="col-viewmore-item">
                             <i class="fa-solid fa-star"></i>
                             <div class="title-spec">
-                                <a href="#comment-box">
+                                <a href="#comment-box" class="scrollToRateBox">
                                 @if($totalStarCount != 0) Có {{ $totalStarCount }} @else Thêm @endif đánh giá. </a>
                             </div>
                         </div>
@@ -574,6 +574,28 @@
                 document.getElementById('price-error').classList.remove('hide');
                 submitButton.disabled = false; // Kích hoạt lại nút submit nếu xảy ra lỗi
             });
+    });
+
+    // Xử lý khi nhấn vào thẻ a
+    document.querySelectorAll('.scrollToRateBox').forEach(function(element) {
+        element.addEventListener('click', function(e) {
+            e.preventDefault(); // Ngăn hành vi mặc định của thẻ a
+
+            // Cuộn đến #rate-box với một khoảng offset
+            var rateBox = document.getElementById('rate-box');
+            if (rateBox) {
+                var offset = -55; // Điều chỉnh khoảng lệch để đảm bảo hiển thị tốt
+                var rateBoxPosition = rateBox.getBoundingClientRect().top + window.pageYOffset + offset;
+
+                // Cuộn đến vị trí đã điều chỉnh
+                window.scrollTo({
+                    top: rateBoxPosition,
+                    behavior: 'smooth'
+                });
+                setTimeout(function() {
+                }, 500); // Thời gian đợi có thể điều chỉnh
+            }
+        });
     });
 
     // Chức năng comments

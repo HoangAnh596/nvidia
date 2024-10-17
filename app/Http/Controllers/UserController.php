@@ -82,8 +82,17 @@ class UserController extends Controller
             $user = User::create([
                 'email' => $request->email,
                 'name' => $request->name,
+                'slug' => $request->slug,
                 'password' => Hash::make($request->password),
-                'image' => $path
+                'image' => $path,
+                'content' => $request->content,
+                'title_img' => $request->title_img ?? $request->name,
+                'alt_img' => $request->alt_img ?? $request->name,
+                'facebook' => $request->facebook,
+                'twitter' => $request->twitter,
+                'instagram' => $request->instagram,
+                'skype' => $request->skype,
+                'linkedin' => $request->linkedin
             ]);
 
             $user->save();
@@ -123,22 +132,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserFormRequest $request, $id)
     {
         try {
             // Bengin transaction
             DB::beginTransaction();
 
             $user = User::findOrFail($id);
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-                'password' => 'nullable|string|min:8|confirmed',
-            ], [
-                'name.required' => 'Tên tài khoản không được để trống.',
-            ]);
 
-            $data = $request->only(['name', 'email', 'filepath']);
+            $data = $request->only(['name', 'slug', 'email', 'filepath',
+                'content', 'title_img', 'alt_img',
+                'facebook', 'twitter', 'instagram',
+                'skype', 'linkedin'
+            ]);
             if ($request->filled('password')) {
                 $data['password'] = Hash::make($request->password);
             }
@@ -181,5 +187,18 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->back()->with(['message' => 'Xóa tài khoản thành công']);
+    }
+
+    public function checkName(Request $request)
+    {
+        $slug = $request->input('slug');
+
+        // Check if name exists, excluding the current category id
+        // Kiểm tra xem tên có tồn tại không, ngoại trừ id danh mục hiện tại
+        $slugExists = User::where('slug', $slug)->exists();
+        
+        return response()->json([
+            'slug_exists' => $slugExists,
+        ]);
     }
 }

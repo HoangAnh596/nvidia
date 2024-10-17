@@ -104,6 +104,10 @@ p, td a {
     color: red;
     margin-right: 5px;
 }
+.icon-social {
+    color: blue;
+    margin-right: 5px;
+}
 .deleteForm {
     position: absolute;
     bottom: 24px;
@@ -220,6 +224,10 @@ p, td a {
 }
 .topbar.navbar-light .navbar-nav .nav-item .nav-link {
     color: #696969;
+}
+.scroll-noti {
+    max-height: 400px;
+    overflow-y: auto;
 }
 /* Thông báo */
 .note-admin {

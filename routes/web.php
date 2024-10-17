@@ -24,7 +24,7 @@ use App\Http\Controllers\HeaderTagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IconController;
 use App\Http\Controllers\InforController;
-use App\Http\Controllers\ManageController;
+use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImagesController;
@@ -243,8 +243,18 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::get('/cateFooter/{id}/edit', [CateFooterController::class, 'edit'])->name('cateFooter.edit')->middleware('can:footer-edit');
     Route::put('cateFooter/{id}', [CateFooterController::class, 'update'])->name('cateFooter.update');
     Route::delete('cateFooter/{id}', [CateFooterController::class, 'destroy'])->name('cateFooter.destroy')->middleware('can:footer-delete');
-    Route::post('cateFooter/checkStt', [cateFooterController::class, 'checkStt'])->name('cateFooter.checkStt')->middleware('can:footer-checkStt');
-    Route::post('cateFooter/checkbox', [cateFooterController::class, 'isCheckbox'])->name('cateFooter.isCheckbox')->middleware('can:footer-checkbox');
+    Route::post('cateFooter/checkStt', [CateFooterController::class, 'checkStt'])->name('cateFooter.checkStt')->middleware('can:footer-checkStt');
+    Route::post('cateFooter/checkbox', [CateFooterController::class, 'isCheckbox'])->name('cateFooter.isCheckbox')->middleware('can:footer-checkbox');
+
+    // Quản lý partner
+    Route::get('/partners', [PartnerController::class, 'index'])->name('partners.index');
+    Route::get('/partners/create', [PartnerController::class, 'create'])->name('partners.create');
+    Route::post('/partners', [PartnerController::class, 'store'])->name('partners.store');
+    Route::get('/partners/{id}/edit', [PartnerController::class, 'edit'])->name('partners.edit');
+    Route::put('partners/{id}', [PartnerController::class, 'update'])->name('partners.update');
+    Route::delete('partners/{id}', [PartnerController::class, 'destroy'])->name('partners.destroy');
+    Route::post('partners/checkStt', [PartnerController::class, 'checkStt'])->name('partners.checkStt');
+    Route::post('partners/checkbox', [PartnerController::class, 'isCheckbox'])->name('partners.isCheckbox');
 
     // Quản lý icon phía dưới chân trang
     Route::get('/icons', [IconController::class, 'index'])->name('icons.index');
@@ -283,6 +293,7 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit')->middleware('can:user-edit');
     Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
     Route::delete('users/{id}', [UserController::class, 'destroy'])->name('users.destroy')->middleware('can:user-delete');
+    Route::post('/users/check-name', [UserController::class, 'checkName'])->name('users.checkName');
 
     // Quản lý vai trò
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
@@ -340,6 +351,8 @@ Route::post('reply-cmtNews', [CmtNewsController::class, 'replyCmt'])->name('cmtN
 Route::prefix('/')->group(function () {
     Route::prefix('/blogs')->group(function () {
         Route::get('/', [BlogController::class, 'blog'])->name('home.blog');
+        Route::get('/author', [BlogController::class, 'author'])->name('home.author');
+        Route::get('/author/{slug}', [BlogController::class, 'inforAuthor'])->name('home.inforAuthor');
         // Route với hai tham số
         Route::get('/{slugParent}/{slug}', [BlogController::class, 'detailBlog'])
             ->where(['slugParent' => '[a-zA-Z0-9-_]+', 'slug' => '[a-zA-Z0-9-_]+']);

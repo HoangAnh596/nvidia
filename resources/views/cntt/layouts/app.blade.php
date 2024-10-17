@@ -58,7 +58,6 @@
     <script src="{{asset('cntt/js/jquery-migrate-1.2.1.min.js')}}"></script>
     <script src="{{asset('cntt/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('cntt/js/templatemo.js')}}"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script> -->
     <script src="{{asset('cntt/js/custom.js')}}"></script>
     <script src="{{asset('cntt/js/homepage.js')}}"></script>
     <script src="{{asset('cntt/js/slick.min.js')}}"></script>
