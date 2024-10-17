@@ -23,7 +23,7 @@
                 <div class="author-header">
                     <div class="row">
                         <div class="d-flex align-items-center justify-content-center col-lg-2 col-md-3 col-sm-3 col-xs-4 padding-img">
-                            <a href="{{ asset('/blogs/author/' . $user->slug) }}" title="author {{ $user->title_img }}">
+                            <a href="{{ asset('/blogs/author/' . $user->slug) }}" title="Author {{ $user->name }}">
                                 <img src="{{ asset($user->image) }}" alt="{{ $user->alt_img }}">
                             </a>
                         </div>
@@ -82,11 +82,6 @@
                             <a href="{{ asset('blogs/'.$item->slug) }}">{{ $item->name }}</a>
                             <div class="author_meta">
                                 <span class="entry-date">{{ $item->created_at->format('F d, Y') }}</span>
-                                <span class="meta-sep">by</span>
-                                <span class="author vcard">{{ $item->user ? $item->user->name : 'Unknown' }}</span>
-                                <!-- <span class="author vcard">
-                                    <a class="url fn n" href="https://blogs.nvidia.com/blog/author/dsalvator/" title="View all posts by Dave Salvator">Dave Salvator</a>
-                                </span> -->
                                 @if(!empty($item->view_count))
                                 <span class="view-count"><i class="fa-solid fa-eye"></i> {{ $item->view_count }}</span>
                                 @endif

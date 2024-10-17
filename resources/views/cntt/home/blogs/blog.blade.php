@@ -40,7 +40,7 @@
                                 <span class="meta-sep">by</span>
                                 <span class="author vcard">
                                     @if(!empty($item->user))
-                                    <a class="url fn n" href="{{ asset('/blogs/author/' . $item->user->slug) }}" title="Author at {{ $item->user->name }}">{{ $item->user->name }}</a>
+                                    <a class="url fn n" href="{{ asset('/blogs/author/' . $item->user->slug) }}" title="Author {{ $item->user->name }}">{{ $item->user->name }}</a>
                                     @else Unknown
                                     @endif
                                 </span>

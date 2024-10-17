@@ -22,7 +22,7 @@
                 @foreach($users as $index => $user)
                 <div class="row author-header {{ $loop->index % 2 == 0 ? '' : 'bg-white' }}">
                     <div class="d-flex align-items-center justify-content-center col-lg-2 col-md-3 col-sm-3 col-xs-4 padding-img">
-                        <a href="{{ asset('/blogs/author/' . $user->slug) }}" title="author {{ $user->title_img }}">
+                        <a href="{{ asset('/blogs/author/' . $user->slug) }}" title="Author {{ $user->name }}">
                             <img src="{{ asset($user->image) }}" alt="{{ $user->alt_img }}">
                         </a>
                     </div>

@@ -248,7 +248,7 @@ class BlogController extends Controller
 
         // Seo website
         $titleSeo = 'Author at Nvidiavn';
-        $keywordSeo = 'Nvidiavn';
+        $keywordSeo = 'author';
         $descriptionSeo = 'Author at Nvidiavn';
 
         // Nếu số trang hiện tại vượt quá số trang cuối cùng, điều chỉnh trang hiện tại về trang cuối cùng

@@ -6,7 +6,7 @@
     float: left;
     width: 100%;
     border: #ccc solid 1px;
-    border-left-width: 5px;
+    border-left: 5px solid #76b900;
     margin: 0 0 1.5rem;
     font-weight: 600;
 }

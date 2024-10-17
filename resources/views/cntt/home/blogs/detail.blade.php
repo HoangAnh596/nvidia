@@ -28,10 +28,12 @@
                     <div class="author_meta mb-3">
                         <span class="entry-date">{{ $newArt->created_at->format('F d, Y') }}</span>
                         <span class="meta-sep">by</span>
-                        <span class="author vcard">{{ $newArt->user ? $newArt->user->name : 'Unknown' }}</span>
-                        <!-- <span class="author vcard">
-                                    <a class="url fn n" href="https://blogs.nvidia.com/blog/author/dsalvator/" title="View all posts by Dave Salvator">Dave Salvator</a>
-                                </span> -->
+                        <span class="author vcard">
+                            @if(!empty($newArt->user))
+                            <a class="url fn n" href="{{ asset('/blogs/author/' . $newArt->user->slug) }}" title="Author {{ $newArt->user->name }}">{{ $newArt->user->name }}</a>
+                            @else Unknown
+                            @endif
+                        </span>
                         @if(!empty($newArt->view_count))
                         <span class="view-count"><i class="fa-solid fa-eye"></i> {{ $newArt->view_count }}</span>
                         @endif
