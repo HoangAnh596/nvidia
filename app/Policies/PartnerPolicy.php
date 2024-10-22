@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Icon;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class IconPolicy
+class PartnerPolicy
 {
     use HandlesAuthorization;
 
@@ -30,7 +29,7 @@ class IconPolicy
      */
     public function view(User $user)
     {
-        return $user->checkPermissionAccess(config('permissions.access.list-icon'));
+        return $user->checkPermissionAccess(config('permissions.access.list-partner'));
     }
 
     /**
@@ -41,7 +40,7 @@ class IconPolicy
      */
     public function create(User $user)
     {
-        return $user->checkPermissionAccess(config('permissions.access.add-icon'));
+        return $user->checkPermissionAccess(config('permissions.access.add-partner'));
     }
 
     /**
@@ -53,7 +52,7 @@ class IconPolicy
      */
     public function update(User $user)
     {
-        return $user->checkPermissionAccess(config('permissions.access.edit-icon'));
+        return $user->checkPermissionAccess(config('permissions.access.edit-partner'));
     }
 
     /**
@@ -65,7 +64,7 @@ class IconPolicy
      */
     public function delete(User $user)
     {
-        return $user->checkPermissionAccess(config('permissions.access.delete-icon'));
+        return $user->checkPermissionAccess(config('permissions.access.delete-partner'));
     }
 
     /**
@@ -94,11 +93,11 @@ class IconPolicy
 
     public function checkbox(User $user)
     {
-        return $user->checkPermissionAccess(config('permissions.access.checkbox-icon'));
+        return $user->checkPermissionAccess(config('permissions.access.checkbox-partner'));
     }
 
     public function checkStt(User $user)
     {
-        return $user->checkPermissionAccess(config('permissions.access.checkStt-icon'));
+        return $user->checkPermissionAccess(config('permissions.access.checkStt-partner'));
     }
 }

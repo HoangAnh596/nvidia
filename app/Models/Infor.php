@@ -13,13 +13,17 @@ class Infor extends Model
 
     const IS_PUBLIC = 1;
     const IS_NOT_PUBLIC = 0;
-    const IS_KT = 1;
     const IS_KD = 0;
+    const IS_KT = 1;
+    const IS_KDDA = 2;
+    const IS_KDSERVE = 3;
 
     protected $fillable = [
         'name', 'role', 'phone',
         'skype', 'zalo', 'gmail',
-        'stt', 'is_public', 'send_price'
+        'stt', 'is_public', 'send_price',
+        'image', 'title', 'desc_role',
+        'is_contact'
     ];
     
 }

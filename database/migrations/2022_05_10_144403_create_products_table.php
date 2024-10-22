@@ -26,14 +26,12 @@ class CreateProductsTable extends Migration
             $table->tinyInteger('is_outstand')->default(0)->comment('1: nổi bật, 0: không nổi bật');
             $table->string('price')->nullable();
             $table->float('quantity', 8, 2)->nullable();
-            // $table->string('image')->nullable();
+            $table->unsignedTinyInteger('discount')->nullable();
             $table->string('filepath')->nullable();
             $table->string('image_ids')->nullable();
             $table->string('group_ids')->nullable();
             $table->text('des')->nullable();
             $table->text('content')->nullable();
-            // $table->string('title_img')->nullable();
-            // $table->string('alt_img')->nullable();
             $table->string('title_seo')->nullable();
             $table->string('keyword_seo')->nullable();
             $table->string('des_seo')->nullable();

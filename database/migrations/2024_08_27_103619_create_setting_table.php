@@ -15,6 +15,7 @@ class CreateSettingTable extends Migration
     {
         Schema::create('setting', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('title_seo')->nullable();
             $table->string('keyword_seo')->nullable();
             $table->string('des_seo')->nullable();
@@ -22,7 +23,11 @@ class CreateSettingTable extends Migration
             $table->string('mail_pass')->nullable();
             $table->string('mail_text')->nullable();
             $table->string('image')->nullable();
-            $table->unsignedBigInteger('user_id');
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('tiktok')->nullable();
+            $table->string('pinterest')->nullable();
             $table->timestamps();
         });
     }

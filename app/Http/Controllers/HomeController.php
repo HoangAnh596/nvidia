@@ -37,7 +37,7 @@ class HomeController extends Controller
     public function index()
     {
         // Seo Website
-        $globalSeo = app('seoWeb');
+        $globalSeo = app('setting');
         $titleSeo = $globalSeo->title_seo;
         $keywordSeo = $globalSeo->keyword_seo;
         $descriptionSeo = $globalSeo->des_seo;
@@ -84,7 +84,7 @@ class HomeController extends Controller
                     // Lấy tất cả sản phẩm thuộc các danh mục đó
                     $products = Product::whereHas('category', function ($query) use ($allCategoryIds) {
                         $query->whereIn('product_categories.category_id', $allCategoryIds);
-                    })->select('id', 'name', 'slug', 'price', 'image_ids')
+                    })->select('id', 'name', 'slug', 'price', 'image_ids', 'discount', 'status')
                         ->where('is_outstand', 1)
                         ->orderBy('created_at', 'DESC')->get();
                     
@@ -129,11 +129,13 @@ class HomeController extends Controller
     public function category(Request $request, $slug)
     {
         // Seo Website
-        $globalSeo = app('seoWeb');
+        $globalSeo = app('setting');
         // $cateMenu = Category::all();
         // $cateMenu = $this->buildTree($cateMenu);
 
-        $phoneInfors = Infor::where('is_public', 1)->orderBy('stt', 'ASC')->get();
+        $phoneInfors = Infor::select('name', 'phone', 'gmail', 'skype', 'zalo', 'role')
+            ->where('is_public', 1)
+            ->orderBy('stt', 'ASC')->get();
         $slugs = explode('-', $slug);
         $mainCate = Category::where('slug', $slug)->with('children')->first(); // Lấy ra danh mục chính
         
@@ -150,7 +152,7 @@ class HomeController extends Controller
             $categoryIds = $mainCate->getAllChildrenIds();
             array_unshift($categoryIds, $mainCate->id); // Thêm ID danh mục chính vào danh sách
             
-            $prOutstand = Product::select('id', 'name', 'slug', 'price', 'image_ids')
+            $prOutstand = Product::select('id', 'name', 'slug', 'price', 'image_ids', 'discount')
                 ->where('is_outstand', 1)
                 ->whereHas('category', function ($query) use ($categoryIds) {
                     $query->whereIn('category_id', $categoryIds);
@@ -166,7 +168,7 @@ class HomeController extends Controller
             // Loại bỏ 'page' khỏi bộ lọc nếu tồn tại
             unset($filters['page']);
             if (!empty($filters)) {
-                $products = Product::query()->select('id', 'name', 'slug', 'price', 'image_ids');
+                $products = Product::query()->select('id', 'name', 'slug', 'price', 'image_ids', 'discount', 'status');
                 $filterConditions = [];
 
                 foreach ($filters as $key => $value) {
@@ -244,7 +246,7 @@ class HomeController extends Controller
                 ));
             }
 
-            $products = Product::select('id', 'name', 'slug', 'price', 'image_ids')
+            $products = Product::select('id', 'name', 'slug', 'price', 'image_ids', 'discount', 'status')
                 ->where(function ($query) use ($categoryIds) {
                     // Truy vấn các sản phẩm thuộc danh mục chính
                     $query->whereHas('category', function ($query) use ($categoryIds) {
@@ -414,11 +416,13 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         // Seo Website
-        $globalSeo = app('seoWeb');
+        $globalSeo = app('setting');
         $titleSeo = $globalSeo->title_seo;
         $keywordSeo = $globalSeo->keyword_seo;
         $descriptionSeo = $globalSeo->des_seo;
-        $phoneInfors = Infor::where('is_public', 1)->orderBy('stt', 'ASC')->get();
+        $phoneInfors = Infor::select('name', 'phone', 'gmail', 'skype', 'zalo', 'role')
+            ->where('is_public', 1)
+            ->orderBy('stt', 'ASC')->get();
 
         $keyword = $request->keyword;
         $searchCate = $request->cate;
@@ -592,7 +596,7 @@ class HomeController extends Controller
     public function listPrice(Request $request)
     {
         // Seo Website
-        $globalSeo = app('seoWeb');
+        $globalSeo = app('setting');
         
         $key = $request->key;
         $products = [];
@@ -760,7 +764,7 @@ class HomeController extends Controller
                 $titleSeo .= ' và ' . $product3->code;
             }
             // Seo Website
-            $globalSeo = app('seoWeb');
+            $globalSeo = app('setting');
             $keywordSeo = $globalSeo->keyword_seo;
             $descriptionSeo = $titleSeo;
 
@@ -845,5 +849,37 @@ class HomeController extends Controller
                 'error' => 'Số lượng sản phẩm để so sánh phải từ 2 đến 3'
             ], 400);
         }
+    }
+
+    // Liên hệ
+    public function contact()
+    {
+        // Seo Website
+        $titleSeo = 'Thông Tin Liên Hệ Công Ty TNHH Công Nghệ Việt Thái Dương - CNTTShop.';
+        $keywordSeo = 'cnttshop, việt thái dương';
+        $descriptionSeo = 'Vui lòng liên hệ tới chúng tôi để được hỗ trợ dịch vụ chất lượng, tư vấn kỹ thuật và giải pháp máy chủ chính xác, nhận báo giá máy chủ serve tốt nhất.';
+
+        $contacts = Infor::select('name', 'phone', 'gmail', 'skype', 'zalo', 'role', 'image', 'title', 'desc_role')
+            ->where('is_contact', 1)
+            ->orderBy('stt', 'ASC')
+            ->orderBy('updated_at', 'DESC')->get()
+            ->groupBy('role');
+        
+        return view('cntt.home.contact', compact(
+            'titleSeo', 'keywordSeo', 'descriptionSeo',
+            'contacts'
+        ));
+    }
+
+    public function boloc()
+    {
+        // Seo Website
+        $titleSeo = 'Thông Tin Liên Hệ Công Ty TNHH Công Nghệ Việt Thái Dương - CNTTShop.';
+        $keywordSeo = 'cnttshop, việt thái dương';
+        $descriptionSeo = 'Vui lòng liên hệ tới chúng tôi để được hỗ trợ dịch vụ chất lượng';
+
+        return view('boloc', compact(
+            'titleSeo', 'keywordSeo', 'descriptionSeo'
+        ));
     }
 }

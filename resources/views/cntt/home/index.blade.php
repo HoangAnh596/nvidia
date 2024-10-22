@@ -72,8 +72,8 @@
 <!-- Begin Sản phẩm nổi bật -->
 <section class="product-categories">
     <div class="container">
-@if(!empty($categoriesWithProducts))
-@foreach ($categoriesWithProducts as $data)
+        @if(!empty($categoriesWithProducts))
+        @foreach ($categoriesWithProducts as $data)
         <div class="row bg-cate mb-3">
             @if(!empty($data['products']))
             <div class="col-md-3 text-cate" style="padding-left: 0;">
@@ -127,14 +127,38 @@
                         <div class="text-dark">
                             <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none btn-link">{{ $product->name }}</a>
                         </div>
-                        <ul class="list-unstyled d-flex justify-content-between align-items-center total-review-home">
+                        @if($product->discount != 0)
+                        <div class="prd-sale">
+                            <p class="prd-sale-detail">
+                                Giảm {{ $product->discount }}%
+                            </p>
+                        </div>
+                        @endif
+                        <ul class="list-unstyled d-flex">
+                            @if($product->price == 0)
+                            <li><span class="lien-he-price">Liên hệ</span></li>
+                            @else
+                            @if($product->discount != 0)
                             <li>
-                                @if($product->price == 0)
-                                <span class="lien-he-price">Liên hệ</span>
-                                @else
-                                <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none text-danger">{{ number_format($product->price, 0, ',', '.') }}đ </a>
-                                @endif
+                                <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none text-danger">
+                                    {{ number_format($product->price * (1 - $product->discount / 100), 0, ',', '.') }}₫
+                                </a>
                             </li>
+                            <li class="d-flex align-items-start">
+                                <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none price-sale">
+                                    {{ number_format($product->price, 0, ',', '.') }}₫
+                                </a>
+                            </li>
+                            @else
+                            <li>
+                                <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none text-danger">
+                                    {{ number_format($product->price, 0, ',', '.') }}₫
+                                </a>
+                            </li>
+                            @endif
+                            @endif
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-between align-items-center total-review-home">
                             <li class="text-muted text-right">
                                 <i class="text-warning fa fa-star"></i>
                                 <span>
@@ -143,6 +167,11 @@
                                     @endif
                                 </span>
                             </li>
+                            @if($product->status == 1)
+                            <li><span class="lien-he-price"><i class="fa-solid fa-check"></i> Còn hàng</span></li>
+                            @else
+                            <li></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -292,9 +321,9 @@
         </div>
         <div class="partner-autoplay">
             @foreach($partners as $partner)
-                <a href="{{ asset($partner->url) }}" class="img-partner" target="@if($partner->is_tab == 1) _blank @endif">
-                    <img src="{{ asset($partner->image) }}" alt="{{ $partner->title }}">
-                </a>
+            <a href="{{ asset($partner->url) }}" class="img-partner" target="@if($partner->is_tab == 1) _blank @endif">
+                <img src="{{ asset($partner->image) }}" alt="{{ $partner->title }}">
+            </a>
             @endforeach
         </div>
     </div>
@@ -399,25 +428,24 @@
             autoplaySpeed: 2000,
             arrows: false,
             infinite: true,
-            responsive: [
-                {
-                    breakpoint: 1200,  // Khi kích thước màn hình <= 480px
+            responsive: [{
+                    breakpoint: 1200, // Khi kích thước màn hình <= 480px
                     settings: {
-                        slidesToShow: 7,  // Hiển thị 3 slide
+                        slidesToShow: 7, // Hiển thị 3 slide
                         slidesToScroll: 1 // Scroll 1 slide mỗi lần
                     }
                 },
                 {
-                    breakpoint: 1024,  // Khi kích thước màn hình <= 480px
+                    breakpoint: 1024, // Khi kích thước màn hình <= 480px
                     settings: {
-                        slidesToShow: 5,  // Hiển thị 3 slide
+                        slidesToShow: 5, // Hiển thị 3 slide
                         slidesToScroll: 1 // Scroll 1 slide mỗi lần
                     }
                 },
                 {
-                    breakpoint: 768,  // Khi kích thước màn hình <= 480px
+                    breakpoint: 768, // Khi kích thước màn hình <= 480px
                     settings: {
-                        slidesToShow: 3,  // Hiển thị 3 slide
+                        slidesToShow: 3, // Hiển thị 3 slide
                         slidesToScroll: 1 // Scroll 1 slide mỗi lần
                     }
                 }

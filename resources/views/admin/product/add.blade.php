@@ -25,7 +25,6 @@
                 <a href="{{ route('product.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
                 <div>
                     <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
-                    <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
                 </div>
             </div>
             <div class="card-body border-top p-9">
@@ -55,7 +54,6 @@
             </div>
             <div class="mt-4 pb-4 mr-4 float-right">
                 <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
-                <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
             </div>
         </form>
     </div>
@@ -98,6 +96,23 @@
             e.target.value = value.replace(/[^0-9.]/g, '');
         } else {
             priceError.textContent = '';
+        }
+    });
+
+    document.getElementById('discount').addEventListener('input', function(e) {
+        const value = e.target.value;
+        const discountError = document.getElementById('discountError');
+
+        if (!/^\d+$/.test(value) || parseInt(value) > 100) {
+            discountError.textContent = 'Vui lòng chỉ nhập số nguyên từ 0 đến 100.';
+            
+            // Loại bỏ các ký tự không hợp lệ và giới hạn giá trị từ 0-100
+            e.target.value = value.replace(/[^0-9]/g, ''); // Chỉ cho phép số
+            if (parseInt(e.target.value) > 100) {
+                e.target.value = 100; // Giới hạn tối đa là 100
+            }
+        } else {
+            discountError.textContent = '';
         }
     });
 

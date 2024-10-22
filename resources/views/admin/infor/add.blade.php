@@ -5,10 +5,10 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Thêm mới thông tin hotline</h3>
+        <h3 class="mb-2 text-gray-800">Thêm mới thông tin liên hệ</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">Hotline</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Liên hệ</a></li>
                 <li class="breadcrumb-item active">Thêm mới</li>
             </ol>
         </h6>
@@ -81,14 +81,56 @@
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
+                <div class="row">
+                    <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Ảnh icon:<div class="warningMenu">*</div>
+                    </div>
+                    <div class="col-2">
+                        <div class="input-group">
+                            <input id="thumbnail" class="form-control" type="hidden" name="filepath">
+                            <span class="input-group-btn">
+                                <button id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-outline-dark hiddenButton">
+                                    <i class="fa fa-picture-o"></i> Chọn ảnh từ thư viện
+                                </button>
+                            </span>
+                        </div>
+                        <div id="holder"><img src="{{ old('filepath') }}"></div>
+                    </div>
+                    <div class="col-4 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 292 x 292 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
+                </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Vai trò :</div>
-                    <div class="col-1 d-flex align-items-center">
+                    <div class="col-3 d-flex align-items-center">
                         <select class="form-select" aria-label="Default" name="role">
-                            <option value="0">Hỗ trợ kinh doanh</option>
-                            <option value="1">Hỗ trợ kỹ thuật</option>
+                            <option value="0">Phòng kinh doanh</option>
+                            <option value="1">Phòng kỹ thuật</option>
+                            <option value="2">Phòng kinh doanh dự án</option>
+                            <option value="3">Phòng kinh doanh máy chủ serve</option>
+                            <option value="4">Phòng kế toán</option>
                         </select>
                     </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
+                </div>
+                <div class="row">
+                    <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Vị trí vai trò :<div class="warningMenu">*</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}">
+                            <span id="title-error" style="color: red;"></span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
+                </div>
+                <div class="row">
+                    <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Mô tả vai trò :<div class="warningMenu">*</div>
+                    </div>
+                    <div class="col-8">
+                        <div class="form-group">
+                            <input type="text" name="desc_role" id="desc_role" class="form-control" value="{{ old('desc_role') }}">
+                            <span id="title-error" style="color: red;"></span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Nhận báo giá :</div>
@@ -104,8 +146,8 @@
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Hiển thị :</div>
                     <div class="col-1 d-flex align-items-center">
                         <select class="form-select" aria-label="Default" name="is_public">
-                            <option value="1">Có</option>
                             <option value="0">Không</option>
+                            <option value="1">Có</option>
                         </select>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>

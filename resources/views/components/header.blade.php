@@ -98,16 +98,16 @@ $totalComments = $commentGlobal->count() + $cmtNewGlobal->count();
 
         <!-- Nav Item - Pages Hotline -->
         <li class="nav-item">
-            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseInfors" aria-expanded="true" aria-controls="collapseInfors">
+            <a class="nav-link collapsed" href="{{ route('quotes.index') }}" data-toggle="collapse" data-target="#collapseInfors" aria-expanded="true" aria-controls="collapseInfors">
                 <i class="fa-solid fa-phone-volume"></i>
-                <span>QL báo giá, hotline</span>
+                <span>QL báo giá, liên hệ</span>
             </a>
             <div id="collapseInfors" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('quotes.index') }}">Danh sách báo giá</a>
-                    <a class="collapse-item" href="{{ route('infors.index') }}">Danh sách hotline</a>
+                    <a class="collapse-item" href="{{ route('infors.index') }}">Danh sách liên hệ</a>
                     @can('hotline-add')
-                    <a class="collapse-item" href="{{ route('infors.create') }}">Thêm mới hotline</a>
+                    <a class="collapse-item" href="{{ route('infors.create') }}">Thêm mới liên hệ</a>
                     @endcan
                 </div>
             </div>
@@ -115,7 +115,7 @@ $totalComments = $commentGlobal->count() + $cmtNewGlobal->count();
 
         <!-- Nav Item - Pages Comments -->
         <li class="nav-item">
-            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseComments" aria-expanded="true" aria-controls="collapseComments">
+            <a class="nav-link collapsed" href="{{ route('comments.index') }}" data-toggle="collapse" data-target="#collapseComments" aria-expanded="true" aria-controls="collapseComments">
                 <i class="fa-regular fa-comment"></i>
                 <span>QL bình luận</span>
             </a>
@@ -129,8 +129,8 @@ $totalComments = $commentGlobal->count() + $cmtNewGlobal->count();
 
         <!-- Nav Item - Pages Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseMenus" aria-expanded="true" aria-controls="collapseMenus">
-                <i class="fa-solid fa-bars"></i>
+            <a class="nav-link collapsed" href="{{ route('cateMenu.index') }}" data-toggle="collapse" data-target="#collapseMenus" aria-expanded="true" aria-controls="collapseMenus">
+                <i class="fa-solid fa-list-check"></i>
                 <span>Quản lý chung</span>
             </a>
             <div id="collapseMenus" class="collapse" aria-labelledby="headingMenus" data-parent="#accordionSidebar">
@@ -148,26 +148,12 @@ $totalComments = $commentGlobal->count() + $cmtNewGlobal->count();
                     <a class="collapse-item" href="{{ route('cateFooter.create') }}">Thêm mới Footer</a>
                     @endcan
                     <a class="collapse-item" href="{{ route('partners.index') }}">Danh sách đối tác</a>
+                    @can('partner-add')
                     <a class="collapse-item" href="{{ route('partners.create') }}">Thêm mới đối tác</a>
-                </div>
-            </div>
-        </li>
-
-        <!-- Nav Item - Pages Infors -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseBottoms" aria-expanded="true" aria-controls="collapseBottoms">
-                <i class="fa-solid fa-icons"></i>
-                <span>QL chân trang, icon</span>
-            </a>
-            <div id="collapseBottoms" class="collapse" aria-labelledby="headingInfors" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
+                    @endcan
                     <a class="collapse-item" href="{{ route('bottoms.index') }}">Danh sách chân trang</a>
                     @can('bottom-add')
                     <a class="collapse-item" href="{{ route('bottoms.create') }}">Thêm mới chân trang</a>
-                    @endcan
-                    <a class="collapse-item" href="{{ route('icons.index') }}">Danh sách icon</a>
-                    @can('icon-add')
-                    <a class="collapse-item" href="{{ route('icons.create') }}">Thêm mới icon</a>
                     @endcan
                 </div>
             </div>
@@ -199,7 +185,7 @@ $totalComments = $commentGlobal->count() + $cmtNewGlobal->count();
 
         <!-- Nav Item - Pages Config -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('users.index') }}" data-toggle="collapse" data-target="#collapseConfig" aria-expanded="true" aria-controls="collapseConfig">
+            <a class="nav-link collapsed" href="{{ route('contact-icons.index') }}" data-toggle="collapse" data-target="#collapseConfig" aria-expanded="true" aria-controls="collapseConfig">
                 <i class="fa-solid fa-gears"></i>
                 <span>Cấu hình website</span>
             </a>

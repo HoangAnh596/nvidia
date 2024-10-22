@@ -108,25 +108,18 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('headerTags', function () {
             return HeaderTag::where('is_public', 1)->select('id', 'content')->get();
         });
-        // favicon
-        $this->app->singleton('favicon', function () {
-            return Setting::where('id', 1)->select('id', 'image')->get();
-        });
-        // Icon footer
-        $this->app->singleton('icon', function () {
-            return Icon::where('is_public', 1)->orderBy('stt', 'ASC')->select('id', 'url', 'name', 'icon')->get();
-        });
         // Chân trang dưới footer
         $this->app->singleton('bottom', function () {
             return Bottom::where('is_public', 1)->orderBy('stt', 'ASC')->select('id', 'name', 'url')->get();
         });
-        // Cấu hình SEO
-        $this->app->singleton('seoWeb', function () {
-            return Setting::where('id', 1)->select('title_seo', 'keyword_seo', 'des_seo')->first();
-        });
         // Cấu hình icon liên hệ
         $this->app->singleton('contact-icons', function () {
             return ContactIcon::where('is_public', 1)->orderBy('stt', 'ASC')->select('id', 'url', 'name', 'image', 'animation')->get();
+        });
+
+        // Setting
+        $this->app->singleton('setting', function () {
+            return Setting::where('id', 1)->select('title_seo', 'keyword_seo', 'des_seo', 'image', 'facebook', 'twitter', 'youtube', 'tiktok', 'pinterest')->first();
         });
 
         // Cấu hình gửi mail báo
@@ -161,22 +154,19 @@ class AppServiceProvider extends ServiceProvider
             $globalMenus = $this->app->make('menus');
             $globalFooters = $this->app->make('footers');
             $searchCate = $this->app->make('searchCate');
-            $globalFavi = $this->app->make('favicon');
             $globalHeaderTags = $this->app->make('headerTags');
-            $iconGlobal = $this->app->make('icon');
             $ft_bottom = $this->app->make('bottom');
-            $globalSeo = $this->app->make('seoWeb');
+            $globalSetting = $this->app->make('setting');
             $contactIconGlobal = $this->app->make('contact-icons');
             $quoteGlobal = $this->app->make('quotes');
             $commentGlobal = $this->app->make('comments');
             $cmtNewGlobal = $this->app->make('cmtNew');
-            // dd($quoteGlobal);
+            
             $view->with('globalMenus', $globalMenus)->with('globalFooters', $globalFooters)
-                ->with('searchCate', $searchCate)->with('globalFavi', $globalFavi)
+                ->with('searchCate', $searchCate)
                 ->with('globalHeaderTags', $globalHeaderTags)
-                ->with('iconGlobal', $iconGlobal)
                 ->with('ft_bottom', $ft_bottom)
-                ->with('globalSeo', $globalSeo)
+                ->with('globalSetting', $globalSetting)
                 ->with('contactIconGlobal', $contactIconGlobal)
                 ->with('commentGlobal', $commentGlobal)
                 ->with('cmtNewGlobal', $cmtNewGlobal)

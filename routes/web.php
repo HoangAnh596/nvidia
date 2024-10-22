@@ -248,23 +248,13 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
 
     // Quản lý partner
     Route::get('/partners', [PartnerController::class, 'index'])->name('partners.index');
-    Route::get('/partners/create', [PartnerController::class, 'create'])->name('partners.create');
+    Route::get('/partners/create', [PartnerController::class, 'create'])->name('partners.create')->middleware('can:partner-add');
     Route::post('/partners', [PartnerController::class, 'store'])->name('partners.store');
-    Route::get('/partners/{id}/edit', [PartnerController::class, 'edit'])->name('partners.edit');
+    Route::get('/partners/{id}/edit', [PartnerController::class, 'edit'])->name('partners.edit')->middleware('can:partner-edit');
     Route::put('partners/{id}', [PartnerController::class, 'update'])->name('partners.update');
-    Route::delete('partners/{id}', [PartnerController::class, 'destroy'])->name('partners.destroy');
-    Route::post('partners/checkStt', [PartnerController::class, 'checkStt'])->name('partners.checkStt');
-    Route::post('partners/checkbox', [PartnerController::class, 'isCheckbox'])->name('partners.isCheckbox');
-
-    // Quản lý icon phía dưới chân trang
-    Route::get('/icons', [IconController::class, 'index'])->name('icons.index');
-    Route::get('/icons/create', [IconController::class, 'create'])->name('icons.create')->middleware('can:icon-add');
-    Route::post('/icons', [IconController::class, 'store'])->name('icons.store');
-    Route::get('/icons/{id}/edit', [IconController::class, 'edit'])->name('icons.edit')->middleware('can:icon-edit');
-    Route::put('icons/{id}', [IconController::class, 'update'])->name('icons.update');
-    Route::delete('icons/{id}', [IconController::class, 'destroy'])->name('icons.destroy')->middleware('can:icon-delete');
-    Route::post('/icons/checkStt', [IconController::class, 'checkStt'])->name('icons.checkStt')->middleware('can:icon-checkStt');
-    Route::post('/icons/checkbox', [IconController::class, 'isCheckbox'])->name('icons.isCheckbox')->middleware('can:icon-checkbox');
+    Route::delete('partners/{id}', [PartnerController::class, 'destroy'])->name('partners.destroy')->middleware('can:partner-delete');
+    Route::post('partners/checkStt', [PartnerController::class, 'checkStt'])->name('partners.checkStt')->middleware('can:partner-checkStt');
+    Route::post('partners/checkbox', [PartnerController::class, 'isCheckbox'])->name('partners.isCheckbox')->middleware('can:partner-checkbox');
 
     // Quản lý chân trang bottom
     Route::get('/bottoms', [BottomController::class, 'index'])->name('bottoms.index');
@@ -347,6 +337,8 @@ Route::post('/send-cmtNews', [CmtNewsController::class, 'sendCmt'])->name('cmtNe
 // Trả lời bình luận
 Route::post('replyCmt', [CommentController::class, 'replyCmt'])->name('cmt.replyCmt');
 Route::post('reply-cmtNews', [CmtNewsController::class, 'replyCmt'])->name('cmtNews.replyCmt');
+// Liên hệ
+Route::get('lien-he', [HomeController::class, 'contact'])->name('home.contact');
 // Trang chủ phía người dùng
 Route::prefix('/')->group(function () {
     Route::prefix('/blogs')->group(function () {
@@ -366,7 +358,7 @@ Route::prefix('/')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
     Route::get('/{slug}', [HomeController::class, 'category'])
         ->name('home.category')->where('slug', '[a-zA-Z0-9-_]+');
-    Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
+    // Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 });
 Route::get('/create_sitemap', function(){
     return Artisan::call('sitemap:create');

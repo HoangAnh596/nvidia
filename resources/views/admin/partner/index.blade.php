@@ -16,7 +16,9 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-end">
+            @can('partner-add')
             <a href="{{ route('partners.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
+            @endcan
         </div>
         <div class="card-body" style="padding: 0;">
             <div class="table-responsive">
@@ -45,23 +47,35 @@
                             <td>{{ $partner->title }}</td>
                             <td>{{ $partner->url }}</td>
                             <td class="text-center" style="padding: 0;"><img src="{{ $partner->image }}" class="img-fluid"></td>
+                            @can('partner-checkStt')
                             <td class="text-center">
                                 <input type="text" class="check-stt" name="stt" data-id="{{ $partner->id }}" style="width: 50px;text-align: center;" value="{{ old('stt', $partner->stt) }}">
                             </td>
+                            @else <td></td>
+                            @endcan
+                            @can('partner-checkbox')
                             <td class="text-center">
                                 <input type="checkbox" class="active-checkbox" data-id="{{ $partner->id }}" data-field="is_public" {{ ($partner->is_public == 1) ? 'checked' : '' }}>
                             </td>
                             <td class="text-center">
                                 <input type="checkbox" class="active-checkbox" data-id="{{ $partner->id }}" data-field="is_tab" {{ ($partner->is_tab == 1) ? 'checked' : '' }}>
                             </td>
+                            @else 
+                            <td></td>
+                            <td></td>
+                            @endcan
                             <td class="action">
+                                @can('partner-edit')
                                 <a href="{{ asset('admin/partners/'.$partner->id.'/edit') }}">Chỉnh sửa</a> |
+                                @endcan
                                 <a href="{{ asset('admin/partners') }}">Xóa cache</a>
+                                @can('partner-delete')
                                 | <a href="javascript:void(0);" onclick="confirmDelete('{{ $partner->id }}')">Xóa</a>
                                 <form id="deleteForm-{{ $partner->id }}" action="{{ route('partners.destroy', ['id' => $partner->id]) }}" method="post" style="display: none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

@@ -5,10 +5,10 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex justify-content-between">
-        <h3 class="mb-2 text-gray-800">Chỉnh sửa thông tin hotline</h3>
+        <h3 class="mb-2 text-gray-800">Chỉnh sửa thông tin liên hệ</h3>
         <h6 aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">Hotline</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Liên hệ</a></li>
                 <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
         </h6>
@@ -84,20 +84,71 @@
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
+                <div class="row mt-3">
+                    <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Ảnh :<div class="warningMenu">*</div>
+                    </div>
+                    <div class="col-2">
+                        <div class="input-group">
+                            <input id="thumbnail" class="form-control" type="hidden" name="filepath" value="{{ old('image', $infor->image ?? '') }}">
+                            <span class="input-group-btn">
+                                <button id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-outline-dark hiddenButton">
+                                    <i class="fa fa-picture-o"></i> Chọn ảnh từ thư viện
+                                </button>
+                            </span>
+                        </div>
+                        <div id="holder">
+                            <img id="out_img" src="{{ \App\Http\Helpers\Helper::getPath($infor->image) }}">
+                        </div>
+                    </div>
+                    <div class="col-3 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 292 x 292 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
+                </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Vai trò :</div>
-                    <div class="col-1 d-flex align-items-center">
+                    <div class="col-3 d-flex align-items-center">
                         <select class="form-select" aria-label="Default" name="role">
-                        <option value="1"
-                            @if(!empty($infor) && $infor->role == \App\Models\Infor::IS_KT) selected @endif>
-                            Hỗ trợ kỹ thuật
-                        </option>
-                        <option value="0"
-                            @if(!empty($infor) && $infor->role == \App\Models\Infor::IS_KD) selected @endif>
-                            Hỗ trợ kinh doanh
-                        </option>
+                            <option value="0"
+                                @if(!empty($infor) && $infor->role == 0) selected @endif>
+                                Phòng kinh doanh
+                            </option>
+                            <option value="1"
+                                @if(!empty($infor) && $infor->role == 1) selected @endif>
+                                Phòng kỹ thuật
+                            </option>
+                            <option value="2"
+                                @if(!empty($infor) && $infor->role == 2) selected @endif>
+                                Phòng kinh doanh dự án
+                            </option>
+                            <option value="3"
+                                @if(!empty($infor) && $infor->role == 3) selected @endif>
+                                Phòng kinh doanh máy chủ serve
+                            </option>
+                            <option value="4"
+                                @if(!empty($infor) && $infor->role == 4) selected @endif>
+                                Phòng kế toán
+                            </option>
                         </select>
                     </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
+                </div>
+                <div class="row">
+                    <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Vị trí vai trò :<div class="warningMenu">*</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $infor->title ?? '') }}">
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
+                </div>
+                <div class="row">
+                    <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Mô tả vai trò :<div class="warningMenu">*</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <input type="text" name="desc_role" id="desc_role" class="form-control" value="{{ old('desc_role', $infor->desc_role ?? '') }}">
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Nhận báo giá :</div>
@@ -110,7 +161,7 @@
                             <<option value="1"
                                 @if(!empty($infor) && $infor->send_price == 1) selected @endif>
                                 Có
-                            </option>
+                                </option>
                         </select>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -122,11 +173,11 @@
                             <<option value="1"
                                 @if(!empty($infor) && $infor->is_public == \App\Models\Infor::IS_PUBLIC) selected @endif>
                                 Hiển thị
-                            </option>
-                            <option value="0"
-                                @if(!empty($infor) && $infor->is_public == \App\Models\Infor::IS_NOT_PUBLIC) selected @endif>
-                                Ẩn
-                            </option>
+                                </option>
+                                <option value="0"
+                                    @if(!empty($infor) && $infor->is_public == \App\Models\Infor::IS_NOT_PUBLIC) selected @endif>
+                                    Ẩn
+                                </option>
                         </select>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
@@ -152,53 +203,51 @@
 
 @section('js')
 <script>
-$(document).ready(function() {
-    var timer;
-    var isPhoneValid = false; // Biến để kiểm tra tính hợp lệ của số điện thoại
+    $(document).ready(function() {
+        var timer;
+        var isPhoneValid = false; // Biến để kiểm tra tính hợp lệ của số điện thoại
 
-    function validatePhone(phone) {
-        // Biểu thức chính quy để kiểm tra số điện thoại Việt Nam và chấp nhận khoảng trắng
-        var phoneRegex = /^(0[1-9])+(\s?[0-9]){8,9}$/;
-        return phoneRegex.test(phone);
-    }
-
-    $('#phone').on('blur', function() {
-        var phoneInput = $(this).val().trim();
-        var errorMessage = $('#phone-error');
-
-        // Xóa bộ đếm thời gian nếu người dùng nhấp vào lại trước khi hết 5 giây
-        if (timer) {
-            clearTimeout(timer);
+        function validatePhone(phone) {
+            // Biểu thức chính quy để kiểm tra số điện thoại Việt Nam và chấp nhận khoảng trắng
+            var phoneRegex = /^(0[1-9])+(\s?[0-9]){8,9}$/;
+            return phoneRegex.test(phone);
         }
 
-        // Thiết lập bộ đếm thời gian để thực hiện kiểm tra sau 5 giây
-        timer = setTimeout(function() {
-            if (validatePhone(phoneInput)) {
-                errorMessage.hide();
-                isPhoneValid = true; // Số điện thoại hợp lệ
-            } else {
+        $('#phone').on('blur', function() {
+            var phoneInput = $(this).val().trim();
+            var errorMessage = $('#phone-error');
+
+            // Xóa bộ đếm thời gian nếu người dùng nhấp vào lại trước khi hết 5 giây
+            if (timer) {
+                clearTimeout(timer);
+            }
+
+            // Thiết lập bộ đếm thời gian để thực hiện kiểm tra sau 5 giây
+            timer = setTimeout(function() {
+                if (validatePhone(phoneInput)) {
+                    errorMessage.hide();
+                    isPhoneValid = true; // Số điện thoại hợp lệ
+                } else {
+                    errorMessage.show();
+                    isPhoneValid = false; // Số điện thoại không hợp lệ
+                }
+            }, 2000); // 2000ms tương đương với 2 giây
+        });
+
+        $('#inforsForm').on('submit', function(e) {
+            var phoneInput = $('#phone').val().trim();
+            var errorMessage = $('#phone-error');
+
+            // Kiểm tra tính hợp lệ của số điện thoại khi submit form
+            if (!validatePhone(phoneInput)) {
+                e.preventDefault(); // Ngăn chặn form gửi đi
                 errorMessage.show();
                 isPhoneValid = false; // Số điện thoại không hợp lệ
+            } else {
+                errorMessage.hide();
+                isPhoneValid = true; // Số điện thoại hợp lệ
             }
-        }, 2000); // 2000ms tương đương với 2 giây
+        });
     });
-
-    $('#inforsForm').on('submit', function(e) {
-        var phoneInput = $('#phone').val().trim();
-        var errorMessage = $('#phone-error');
-
-        // Kiểm tra tính hợp lệ của số điện thoại khi submit form
-        if (!validatePhone(phoneInput)) {
-            e.preventDefault(); // Ngăn chặn form gửi đi
-            errorMessage.show();
-            isPhoneValid = false; // Số điện thoại không hợp lệ
-        } else {
-            errorMessage.hide();
-            isPhoneValid = true; // Số điện thoại hợp lệ
-        }
-    });
-});
-
-
 </script>
 @endsection

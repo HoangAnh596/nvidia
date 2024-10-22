@@ -15,14 +15,13 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ $titleSeo }}">
     <meta property="og:description" content="{{ $descriptionSeo }}">
-    <meta property="og:image" content="{{ asset($globalFavi[0]->image) }}">
+    <meta property="og:image" content="{{ asset($globalSetting->image) }}">
     <meta name="author" content="cnttshop">
 
-    <link rel="apple-touch-icon" href="{{ asset($globalFavi[0]->image) }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset($globalFavi[0]->image) }}">
+    <link rel="apple-touch-icon" href="{{ asset($globalSetting->image) }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset($globalSetting->image) }}">
 
     <link rel="stylesheet" href="{{asset('cntt/css/templatemo.css')}}">
-    <link rel="stylesheet" href="{{asset('cntt/css/custom.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/slick.min.css')}}">
 
     <!-- Load fonts style after rendering the layout styles -->
@@ -37,7 +36,7 @@
     <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" /> -->
     <link rel="stylesheet" href="{{asset('cntt/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/home.css')}}">
-    <link rel="stylesheet" href="{{asset('cntt/css/social.css')}}">
+    <link rel="stylesheet" href="{{asset('cntt/css/footer.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @yield('css')
 

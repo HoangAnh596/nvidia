@@ -10,14 +10,15 @@
     <link rel="stylesheet" href="{{asset('cntt/css/templatemo.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/custom.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/slick.min.css')}}">
-    <link rel="apple-touch-icon" href="{{ asset($globalFavi[0]->image) }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset($globalFavi[0]->image) }}">
+    <link rel="apple-touch-icon" href="{{ asset($globalSetting->image) }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset($globalSetting->image) }}">
 
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="{{asset('cntt/css/fontawesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/home.css')}}">
+    <link rel="stylesheet" href="{{asset('cntt/css/footer.css')}}">
     <link rel="stylesheet" href="{{asset('cntt/css/errors.css')}}">
     @yield('css')
 </head>

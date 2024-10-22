@@ -280,14 +280,6 @@ button.pop-gallery {
     background: url(../img/iconmap.png) no-repeat;
     padding: 5px 10px;
 }
-.directions {
-    background: url(../img/gg-map.png) no-repeat 1px 0px / 23px;
-    display: inline-block;
-    height: 24px;
-    width: 25px;
-    position: relative;
-    top: 2px;
-}
 
 .compare {
     display: block;

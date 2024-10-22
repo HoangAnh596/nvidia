@@ -26,7 +26,6 @@
                 <a href="{{ route('product.index') }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward"></i> Quay lại</a>
                 <div>
                     <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
-                    <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
                 </div>
             </div>
             <div class="card-body border-top p-9">
@@ -55,7 +54,6 @@
             </div>
             <div class="mt-4 pb-4 mr-4 float-right">
                 <button class="btn btn-primary btn-sm " type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
-                <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
             </div>
         </form>
         @can('product-delete')
@@ -172,6 +170,26 @@
             priceField.value = value.replace(/[^0-9.]/g, '');
         } else {
             priceError.textContent = '';
+        }
+    }
+
+    function validateDiscount() {
+        const discountField = document.getElementById('discount');
+        const discountError = document.getElementById('discountError');
+        const value = discountField.value;
+
+        // Kiểm tra nếu không phải là số nguyên hoặc nằm ngoài khoảng 0-100
+        if (!/^\d+$/.test(value) || parseInt(value) > 100) {
+            discountError.textContent = 'Vui lòng chỉ nhập số nguyên từ 0 đến 100.';
+            
+            // Loại bỏ ký tự không hợp lệ và giới hạn giá trị từ 0-100
+            discountField.value = value.replace(/[^0-9]/g, ''); // Chỉ cho phép số nguyên
+            
+            if (parseInt(discountField.value) > 100) {
+                discountField.value = 100; // Giới hạn tối đa là 100
+            }
+        } else {
+            discountError.textContent = '';
         }
     }
 

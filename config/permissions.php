@@ -63,13 +63,13 @@ return [
         'checkbox-footer' => 'checkbox_footer',
         'checkStt-footer' => 'checkstt_footer',
 
-        // Icon
-        'list-icon' => 'list_icon',
-        'add-icon' => 'add_icon',
-        'edit-icon' => 'edit_icon',
-        'delete-icon' => 'delete_icon',
-        'checkbox-icon' => 'checkbox_icon',
-        'checkStt-icon' => 'checkstt_icon',
+        // Partner
+        'list-partner' => 'list_partner',
+        'add-partner' => 'add_partner',
+        'edit-partner' => 'edit_partner',
+        'delete-partner' => 'delete_partner',
+        'checkbox-partner' => 'checkbox_partner',
+        'checkStt-partner' => 'checkstt_partner',
 
         // Icon
         'list-contact-icon' => 'list_contact_icon',

@@ -35,14 +35,38 @@
             <div class="text-dark">
                 <a href="{{ $product->slug }}" class="text-decoration-none btn-link">{{ $product->name }}</a>
             </div>
-            <ul class="list-unstyled d-flex justify-content-between align-items-center total-review-home">
+            @if($product->discount != 0)
+            <div class="prd-sale">
+                <p class="prd-sale-detail">
+                    Giảm {{ $product->discount }}%
+                </p>
+            </div>
+            @endif
+            <ul class="list-unstyled d-flex">
+                @if($product->price == 0)
+                <li><span class="lien-he-price">Liên hệ</span></li>
+                @else
+                @if($product->discount != 0)
                 <li>
-                    @if($product->price == 0)
-                    <span class="lien-he-price">Liên hệ</span>
-                    @else
-                    <a href="{{ $product->slug }}" class="text-decoration-none text-danger">{{ number_format($product->price, 0, ',', '.') }}đ </a>
-                    @endif
+                    <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none text-danger">
+                        {{ number_format($product->price * (1 - $product->discount / 100), 0, ',', '.') }}₫
+                    </a>
                 </li>
+                <li class="d-flex align-items-start">
+                    <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none price-sale">
+                        {{ number_format($product->price, 0, ',', '.') }}₫
+                    </a>
+                </li>
+                @else
+                <li>
+                    <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none text-danger">
+                        {{ number_format($product->price, 0, ',', '.') }}₫
+                    </a>
+                </li>
+                @endif
+                @endif
+            </ul>
+            <ul class="list-unstyled d-flex justify-content-between align-items-center total-review-home">
                 <li class="text-muted text-right">
                     <i class="text-warning fa fa-star"></i>
                     <span>
@@ -51,6 +75,11 @@
                         @endif
                     </span>
                 </li>
+                @if($product->status == 1)
+                <li><span class="lien-he-price"><i class="fa-solid fa-check"></i> Còn hàng</span></li>
+                @else
+                <li></li>
+                @endif
             </ul>
         </div>
     </div>

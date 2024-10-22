@@ -17,6 +17,11 @@
                 <span class="text-danger" id="priceError"></span>
             </div>
             <div class="mb-3">
+                <label for="discount" class="form-label">Giảm giá %</label>
+                <input class="form-control" id="discount" type="text" name="discount" value="{{ old('discount') }}">
+                <span class="text-danger" id="discountError"></span>
+            </div>
+            <div class="mb-3">
                 <label for="category" class="form-label">Danh mục chính <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
                 <select name="category" id="parent_id" class="form-control">
                     <option value="">Chọn danh mục</option>

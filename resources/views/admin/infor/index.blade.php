@@ -3,15 +3,25 @@
 @section('content')
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h3 class="mb-2 text-gray-800">Danh sách thông tin hotline kinh doanh</h3>
+    <h3 class="mb-2 text-gray-800">Danh sách thông tin liên hệ kinh doanh</h3>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
-                <div class="input-group">
+                <div class="input-group sr-product">
                     <div class="form-group">
-                        <input type="search" class="form-control form-outline" placeholder="Tìm kiếm hotline" aria-label="Search" name="keyword" value="{{ $keyWord }}">
+                        <input type="search" class="form-control" placeholder="Tìm kiếm tên or số điện thoại" aria-label="Search" name="keyword" value="{{ $keyWord }}">
                     </div>
+                    <div class="form-group">
+                    <select name="role" class="form-control">
+                        <option value="">Vị trí</option>
+                        <option value="0">Phòng kinh doanh</option>
+                        <option value="1">Phòng kỹ thuật</option>
+                        <option value="2">Phòng kinh doanh dự án</option>
+                        <option value="3">Phòng kinh doanh máy chủ serve</option>
+                        <option value="4">Phòng kế toán</option>
+                    </select>
+                </div>
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit"> <i class="fas fa-search fa-sm"></i> </button>
                     </div>
@@ -29,24 +39,34 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th class="text-center">Tên</th>
+                            <th class="col-sm-2 text-center">Tên</th>
+                            <th class="col-sm-2 text-center">Phòng</th>
                             <th class="text-center">Số điện thoại</th>
-                            <th class="text-center">stt</th>
+                            <th class="text-center">Stt</th>
                             <th class="text-center">Nhận báo giá</th>
-                            <th class="text-center">Hiển thị</th>
+                            <th class="text-center">Hỗ trợ</th>
+                            <th class="text-center">Liên hệ</th>
                             <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
                         @if($infors->isEmpty())
                         <tr>
-                            <td colspan="7" class="text-center">Không có bản ghi nào phù hợp !...</td>
+                            <td colspan="9" class="text-center">Không có bản ghi nào phù hợp !...</td>
                         </tr>
                         @else
                         @foreach ($infors as $val)
                         <tr>
-                            <td>{{ $val->id }}</td>
+                        <td>{{ (($infors->currentPage()-1)*10) + $loop->iteration }}</td>
                             <td>{{ $val->name }}</td>
+                            <td>
+                                @if($val->role == 0) Kinh doanh
+                                @elseif($val->role == 1) Kỹ thuật
+                                @elseif($val->role == 2) Dự án
+                                @elseif($val->role == 3) Máy chủ serve
+                                @elseif($val->role == 4) Kế toán
+                                @endif
+                            </td>
                             <td>{{ $val->phone }}</td>
                             <td class="text-center">
                                 <input type="text" class="check-stt" name="stt" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt', $val->stt) }}">
@@ -56,6 +76,9 @@
                             </td>
                             <td class="text-center">
                                 <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
+                            </td>
+                            <td class="text-center">
+                                <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_contact" {{ ($val->is_contact == 1) ? 'checked' : '' }}>
                             </td>
                             <td class="action">
                                 @can('hotline-edit')

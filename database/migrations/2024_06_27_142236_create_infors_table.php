@@ -17,6 +17,9 @@ class CreateInforsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone', 15);
+            $table->string('image')->nullable();
+            $table->string('title')->nullable();
+            $table->string('desc_role')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedTinyInteger('role')->default('0');
             $table->string('skype')->nullable();
@@ -25,6 +28,7 @@ class CreateInforsTable extends Migration
             $table->integer('stt')->nullable();
             $table->tinyInteger('send_price')->default(0)->comment('0: không nhận mail, 1: nhận mail');
             $table->tinyInteger('is_public')->default(0)->comment('1: hiển thị, 0: không hiển thị');
+            $table->tinyInteger('is_contact')->default(0)->comment('1: hiển thị, 0: không hiển thị');
             $table->timestamps();
         });
     }

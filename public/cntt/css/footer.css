@@ -1,0 +1,238 @@
+/* Định nghĩa animation pulse */
+@keyframes spread-fade {
+    0% {
+        opacity: 0.7;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+    100% {
+        opacity: 2;
+        transform: scale(3);
+    }
+}
+.contact-icon {
+    position: fixed;
+    left: 24px;
+    border-radius: 5px;
+    width: auto;
+    z-index: 150;
+    bottom: 50px;
+    padding-top: 10px;
+}
+.contact-icon ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.contact-icon ul>li {
+    position: relative; /* Thêm vị trí tương đối cho li */
+}
+.contact-icon ul li {
+    list-style: none !important;
+    margin-bottom: .6em;
+}
+.contact-icon ul>li a {
+    border: none;
+    padding: 3px;
+    display: block;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 10px !important;
+    line-height: 15px;
+    color: #515151;
+    font-weight: 700 !important;
+    max-width: 72.19px;
+    max-height: 54px;
+    text-decoration: none;
+}
+.contact-icon ul>li a i {
+    margin: auto;
+}
+
+.contact-icon ul>li .animation-icon:before {
+    display: block;
+    animation: spread-fade 1s ease-in infinite;
+}
+.contact-icon ul>li .animation-icon:before {
+    content: "";
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid #76b900;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    margin-left: -10px;
+    margin-top: -10px;
+    opacity: 0;
+    transform: scale(0);
+}
+.contact-icon ul>li .animation-icon:after {
+    display: block;
+    animation: spread-fade 1s .2s ease-in infinite;
+}
+
+/* Begin Footer */
+.graph-2 {
+    color: #ccc;
+    text-transform: uppercase;
+    font-weight: 600 !important;
+    margin-top: 1rem;
+}
+.footer_address {
+    padding-right: 40px;
+}
+.footer_address p {
+    color: #ccc;
+    font-size: 1rem !important;
+    margin: 0;
+}
+.footer_address .footer-heading {
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 6px;
+    color: #fff;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+.footer_address .footer-heading:after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    background: #76b900;
+    width: 105px;
+    bottom: 0;
+    left: 0;
+}
+.ftaddhn, .ftaddhnhcm {
+    color: #ccc;
+    font-size: .9rem !important;
+    margin-bottom: 17px;
+    display: block;
+}
+.footer_address a {
+    color: #76b900;
+}
+.directions {
+    background: url(../img/gg-map.png) no-repeat 1px 0px / 23px;
+    display: inline-block;
+    height: 24px;
+    width: 25px;
+    position: relative;
+    top: 2px;
+}
+/* End Footer */
+
+/* Begin Contact */
+.contact-us h1, h2 {
+    font-size: 1.5rem;
+}
+.contact-us h2 {
+    color: #76b900;
+}
+.detail-company p {
+    display: inline-block;
+    margin-right: 15px;
+    line-height: 30px;
+}
+.contact-us p strong {
+    color: #76b900;
+    font-weight: 500;
+}
+.des-contact {
+    display: block;
+    float: left;
+    border: 1px dashed #76b900;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+}
+.contact-list h4 {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #76b900;
+}
+.contact-list i {
+    color: #ffb909;
+    margin-right: 5px;
+}
+.contact-list h4 span {
+    padding: 0 10px 0 5px;
+}
+.contact-list .decor {
+    margin: 0 auto;
+    margin-top: 9px;
+    position: relative;
+    display: block;
+    height: 2px;
+    width: 110px;
+}
+.contact-list .decor:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #76b900;
+}
+.box-contact-list {
+    padding: 10px;
+    border: 1px solid #76b900;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+.box-contact-list img {
+    border-radius: 8px;
+    width: 100%;
+}
+.caption {
+    text-align: left;
+}
+.title-caption {
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 500 !important;
+    padding-top: 5px;
+    color: #76b900;
+}
+.name-caption {
+    font-weight: 500 !important;
+}
+.caption p {
+    margin-bottom: 0;
+}
+.caption p a {
+    color: #76b900;
+}
+/* End Contact */
+
+@media (min-width: 992px) {
+    .padding-left20 {
+        padding-left: 20px;
+    }
+    .contact-us {
+        margin: 30px auto;
+        width: 80%;
+    }
+    .detail-company {
+        width: 80%;
+        margin: 0 auto;
+        padding-bottom: 15px;
+    }
+}
+@media (min-width: 768px) {
+    .padding-left20 {
+        padding-left: 0;
+    }
+}
+@media (min-width: 567px) {
+    .padding-left20 {
+        padding-left: 0;
+    }
+}

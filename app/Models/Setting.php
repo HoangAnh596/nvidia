@@ -14,6 +14,7 @@ class Setting extends Model
     protected $fillable = [
         'title_seo', 'keyword_seo', 'des_seo',
         'mail_name', 'mail_pass', 'mail_text',
-        'image', 'user_id'
+        'image', 'user_id', 'facebook', 'twitter',
+        'youtube', 'tiktok', 'pinterest'
     ];
 }

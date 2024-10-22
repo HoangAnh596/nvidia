@@ -704,7 +704,10 @@ button:focus {
     margin: 0;
 }
 .btn-img {
-    padding: 10px;
+    padding: 12px 12px 0 12px;
+}
+.btn-img-outs {
+    padding-top: 12px;
 }
 .custom-row {
     margin: 0 -4px;
@@ -730,7 +733,7 @@ button:focus {
     margin-bottom: 0;
 }
 .btn-img-new {
-    padding: 10px;
+    padding: 12px 12px 0 12px;
 }
 .btn-img-new img {
     border-top-left-radius: 10px;
@@ -745,7 +748,7 @@ button:focus {
     transition: scale .5s ease;
 }
 .card-new h4 {
-    padding: 10px;
+    padding: 12px 12px 0 12px;
     line-height: 21px;
     font-size: 1rem !important;
     font-weight: bold !important;
@@ -770,6 +773,36 @@ button:focus {
     font-size: 20px !important;
     font-weight: 700 !important;
 }
+/* Css product sale */
+.prd-sale {
+    background: url(../img/sale.png) no-repeat;
+    height: 31px;
+    left: -5px;
+    position: absolute;
+    top: -1px;
+    width: 80px;
+    border-radius: 3px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.prd-sale .prd-sale-detail {
+    color: #fff;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    font-family: sans-serif !important;
+    margin: 3px 0 0;
+    text-align: center;
+}
+.price-sale {
+    font-size: 13px !important;
+    color: #a4a4a4;
+    margin-left: 6px;
+    text-decoration: line-through !important;
+}
+/* Css product sale */
+
 .hover-gr {
     margin-top: 6px;
 }
@@ -778,10 +811,8 @@ button:focus {
 }
 .lien-he-price {
     font-size: .9rem;
-    padding: 2px 15px;
-    background: #76b900;
     border-radius: 3px;
-    color: black;
+    color: #76b900;
     display: inline-block;
     text-align: center;
     font-weight: 600;
@@ -789,9 +820,6 @@ button:focus {
 .total-review-home li{
     font-size: .8rem !important;
 }
-/* .text-outstand .total-review-home {
-    margin: 0 !important;
-} */
 .infor-outs {
     margin-top: .25rem;
     margin-bottom: 0;
@@ -1147,6 +1175,7 @@ button:focus {
     margin-right: 15px;
     text-decoration: none;
     width: auto;
+    cursor: pointer;
 }
 .page-footer__social__link i {
     color: #999;
@@ -2587,6 +2616,11 @@ aside.hasprod-mb-pr {
     }
     .card-body a {
         font-size: 0.9rem !important;
+    }
+}
+@media (min-width: 425px) {
+    .price-flex {
+        display: flex;
     }
 }
 

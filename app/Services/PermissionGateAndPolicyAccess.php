@@ -17,7 +17,7 @@ use App\Policies\FooterPolicy;
 use App\Policies\GroupPolicy;
 use App\Policies\GroupProductPolicy;
 use App\Policies\HeaderTagPolicy;
-use App\Policies\IconPolicy;
+use App\Policies\PartnerPolicy;
 use App\Policies\InforPolicy;
 use App\Policies\ManyPolicy;
 use App\Policies\MenuPolicy;
@@ -44,7 +44,7 @@ class PermissionGateAndPolicyAccess {
         $this->defineBottom();
         $this->defineComment();
         $this->defineCommentNew();
-        $this->defineIcon();
+        $this->definePartner();
         $this->defineContactIcon();
         $this->defineFilter();
         $this->defineFilterProduct();
@@ -156,14 +156,13 @@ class PermissionGateAndPolicyAccess {
         Gate::define('bottom-checkStt', [BottomPolicy::class, 'checkStt']);
     }
 
-    public function defineIcon()
+    public function definePartner()
     {
-        // Gate::define('icon-list', [IconPolicy::class, 'view']);
-        Gate::define('icon-add', [IconPolicy::class, 'create']);
-        Gate::define('icon-edit', [IconPolicy::class, 'update']);
-        Gate::define('icon-delete', [IconPolicy::class, 'delete']);
-        Gate::define('icon-checkbox', [IconPolicy::class, 'checkbox']);
-        Gate::define('icon-checkStt', [IconPolicy::class, 'checkStt']);
+        Gate::define('partner-add', [PartnerPolicy::class, 'create']);
+        Gate::define('partner-edit', [PartnerPolicy::class, 'update']);
+        Gate::define('partner-delete', [PartnerPolicy::class, 'delete']);
+        Gate::define('partner-checkbox', [PartnerPolicy::class, 'checkbox']);
+        Gate::define('partner-checkStt', [PartnerPolicy::class, 'checkStt']);
     }
 
     public function defineContactIcon()

@@ -17,7 +17,7 @@ class Product extends Model
         'title_seo', 'keyword_seo', 'des_seo',
         'maker_id', 'image_ids', 'tag_ids',
         'des', 'content', 'is_outstand',
-        'filepath'
+        'filepath', 'discount'
     ];
 
     protected $casts = [

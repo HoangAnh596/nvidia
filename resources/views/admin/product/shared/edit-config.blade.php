@@ -17,6 +17,11 @@
                 <span class="font-italic text-danger" id="priceError"></span>
             </div>
             <div class="mb-3">
+                <label for="discount" class="form-label">Giảm giá %</label>
+                <input class="form-control" id="discount" type="text" name="discount" oninput="validateDiscount()" value="{{ old('discount', $product->discount ?? '') }}">
+                <span class="font-italic text-danger" id="discountError"></span>
+            </div>
+            <div class="mb-3">
                 <label for="category">Danh mục chính <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
                 <select name="category" id="category" class="form-control">
                     @foreach($categories as $val)

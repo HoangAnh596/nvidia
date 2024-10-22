@@ -18,9 +18,17 @@ class InforController extends Controller
     public function index(Request $request)
     {
         $keyWord = $request->input('keyword');
-        $infors = Infor::where('name', 'like', "%" . Helper::escape_like($keyWord) . "%")
-            ->latest()
-            ->paginate(config('common.default_page_size'));
+        $roleId = $request->role;
+
+        $inforQuery = Infor::where(function ($query) use ($keyWord) {
+            $query->where('name', 'like', "%" . $keyWord . "%")
+                ->orWhere('phone', 'like', "%" . $keyWord . "%");
+        });
+        if (!is_null($roleId)) {
+            $inforQuery->where('role', $roleId);  // Lọc theo role nếu roleId không null
+        }
+
+        $infors = $inforQuery->latest()->paginate(10);
 
         return view('admin.infor.index', compact('infors', 'keyWord'));
     }
@@ -94,7 +102,13 @@ class InforController extends Controller
         $infor = empty($id) ? new Infor() : Infor::findOrFail($id);
 
         $infor->fill($request->all());
+        $path = parse_url($request->filepath, PHP_URL_PATH);
+        // Xóa dấu gạch chéo đầu tiên nếu cần thiết
+        if (strpos($path, '/') === 0) {
+            $path = substr($path, 1);
+        }
         
+        $infor->image = $path;
         $infor->stt = (isset($request->stt)) ? $request->stt : 999;
         $infor->user_id = Auth::id();
 
@@ -123,7 +137,7 @@ class InforController extends Controller
             $field = $request->field;
             $value = $request->value;
             // Kiểm tra xem trường có tồn tại trong bảng user không
-            if (in_array($field, ['send_price', 'is_public'])) {
+            if (in_array($field, ['send_price', 'is_public', 'is_contact'])) {
                 $infor->$field = $value;
 
                 $infor->save();

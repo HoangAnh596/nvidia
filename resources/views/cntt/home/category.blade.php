@@ -128,19 +128,18 @@
             </li>
             @endforeach
         </div>
-        </ul>
     </div>
     @endif
     @endif
 </div>
-</div>
+
 <div class="container">
     <div class="show-prod-cate">
         <h2 class="mt-3">{{ $mainCate->name }}</h2>
         <div class="row custom-row mt-3" id="product-data">
             @include('cntt.home.partials.products', ['products' => $products])
         </div>
-        <nav class="d-flex justify-content-center mt-2">
+        <nav class="d-flex justify-content-center mt-3">
             {{ $products->links() }}
         </nav>
     </div>
@@ -178,11 +177,11 @@
                                 $newDirectory = $directory . '/small';
                                 $newImagePath = $newDirectory . '/' . $filename;
                                 @endphp
-                                <a class="btn-img" href="{{ $data->slug }}">
+                                <a class="btn-img-outs" href="{{ $data->slug }}">
                                     <img class="card-img-top img-size" src="{{ asset($newImagePath) }}" alt="{{ $mainImage->alt }}" title="{{ $mainImage->title }}">
                                 </a>
                                 @else
-                                <a class="btn-img" href="{{ $data->slug }}">
+                                <a class="btn-img-outs" href="{{ $data->slug }}">
                                     <img class="card-img-top lazyload img-size" src="{{ asset('storage/images/small/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" width="206" height="206" alt="Image Coming Soon" title="Image Coming Soon">
                                 </a>
                                 @endif
@@ -197,7 +196,9 @@
                                             @if($data->price == 0)
                                             <span class="lien-he-price">Liên hệ</span>
                                             @else
-                                            <a href="{{ $data->slug }}" class="text-decoration-none text-danger">{{ number_format($data->price, 0, ',', '.') }}đ </a>
+                                            <a href="{{ $data->slug }}" class="text-decoration-none text-danger">
+                                                {{ number_format($data->discount != 0 ? $data->price * (1 - $data->discount / 100) : $data->price, 0, ',', '.') }}₫
+                                            </a>
                                             @endif
                                         </li>
                                         <li class="text-muted text-right">

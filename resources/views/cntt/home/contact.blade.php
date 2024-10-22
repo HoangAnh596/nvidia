@@ -1,71 +1,165 @@
 @extends('cntt.layouts.app')
-
 @section('content')
 
-    <!-- Start Content Page -->
-    <div class="container-fluid bg-light py-5">
-        <div class="col-md-6 m-auto text-center">
-            <h1 class="h1">Contact Us</h1>
-            <p>
-                Bạn cần tư vấn về sản phẩm, tư vấn giải pháp mạng cisco hãy liên hệ với chúng tôi.
-            </p>
+<div class="container pt-44 bg-white">
+    <div class="text-center pt-4">
+        <div class="contact-us">
+            <h1>THÔNG TIN LIÊN HỆ HỢP TÁC</h1>
+            <h2>CÔNG TY TNHH CÔNG NGHỆ VIỆT THÁI DƯƠNG</h2>
+            <div class="detail-company">
+                <p><strong><i class="fa fa-map-marker" aria-hidden="true"></i> Văn phòng Hà Nội:</strong> NTT03, Line 1, Thống Nhất Complex, 82 Nguyễn Tuân, Thanh Xuân, <b>Hà Nội</b>.<a title="Chỉ đường đến CNTTShop.vn" href="https://maps.app.goo.gl/SxF2f77WJn847cZt6" target="_blank" rel="noopener noreferrer"><i class="directions"></i></a></p>
+                <p><strong><i class="fa fa-map-marker" aria-hidden="true"></i> Văn phòng HCM:</strong> <i class="maphcm"></i> Số 31B, Đường 1, Phường An Phú, Quận 2 (Thủ Đức), <b>TP HCM</b>.<a title="Chỉ đường đến CNTTShop.vn" href="https://maps.app.goo.gl/WW9YF3BVn5okoRfT6" target="_blank" rel="noopener noreferrer"><i class="directions"></i></a></p>
+                <p><strong><i class="fa fa-phone" aria-hidden="true"></i> Điện thoại:</strong> (024) 62592244</p>
+                <p><strong><i class="fa fa-envelope" aria-hidden="true"></i> Email: </strong>kd@cnttshop.vn</p>
+                <p><strong>Mã số thuế:</strong> 0101590267</p>
+                <p>(Do Sở Kế hoạch và Đầu tư Thành Phố Hà Nội Cấp ngày 17/12/2004)</p>
+            </div>
+            <div class="des-contact">
+                <strong>Công ty TNHH công nghệ Việt Thái Dương</strong> chuyên phân phối thiết bị mạng <strong>CISCO, MikroTik, Maipu, FORTINET, Allied Telesis, Teltonika, Scodeno, HPE, JUNIPER, RUCKUS, ARUBA, CAMBIUM, UNIFI...</strong> Chính hãng, giá tốt nhất thị trường.
+            </div>
         </div>
-    </div>
-
-    <!-- Start Map -->
-    <div id="mapid" style="width: 100%; height: 300px;"></div>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-    <script>
-        var mymap = L.map('mapid').setView([-23.013104, -43.394365, 13], 13);
-
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-            maxZoom: 18,
-            attribution: 'Zay Telmplte | Template Design by <a href="https://templatemo.com/">Templatemo</a> | Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1
-        }).addTo(mymap);
-
-        L.marker([-23.013104, -43.394365, 13]).addTo(mymap)
-            .bindPopup("<b>HNA</b> Hà Nội<br />Location.").openPopup();
-
-        mymap.scrollWheelZoom.disable();
-        mymap.touchZoom.disable();
-    </script>
-    <!-- Ena Map -->
-
-    <!-- Start Contact -->
-    <div class="container py-5">
-        <div class="row py-5">
-            <form class="col-md-9 m-auto" method="post" role="form">
-                <div class="row">
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="inputname">Name</label>
-                        <input type="text" class="form-control mt-1" id="name" name="name" placeholder="Name">
-                    </div>
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="inputemail">Email</label>
-                        <input type="email" class="form-control mt-1" id="email" name="email" placeholder="Email">
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="inputsubject">Subject</label>
-                    <input type="text" class="form-control mt-1" id="subject" name="subject" placeholder="Subject">
-                </div>
-                <div class="mb-3">
-                    <label for="inputmessage">Message</label>
-                    <textarea class="form-control mt-1" id="message" name="message" placeholder="Message" rows="8"></textarea>
-                </div>
-                <div class="row">
-                    <div class="col text-end mt-2">
-                        <button type="submit" class="btn btn-success btn-lg px-3">Liên Hệ</button>
-                    </div>
-                </div>
-            </form>
+        @if($contacts->has(0))
+        <div class="contact-list mt-3">
+            <h4>
+                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i>
+                <span>PHÒNG KINH DOANH</span>
+                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i>
+            </h4>
+            <span class="decor"></span>
         </div>
+        <div class="row mt-3">
+            @foreach($contacts[0] as $val) <!-- Nhóm role = 0 -->
+            <div class="col-md-3">
+                <div class="box-contact-list">
+                    <img src="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
+                    <div class="caption">
+                        <p class="title-caption">{{ $val->desc_role }}</p>
+                        <p class="name-caption"><strong>{{ $val->name }}</strong> @if(!empty($val->title)) ({{ $val->title }}) @endif</p>
+                        <p>- Tel: <a href="tel:{{ $val->phone }}">{{ $val->phone }}</a></p>
+                        <p>- Email: <a target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $val->gmail }}" title="Gửi mail tới: {{ $val->name }}">{{ $val->gmail }}</a></p>
+                        <p>- Skype: <a href="skype:{{ $val->skype }}?chat">{{ $val->skype }}</a></p>
+                        <p>- Zalo: <a href="zalo:{{ $val->phone }}?chat">{{ $val->phone }}</a></p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @endif
+
+        @if($contacts->has(3))
+        <div class="contact-list mt-3">
+            <h4>
+                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i>
+                <span>PHÒNG KINH DOANH MÁY CHỦ SERVE</span>
+                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i>
+            </h4>
+            <span class="decor"></span>
+        </div>
+        <div class="row mt-3">
+            @foreach($contacts[3] as $val) <!-- Nhóm role = 0 -->
+            <div class="col-md-3">
+                <div class="box-contact-list">
+                    <img src="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
+                    <div class="caption">
+                        <p class="title-caption">{{ $val->desc_role }}</p>
+                        <p class="name-caption"><strong>{{ $val->name }}</strong> @if(!empty($val->title)) ({{ $val->title }}) @endif</p>
+                        <p>- Tel: <a href="tel:{{ $val->phone }}">{{ $val->phone }}</a></p>
+                        <p>- Email: <a target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $val->gmail }}" title="Gửi mail tới: {{ $val->name }}">{{ $val->gmail }}</a></p>
+                        <p>- Skype: <a href="skype:{{ $val->skype }}?chat">{{ $val->skype }}</a></p>
+                        <p>- Zalo: <a href="zalo:{{ $val->phone }}?chat">{{ $val->phone }}</a></p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @endif
+
+        @if($contacts->has(2))
+        <div class="contact-list mt-3">
+            <h4>
+                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i>
+                <span>PHÒNG KINH DOANH DỰ ÁN</span>
+                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i>
+            </h4>
+            <span class="decor"></span>
+        </div>
+        <div class="row mt-3">
+            @foreach($contacts[2] as $val) <!-- Nhóm role = 0 -->
+            <div class="col-md-3">
+                <div class="box-contact-list">
+                    <img src="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
+                    <div class="caption">
+                        <p class="title-caption">{{ $val->desc_role }}</p>
+                        <p class="name-caption"><strong>{{ $val->name }}</strong> @if(!empty($val->title)) ({{ $val->title }}) @endif</p>
+                        <p>- Tel: <a href="tel:{{ $val->phone }}">{{ $val->phone }}</a></p>
+                        <p>- Email: <a target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $val->gmail }}" title="Gửi mail tới: {{ $val->name }}">{{ $val->gmail }}</a></p>
+                        <p>- Skype: <a href="skype:{{ $val->skype }}?chat">{{ $val->skype }}</a></p>
+                        <p>- Zalo: <a href="zalo:{{ $val->phone }}?chat">{{ $val->phone }}</a></p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @endif
+
+        @if($contacts->has(1))
+        <div class="contact-list mt-3">
+            <h4>
+                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i>
+                <span>PHÒNG KỸ THUẬT</span>
+                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i>
+            </h4>
+            <span class="decor"></span>
+        </div>
+        <!-- Hiển thị danh sách những người có role = 1 -->
+        <div class="row mt-3">
+            @foreach($contacts[1] as $val) <!-- Nhóm role = 1 -->
+            <div class="col-md-3">
+                <div class="box-contact-list">
+                    <img src="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
+                    <div class="caption">
+                        <p class="title-caption">{{ $val->desc_role }}</p>
+                        <p class="name-caption"><strong>{{ $val->name }}</strong> @if(!empty($val->title)) ({{ $val->title }}) @endif</p>
+                        <p>- Tel: <a href="tel:{{ $val->phone }}">{{ $val->phone }}</a></p>
+                        <p>- Email: <a target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $val->gmail }}" title="Gửi mail tới: {{ $val->name }}">{{ $val->gmail }}</a></p>
+                        <p>- Skype: <a href="skype:{{ $val->skype }}?chat">{{ $val->skype }}</a></p>
+                        <p>- Zalo: <a href="zalo:{{ $val->phone }}?chat">{{ $val->phone }}</a></p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @endif
+
+        @if($contacts->has(4))
+        <div class="contact-list mt-3">
+            <h4>
+                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i>
+                <span>PHÒNG KẾ TOÁN</span>
+                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i>
+            </h4>
+            <span class="decor"></span>
+        </div>
+        <!-- Hiển thị danh sách những người có role = 4 -->
+        <div class="row mt-3">
+            @foreach($contacts[4] as $val) <!-- Nhóm role = 4 -->
+            <div class="col-md-3">
+                <div class="box-contact-list">
+                    <img src="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
+                    <div class="caption">
+                        <p class="title-caption">{{ $val->desc_role }}</p>
+                        <p class="name-caption"><strong>{{ $val->name }}</strong> @if(!empty($val->title)) ({{ $val->title }}) @endif</p>
+                        <p>- Tel: <a href="tel:{{ $val->phone }}">{{ $val->phone }}</a></p>
+                        <p>- Email: <a target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $val->gmail }}" title="Gửi mail tới: {{ $val->name }}">{{ $val->gmail }}</a></p>
+                        <p>- Skype: <a href="skype:{{ $val->skype }}?chat">{{ $val->skype }}</a></p>
+                        <p>- Zalo: <a href="zalo:{{ $val->phone }}?chat">{{ $val->phone }}</a></p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @endif
     </div>
-    <!-- End Contact -->
+</div>
 
 @endsection

@@ -30,6 +30,12 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#social-tab" type="button" role="tab">
+                            <i class="fa-solid fa-square-share-nodes"></i>
+                            Cấu hình mạng xã hội
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
                         <button class="nav-link" data-bs-toggle="tab" data-bs-target="#wallet-tab" type="button" role="tab">
                             <i class="fa-solid fa-gear"></i>
                             Cấu hình website
@@ -40,6 +46,9 @@
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="info-tab" role="tabpanel">
                         @include("admin.setting.shared.edit-seo")
+                    </div>
+                    <div class="tab-pane fade" id="social-tab" role="tabpanel">
+                        @include("admin.setting.shared.edit-social")
                     </div>
                     <div class="tab-pane fade" id="wallet-tab" role="tabpanel">
                         @include("admin.setting.shared.edit-setting")
