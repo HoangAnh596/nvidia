@@ -59,7 +59,7 @@ class HomeController extends Controller
         $categories = Category::where('is_public', 1)
             ->select('id', 'name', 'slug', 'image', 'title_img', 'alt_img', 'is_serve')
             ->orderBy('stt_cate', 'ASC')
-            ->get();
+            ->limit(5)->get();
         // Đối tác
         $partners = Partner::where('is_public', 1)
             ->select('title', 'image', 'url', 'stt', 'is_tab')
@@ -77,7 +77,7 @@ class HomeController extends Controller
         } else {
             $categoriesWithProducts = collect();
             foreach ($ids as $idCate) {
-                $category = Category::find($idCate);
+                $category = Category::select('id', 'name', 'slug')->find($idCate);
                 if ($category) {
                     // Lấy tất cả các id danh mục con bao gồm cả id gốc
                     $allCategoryIds = array_merge([$idCate], $category->getAllChildrenIds());
@@ -130,9 +130,7 @@ class HomeController extends Controller
     {
         // Seo Website
         $globalSeo = app('setting');
-        // $cateMenu = Category::all();
-        // $cateMenu = $this->buildTree($cateMenu);
-
+        
         $phoneInfors = Infor::select('name', 'phone', 'gmail', 'skype', 'zalo', 'role')
             ->where('is_public', 1)
             ->orderBy('stt', 'ASC')->get();
@@ -394,23 +392,6 @@ class HomeController extends Controller
             'groupProducts', 'totalImgCount', 'parentCate'
         ));
     }
-
-    // private function buildTree($cateMenu, $parentId = 0)
-    // {
-    //     $branch = [];
-
-    //     foreach ($cateMenu as $category) {
-    //         if ($category->parent_id == $parentId) {
-    //             $children = $this->buildTree($cateMenu, $category->id);
-    //             if ($children) {
-    //                 $category->children = $children;
-    //             }
-    //             $branch[] = $category;
-    //         }
-    //     }
-
-    //     return $branch;
-    // }
 
     // Xử lý tìm kiếm
     public function search(Request $request)
@@ -720,9 +701,12 @@ class HomeController extends Controller
             $prod_3 = count($products) === 3 ? trim($products[2]) : null; // Nếu có 3 phần tử, lấy phần tử thứ ba
 
             // Debug để kiểm tra kết quả
-            $product1 = Product::where('slug', $prod_1)->firstOrFail();
-            $product2 = Product::where('slug', $prod_2)->firstOrFail();
-            $product3 = $prod_3 ? Product::where('slug', $prod_3)->first() : null;
+            $product1 = Product::select('id', 'name', 'slug', 'code', 'price', 'discount', 'image_ids')
+                ->where('slug', $prod_1)->firstOrFail();
+            $product2 = Product::select('id', 'name', 'slug', 'code', 'price', 'discount', 'image_ids')
+                ->where('slug', $prod_2)->firstOrFail();
+            $product3 = $prod_3 ? Product::select('id', 'name', 'slug', 'code', 'price', 'discount', 'image_ids')
+                ->where('slug', $prod_3)->first() : null;
             
             // Lấy ID của categories
             $cateId1 = $product1->category()->pluck('categories.id')->first();

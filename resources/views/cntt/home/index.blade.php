@@ -53,17 +53,37 @@
 <!-- Begin Danh mục sản phẩm -->
 <section class="container">
     <div class="row hp-category justify-content-center">
+        @php
+        $agent = new Jenssegers\Agent\Agent();
+        @endphp
+        <!-- Header -->
+        <!-- begin navbar mobile -->
         @if(!empty($categories))
-        @foreach($categories as $item)
-        <div class="col-lg-5 col-xs-6 col-md-4 col-sm-6">
-            <a class="d-flex justify-content-center flex-fill mt-3" href="{{ asset($item->slug) }}" title="{{ $item->name }}">
-                <img class="rounded-circle img-fluid border lazyload" src="{{ asset($item->image) }}" data-src="{{ asset($item->image) }}" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
-            </a>
-            <h2 class="mt-3 mb-3 d-flex flex-fill justify-content-center">
-                <a href="{{ asset($item->slug) }}" title="{{ $item->name }}">{{ $item->name }}</a>
-            </h2>
-        </div>
-        @endforeach
+            @if($agent->isMobile())
+            <div class="cate-autoplay">
+                @foreach($categories as $item)
+                <div>
+                    <a class="img-partner" href="{{ asset($item->slug) }}" title="{{ $item->name }}">
+                        <img class="rounded-circle img-fluid border lazyload" src="{{ asset($item->image) }}" data-src="{{ asset($item->image) }}" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
+                    </a>
+                    <h2 class="mt-3 mb-3 d-flex flex-fill justify-content-center">
+                        <a href="{{ asset($item->slug) }}" title="{{ $item->name }}">{{ $item->name }}</a>
+                    </h2>
+                </div>
+                @endforeach
+            </div>
+            @else
+            @foreach($categories as $item)
+            <div class="col-lg-5 col-xs-6 col-md-4 col-sm-6">
+                <a class="d-flex justify-content-center flex-fill mt-3" href="{{ asset($item->slug) }}" title="{{ $item->name }}">
+                    <img class="rounded-circle img-fluid border lazyload" src="{{ asset($item->image) }}" data-src="{{ asset($item->image) }}" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
+                </a>
+                <h2 class="mt-3 mb-3 d-flex flex-fill justify-content-center">
+                    <a href="{{ asset($item->slug) }}" title="{{ $item->name }}">{{ $item->name }}</a>
+                </h2>
+            </div>
+            @endforeach
+            @endif
         @endif
     </div>
 </section>
@@ -125,7 +145,9 @@
                     @endif
                     <div class="card-body">
                         <div class="text-dark">
-                            <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none btn-link">{{ $product->name }}</a>
+                            <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none btn-link">
+                                <h3>{{ $product->name }}</h3>
+                            </a>
                         </div>
                         @if($product->discount != 0)
                         <div class="prd-sale">
@@ -136,7 +158,7 @@
                         @endif
                         <ul class="list-unstyled d-flex">
                             @if($product->price == 0)
-                            <li><span class="lien-he-price">Liên hệ</span></li>
+                            <li><span class="lien-he-price"><i class="fa-solid fa-phone-volume"></i> Liên hệ</span></li>
                             @else
                             @if($product->discount != 0)
                             <li>
@@ -145,7 +167,7 @@
                                 </a>
                             </li>
                             <li class="d-flex align-items-start">
-                                <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none price-sale">
+                                <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none price-sale text-secondary">
                                     {{ number_format($product->price, 0, ',', '.') }}₫
                                 </a>
                             </li>
@@ -381,7 +403,7 @@
     }
 
     .owl-carousel .owl-stage-outer {
-        padding-bottom: 20px;
+        padding-bottom: 12px;
     }
 
     .owl-theme .owl-nav {
@@ -421,6 +443,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
+        $('.cate-autoplay').slick({
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            arrows: false,
+            infinite: true
+        });
         $('.partner-autoplay').slick({
             slidesToShow: 8,
             slidesToScroll: 3,

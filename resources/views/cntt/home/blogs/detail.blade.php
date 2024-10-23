@@ -387,7 +387,6 @@
                 var cmtName = $('#comment-name').val().trim();
                 var cmtEmail = $('#comment-email').val().trim();
                 var cmtRate = $('input[name="rating"]:checked').val();
-                // console.log(cmtRate);
 
                 // Xóa các thông báo lỗi cũ
                 $('#name-error').text('');

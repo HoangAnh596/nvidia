@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-2 d-flex flex-row-reverse align-items-center vertical-line pb-3">Tiêu đề trang <div class="warningMenu">*</div></div>
         <div class="col-8 pb-3">
-            <input type="text" name="title_seo" class="form-control" value="{{old('title_seo', $setting->title_seo ?? '') }}" id="title_seo" onkeyup="delayedValidate('title_seo', 'titleSeoWarning', 50, 60)">
+            <input type="text" name="title_seo" class="form-control" value="{{old('title_seo', $setting->title_seo ?? '') }}" id="title_seo" onkeyup="delayedValidate('title_seo', 'titleSeoWarning', 3, 60)">
             <span class="text-danger" id="titleSeoWarning"></span>
         </div>
         <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>

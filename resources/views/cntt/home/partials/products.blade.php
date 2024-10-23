@@ -33,7 +33,9 @@
         @endif
         <div class="card-body">
             <div class="text-dark">
-                <a href="{{ $product->slug }}" class="text-decoration-none btn-link">{{ $product->name }}</a>
+                <a href="{{ $product->slug }}" class="text-decoration-none btn-link">
+                    <h3>{{ $product->name }}</h3>
+                </a>
             </div>
             @if($product->discount != 0)
             <div class="prd-sale">
@@ -44,7 +46,7 @@
             @endif
             <ul class="list-unstyled d-flex">
                 @if($product->price == 0)
-                <li><span class="lien-he-price">Liên hệ</span></li>
+                <li><span class="lien-he-price"><i class="fa-solid fa-phone-volume"></i> Liên hệ</span></li>
                 @else
                 @if($product->discount != 0)
                 <li>
@@ -53,7 +55,7 @@
                     </a>
                 </li>
                 <li class="d-flex align-items-start">
-                    <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none price-sale">
+                    <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none price-sale text-secondary">
                         {{ number_format($product->price, 0, ',', '.') }}₫
                     </a>
                 </li>

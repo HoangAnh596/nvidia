@@ -11,7 +11,7 @@ class ProductImages extends Model
     use HasFactory;
 
     protected $table = 'product_images';
-    // protected $dates = ['deleted_at'];
+    
     protected $fillable = [
         'image', 'main_img',
         'title',

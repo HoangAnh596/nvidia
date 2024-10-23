@@ -1,5 +1,5 @@
 @foreach($products as $product)
-<div class="col-xs-6 col-s-3 col-md-4 col-sm-6 mb-2">
+<div class="col-xs-6 col-s-3 col-md-4 col-sm-6 mb-custom">
     <div class="card h-100">
         @php
         $mainImage = $product->product_images ? $product->product_images->firstWhere('main_img', 1) : null;
@@ -22,25 +22,56 @@
         </a>
         @endif
         <div class="card-body">
-            <div class="text-center h-30">
-                @if($product->price == 0)
-                <span class="lien-he-price">Liên hệ</span>
-                @else
-                <a href="{{ $product->slug }}" class="text-decoration-none text-danger">{{ number_format($product->price, 0, ',', '.') }}đ </a>
-                @endif
-            </div>
             <div class="text-dark">
-                <a href="{{ $product->slug }}" class="text-decoration-none text-dark">{{ $product->name }}</a>
+                <a href="{{ $product->slug }}" class="text-decoration-none btn-link">
+                    <h3>{{ $product->name }}</h3>
+                </a>
             </div>
-            <ul class="list-unstyled d-flex justify-content-between">
+            @if($product->discount != 0)
+            <div class="prd-sale">
+                <p class="prd-sale-detail">
+                    Giảm {{ $product->discount }}%
+                </p>
+            </div>
+            @endif
+            <ul class="list-unstyled d-flex">
+                @if($product->price == 0)
+                <li><span class="lien-he-price"><i class="fa-solid fa-phone-volume"></i> Liên hệ</span></li>
+                @else
+                @if($product->discount != 0)
                 <li>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-muted fa fa-star"></i>
-                    <i class="text-muted fa fa-star"></i>
+                    <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none text-danger">
+                        {{ number_format($product->price * (1 - $product->discount / 100), 0, ',', '.') }}₫
+                    </a>
                 </li>
-                <li class="text-muted text-right"><i class="fa-solid fa-heart icon-heart"></i></li>
+                <li class="d-flex align-items-start">
+                    <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none price-sale text-secondary">
+                        {{ number_format($product->price, 0, ',', '.') }}₫
+                    </a>
+                </li>
+                @else
+                <li>
+                    <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none text-danger">
+                        {{ number_format($product->price, 0, ',', '.') }}₫
+                    </a>
+                </li>
+                @endif
+                @endif
+            </ul>
+            <ul class="list-unstyled d-flex justify-content-between align-items-center total-review-home">
+                <li class="text-muted text-right">
+                    <i class="text-warning fa fa-star"></i>
+                    <span>
+                        @if ($product->totalCmt > 0)
+                        {{ number_format($product->average_star, 1) }} ({{ $product->totalCmt }})
+                        @endif
+                    </span>
+                </li>
+                @if($product->status == 1)
+                <li><span class="lien-he-price"><i class="fa-solid fa-check"></i> Còn hàng</span></li>
+                @else
+                <li></li>
+                @endif
             </ul>
         </div>
     </div>

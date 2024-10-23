@@ -749,6 +749,7 @@
                 var cmtContent = $('#comment-content').val().trim();
                 var cmtName = $('#comment-name').val().trim();
                 var cmtEmail = $('#comment-email').val().trim();
+                var cmtRate = $('input[name="rating"]:checked').val();
 
                 // Xóa các thông báo lỗi cũ
                 $('#name-error').text('');
@@ -799,6 +800,7 @@
                             content: cmtContent,
                             name: cmtName,
                             email: cmtEmail,
+                            star: cmtRate,
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(response) {

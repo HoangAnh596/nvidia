@@ -20,7 +20,6 @@ class CreateProductImagesTable extends Migration
             $table->string('title')->nullable();
             $table->string('alt')->nullable();
             $table->integer('stt_img')->nullable();
-            $table->softdeletes();
             $table->timestamps();
         });
     }

@@ -20,25 +20,25 @@
             <div class="row custom-row" id="product-data">
                 @include('cntt.home.partials.search', ['products' => $products])
             </div>
-            <nav class="d-flex justify-content-center">
-                {{ $products->links() }}
+            <nav class="d-flex justify-content-center mt-3">
+                {{ $products->appends(request()->query())->links() }}
             </nav>
         </div>
         <div class="col-md-3 mt-4 res-dnone">
             <!-- Hotline -->
             <div class="support-prod src-fixed mb-4">
                 <div class="bg-prod d-flex align-items-center">
-                    <h2>Bạn cần báo giá tốt nhất</h2>
+                    <h2><i class="fa-solid fa-file-invoice-dollar"></i> Bạn cần báo giá tốt nhất</h2>
                 </div>
                 <div class="title-outstand-prod">
                     <div class="row mt-3">
-                        <div><span class="top-heading">Hỗ trợ kinh doanh</span></div>
+                        <div><span class="top-heading">Hỗ trợ kinh doanh <i class="fa-solid fa-money-check-dollar"></i></span></div>
                         @foreach($phoneInfors as $val)
                         @if($val->role == 0)
                         <div class="contact-infor">
-                            <span class="user-heading"> <i class="fa fa-user" aria-hidden="true"></i>{{ $val->name }}</span>
+                            <span class="user-heading"><i class="fa-solid fa-user-check"></i> {{ $val->name }}</span>
                             <div class="sp-online">
-                                <span title="Mobile"><i class="fa fa-phone" aria-hidden="true"></i>{{ $val->phone }}</span>
+                                <span title="Mobile"><i class="fa-solid fa-headset"></i> {{ $val->phone }}</span>
 
                                 <a href="{{ $val->skype }} " title="Chat với {{ $val->name }} qua Skype">
                                     <i class="i-skype"></i>
@@ -53,13 +53,13 @@
                         </div>
                         @endif
                         @endforeach
-                        <div class="mt-3"><span class="top-heading">Hỗ trợ kỹ thuật</span></div>
+                        <div class="mt-3"><span class="top-heading">Hỗ trợ kỹ thuật <i class="fa-solid fa-gear"></i></span></div>
                         @foreach($phoneInfors as $val)
                         @if($val->role == 1)
                         <div class="contact-infor">
-                            <span class="user-heading"> <i class="fa fa-user" aria-hidden="true"></i>{{ $val->name }}</span>
+                            <span class="user-heading"><i class="fa-solid fa-user-check"></i> {{ $val->name }}</span>
                             <div class="sp-online">
-                                <span title="Mobile"><i class="fa fa-phone" aria-hidden="true"></i>{{ $val->phone }}</span>
+                                <span title="Mobile"><i class="fa-solid fa-headset"></i> {{ $val->phone }}</span>
 
                                 <a href="{{ $val->skype }} " title="Chat với {{ $val->name }} qua Skype">
                                     <i class="i-skype"></i>

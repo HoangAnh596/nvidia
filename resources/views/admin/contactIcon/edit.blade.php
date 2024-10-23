@@ -30,7 +30,7 @@
             </div>
             <div class="text-dark card-body border-top">
                 <div class="row">
-                    <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Tên :<div class="warningMenu">*</div>
+                    <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Tiêu đề icon :<div class="warningMenu">*</div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-2">
                         <div class="input-group">
-                            <input id="thumbnail" class="form-control" type="hidden" name="filepath">
+                            <input id="thumbnail" class="form-control" type="hidden" name="filepath" value="{{ old('image', $icon->image ?? '') }}">
                             <span class="input-group-btn">
                                 <button id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-outline-dark hiddenButton">
                                     <i class="fa fa-picture-o"></i> Chọn ảnh từ thư viện
@@ -88,11 +88,11 @@
                     <div class="col-1 d-flex align-items-center">
                         <select class="form-select" aria-label="Default" name="is_public">
                             <option value="1"
-                                @if(!empty($icon) && $icon->is_public == \App\Models\Icon::IS_PUBLIC) selected @endif>
+                                @if(!empty($icon) && $icon->is_public == 1) selected @endif>
                                 Hiển thị
                             </option>
                             <option value="0"
-                                @if(!empty($icon) && $icon->is_public == \App\Models\Icon::IS_NOT_PUBLIC) selected @endif>
+                                @if(!empty($icon) && $icon->is_public == 0) selected @endif>
                                 Ẩn
                             </option>
                         </select>

@@ -34,9 +34,9 @@ $isMobile = $agent->isMobile(); // Kiểm tra thiết bị di động
                 <h3>{{ $product1->name }}</h3>
                 <strong class="price">
                     @if($product1->price == 0)
-                    Giá: Liên hệ
+                    Giá: <i class="fa-solid fa-phone-volume"></i> Liên hệ
                     @else
-                    Giá: {{ number_format($product1->price, 0, ',', '.') }}
+                    Giá: {{ number_format($product1->price * (1 - $product1->discount / 100), 0, ',', '.') }}₫ @if($product1->discount != 0)<span class="compare-price">{{ number_format($product1->price, 0, ',', '.') }}₫ @endif</span>
                     @endif
                 </strong>
             </a>
@@ -56,9 +56,9 @@ $isMobile = $agent->isMobile(); // Kiểm tra thiết bị di động
                 <h3>{{ $product2->name }}</h3>
                 <strong class="price">
                     @if($product2->price == 0)
-                    Giá: Liên hệ
+                    Giá: <i class="fa-solid fa-phone-volume"></i> Liên hệ
                     @else
-                    Giá: {{ number_format($product2->price, 0, ',', '.') }}
+                    Giá: {{ number_format($product2->price * (1 - $product2->discount / 100), 0, ',', '.') }}₫ @if($product2->discount != 0)<span class="compare-price">{{ number_format($product2->price, 0, ',', '.') }}₫ @endif</span>
                     @endif
                 </strong>
             </a>
@@ -77,9 +77,9 @@ $isMobile = $agent->isMobile(); // Kiểm tra thiết bị di động
                 <h3>{{ $product3->name }}</h3>
                 <strong class="price">
                     @if($product3->price == 0)
-                    Giá: Liên hệ
+                    Giá: <i class="fa-solid fa-phone-volume"></i> Liên hệ
                     @else
-                    Giá: {{ number_format($product3->price, 0, ',', '.') }}
+                    Giá: {{ number_format($product3->price * (1 - $product3->discount / 100), 0, ',', '.') }}₫ @if($product3->discount != 0)<span class="compare-price">{{ number_format($product3->price, 0, ',', '.') }}₫ @endif</span>
                     @endif
                 </strong>
             </a>

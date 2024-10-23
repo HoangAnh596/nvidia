@@ -703,8 +703,8 @@ button:focus {
 .bg-cate {
     margin: 0;
 }
-.btn-img {
-    padding: 12px 12px 0 12px;
+.btn-img, .btn-img-new {
+    padding: 8px 8px 0 8px;
 }
 .btn-img-outs {
     padding-top: 12px;
@@ -732,9 +732,7 @@ button:focus {
 .show-prod-cate .pagination {
     margin-bottom: 0;
 }
-.btn-img-new {
-    padding: 12px 12px 0 12px;
-}
+
 .btn-img-new img {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -748,21 +746,20 @@ button:focus {
     transition: scale .5s ease;
 }
 .card-new h4 {
-    padding: 12px 12px 0 12px;
+    padding: 8px 8px 0 8px;
     line-height: 21px;
     font-size: 1rem !important;
     font-weight: bold !important;
-    height: 76px;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
 }
 .card-new p{
-    padding: 0 10px 10px 10px;
-    line-height: 1.5rem;
-    height: 148px;
+    padding: 0 8px 8px 8px;
+    line-height: 1.4rem;
+    height: 135px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 6;
@@ -797,7 +794,6 @@ button:focus {
 }
 .price-sale {
     font-size: 13px !important;
-    color: #a4a4a4;
     margin-left: 6px;
     text-decoration: line-through !important;
 }
@@ -810,7 +806,7 @@ button:focus {
     height: 25px;
 }
 .lien-he-price {
-    font-size: .9rem;
+    font-size: 15px;
     border-radius: 3px;
     color: #76b900;
     display: inline-block;
@@ -845,11 +841,16 @@ button:focus {
     border-radius: 7px;
     background-color: #eee;
 }
+.btn-link h3{
+    font-size: 15px;
+    color: #333;
+    font-weight: 600;
+}
 .btn-link {
     text-decoration: none;
     color: black;
 }
-.btn-link:hover {
+.btn-link:hover, .btn-link h3:hover, .text-dark h4:hover {
     color: #76b900;
 }
 .card {
@@ -857,7 +858,6 @@ button:focus {
     box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
 }
 .text-dark {
-    height: 70px;
     overflow: hidden;
 }
 
@@ -1869,18 +1869,27 @@ button:focus {
 .pro-compare li h3 {
     overflow: hidden;
     font-size: 14px !important;
+    font-weight: 600 !important;
+    height: 36px;
     padding: 0 0 3px 15px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
 }
+.pro-compare li h3:hover {
+    color: #76b900;
+}
 .pro-compare li strong.price {
     font-size: 14px !important;
     display: block;
     overflow: hidden;
     padding: 0 0 12px 15px;
-    color: #c92e38;
+    color: #76b900;
+}
+.compare-price {
+    color: #6c757d;
+    text-decoration: line-through;
 }
 .pro-compare li a.deleteProduct {
     position: absolute;
@@ -1972,7 +1981,9 @@ button:focus {
 .technologi .titletechnologi {
     display: flex;
     align-items: center;
-    /* cursor: pointer; */
+}
+.titletechnologi i {
+    color: #76b900;
 }
 .technologi .titletechnologi strong {
     text-transform: uppercase;

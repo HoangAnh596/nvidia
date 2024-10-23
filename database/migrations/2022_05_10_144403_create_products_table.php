@@ -27,7 +27,6 @@ class CreateProductsTable extends Migration
             $table->string('price')->nullable();
             $table->float('quantity', 8, 2)->nullable();
             $table->unsignedTinyInteger('discount')->nullable();
-            $table->string('filepath')->nullable();
             $table->string('image_ids')->nullable();
             $table->string('group_ids')->nullable();
             $table->text('des')->nullable();

@@ -132,6 +132,7 @@
 /* Begin Contact */
 .contact-us h1, h2 {
     font-size: 1.5rem;
+    font-weight: 600;
 }
 .contact-us h2 {
     color: #76b900;
@@ -140,6 +141,7 @@
     display: inline-block;
     margin-right: 15px;
     line-height: 30px;
+    margin-bottom: 6px;
 }
 .contact-us p strong {
     color: #76b900;

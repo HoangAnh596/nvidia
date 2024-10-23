@@ -127,7 +127,7 @@
 }
 .author_meta .author.vcard a{
     color: #b2b2b2 ;
-    font-size: 14px !important;
+    font-size: 13px !important;
     line-height: 18px !important;
 }
 .author_meta .author.vcard a:hover{
@@ -141,7 +141,7 @@
 }
 .entry-date, .meta-sep, .author_meta .author{
     color: #b2b2b2;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 18px;
 }
 .author_meta .author {

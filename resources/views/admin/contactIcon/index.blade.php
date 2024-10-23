@@ -29,7 +29,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tên Icon</th>
+                            <th>Tiêu đề icon</th>
                             <th>Địa chỉ đường dẫn</th>
                             <th class="text-center">STT</th>
                             <th class="text-center">Hiển thị</th>
@@ -45,7 +45,7 @@
                         @else
                         @foreach ($icons as $val)
                         <tr>
-                            <td>{{ $val->id }}</td>
+                            <td>{{ (($icons->currentPage()-1)*8) + $loop->iteration }}</td>
                             <td>{{ $val->name }}</td>
                             <td>{{ $val->url }}</td>
                             <td class="text-center">
