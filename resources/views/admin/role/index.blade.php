@@ -54,8 +54,7 @@
                             @can('role-edit')
                             <a href="{{ asset('admin/roles/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
                             @endcan
-                            <a href="{{ asset('admin/roles') }}">Xóa cache</a> |
-                            <a href="{{ asset('admin/roles') }}">Nhân bản</a>
+                            <a href="{{ asset('admin/roles') }}">Xóa cache</a>
                             @can('role-delete')
                             | <a href="javascript:void(0);" onclick="confirmDelete('{{ $val->id }}')">Xóa</a>
                             <form id="deleteForm-{{ $val->id }}" action="{{ route('roles.destroy', ['id' => $val->id]) }}" method="post" style="display: none;">

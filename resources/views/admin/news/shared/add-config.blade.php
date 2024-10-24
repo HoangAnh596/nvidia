@@ -7,6 +7,11 @@
                 <span id="name-error" style="color: red;"></span>
             </div>
             <div class="mb-3">
+                <label for="slug" class="form-label">Url bài viết <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
+                <input type="text" id="slug" class="form-control" name="slug" value="{{ old('slug') }}" oninput="checkDuplicate()">
+                <span id="slug-error" style="color: red;"></span>
+            </div>
+            <div class="mb-3">
                 <label for="desc" class="form-label">Mô tả ngắn <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
                 <textarea name="desc" id="desc" rows="5" class="form-control">{{ old('desc') }}</textarea>
                 <span id="desc-error" style="color: red;"></span>
@@ -14,13 +19,8 @@
         </div>
         <div class="col">
             <div class="mb-3">
-                <label for="slug" class="form-label">Url bài viết <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                <input type="text" id="slug" class="form-control" name="slug" value="{{ old('slug') }}" oninput="checkDuplicate()">
-                <span id="slug-error" style="color: red;"></span>
-            </div>
-            <div class="mb-3">
                 <label for="">Danh mục bài viết <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                <select name="cate_id" id="new_categories" class="form-control">
+                <select name="cate_id" id="new_categories" class="form-control" size="13" style="width: 100%;">
                     <option value="">Chọn danh mục</option>
                     @foreach($categories as $category)
                     @include('admin.news.partials.category_add', ['category' => $category, 'level' => 0, 'selected' => old('parent_id', $category->parent_id)])

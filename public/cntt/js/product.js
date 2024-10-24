@@ -6,7 +6,7 @@ $(document).ready(function() {
     });
     $('.group-show-more').on('click', function() {
         $(this).css('display', 'none'); // Ẩn nút show-more
-        $('.group-prod').css('max-height', '10000px'); // Thêm chiều cao cho content-cate
+        $('.group-prod').css('max-height', '10000px');
     });
 
     // Đảm bảo rằng ảnh chỉ được thêm vào modal một lần
@@ -16,6 +16,16 @@ $(document).ready(function() {
             $('#imageModal .modal-content').append(currentImage);
         });
     }
+
+    $('.content-product').each(function() {
+        if ($(this).height() > 350) {
+            $(this).find('.show-more').show();
+        }
+    });
+    $('.show-more').on('click', function() {
+        $(this).css('display', 'none'); // Ẩn nút show-more
+        $('.content-product').css('max-height', '10000px');
+    });
 
     // Khi nhấn vào .gallery-trigger img, hiển thị modal và cuộn tới vị trí ảnh đã nhấp
     $('.gallery-trigger img').on('click', function(e) {

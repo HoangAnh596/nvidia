@@ -14,7 +14,7 @@
         <div class="col-2 d-flex flex-row-reverse align-items-center">Danh mục sản phẩm :</div>
         <div class="col-6">
             <div class="form-group">
-                <select name="cate_id" id="cate_id" class="form-control">
+                <select name="cate_id" id="cate_id" class="form-control" size="12" style="width: 100%;">
                     <option value="" style="display: none;"></option>
                     @foreach($categories as $val)
                     @include('admin.compare.partials.compare-add', ['category' => $val, 'level' => 0, 'prefix' => '|---', 'selected' => old('cate_id', $idCate)])

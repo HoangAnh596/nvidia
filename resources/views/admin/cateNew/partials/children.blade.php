@@ -14,8 +14,8 @@
     <td>
         {{ $category->slug }}
     </td>
-    <td class="text-center">
-        <input type="text" class="check-stt" name="stt_new" data-id="{{ $category->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_new', $category->stt_new) }}">
+    <td>
+        <input type="text" class="form-control check-stt" name="stt_new" data-id="{{ $category->id }}" style="text-align: center;" value="{{ old('stt_new', $category->stt_new) }}">
     </td>
     <td class="text-center">
         <input type="checkbox" class="checkbox-cateNew" data-id="{{ $category->id }}" data-field="is_menu" {{ ($category->is_menu == 1) ? 'checked' : '' }}>

@@ -35,17 +35,6 @@
                             <span id="name-error" style="color: red;"></span>
                         </div>
                         <div class="form-group">
-                            <label for="">Chọn Permission cha <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                            <select name="parent_id" id="parent_id" class="form-control">
-                                <option value="0">Chọn Permission cha</option>
-                                @foreach($catePermission as $item)
-                                <option value="{{ $item->id }}">{{ $item->display_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
                             <label for="">Tên Permission hiển thị màn hình <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
                             <input type="text" name="display_name" id="display_name" class="form-control" value="{{ old('display_name') }}">
                             <span id="displayName-error" style="color: red;"></span>
@@ -54,6 +43,17 @@
                             <label for="">Mã Code Permission <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
                             <input type="text" name="key_code" id="key_code" class="form-control" value="{{ old('key_code') }}">
                             <span id="keyCode-error" style="color: red;"></span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Chọn Permission cha <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
+                            <select name="parent_id" id="parent_id" class="form-control" size="12">
+                                <option value="0">Chọn Permission cha</option>
+                                @foreach($catePermission as $item)
+                                <option value="{{ $item->id }}">{{ $item->display_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>

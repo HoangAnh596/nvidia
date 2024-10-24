@@ -41,7 +41,7 @@
                     <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Tiêu đề :<div class="warningMenu">*</div>
                     </div>
                     <div class="col-8">
-                        <textarea name="title" id="" rows="3" style="width: 100%;">{{ old('title') }}</textarea>
+                        <textarea name="title" class="form-control" rows="3" style="width: 100%;">{{ old('title') }}</textarea>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
@@ -49,7 +49,7 @@
                     <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Mô tả chi tiết :<div class="warningMenu">*</div>
                     </div>
                     <div class="col-8">
-                        <textarea name="description" id="" rows="4" style="width: 100%;">{{ old('description') }}</textarea>
+                        <textarea name="description" class="form-control" rows="4" style="width: 100%;">{{ old('description') }}</textarea>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
@@ -97,8 +97,8 @@
                 </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Màu nền Slider :</div>
-                    <div class="col-1 d-flex align-items-center">
-                        <select class="form-select" aria-label="Default" name="is_color">
+                    <div class="col-2 d-flex align-items-center">
+                        <select class="form-control" aria-label="Default" name="is_color">
                             <option value="0">Đen (black)</option>
                             <option value="1">Xám (#efefef)</option>
                         </select>
@@ -107,8 +107,8 @@
                 </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Hiển thị :</div>
-                    <div class="col-1 d-flex align-items-center">
-                        <select class="form-select" aria-label="Default" name="is_public">
+                    <div class="col-2 d-flex align-items-center">
+                        <select class="form-control" aria-label="Default" name="is_public">
                             <option value="0">Không</option>
                             <option value="1">Có</option>
                         </select>
@@ -118,7 +118,7 @@
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Thứ tự hiển thị :</div>
                     <div class="col-1">
-                        <input type="number" style="width:60px" name="stt_slider">
+                        <input type="number" class="form-control" style="width:80px" name="stt_slider">
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>

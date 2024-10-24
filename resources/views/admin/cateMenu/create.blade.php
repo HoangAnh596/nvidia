@@ -83,7 +83,7 @@
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Menu cha :</div>
                     <div class="col-4">
                         <div class="form-group">
-                            <select name="parent_menu" id="parent_menu" class="form-select" size="10" style="width: 400px;">
+                            <select name="parent_menu" id="parent_menu" class="form-control" size="10" style="width: 100%;">
                                 <option value="0">Gốc</option>
                                 @foreach($menuParents as $category)
                                 @include('admin.cateMenu.partials.category_add', ['category' => $category, 'level' => 0, 'prefix' => '|---'])
@@ -96,34 +96,10 @@
 
                     </div>
                 </div>
-                <!-- <div class="row" style="margin:60px 0;">
-                    <div class="col-2 imgMenu">
-                        <div class="d-flex flex-row-reverse">Ảnh đại diện <div class="warningMenu">*</div>
-                        </div>
-                        <div class="d-flex flex-row-reverse ftImg">Kích thước đề nghị(WxH pixels)</div>
-                    </div>
-                    <div class="col-10 imgMenu">
-                        <div class="input-group" style="margin-top: 30px;">
-                            <input class="hiddenImg py-1" type="file" name="uploadImg" id="image" accept="image/*">
-                            <input id="thumbnail" class="form-control" type="hidden" name="filepath">
-                            <input type="hidden" name="current_url" id="current_url" value="" />
-                            <button class="btn btn-outline-dark" id="uploadBtnCateMenu" style="margin-right: 1rem;" onclick="uploadImage()">Upload</button>
-                            <span class="input-group-btn">
-                                <button id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-outline-dark hiddenButton">
-                                    <i class="fa fa-picture-o"></i> Chọn ảnh từ thư viện
-                                </button>
-                            </span>
-                        </div>
-                        <div id="holder"></div>
-                        <div id="preview">
-                            <img id="preview-image" src="#" alt="your image" />
-                        </div>
-                    </div>
-                </div> -->
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Hiển thị :</div>
-                    <div class="col-1 d-flex align-items-center">
-                        <select class="form-select" aria-label="Default" name="is_public">
+                    <div class="col-2 d-flex align-items-center">
+                        <select class="form-control" aria-label="Default" name="is_public">
                             <option value="0">Không</option>
                             <option value="1">Có</option>
                         </select>
@@ -133,14 +109,14 @@
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Thứ tự hiển thị :</div>
                     <div class="col-1">
-                        <input type="number" style="width:60px" name="stt_menu" value="{{ old('stt_menu')}}">
+                        <input type="number" class="form-control" style="width:80px" name="stt_menu" value="{{ old('stt_menu')}}">
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse">Click :</div>
-                    <div class="col-1">
-                        <select class="form-select" aria-label="Default" name="is_click">
+                    <div class="col-2">
+                        <select class="form-control" aria-label="Default" name="is_click">
                             <option value="1">Có</option>
                             <option value="0">Không</option>
                         </select>

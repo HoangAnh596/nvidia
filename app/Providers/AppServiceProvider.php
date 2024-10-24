@@ -7,12 +7,8 @@ use App\Models\CateFooter;
 use App\Models\Category;
 use App\Models\CategoryNew;
 use App\Models\CateMenu;
-use App\Models\CmtNew;
-use App\Models\Comment;
 use App\Models\ContactIcon;
 use App\Models\HeaderTag;
-use App\Models\Icon;
-use App\Models\Quote;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Pagination\Paginator;
@@ -35,24 +31,14 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(\App\Services\CategorySrc::class, function ($app) {
             return new \App\Services\CategorySrc();
         });
-    }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        \App\Models\Category::observe(\App\Observers\CategoryObserver::class);
-        \App\Models\Product::observe(\App\Observers\ProductObserver::class);
-        \App\Models\News::observe(\App\Observers\NewObserver::class);
+        if (request()->is('admin*') || request()->is('login*')) {
+            $this->app->register(AdminServiceProvider::class);
+        }
 
-        Paginator::useBootstrap();
-        Schema::defaultStringLength(191);
         // đảm bảo sql chỉ chạy 1 lần
         $this->app->singleton('menus', function () {
-            return CateMenu::select('id', 'name', 'url', 'stt_menu', 'is_click', 'is_tab')
+            return CateMenu::select('id', 'name', 'url', 'is_click', 'is_tab')
                 ->where('parent_menu', 0)
                 ->where('is_public', 1)
                 ->orderBy('stt_menu', 'ASC')
@@ -121,6 +107,21 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('setting', function () {
             return Setting::where('id', 1)->select('title_seo', 'keyword_seo', 'des_seo', 'image', 'facebook', 'twitter', 'youtube', 'tiktok', 'pinterest')->first();
         });
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        \App\Models\Category::observe(\App\Observers\CategoryObserver::class);
+        \App\Models\Product::observe(\App\Observers\ProductObserver::class);
+        \App\Models\News::observe(\App\Observers\NewObserver::class);
+
+        Paginator::useBootstrap();
+        Schema::defaultStringLength(191);
 
         // Cấu hình gửi mail báo
         $settings = Setting::where('id', 1)->select('id', 'mail_name', 'mail_pass', 'mail_text')->first();
@@ -132,23 +133,6 @@ class AppServiceProvider extends ServiceProvider
             Config::set('mail.from.name', $settings->mail_text);
             // Cập nhật các giá trị khác tương tự
         }
-
-        // Cấu hình thông báo website
-        $this->app->singleton('comments', function () {
-            return Comment::where('parent_id', 0)
-                  ->whereDoesntHave('replies') // Lấy các comment không có replies
-                  ->with('replies') // Để có thể lấy các replies nếu cần
-                  ->get();
-        });
-        $this->app->singleton('cmtNew', function () {
-            return CmtNew::where('parent_id', 0)
-                  ->whereDoesntHave('replies') // Lấy các comment không có replies
-                  ->with('replies') // Để có thể lấy các replies nếu cần
-                  ->get();
-        });
-        $this->app->singleton('quotes', function () {
-            return Quote::where('status', 0)->orderBy('created_at', 'DESC')->select('id', 'name', 'product', 'created_at')->get();
-        });
         
         View::composer('*', function ($view) {
             $globalMenus = $this->app->make('menus');
@@ -158,19 +142,13 @@ class AppServiceProvider extends ServiceProvider
             $ft_bottom = $this->app->make('bottom');
             $globalSetting = $this->app->make('setting');
             $contactIconGlobal = $this->app->make('contact-icons');
-            $quoteGlobal = $this->app->make('quotes');
-            $commentGlobal = $this->app->make('comments');
-            $cmtNewGlobal = $this->app->make('cmtNew');
             
             $view->with('globalMenus', $globalMenus)->with('globalFooters', $globalFooters)
                 ->with('searchCate', $searchCate)
                 ->with('globalHeaderTags', $globalHeaderTags)
                 ->with('ft_bottom', $ft_bottom)
                 ->with('globalSetting', $globalSetting)
-                ->with('contactIconGlobal', $contactIconGlobal)
-                ->with('commentGlobal', $commentGlobal)
-                ->with('cmtNewGlobal', $cmtNewGlobal)
-                ->with('quoteGlobal', $quoteGlobal);
+                ->with('contactIconGlobal', $contactIconGlobal);
         });
     }
 }

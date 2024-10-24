@@ -134,4 +134,10 @@ class Category extends Model
 
         return $newCategory; // Trả về danh mục đã sao chép
     }
+
+    // relation Question
+    public function questionCate()
+    {
+        return $this->hasMany(Question::class, 'cate_id', 'id');
+    }
 }

@@ -24,6 +24,7 @@ use App\Policies\MenuPolicy;
 use App\Policies\NewPolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\ProductPolicy;
+use App\Policies\QuestionPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\SliderPolicy;
 use App\Policies\UserPolicy;
@@ -36,6 +37,7 @@ class PermissionGateAndPolicyAccess {
         $this->defineProduct();
         $this->defineCategoryNew();
         $this->defineNew();
+        $this->defineQuestion();
         $this->defineHeaderTag();
         $this->defineHotline();
         $this->defineMenu();
@@ -97,6 +99,14 @@ class PermissionGateAndPolicyAccess {
         Gate::define('new-edit', [NewPolicy::class, 'update']);
         Gate::define('new-delete', [NewPolicy::class, 'delete']);
         Gate::define('new-checkbox', [NewPolicy::class, 'checkbox']);
+    }
+
+    public function defineQuestion()
+    {
+        Gate::define('question-add', [QuestionPolicy::class, 'create']);
+        Gate::define('question-edit', [QuestionPolicy::class, 'update']);
+        Gate::define('question-delete', [QuestionPolicy::class, 'delete']);
+        Gate::define('question-checkbox', [QuestionPolicy::class, 'checkbox']);
     }
 
     public function defineHeaderTag()

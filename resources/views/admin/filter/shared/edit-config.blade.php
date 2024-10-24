@@ -25,7 +25,7 @@
         <div class="col-2 d-flex flex-row-reverse align-items-center">Danh mục sản phẩm :</div>
         <div class="col-6">
             <div class="form-group">
-                <select name="cate_id" id="cate_id" class="form-control" size="10" style="width: 600px;">
+                <select name="cate_id" id="cate_id" class="form-control" size="12" style="width: 600px;">
                     @foreach($categories as $val)
                     @include('admin.filter.partials.filter-add', ['category' => $val, 'level' => 0, 'prefix' => '|---', 'selected' => $filter->cate_id])
                     @endforeach
@@ -34,22 +34,6 @@
         </div>
         <div style="height: 38px; color: red; margin-left: 20px;"><i class="fa-solid fa-circle-info"></i></div>
     </div>
-    <!-- <div class="row mt-3 mb-3">
-        <div class="col-2 d-flex flex-row-reverse">Kiểu chọn :</div>
-        <div class="col-1">
-            <select class="form-select" aria-label="Default" name="is_select">
-                <option value="1"
-                    @if(!empty($filter) && $filter->is_select == \App\Models\FilterCate::IS_ONE) selected @endif>
-                    Chọn một
-                </option>
-                <option value="0"
-                    @if(!empty($filter) && $filter->is_select == \App\Models\FilterCate::IS_MANY) selected @endif>
-                    Chọn nhiều
-                </option>
-            </select>
-        </div>
-        <div class="d-flex align-items-center" style="height: 38px; color: red; padding-left: 20px"><i class="fa-solid fa-circle-info"></i></div>
-    </div> -->
     <div class="row mt-3 mb-3">
         <div class="col-2 d-flex flex-row-reverse">Hiển thị :</div>
         <div class="col-1">

@@ -42,54 +42,51 @@
                 @endcan
             </div>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th class="">No.</th>
-                            <th class="col-sm-4 text-center">Tên so sánh</th>
-                            <th class="col-sm-3 text-center">Tên danh mục sản phẩm</th>
-                            <th class="col-sm-1 text-center">Số thứ tự</th>
-                            <th class="col-sm-1 text-center">Ẩn/Hiện</th>
-                            <th class="col-sm-2 text-center">Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if($compare->isEmpty())
-                        <tr>
-                            <td colspan="6" class="text-center">Không có bản ghi nào phù hợp !...</td>
-                        </tr>
-                        @else
-                        @foreach ($compare as $val)
-                        <tr>
-                            <td>{{ (($compare->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
-                            <td>{{ $val->name }}</td>
-                            <td class="text-center">
-                                {{ $val->category->name }}
-                            </td>
-                            <td class="text-center">
-                                <input type="text" class="check-stt" name="stt_compare" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_compare', $val->stt_compare) }}">
-                            </td>
-                            <td class="text-center">
-                                <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
-                            </td>
-                            <td class="action">
-                                @can('compare-edit')
-                                <a href="{{ asset('admin/compares/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
-                                @endcan
-                                <a href="{{ asset('admin/compares') }}">Xóa cache</a> |
-                                <a href="{{ asset('admin/compares') }}">Nhân bản</a>
-                            </td>
-                        </tr>
-                        @endforeach
-                        @endif
-                    </tbody>
-                </table>
-                <nav class="float-right">
-                    {{ $compare->links() }}
-                </nav>
-            </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="">No.</th>
+                        <th class="col-sm-4 text-center">Tên so sánh</th>
+                        <th class="col-sm-3 text-center">Tên danh mục sản phẩm</th>
+                        <th class="col-sm-1 text-center">Số thứ tự</th>
+                        <th class="col-sm-1 text-center">Ẩn/Hiện</th>
+                        <th class="col-sm-2 text-center">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if($compare->isEmpty())
+                    <tr>
+                        <td colspan="6" class="text-center">Không có bản ghi nào phù hợp !...</td>
+                    </tr>
+                    @else
+                    @foreach ($compare as $val)
+                    <tr>
+                        <td>{{ (($compare->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
+                        <td>{{ $val->name }}</td>
+                        <td class="text-center">
+                            {{ $val->category->name }}
+                        </td>
+                        <td>
+                            <input type="text" class="form-control check-stt" name="stt_compare" data-id="{{ $val->id }}" style="text-align: center;" value="{{ old('stt_compare', $val->stt_compare) }}">
+                        </td>
+                        <td class="text-center">
+                            <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
+                        </td>
+                        <td class="action">
+                            @can('compare-edit')
+                            <a href="{{ asset('admin/compares/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
+                            @endcan
+                            <a href="{{ asset('admin/compares') }}">Xóa cache</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @endif
+                </tbody>
+            </table>
+            <nav class="float-right">
+                {{ $compare->links() }}
+            </nav>
         </div>
     </div>
 </div>

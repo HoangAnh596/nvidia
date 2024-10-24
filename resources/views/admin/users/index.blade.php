@@ -67,8 +67,7 @@
                             @can('user-edit')
                             <a href="{{ asset('admin/users/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
                             @endcan
-                            <a href="{{ asset('admin/users') }}">Xóa cache</a> |
-                            <a href="{{ asset('admin/users') }}">Nhân bản</a>
+                            <a href="{{ asset('admin/users') }}">Xóa cache</a>
                             @can('user-delete')
                             | <a href="javascript:void(0);" onclick="confirmDelete('{{ $val->id }}')">Xóa</a>
                             <form id="deleteForm-{{ $val->id }}" action="{{ route('users.destroy', ['id' => $val->id]) }}" method="post" style="display: none;">

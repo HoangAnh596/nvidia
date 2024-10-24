@@ -50,8 +50,8 @@
                 </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Hiển thị :</div>
-                    <div class="col-1 d-flex align-items-center">
-                        <select class="form-select" aria-label="Default" name="is_public">
+                    <div class="col-2 d-flex align-items-center">
+                        <select class="form-control" aria-label="Default" name="is_public">
                             <option value="1">Có</option>
                             <option value="0">Không</option>
                         </select>
@@ -61,7 +61,7 @@
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Thứ tự hiển thị :</div>
                     <div class="col-1">
-                        <input type="number" style="width:60px" name="stt">
+                        <input type="number" class="form-control" style="width:80px" name="stt">
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>

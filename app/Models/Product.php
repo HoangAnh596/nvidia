@@ -29,6 +29,12 @@ class Product extends Model
 
     protected $appends = ['average_star', 'totalCmt'];
 
+    // relation Question
+    public function questionProduct()
+    {
+        return $this->hasMany(Question::class, 'product_id', 'id');
+    }
+
     // Getter for average_star
     public function getAverageStarAttribute()
     {

@@ -72,6 +72,7 @@ $totalComments = $commentGlobal->count() + $cmtNewGlobal->count();
                     @can('product-add')
                     <a class="collapse-item" href="{{ route('product.create') }}">Thêm mới sản phẩm</a>
                     @endcan
+                    <a class="collapse-item" href="{{ route('questions.index') }}">Danh sách câu hỏi</a>
                 </div>
             </div>
         </li>

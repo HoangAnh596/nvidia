@@ -225,7 +225,32 @@
     <div class="container">
         <div class="row mb-4">
             <div class="col-lg-9 mt-4">
-                <div id="chi-tiet">{!! $product->content !!}</div>
+                <div class="content-product mb-3">
+                    <div id="chi-tiet">{!! $product->content !!}</div>
+                    <div class="align-items-center justify-content-center btn-show-more show-more pb-3">
+                        <button class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
+                    </div>
+                </div>
+                @if ($product->questionProduct->isNotEmpty())
+                <div class="box-question mb-3" id="boxFAQ">
+                    <p class="title">Câu hỏi thường gặp</p>
+                    <div class="accordion">
+                        @foreach($product->questionProduct as $question)
+                        <div class="mb-1">
+                            <div class="b-button button__show-faq">
+                                <p>{{ $question->title }}</p>
+                                <div class="icon"><svg height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                                        <path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"></path>
+                                    </svg></div>
+                            </div>
+                            <div class="accordion__content">
+                                <div class="content-wrapper">{!! $question->content !!}</div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
                 <!-- Nhóm sản phẩm đi kèm -->
                 @if(!empty($product->group_ids))
                 <h3 class="mt-4 panel-heading">Các sản phẩm mua kèm sử dụng cho {{ $product->code }}</h3>
@@ -257,7 +282,9 @@
                 </div>
                 @endforeach
                 @else
+                @if(!empty($groupProducts->count() != 0))
                 <h3 class="mt-4 panel-heading">Các sản phẩm mua kèm sử dụng cho {{ $product->code }}</h3>
+                @endif
                 @foreach($groupProducts as $group)
                 <div class="pricing prd_di_kem group-prod">
                     <div class="panel-subheading">

@@ -23,52 +23,49 @@
                 @endcan
             </div>
         </div>
-        <div class="card-body" style="padding: 0;">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th class="col-sm-3 text-center">Tên nhóm</th>
-                            <th class="col-sm-4 text-center">Danh mục sản phẩm</th>
-                            <th class="text-center">STT</th>
-                            <th class="text-center">Hiển thị</th>
-                            <th class="col-sm-2 text-center">Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if($groups->isEmpty())
-                        <tr>
-                            <td colspan="6" class="text-center">Không có bản ghi nào phù hợp !...</td>
-                        </tr>
-                        @else
-                        @foreach ($groups as $val)
-                        <tr>
-                            <td>{{ (($groups->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
-                            <td>{{ $val->name }}</td>
-                            <td>@if(!empty($val->cate_id)) {{ $val->category->name }} @endif</td>
-                            <td class="text-center">
-                                <input type="text" class="check-stt" name="stt" data-id="{{ $val->id }}" style="width: 40px;text-align: center;" value="{{ old('stt', $val->stt) }}">
-                            </td>
-                            <td class="text-center">
-                                <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
-                            </td>
-                            <td class="action">
-                                @can('group-edit')
-                                <a href="{{ asset('admin/groups/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
-                                @endcan
-                                <a href="{{ asset('admin/groups/'.$val->id.'/edit') }}">Nhân bản</a> |
-                                <a href="{{ asset('admin/groups/'.$val->id.'/edit') }}">Xóa cache</a>
-                            </td>
-                        </tr>
-                        @endforeach
-                        @endif
-                    </tbody>
-                </table>
-                <nav class="float-right">
-                    {{ $groups->links() }}
-                </nav>
-            </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th class="col-sm-3 text-center">Tên nhóm</th>
+                        <th class="col-sm-4 text-center">Danh mục sản phẩm</th>
+                        <th class="col-sm-1 text-center">STT</th>
+                        <th class="text-center">Hiển thị</th>
+                        <th class="col-sm-2 text-center">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if($groups->isEmpty())
+                    <tr>
+                        <td colspan="6" class="text-center">Không có bản ghi nào phù hợp !...</td>
+                    </tr>
+                    @else
+                    @foreach ($groups as $val)
+                    <tr>
+                        <td>{{ (($groups->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
+                        <td>{{ $val->name }}</td>
+                        <td>@if(!empty($val->cate_id)) {{ $val->category->name }} @endif</td>
+                        <td>
+                            <input type="text" class="form-control check-stt" name="stt" data-id="{{ $val->id }}" style="text-align: center;" value="{{ old('stt', $val->stt) }}">
+                        </td>
+                        <td class="text-center">
+                            <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
+                        </td>
+                        <td class="action">
+                            @can('group-edit')
+                            <a href="{{ asset('admin/groups/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
+                            @endcan
+                            <a href="{{ asset('admin/groups/'.$val->id.'/edit') }}">Xóa cache</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @endif
+                </tbody>
+            </table>
+            <nav class="float-right">
+                {{ $groups->links() }}
+            </nav>
         </div>
     </div>
 </div>

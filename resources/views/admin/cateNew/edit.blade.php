@@ -35,17 +35,6 @@
                             <label for="name" class="form-label">Tên danh mục <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
                             <input type="text" id="name" class="form-control" name="name" value="{{ old('name', $category->name ?? '') }}">
                         </div>
-                        <div class="form-group mb-3 col-xs-12">
-                            <label for="parent_id">Danh mục bài viết:</label>
-                            <select class="form-control" id="parent_id" name="parent_id">
-                                <option value="0">Danh mục cha</option>
-                                @foreach($categories as $cat)
-                                @include('admin.cateNew.partials.category-edit', ['category' => $cat, 'level' => 0, 'selected' => old('parent_id', $category->parent_id)])
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
                         <div class="mb-3 col-xs-12">
                             <label for="slug" class="form-label">URL danh mục bài viết: </label>
                             <input type="text" id="slug" class="form-control" name="slug" value="{{ old('slug', $category->slug ?? '') }}" disabled>
@@ -61,6 +50,17 @@
                                 </option>
                                 @endforeach
                                 @endif
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-3 col-xs-12">
+                            <label for="parent_id">Danh mục cha:</label>
+                            <select class="form-control" id="parent_id" name="parent_id" size="12" style="width: 100%;">
+                                <option value="0">Danh mục cha</option>
+                                @foreach($categories as $cat)
+                                @include('admin.cateNew.partials.category-edit', ['category' => $cat, 'level' => 0, 'selected' => old('parent_id', $category->parent_id)])
+                                @endforeach
                             </select>
                         </div>
                     </div>

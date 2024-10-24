@@ -31,7 +31,7 @@
                             <th>ID</th>
                             <th>Tên</th>
                             <th>Địa chỉ đường dẫn</th>
-                            <th class="text-center">STT</th>
+                            <th class="col-sm-1 text-center">Thứ tự</th>
                             <th class="text-center">Hiển thị</th>
                             <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
@@ -47,8 +47,8 @@
                             <td>{{ $val->id }}</td>
                             <td>{{ $val->name }}</td>
                             <td>{{ $val->url }}</td>
-                            <td class="text-center">
-                                <input type="text" class="check-stt" name="stt" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt', $val->stt) }}">
+                            <td>
+                                <input type="text" class="form-control check-stt" name="stt" data-id="{{ $val->id }}" style="text-align: center;" value="{{ old('stt', $val->stt) }}">
                             </td>
                             <td class="text-center">
                                 <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>

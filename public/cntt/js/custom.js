@@ -7,7 +7,21 @@ $(document).ready(function() {
     });
     $('.show-more').on('click', function() {
         $(this).css('display', 'none'); // Ẩn nút show-more
-        $('.content-cate').css('max-height', '10000px'); // Thêm chiều cao cho content-cate
+        $('.content-cate').css('max-height', '10000px');
+    });
+
+    document.querySelectorAll('.button__show-faq').forEach((button, index) => {
+        button.addEventListener('click', () => {
+            const accordionContent = button.nextElementSibling;
+            accordionContent.classList.toggle('active');
+    
+            // Điều chỉnh max-height cho accordion__content
+            if (accordionContent.classList.contains('active')) {
+                accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+            } else {
+                accordionContent.style.maxHeight = '0';
+            }
+        });
     });
 
     $('.outstand-prod').each(function() {
@@ -17,7 +31,7 @@ $(document).ready(function() {
     });
     $('.outstand-show-more').on('click', function() {
         $(this).css('display', 'none'); // Ẩn nút show-more
-        $('.outstand-prod').css('max-height', '10000px'); // Thêm chiều cao cho content-cate
+        $('.outstand-prod').css('max-height', '10000px');
     });
 
     // Css reponsive mobile nav
@@ -532,8 +546,6 @@ $(document).ready(function() {
                     });
                 });
             }else if (urlPath.startsWith('/' + foundSlug)) {
-                console.log(22223333);
-                
                 queryParams.forEach(function(value, key) {
                     var values = value.split(',');
                     

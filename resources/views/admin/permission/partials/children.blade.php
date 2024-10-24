@@ -22,19 +22,13 @@
         <a href="{{ asset('admin/permissions/'.$category->id.'/edit') }}">Chỉnh sửa</a> |
         @endcan
         <a href="{{ asset('admin/permissions') }}">Xóa cache</a> |
-        <a href="{{ asset('admin/permissions') }}">Nhân bản</a>
         @can('permission-delete')
-        | <a href="javascript:void(0);" onclick="confirmDelete('{{ $category->id }}')">Xóa</a>
+        <a href="javascript:void(0);" onclick="confirmDelete('{{ $category->id }}')">Xóa</a>
         <form id="deleteForm-{{ $category->id }}" action="{{ route('permissions.destroy', ['id' => $category->id]) }}" method="post" style="display: none;">
             @csrf
             @method('DELETE')
         </form>
         @endcan
-        
-        <!-- <a href="{{ asset('admin/cateNews/'.$category->id.'/edit') }}" >Nhân bản</a> |  -->
-        <!-- <a href="{{ asset('admin/cateNews/'.$category->id.'/edit') }}" >Thêm bộ lọc</a> |  -->
-        <!-- <a href="{{ asset('admin/cateNews/'.$category->id.'/edit') }}" >Xóa cache</a> |  -->
-        <!-- <a href="{{ asset('admin/cateNews/'.$category->id) }}" >Chi tiết</a> |  -->
     </td>
 </tr>
 @if ($category->permissionsChild)

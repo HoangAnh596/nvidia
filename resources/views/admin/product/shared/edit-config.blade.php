@@ -17,27 +17,22 @@
                 <span class="font-italic text-danger" id="priceError"></span>
             </div>
             <div class="mb-3">
-                <label for="discount" class="form-label">Giảm giá %</label>
-                <input class="form-control" id="discount" type="text" name="discount" oninput="validateDiscount()" value="{{ old('discount', $product->discount ?? '') }}">
-                <span class="font-italic text-danger" id="discountError"></span>
-            </div>
-            <div class="mb-3">
-                <label for="category">Danh mục chính <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
-                <select name="category" id="category" class="form-control">
-                    @foreach($categories as $val)
-                    @include('admin.product.partials.category-edit', ['category' => $val, 'selectedCategories' => $product->category])
-                    @endforeach
-                </select>
-            </div>
-            <div class="mb-3">
                 <label for="status" class="form-label">Tình trạng :</label>
-                <select class="form-select" aria-label="Default" name="status">
+                <select class="form-control" aria-label="Default" name="status">
                     <option value="1" @if(!empty($product) && $product->status == 1) selected @endif>
                         Còn hàng
                     </option>
                     <option value="0" @if(!empty($product) && $product->status == 0) selected @endif>
                         Hết hàng
                     </option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="category">Danh mục chính <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
+                <select name="category" id="category" class="form-control" size="12" style="width: 100%;">
+                    @foreach($categories as $val)
+                    @include('admin.product.partials.category-edit', ['category' => $val, 'selectedCategories' => $product->category])
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -71,6 +66,11 @@
                     @endforeach
                     @endif
                 </select>
+            </div>
+            <div class="mb-3">
+                <label for="discount" class="form-label">Giảm giá %</label>
+                <input class="form-control" id="discount" type="text" name="discount" oninput="validateDiscount()" value="{{ old('discount', $product->discount ?? '') }}">
+                <span class="font-italic text-danger" id="discountError"></span>
             </div>
             <div class="mb-3">
                 <label for="category">Danh mục phụ</label>

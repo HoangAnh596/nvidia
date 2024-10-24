@@ -22,13 +22,13 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\GroupProductController;
 use App\Http\Controllers\HeaderTagController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\IconController;
 use App\Http\Controllers\InforController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImagesController;
 use App\Http\Controllers\ProductTagController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
@@ -275,6 +275,16 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::delete('contact-icons/{id}', [ContactIconController::class, 'destroy'])->name('contact-icons.destroy')->middleware('can:contact-icon-delete');
     Route::post('/contact-icons/checkStt', [ContactIconController::class, 'checkStt'])->name('contact-icons.checkStt')->middleware('can:contact-icon-checkStt');
     Route::post('/contact-icons/checkbox', [ContactIconController::class, 'isCheckbox'])->name('contact-icons.isCheckbox')->middleware('can:contact-icon-checkbox');
+
+    // Quản lý câu hỏi của sản phẩm or danh mục
+    Route::get('/questions', [QuestionController::class, 'index'])->name('questions.index');
+    Route::get('/questions/create', [QuestionController::class, 'create'])->name('questions.create')->middleware('can:question-add');
+    Route::post('/questions', [QuestionController::class, 'store'])->name('questions.store');
+    Route::get('/questions/{id}/edit', [QuestionController::class, 'edit'])->name('questions.edit')->middleware('can:question-edit');
+    Route::put('questions/{id}', [QuestionController::class, 'update'])->name('questions.update');
+    Route::delete('questions/{id}', [QuestionController::class, 'destroy'])->name('questions.destroy')->middleware('can:question-delete');
+    Route::post('/questions/checkStt', [QuestionController::class, 'checkStt'])->name('questions.checkStt')->middleware('can:question-checkStt');
+    Route::post('/questions/checkbox', [QuestionController::class, 'isCheckbox'])->name('questions.isCheckbox')->middleware('can:question-checkbox');
     
     // Quản lý tài khoản đăng nhập
     Route::get('/users', [UserController::class, 'index'])->name('users.index');

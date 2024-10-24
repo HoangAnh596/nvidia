@@ -29,7 +29,7 @@
                             <th class="col-sm-2">Tên đối tác</th>
                             <th class="col-sm-2 text-center">Địa chỉ đường dẫn</th>
                             <th class="col-sm-2 text-center">Hình ảnh</th>
-                            <th class="text-center">Thứ tự</th>
+                            <th class="col-sm-1 text-center">Thứ tự</th>
                             <th class="text-center">Hiển thị</th>
                             <th class="text-center">Mở Tab</th>
                             <th class="col-sm-2 text-center">Hành động</th>
@@ -48,8 +48,8 @@
                             <td>{{ $partner->url }}</td>
                             <td class="text-center" style="padding: 0;"><img src="{{ $partner->image }}" class="img-fluid"></td>
                             @can('partner-checkStt')
-                            <td class="text-center">
-                                <input type="text" class="check-stt" name="stt" data-id="{{ $partner->id }}" style="width: 50px;text-align: center;" value="{{ old('stt', $partner->stt) }}">
+                            <td>
+                                <input type="text" class="form-control check-stt" name="stt" data-id="{{ $partner->id }}" style="text-align: center;" value="{{ old('stt', $partner->stt) }}">
                             </td>
                             @else <td></td>
                             @endcan

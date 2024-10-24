@@ -14,8 +14,8 @@
         </div>
         <div class="col-6">
             <div class="form-group">
-                <label for="">Danh mục: </label>
-                <select name="parent_id" id="parent_id" class="form-control">
+                <label for="">Danh mục cha: </label>
+                <select name="parent_id" id="parent_id" class="form-control" size="10" style="width: 100%;">
                     <option value="0">Danh mục cha</option>
                     @foreach($categoryParents as $category)
                     @include('admin.category.partials.category_add', ['category' => $category, 'level' => 0, 'selected' => old('parent_id', $category->parent_id)])

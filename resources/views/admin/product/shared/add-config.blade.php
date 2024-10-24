@@ -12,29 +12,24 @@
                 <span class="text-danger" id="codeError"></span>
             </div>
             <div class="mb-3">
+                <label for="status" class="form-label">Tình trạng</label>
+                <select class="form-control" id="status" aria-label="Default" name="status">
+                    <option value="1">Còn hàng</option>
+                    <option value="0">Hết hàng</option>
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="price" class="form-label">Giá sản phẩm</label>
                 <input class="form-control" id="price" type="text" name="price" value="{{ old('price') }}">
                 <span class="text-danger" id="priceError"></span>
             </div>
             <div class="mb-3">
-                <label for="discount" class="form-label">Giảm giá %</label>
-                <input class="form-control" id="discount" type="text" name="discount" value="{{ old('discount') }}">
-                <span class="text-danger" id="discountError"></span>
-            </div>
-            <div class="mb-3">
                 <label for="category" class="form-label">Danh mục chính <i class="fa-solid fa-circle-info" style="color: red;"></i></label>
-                <select name="category" id="parent_id" class="form-control">
+                <select name="category" id="parent_id" class="form-control" size="12" style="width: 100%;">
                     <option value="">Chọn danh mục</option>
                     @foreach($categories as $category)
                     @include('admin.product.partials.category_add', ['category' => $category, 'level' => 0])
                     @endforeach
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="status" class="form-label">Tình trạng</label>
-                <select class="form-control" id="status" aria-label="Default" name="status">
-                    <option value="1">Còn hàng</option>
-                    <option value="0">Hết hàng</option>
                 </select>
             </div>
         </div>
@@ -51,6 +46,11 @@
             <div class="mb-3">
                 <label for="tags" class="form-label">Thẻ Tags</label>
                 <select class="form-control searchTags" name="tag_ids[]" id="searchTags" multiple="multiple"></select>
+            </div>
+            <div class="mb-3">
+                <label for="discount" class="form-label">Giảm giá %</label>
+                <input class="form-control" id="discount" type="text" name="discount" value="{{ old('discount') }}">
+                <span class="text-danger" id="discountError"></span>
             </div>
             <div class="mb-3">
                 <label for="category" class="form-label">Danh mục phụ</label>

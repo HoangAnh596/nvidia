@@ -42,7 +42,7 @@
                             <th class="col-sm-2 text-center">Tên</th>
                             <th class="col-sm-2 text-center">Phòng</th>
                             <th class="text-center">Số điện thoại</th>
-                            <th class="text-center">Stt</th>
+                            <th class="col-sm-1 text-center">Stt</th>
                             <th class="text-center">Nhận báo giá</th>
                             <th class="text-center">Hỗ trợ</th>
                             <th class="text-center">Liên hệ</th>
@@ -68,8 +68,8 @@
                                 @endif
                             </td>
                             <td>{{ $val->phone }}</td>
-                            <td class="text-center">
-                                <input type="text" class="check-stt" name="stt" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt', $val->stt) }}">
+                            <td>
+                                <input type="text" class="form-control check-stt" name="stt" data-id="{{ $val->id }}" style="text-align: center;" value="{{ old('stt', $val->stt) }}">
                             </td>
                             <td class="text-center">
                                 <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="send_price" {{ ($val->send_price == 1) ? 'checked' : '' }}>

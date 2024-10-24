@@ -46,9 +46,9 @@
                     <thead>
                         <tr>
                             <th class="">No.</th>
-                            <th class="col-sm-4 text-center">Tên sản phẩm</th>
+                            <th class="col-sm-3 text-center">Tên sản phẩm</th>
                             <th class="col-sm-3 text-center">Danh mục</th>
-                            <th class="text-center">Mã Code</th>
+                            <th class="col-sm-2 text-center">Mã Code</th>
                             <th class="text-center">Nổi bật</th>
                             <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
@@ -89,7 +89,9 @@
                                 <a href="{{ asset('admin/group-product/create/?pro_id=' . $product->id) }}">Nhóm</a> |
                                 @endif
                                 @endcan
-                                <a href="{{ asset('admin/products') }}">Xóa cache</a>
+                                @can('question-add')
+                                <a href="{{ asset('admin/questions/create/?pro_id=' . $product->id) }}">Câu hỏi</a>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

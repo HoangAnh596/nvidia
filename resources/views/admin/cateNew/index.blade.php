@@ -27,7 +27,7 @@
                         <tr>
                             <th class="col-sm-3">Tên Danh Mục Tin Tức</th>
                             <th class="col-sm-3e">Địa chỉ đường dẫn</th>
-                            <th class="text-center">Thứ tự</th>
+                            <th class="col-sm-1 text-center">Thứ tự</th>
                             <th class="text-center">Menu</th>
                             <th class="text-center">Hiển thị</th>
                             <th class="col-sm-2 text-center">Hành động</th>

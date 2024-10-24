@@ -42,62 +42,59 @@
                 @endcan
             </div>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th class="">No.</th>
-                            <th class="col-sm-2 text-center">Tên bộ lọc</th>
-                            <th class="col-sm-3 text-center">Tên danh mục sản phẩm</th>
-                            <th class="col-sm-1 text-center">Đầu tiên</th>
-                            <th class="col-sm-1 text-center">Đặc biệt</th>
-                            <th class="col-sm-1 text-center">Số thứ tự</th>
-                            <th class="col-sm-1 text-center">Ẩn/Hiện</th>
-                            <th class="col-sm-2 text-center">Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if($filter->isEmpty())
-                        <tr>
-                            <td colspan="8" class="text-center">Không có bản ghi nào phù hợp !...</td>
-                        </tr>
-                        @else
-                        @foreach ($filter as $val)
-                        <tr>
-                            <td>{{ (($filter->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
-                            <td>{{ $val->name }}</td>
-                            <td class="text-center">
-                                {{ $val->category->name }}
-                            </td>
-                            <td class="text-center">
-                                <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="top_filter" {{ ($val->top_filter == 1) ? 'checked' : '' }}>
-                            </td>
-                            <td class="text-center">
-                                <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="special" {{ ($val->special == 1) ? 'checked' : '' }}>
-                            </td>
-                            <td class="text-center">
-                                <input type="text" class="check-stt" name="stt_filter" data-id="{{ $val->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_filter', $val->stt_filter) }}">
-                            </td>
-                            <td class="text-center">
-                                <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
-                            </td>
-                            <td class="action">
-                                @can('filter-edit')
-                                <a href="{{ asset('admin/filters/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
-                                @endcan
-                                <a href="{{ asset('admin/filters') }}">Xóa cache</a> |
-                                <a href="{{ asset('admin/filters') }}">Nhân bản</a>
-                            </td>
-                        </tr>
-                        @endforeach
-                        @endif
-                    </tbody>
-                </table>
-                <nav class="float-right">
-                    {{ $filter->links() }}
-                </nav>
-            </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="">No.</th>
+                        <th class="col-sm-2 text-center">Tên bộ lọc</th>
+                        <th class="col-sm-3 text-center">Tên danh mục sản phẩm</th>
+                        <th class="col-sm-1 text-center">Đầu tiên</th>
+                        <th class="col-sm-1 text-center">Đặc biệt</th>
+                        <th class="col-sm-1 text-center">Số thứ tự</th>
+                        <th class="col-sm-1 text-center">Ẩn/Hiện</th>
+                        <th class="col-sm-2 text-center">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if($filter->isEmpty())
+                    <tr>
+                        <td colspan="8" class="text-center">Không có bản ghi nào phù hợp !...</td>
+                    </tr>
+                    @else
+                    @foreach ($filter as $val)
+                    <tr>
+                        <td>{{ (($filter->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
+                        <td>{{ $val->name }}</td>
+                        <td class="text-center">
+                            {{ $val->category->name }}
+                        </td>
+                        <td class="text-center">
+                            <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="top_filter" {{ ($val->top_filter == 1) ? 'checked' : '' }}>
+                        </td>
+                        <td class="text-center">
+                            <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="special" {{ ($val->special == 1) ? 'checked' : '' }}>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control check-stt" name="stt_filter" data-id="{{ $val->id }}" style="text-align: center;" value="{{ old('stt_filter', $val->stt_filter) }}">
+                        </td>
+                        <td class="text-center">
+                            <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>
+                        </td>
+                        <td class="action">
+                            @can('filter-edit')
+                            <a href="{{ asset('admin/filters/'.$val->id.'/edit') }}">Chỉnh sửa</a> |
+                            @endcan
+                            <a href="{{ asset('admin/filters') }}">Xóa cache</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @endif
+                </tbody>
+            </table>
+            <nav class="float-right">
+                {{ $filter->links() }}
+            </nav>
         </div>
     </div>
 </div>

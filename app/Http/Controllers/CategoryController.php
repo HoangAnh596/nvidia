@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Http\Requests\CategoryFormRequest;
+use App\Models\FilterCate;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,14 @@ class CategoryController extends Controller
         $categoryParents = Category::where('parent_id', 0)
             ->with('children')
             ->get();
+        
+        $categoryParents->each(function ($category) {
+            if ($category->filter_ids) {
+                $filterIds = json_decode($category->filter_ids); // Nếu filter_ids là JSON
+                $filters = FilterCate::whereIn('id', $filterIds)->select('id', 'name')->get();
+                $category->filter_names = $filters;
+            }
+        });
 
         return view('admin.category.index', compact('categoryParents'));
     }
@@ -57,7 +66,7 @@ class CategoryController extends Controller
             ->where('id', '!=', $id)
             ->exists();
         $slugExists = Category::where('slug', $slug)->exists() || Product::where('slug', $slug)->exists();
-        
+
         return response()->json([
             'name_exists' => $nameExists,
             'slug_exists' => $slugExists,
@@ -148,7 +157,7 @@ class CategoryController extends Controller
             $sub = $product->subCategory;
 
             // Loại bỏ ID danh mục khỏi danh sách sub
-            $updatedSub = array_filter($sub, function($value) use ($id) {
+            $updatedSub = array_filter($sub, function ($value) use ($id) {
                 return $value != $id;
             });
 
@@ -164,7 +173,7 @@ class CategoryController extends Controller
     public function insertOrUpdate(CategoryFormRequest $request, $id = '')
     {
         $category = empty($id) ? new Category() : Category::findOrFail($id);
-        
+
         $category->fill($request->all());
         $path = parse_url($request->filepath, PHP_URL_PATH);
         // Xóa dấu gạch chéo đầu tiên nếu cần thiết
@@ -181,7 +190,7 @@ class CategoryController extends Controller
         $category->des_seo = (isset($request->des_seo)) ? $request->des_seo : $request->name;
         $category->stt_cate = (isset($request->stt_cate)) ? $request->stt_cate : 999;
         $category->user_id = Auth::id();
-        
+
         $category->save();
     }
 

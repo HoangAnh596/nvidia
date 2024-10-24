@@ -39,6 +39,14 @@ return [
         'delete-new' => 'delete_new',
         'checkbox-new' => 'checkbox_new',
 
+        // Question
+        'list-question' => 'list_question',
+        'add-question' => 'add_question',
+        'edit-question' => 'edit_question',
+        'delete-question' => 'delete_question',
+        'checkbox-question' => 'checkbox_question',
+        'checkStt-question' => 'checkstt_question',
+
         // Hotline
         'list-infor' => 'list_infor',
         'add-infor' => 'add_infor',

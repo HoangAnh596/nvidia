@@ -7,19 +7,18 @@
                 <span id="name-error" style="color: red;"></span>
             </div>
             <div class="mb-3">
-                <label for="desc" class="form-label">Mô tả ngắn <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
-                <!-- <input size="5" class="form-control" id="desc" type="name" name="desc" value="{{ old('desc', $new->desc ?? '') }}"> -->
-                <textarea name="desc" id="desc" rows="5" style="width: 100%;">{{ old('desc', $new->desc ?? '') }}</textarea>
-            </div>
-        </div>
-        <div class="col">
-            <div class="mb-3">
                 <label for="slug" class="form-label">Url bài viết <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
                 <input class="form-control" id="slug" type="name" name="slug" value="{{ old('slug', $new->slug ?? '') }}" disabled>
             </div>
             <div class="mb-3">
+                <label for="desc" class="form-label">Mô tả ngắn <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
+                <textarea name="desc" id="desc" rows="5" class="form-control" style="width: 100%;">{{ old('desc', $new->desc ?? '') }}</textarea>
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-3">
                 <label for="new_categories" class="form-label">Danh mục bài viết</label>
-                <select id="new_categories" class="border form-control" data-live-search="true" name="cate_id">
+                <select id="new_categories" class="border form-control" data-live-search="true" name="cate_id" size="13" style="width: 100%;">
                     <option value="0">Chọn danh mục</option>
                     @if(isset($categories))
                         @foreach($categories as $cat)

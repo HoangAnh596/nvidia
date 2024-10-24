@@ -100,7 +100,7 @@
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Vai trò :</div>
                     <div class="col-3 d-flex align-items-center">
-                        <select class="form-select" aria-label="Default" name="role">
+                        <select class="form-control" aria-label="Default" name="role">
                             <option value="0">Phòng kinh doanh</option>
                             <option value="1">Phòng kỹ thuật</option>
                             <option value="2">Phòng kinh doanh dự án</option>
@@ -134,8 +134,8 @@
                 </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Nhận báo giá :</div>
-                    <div class="col-1 d-flex align-items-center">
-                        <select class="form-select" aria-label="Default" name="send_price">
+                    <div class="col-2 d-flex align-items-center">
+                        <select class="form-control" aria-label="Default" name="send_price">
                             <option value="0">Không</option>
                             <option value="1">Có</option>
                         </select>
@@ -144,8 +144,8 @@
                 </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Hiển thị :</div>
-                    <div class="col-1 d-flex align-items-center">
-                        <select class="form-select" aria-label="Default" name="is_public">
+                    <div class="col-2 d-flex align-items-center">
+                        <select class="form-control" aria-label="Default" name="is_public">
                             <option value="0">Không</option>
                             <option value="1">Có</option>
                         </select>
@@ -155,7 +155,7 @@
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Thứ tự hiển thị :</div>
                     <div class="col-1">
-                        <input type="number" style="width:60px" name="stt">
+                        <input type="number" class="form-control" style="width:80px" name="stt">
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>

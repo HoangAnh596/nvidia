@@ -27,7 +27,7 @@
                         <tr>
                             <th class="col-sm-3">Tên Danh Mục Menu</th>
                             <th class="col-sm-3">Địa chỉ đường dẫn</th>
-                            <th class="text-center">Thứ tự</th>
+                            <th class="col-sm-1 text-center">Thứ tự</th>
                             <th class="text-center">Hiển thị</th>
                             <th class="text-center">Mở Tab</th>
                             <th class="text-center">Click</th>

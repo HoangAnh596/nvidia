@@ -32,7 +32,7 @@
                             <th class="col-sm-2 text-center">Tên</th>
                             <th class="col-sm-3 text-center">Url</th>
                             <th class="col-sm-2 text-center">Tên Url</th>
-                            <th class="text-center">STT</th>
+                            <th class="col-sm-1 text-center">STT</th>
                             <th class="text-center">Hiển thị</th>
                             <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
@@ -49,8 +49,8 @@
                             <td>{{ $val->name }}</td>
                             <td>{{ $val->url }}</td>
                             <td>{{ $val->url_text }}</td>
-                            <td class="text-center">
-                                <input type="text" class="check-stt" name="stt" data-id="{{ $val->id }}" style="width: 40px;text-align: center;" value="{{ old('stt_slider', $val->stt_slider) }}">
+                            <td>
+                                <input type="text" class="form-control check-stt" name="stt" data-id="{{ $val->id }}" style="text-align: center;" value="{{ old('stt_slider', $val->stt_slider) }}">
                             </td>
                             <td class="text-center">
                                 <input type="checkbox" class="active-checkbox" data-id="{{ $val->id }}" data-field="is_public" {{ ($val->is_public == 1) ? 'checked' : '' }}>

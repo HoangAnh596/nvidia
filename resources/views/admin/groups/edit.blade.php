@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-8">
                         <div class="form-group">
-                            <select name="cate_id" id="cate_id" class="form-select" size="10" style="width: 100%;">
+                            <select name="cate_id" id="cate_id" class="form-control" size="12" style="width: 100%;">
                                 @foreach($categories as $val)
                                     @include('admin.groups.partials.category_option', ['category' => $val, 'level' => 0, 'prefix' => '|---', 'selected' => $group->cate_id])
                                 @endforeach

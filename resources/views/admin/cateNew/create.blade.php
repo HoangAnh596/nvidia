@@ -35,17 +35,6 @@
                             <span id="name-error" style="color: red;"></span>
                         </div>
                         <div class="form-group">
-                            <label for="">Danh mục bài viết</label>
-                            <select name="parent_id" id="parent_id" class="form-control">
-                                <option value="0">Chọn danh mục</option>
-                                @foreach($cateNewParents as $category)
-                                @include('admin.cateNew.partials.category_add', ['category' => $category, 'level' => 0, 'selected' => old('parent_id', $category->parent_id)])
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
                             <label for="">URL danh mục bài viết <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></label>
                             <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug') }}" oninput="checkDuplicate()">
                             <span id="slug-error" style="color: red;"></span>
@@ -54,6 +43,18 @@
                             <label for="related_pro" class="form-label">Sản phẩm liên quan: </label>
                             <select class="related_pro form-control" name="related_pro[]" id="related_pro" multiple="multiple"></select>
                         </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Danh mục cha</label>
+                            <select name="parent_id" id="parent_id" class="form-control" size="12" style="width: 100%;">
+                                <option value="0">Chọn danh mục</option>
+                                @foreach($cateNewParents as $category)
+                                @include('admin.cateNew.partials.category_add', ['category' => $category, 'level' => 0, 'selected' => old('parent_id', $category->parent_id)])
+                                @endforeach
+                            </select>
+                        </div>
+
                     </div>
                 </div>
                 <hr>
@@ -101,7 +102,7 @@
 <script>
     let timeout = null;
     let updateSlug = true;
-    
+
     // Validate cấu hình SEO
     function delayedValidate(fieldId, warningId, minLength, maxLength) {
         clearTimeout(timeout); // Xóa timeout cũ nếu có, để đặt lại thời gian chờ
@@ -123,7 +124,7 @@
             warning.textContent = `Độ dài hiện tại: ${fieldLength}. Vui lòng nhập từ ${minLength} đến ${maxLength} ký tự để tối ưu hóa chuẩn SEO.`;
         }
     }
-    
+
     function validateSlug(slug) {
         // Biểu thức chính quy để kiểm tra định dạng của slug
         const regex = /^[a-z0-9]+(-[a-z0-9]+)*$/;

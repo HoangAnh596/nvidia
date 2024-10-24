@@ -77,7 +77,10 @@ class HomeController extends Controller
         } else {
             $categoriesWithProducts = collect();
             foreach ($ids as $idCate) {
-                $category = Category::select('id', 'name', 'slug')->find($idCate);
+                $category = Category::select('id', 'name', 'slug')
+                    ->with(['children' => function ($query) {
+                        $query->select('id', 'name', 'slug', 'parent_id', 'is_menu');
+                    }])->find($idCate);
                 if ($category) {
                     // Lấy tất cả các id danh mục con bao gồm cả id gốc
                     $allCategoryIds = array_merge([$idCate], $category->getAllChildrenIds());
@@ -135,7 +138,11 @@ class HomeController extends Controller
             ->where('is_public', 1)
             ->orderBy('stt', 'ASC')->get();
         $slugs = explode('-', $slug);
-        $mainCate = Category::where('slug', $slug)->with('children')->first(); // Lấy ra danh mục chính
+        $mainCate = Category::where('slug', $slug)->with(['children', 'questionCate' => function ($query) {
+            $query->select('cate_id', 'title', 'content')
+                ->where('is_public', 1) // Lọc theo is_public == 1
+                ->orderBy('stt', 'ASC'); // Sắp xếp theo stt
+        }])->first(); // Lấy ra danh mục chính
         
         if (!empty($mainCate)) {
             // Seo Website
@@ -300,7 +307,11 @@ class HomeController extends Controller
         }
 
         $idPro = Product::where('slug', $slug)->value('id');
-        $product = Product::with('category')->findOrFail($idPro);
+        $product = Product::with(['category', 'questionProduct' => function ($query) {
+            $query->select('product_id', 'title', 'content')
+                ->where('is_public', 1) // Lọc theo is_public == 1
+                ->orderBy('stt', 'asc'); // Sắp xếp theo stt
+        }])->findOrFail($idPro);
 
         $categoryId = $product->category->pluck('id')->first();
         $parent = Category::where('id', $categoryId)->first();

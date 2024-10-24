@@ -14,8 +14,8 @@
     <td>
         {{ $category->url }}
     </td>
-    <td class="text-center">
-        <input type="text" class="check-stt" name="stt_menu" data-id="{{ $category->id }}" style="width: 50px;text-align: center;" value="{{ old('stt_menu', $category->stt_menu) }}">
+    <td>
+        <input type="text" class="form-control check-stt" name="stt_menu" data-id="{{ $category->id }}" style="text-align: center;" value="{{ old('stt_menu', $category->stt_menu) }}">
     </td>
     <td class="text-center">
         <input type="checkbox" class="active-checkbox" data-id="{{ $category->id }}" data-field="is_public" {{ ($category->is_public == 1) ? 'checked' : '' }}>
@@ -30,8 +30,7 @@
         @can('menu-edit')
         <a href="{{ asset('admin/cateMenu/'.$category->id.'/edit') }}">Chỉnh sửa</a> |
         @endcan
-        <a href="{{ asset('admin/cateMenu/'.$category->id.'/edit') }}">Xóa cache</a> |
-        <a href="{{ asset('admin/cateMenu/'.$category->id.'/edit') }}">Nhân bản</a>
+        <a href="{{ asset('admin/cateMenu/'.$category->id.'/edit') }}">Xóa cache</a>
         <!-- <a href="{{ asset('admin/cateMenu/'.$category->id) }}" >Chi tiết</a> |  -->
     </td>
 </tr>

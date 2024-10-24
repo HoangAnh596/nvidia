@@ -25,15 +25,14 @@
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="col-sm-4 ">Tên Danh Mục</th>
-                            <th class="col-sm-2 ">Bộ lọc</th>
-                            <th class="">Server</th>
-                            <!-- <th class="">Cha</th> -->
-                            <th class="">Menu</th>
-                            <th class="">Nổi bật</th>
-                            <th class="">Hiển thị</th>
-                            <th class="">Thứ tự</th>
-                            <th class="col-sm-2  text-center">Hành động</th>
+                            <th class="col-sm-4 text-center">Tên Danh Mục</th>
+                            <th class="col-sm-2 text-center">Bộ lọc</th>
+                            <th class="text-center">Server</th>
+                            <th class="text-center">Menu</th>
+                            <th class="text-center">Nổi bật</th>
+                            <th class="text-center">Hiển thị</th>
+                            <th class="col-sm-1 text-center">Thứ tự</th>
+                            <th class="col-sm-2 text-center">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
