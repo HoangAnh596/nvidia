@@ -285,7 +285,7 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::delete('questions/{id}', [QuestionController::class, 'destroy'])->name('questions.destroy')->middleware('can:question-delete');
     Route::post('/questions/checkStt', [QuestionController::class, 'checkStt'])->name('questions.checkStt')->middleware('can:question-checkStt');
     Route::post('/questions/checkbox', [QuestionController::class, 'isCheckbox'])->name('questions.isCheckbox')->middleware('can:question-checkbox');
-    
+
     // Quản lý tài khoản đăng nhập
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create')->middleware('can:user-add');
@@ -349,6 +349,14 @@ Route::post('replyCmt', [CommentController::class, 'replyCmt'])->name('cmt.reply
 Route::post('reply-cmtNews', [CmtNewsController::class, 'replyCmt'])->name('cmtNews.replyCmt');
 // Liên hệ
 Route::get('lien-he', [HomeController::class, 'contact'])->name('home.contact');
+// Route::get('chinh-sach-bao-hanh', [HomeController::class, 'warrantPolicy'])->name('home.policy');
+// Route::get('chinh-sach-mua-hang', [HomeController::class, 'buyPolicy'])->name('home.policy');
+Route::prefix('/support')->group(function () {
+    Route::get('/', [HomeController::class, 'support'])->name('home.blog');
+    // Route với một tham số
+    Route::get('/{slug}', [HomeController::class, 'policy'])
+        ->where('slug', '[a-zA-Z0-9-_]+');
+});
 // Trang chủ phía người dùng
 Route::prefix('/')->group(function () {
     Route::prefix('/blogs')->group(function () {

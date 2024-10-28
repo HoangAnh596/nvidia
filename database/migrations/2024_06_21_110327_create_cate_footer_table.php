@@ -17,10 +17,12 @@ class CreateCateFooterTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('url')->nullable();
+            $table->string('title');
             $table->bigInteger('parent_menu');
             $table->unsignedBigInteger('user_id');
+            $table->text('content')->nullable();
             $table->integer('stt_menu')->nullable();
-            // $table->string('image')->nullable();
+            $table->tinyInteger('is_role')->default(0)->comment('0: mặc định, 1: chính sách, 2: thông tin khác');
             $table->tinyInteger('is_public')->default(0)->comment('1: hiển thị, 0: không hiển thị');
             $table->tinyInteger('is_tab')->default(0)->comment('1: mở tab mới, 0: không mở tab');
             $table->tinyInteger('is_click')->default(0)->comment('1: click, 0: không click');

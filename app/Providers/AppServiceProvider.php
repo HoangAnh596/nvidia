@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
             return new \App\Services\CategorySrc();
         });
 
-        if (request()->is('admin*') || request()->is('login*')) {
+        if (request()->is('admin*') || request()->is('login*') || request()->is('register*') || request()->is('password/*')) {
             $this->app->register(AdminServiceProvider::class);
         }
 
@@ -42,30 +42,30 @@ class AppServiceProvider extends ServiceProvider
                 ->where('parent_menu', 0)
                 ->where('is_public', 1)
                 ->orderBy('stt_menu', 'ASC')
+                ->with(['children' => function ($query) {
+                    $query->select('id', 'name', 'url', 'parent_menu', 'is_tab', 'is_click')
+                        ->where('is_public', 1)
+                        ->orderBy('stt_menu', 'ASC')
+                        ->with(['children' => function ($subQuery) {
+                            $subQuery->select('id', 'name', 'url', 'parent_menu', 'is_tab', 'is_click')
+                                ->where('is_public', 1)
+                                ->orderBy('stt_menu', 'ASC');
+                        }]);
+                }])
                 ->get();
         });
 
         $this->app->singleton('footers', function () {
-            // Lấy danh mục cha
-            $parents = CateFooter::select('id', 'name', 'url', 'is_tab')
+            return CateFooter::select('id', 'name', 'url', 'is_tab')
                 ->where('is_public', 1)
                 ->where('parent_menu', 0)
                 ->orderBy('stt_menu', 'ASC')
+                ->with(['children' => function ($query) {
+                    $query->select('id', 'name', 'url', 'is_tab', 'parent_menu', 'is_click')
+                        ->where('is_public', 1)
+                        ->orderBy('stt_menu', 'ASC');
+                }])
                 ->get();
-
-            // Lấy danh mục con trực tiếp của các danh mục cha
-            $children = CateFooter::whereIn('parent_menu', $parents->pluck('id'))
-                ->select('id', 'name', 'url', 'is_tab', 'parent_menu')
-                ->where('is_public', 1)
-                ->orderBy('stt_menu', 'ASC')
-                ->get();
-
-            // Gắn các danh mục con trực tiếp vào danh mục cha tương ứng
-            foreach ($parents as $parent) {
-                $parent->children = $children->where('parent_menu', $parent->id);
-            }
-
-            return $parents;
         });
 
         $this->app->singleton('searchCate', function () {
@@ -142,7 +142,7 @@ class AppServiceProvider extends ServiceProvider
             $ft_bottom = $this->app->make('bottom');
             $globalSetting = $this->app->make('setting');
             $contactIconGlobal = $this->app->make('contact-icons');
-            
+            // dd($globalMenus);
             $view->with('globalMenus', $globalMenus)->with('globalFooters', $globalFooters)
                 ->with('searchCate', $searchCate)
                 ->with('globalHeaderTags', $globalHeaderTags)

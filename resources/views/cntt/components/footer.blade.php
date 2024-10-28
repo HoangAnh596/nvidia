@@ -3,11 +3,11 @@
     <div class="container">
         <div class="row">
             @foreach ($globalFooters as $val)
-            <div class="col-md-4">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="page-footer">{{ $val->name }}</div>
                 <ul class="list-unstyled footer-link">
                     @foreach ($val->children as $child)
-                    <li><a class="text-decoration-none ft-link" href="{{ asset($child->url) }}" target="@if($child->is_tab == 1) _blank @endif">{{ $child->name }}</a></li>
+                    <li><a class="text-decoration-none ft-link" @if($child->is_click == 1) href="{{ asset($child->url) }}" @else href="javascript:void(0)" @endif target="@if($child->is_tab == 1) _blank @endif">{{ $child->name }}</a></li>
                     @endforeach
                 </ul>
             </div>
@@ -77,31 +77,6 @@
                 </span>
             </div>
         </div>
-        <!-- <div class="row">
-            <div class="page-footer__subscribe">
-                <div class="subscribe-container">
-                    <div class="center-content">
-                        <div class="subscribe-logo">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="36" viewBox="0 0 48 36">
-                                <image id="icon_mail_copy" data-name="icon mail copy" width="48" height="36" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAkCAMAAAD4m0k4AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABnlBMVEWHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgCHwgAAAADqIFB3AAAAiHRSTlMAPqKqqKucL9zD8v383e77xqnO2fBFYfRSbfUDDgIPDF6QUA0SWJMIQI4qAQQznT8XHW7k6DEKadYFCUq3z1kGMqPt6XokK4fz55glwVQLX828VR6L4PeUNT2h/td9FUmv+tIWdtukcdCsTmU0md9/iY8HWr60TYLl2kOt+DoaE0djybDCPJ8umjQepgAAAAFiS0dEiRxhJswAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAHdElNRQfgChgTJSW4Gs96AAABYklEQVQ4y2NgZGJmIRqwsrEzcHSQBDgZuDo6uHmIBNwdHbwMfB38AoKsRAEWIZ4OYaAGEVEGIoGYOFgDlwSxGiSlKNAgLYNXqaycLKoGeQVFJWXc6lVU1STUUTRodHTwaGppY1euo6vX0SGii6JBXwQYKcJiBtjUGxoZAyVNTFE0mJlbgOJRUN8SXbmVtQ1IxtbOHi2UHBydgOLOLq6o6t3cPYDCnl7eWIJVTABklI+vH5Jn/QOAQvyBQdjjITgkFCgdFh4BUx8ZFQ0UiImNwxlx8QmJQBVJ5slg/SmpQI5UWiS+mFZJzwC5KxOYvLLAnhXItiKQNHJyQb7Myy9wBoVBoRbhtFRUXALLLaVlqFGJK/F5l1eAlFemBONJfKigqpq/hqkWQxhP8q5T9a1nIEUDdjCqYVBpEGkgVkMjRAN/E2szUYA5A1QYg4t7bqIATzSouE8lrUJpYWhtI6XKym0HAEPUyge2kF93AAAAAElFTkSuQmCC"></image>
-                            </svg>
-                        </div>
-                        <div class="subscribe-text">
-                            <span>Sign Up for NVIDIA News</span>
-                        </div>
-                        <div class="button">
-                            <div class="nv-button btn-content" style="padding: 0px;">
-                                <a href="https://www.nvidia.com/en-au/preferences/email-signup/" class="btn-content btncta link-btn btn-manual brand-green regular-btn">
-                                    <div class="" id="sub-btn-font">
-                                        Subscribe
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </div>
     <a href="#top" class="back-to-top" id="top-link" aria-label="Go to top"><i class="fa-solid fa-circle-chevron-up"></i></a>
 </footer>
@@ -123,7 +98,7 @@
             </li>
             @endforeach
         </ul>
-        <div class="global-footer__copyright">Copyright © 2024 NVIDIA Corporation</div>
+        <div class="global-footer__copyright">Copyright © 2024 NVIDIAVN.VN Corporation</div>
     </div>
 </div>
 <!-- End Footer -->

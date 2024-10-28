@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ProductsCompareExport;
+use App\Models\CateFooter;
 use App\Models\Category;
 use App\Models\CategoryNew;
 use App\Models\Comment;
@@ -18,6 +19,7 @@ use App\Services\CategorySrc;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -131,6 +133,33 @@ class HomeController extends Controller
 
     public function category(Request $request, $slug)
     {
+        if(Str::startsWith($slug, 'chinh-sach') || Str::startsWith($slug, 'gioi-thieu')) {
+            $titleSeo = 'Hướng dẫn mua hàng và quy định của Công Ty TNHH Công Nghệ Việt Thái Dương - CNTTShop.';
+            $keywordSeo = 'cnttshop, việt thái dương';
+            $descriptionSeo = 'Vui lòng liên hệ tới chúng tôi để được hỗ trợ dịch vụ chất lượng, tư vấn kỹ thuật và giải pháp máy chủ chính xác, nhận báo giá máy chủ serve tốt nhất.';
+
+            $results = CateFooter::where('url', $slug)->firstOrFail();
+            $cateFooter = CateFooter::select('id', 'name', 'url', 'is_tab', 'parent_menu', 'is_click')
+                ->where('is_public', 1)
+                ->where('parent_menu', '!=', 0) // Lọc để chỉ lấy danh mục con trực tiếp
+                ->whereHas('parent', function ($query) {
+                    $query->where('parent_menu', 0);
+                })
+                ->with(['children' => function ($query) {
+                    $query->select('id', 'name', 'url', 'is_tab', 'parent_menu', 'is_click')
+                        ->where('is_public', 1)
+                        ->orderBy('stt_menu', 'ASC');
+                }])
+                ->orderBy('stt_menu', 'ASC')
+                ->get();
+
+            return view('cntt.home.policy.warrant', compact(
+                'titleSeo', 'keywordSeo', 'descriptionSeo',
+                'results', 'cateFooter',
+            ));
+        }
+
+        $slugs = explode('-', $slug);
         // Seo Website
         $globalSeo = app('setting');
         
@@ -866,15 +895,11 @@ class HomeController extends Controller
         ));
     }
 
-    public function boloc()
+    // chính sách bảo hành
+    public function policy($slug)
     {
+        dd($slug);
         // Seo Website
-        $titleSeo = 'Thông Tin Liên Hệ Công Ty TNHH Công Nghệ Việt Thái Dương - CNTTShop.';
-        $keywordSeo = 'cnttshop, việt thái dương';
-        $descriptionSeo = 'Vui lòng liên hệ tới chúng tôi để được hỗ trợ dịch vụ chất lượng';
-
-        return view('boloc', compact(
-            'titleSeo', 'keywordSeo', 'descriptionSeo'
-        ));
+        
     }
 }

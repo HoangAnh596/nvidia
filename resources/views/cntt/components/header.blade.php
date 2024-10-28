@@ -141,7 +141,7 @@
                 <form method="GET" action="{{ route('home.search') }}" class="modal-content modal-body border-0 p-0">
                     <div class="input-group">
                         <div class="form-group">
-                            <select name="cate" class="form-control border">
+                            <select name="cate" class="form-control border search-cate">
                                 <option value="prod">Tất cả sản phẩm</option>
                                 <option value="news">Tất cả bài viết</option>
                                 @if(isset($searchCate))
@@ -161,7 +161,7 @@
                                 @endif
                             </select>
                         </div>
-                        <input type="text" class="form-control" id="inputModalSearch" name="keyword" placeholder="Tìm kiếm ...">
+                        <input type="text" class="form-control" id="inputModalSearch" name="keyword" placeholder="Bạn cần tìm gì?">
                         <button type="submit" class="input-group-text bg-gr text-light">
                             <i class="fa fa-fw fa-search text-white"></i>
                         </button>

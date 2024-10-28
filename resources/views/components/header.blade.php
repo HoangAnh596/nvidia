@@ -203,9 +203,7 @@ $totalComments = $commentGlobal->count() + $cmtNewGlobal->count();
                     @can('contact-icon-add')
                     <a class="collapse-item" href="{{ route('contact-icons.create') }}">Thêm mới icon</a>
                     @endcan
-
                     <a class="collapse-item" href="{{ route('setting.images') }}">Dọn dẹp hình ảnh</a>
-
                 </div>
             </div>
         </li>

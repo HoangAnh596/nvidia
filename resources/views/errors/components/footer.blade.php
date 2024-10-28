@@ -3,11 +3,11 @@
     <div class="container">
         <div class="row">
             @foreach ($globalFooters as $val)
-            <div class="col-md-4">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="page-footer">{{ $val->name }}</div>
                 <ul class="list-unstyled footer-link">
                     @foreach ($val->children as $child)
-                    <li><a class="text-decoration-none ft-link" href="{{ $child->url }}" target="@if($child->is_tab == 1) _blank @endif">{{ $child->name }}</a></li>
+                    <li><a class="text-decoration-none ft-link" @if($child->is_click == 1) href="{{ asset($child->url) }}" @else href="javascript:void(0)" @endif target="@if($child->is_tab == 1) _blank @endif">{{ $child->name }}</a></li>
                     @endforeach
                 </ul>
             </div>
@@ -73,39 +73,13 @@
         </svg>
 
         <ul class="global-footer__links">
+            @foreach ($ft_bottom as $ft)
             <li>
-                <a href="https://www.nvidia.com/en-au/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+                <a href="{{ asset($ft->url) }}" target="_blank">{{ $ft->name }}</a>
             </li>
-
-            <li>
-                <a href="https://www.nvidia.com/en-au/privacy-center/" target="_blank">Manage My Privacy</a>
-            </li>
-
-            <li>
-                <a href="https://www.nvidia.com/en-au/preferences/email-preferences/" target="_blank">Do Not Sell or Share My Data</a>
-            </li>
-
-            <li>
-                <a href="https://www.nvidia.com/en-au/legal-info/" target="_blank">Legal</a>
-            </li>
-
-            <li>
-                <a href="https://www.nvidia.com/en-au/about-nvidia/accessibility/" target="_blank">Accessibility</a>
-            </li>
-
-            <li>
-                <a href="https://www.nvidia.com/en-au/about-nvidia/company-policies/" target="_self">Corporate Policies</a>
-            </li>
-
-            <li>
-                <a href="https://www.nvidia.com/en-us/security" target="_blank">Product Security</a>
-            </li>
-
-            <li>
-                <a href="https://www.nvidia.com/en-au/contact/" target="_blank">Contact</a>
-            </li>
+            @endforeach
         </ul>
-        <div class="global-footer__copyright">Copyright © 2024 NVIDIA Corporation</div>
+        <div class="global-footer__copyright">Copyright © 2024 NVIDIAVN.VN Corporation</div>
     </div>
 </div>
 <!-- End Footer -->

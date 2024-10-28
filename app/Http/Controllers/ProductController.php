@@ -186,13 +186,7 @@ class ProductController extends Controller
         }
 
         $product->fill($request->all());
-        // Lấy đường dẫn tương đối từ URL
-        $filePath = $request->input('filepath');
-        $relativePath = parse_url($filePath, PHP_URL_PATH);
-        $relativePath = ltrim($relativePath, '/'); // Loại bỏ dấu '/' đầu tiên
 
-        // Lưu đường dẫn tương đối vào thuộc tính filepath
-        $product->filepath = $relativePath;
         $product->title_seo = (isset($request->title_seo)) ? $request->title_seo : $request->name;
         $product->keyword_seo = (isset($request->keyword_seo)) ? $request->keyword_seo : $request->name;
         $product->des_seo = (isset($request->des_seo)) ? $request->des_seo : $request->name;

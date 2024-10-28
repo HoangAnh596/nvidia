@@ -20,27 +20,25 @@
             <a href="{{ route('cateFooter.create') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Thêm mới</a>
             @endcan
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th class="col-sm-3">Tên Danh Mục Footer</th>
-                            <th class="col-sm-3">Địa chỉ đường dẫn</th>
-                            <th class="col-sm-1 text-center">Thứ tự</th>
-                            <th class="text-center">Hiển thị</th>
-                            <th class="text-center">Mở tab</th>
-                            <th class="text-center">Click</th>
-                            <th class="col-sm-2 text-center">Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($ftParents as $category)
-                        @include('admin.cateFooter.partials.children', ['category' => $category, 'level' => 0])
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="col-sm-3">Tên Danh Mục Footer</th>
+                        <th class="col-sm-3">Địa chỉ đường dẫn</th>
+                        <th class="col-sm-1 text-center">Thứ tự</th>
+                        <th class="text-center">Hiển thị</th>
+                        <th class="text-center">Mở tab</th>
+                        <th class="text-center">Click</th>
+                        <th class="col-sm-2 text-center">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($ftParents as $category)
+                    @include('admin.cateFooter.partials.children', ['category' => $category, 'level' => 0])
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

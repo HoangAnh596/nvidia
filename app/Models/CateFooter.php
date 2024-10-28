@@ -19,8 +19,8 @@ class CateFooter extends Model
     const IS_NOT_PUBLIC = 0;
 
     protected $fillable = [
-        'name', 'parent_menu',
-        'url', 'stt_menu',
+        'name', 'title', 'parent_menu',
+        'url', 'content', 'stt_menu',
         'is_click', 'is_tab', 'is_public'
     ];
 

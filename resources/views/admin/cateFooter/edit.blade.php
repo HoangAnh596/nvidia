@@ -32,7 +32,7 @@
 
             <div class="text-dark card-body border-top">
                 <div class="row">
-                    <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Tiêu đề :<div class="warningMenu">*</div>
+                    <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Tên :<div class="warningMenu">*</div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
@@ -43,61 +43,51 @@
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
                 <div class="row">
-                    <div class="col-2 d-flex flex-row-reverse">Link :<div class="warningMenu">*</div>
+                    <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Url :<div class="warningMenu">*</div>
                     </div>
-                    <div class="col-9 d-flex justify-content-between">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="checkboxes[]" id="inlineRadio1" value="option1">
-                            <label class="form-check-label" for="inlineRadio1">Trang trong</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="checkboxes[]" id="inlineRadio2" value="option2">
-                            <label class="form-check-label" for="inlineRadio2">Trang ngoài</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="checkboxes[]" id="inlineRadio3" value="option3">
-                            <label class="form-check-label" for="inlineRadio3">Danh mục tin tức</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="checkboxes[]" id="inlineRadio4" value="option4">
-                            <label class="form-check-label" for="inlineRadio4">Danh sách tin tức</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="checkboxes[]" id="inlineRadio5" value="option5">
-                            <label class="form-check-label" for="inlineRadio5">Danh mục sản phẩm</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="checkboxes[]" id="inlineRadio6" value="option6">
-                            <label class="form-check-label" for="inlineRadio6">Danh sách sản phẩm</label>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <input type="text" name="url" class="form-control" value="{{ old('url', $category->url ?? '') }}">
+                            <span id="url-error" style="color: red;"></span>
                         </div>
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-2"></div>
-                    <div class="col-10">
-                        <div id="input-url">
-                            <label for="url">Đường dẫn :</label>
-                            <input type="text" name="url" id="url" value="{{ old('url', $category->url ?? '') }}" placeholder="Đường dẫn">
-                        </div>
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Menu cha :</div>
                     <div class="col-4">
                         <div class="form-group">
-                            <select name="parent_menu" id="parent_menu" class="form-control" size="10" style="width: 100%;">
+                            <select name="parent_menu" id="parent_menu" class="form-control">
                                 <option value="0">Gốc</option>
                                 @foreach($categories as $val)
-                                @include('admin.cateMenu.partials.category_option', ['category' => $val, 'level' => 0, 'prefix' => '|---', 'selected' => $category->parent_menu])
+                                <option value="{{ $val->id }}" @if($val->id == $category->parent_menu) selected @endif>{{ $val->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div style="height: 38px; color: red; margin-left: 20px;"><i class="fa-solid fa-circle-info"></i></div>
-                    <div class="col-5">
-
+                </div>
+                <div class="row">
+                    <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Tiêu đề :<div class="warningMenu">*</div>
                     </div>
+                    <div class="col-8">
+                        <textarea name="title" class="form-control" rows="3" style="width: 100%;">{{ old('title', $category->title ?? '') }}</textarea>
+                    </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
+                </div>
+                <div class="row mt-3 mb-3">
+                    <div class="col-2 d-flex flex-row-reverse align-items-center">Hiển thị :</div>
+                    <div class="col-2 d-flex align-items-center">
+                        <select class="form-control" aria-label="Default" name="is_public">
+                            <option value="0"
+                                @if(!empty($category) && $category->is_public == 0) selected @endif> Ẩn
+                            </option>
+                            <option value="1"
+                                @if(!empty($category) && $category->is_public == 1) selected @endif> Hiển thị
+                            </option>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Thứ tự hiển thị :</div>
@@ -113,11 +103,18 @@
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
+                <div class="row">
+                    <div class="col-2 d-flex flex-row-reverse align-items-center" style="height: 38px;">Mô tả:<div class="warningMenu">*</div>
+                    </div>
+                    <div class="col-9">
+                        <textarea class="form-control" id="my-editor" rows="10" name="content">{{ old('content', $category->content ?? '') }}</textarea>
+                    </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
+                </div>
             </div>
 
             <div class="mt-4 pb-4 mr-4 float-right">
                 <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
-                <!-- <button class="btn btn-info btn-sm" type="reset"><i class="fa-solid fa-eraser"></i> Clear</button> -->
             </div>
         </form>
         @can('footer-delete')

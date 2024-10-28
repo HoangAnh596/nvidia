@@ -30,12 +30,6 @@
     line-height: 30px;
 }
 
-.news-body h3 {
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 30px;
-}
-
 .head-blog span {
     font-size: 18px;
     color: #333;
@@ -274,30 +268,6 @@ img {
     margin-top: 7px;
 }
 
-/* Mục lục bài viết */
-.seo-item-container {
-    display: block;
-    width: 100%;
-    border: 1px dashed #76b900;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-}
-.seo-item-container a{
-    padding: 10px;
-    font-size: 0.9rem !important;
-    text-decoration: none !important;
-}
-.seo-item-container ul, .seo-item-container ol {
-    list-style-type: none; /* Loại bỏ dấu chấm */
-    padding-left: 1rem;
-    margin-bottom: 0;
-}
-
-.seo-title-container {
-    font-weight: 600 !important;
-    margin-bottom: 5px;
-}
 /* Begin Author Blogs */
 .author-header {
     background: #f4faff;

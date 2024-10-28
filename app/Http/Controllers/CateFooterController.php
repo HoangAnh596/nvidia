@@ -21,7 +21,6 @@ class CateFooterController extends Controller
 
     public function create() {
         $menuParents = CateFooter::where('parent_menu', 0)
-            ->with('children')
             ->get();
         
         return view('admin.cateFooter.create', compact('menuParents'));
@@ -81,26 +80,26 @@ class CateFooterController extends Controller
         $allCategoryIds = array_merge([$id], $childIds);
         CateFooter::whereIn('id', $allCategoryIds)->delete();
 
-        return redirect(route('cateMenu.index'))->with(['message' => 'Xóa thành công']);
+        return redirect(route('cateFooter.index'))->with(['message' => 'Xóa thành công']);
     }
 
     public function insertOrUpdate(Request $request, $id = '')
     {
-        $cateMenu = empty($id) ? new CateFooter() : CateFooter::findOrFail($id);
+        $cateFooter = empty($id) ? new CateFooter() : CateFooter::findOrFail($id);
 
-        $cateMenu->fill($request->all());
+        $cateFooter->fill($request->all());
 
         if(empty($request->input('parent_menu'))){
-            $cateMenu->parent_menu = $request->input('parent_menu', 0);
+            $cateFooter->parent_menu = $request->input('parent_menu', 0);
         }
         if(empty($request->input('is_tab'))){
-            $cateMenu->is_tab = $request->input('is_tab', 0);
+            $cateFooter->is_tab = $request->input('is_tab', 0);
         }
 
-        $cateMenu->stt_menu = (isset($request->stt_menu)) ? $request->stt_menu : 999;
-        $cateMenu->user_id = Auth::id();
+        $cateFooter->stt_menu = (isset($request->stt_menu)) ? $request->stt_menu : 999;
+        $cateFooter->user_id = Auth::id();
 
-        $cateMenu->save();
+        $cateFooter->save();
     }
 
     public function checkStt(Request $request){
