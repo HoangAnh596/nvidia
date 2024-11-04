@@ -8,7 +8,6 @@ use App\Models\FilterCate;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {

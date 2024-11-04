@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helpers\Helper;
 use App\Http\Requests\FilterCateFormRequest;
 use App\Models\Category;
 use App\Models\Filter;

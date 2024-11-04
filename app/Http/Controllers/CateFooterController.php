@@ -6,7 +6,6 @@ use App\Http\Requests\CateFooterFormRequest;
 use App\Models\CateFooter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class CateFooterController extends Controller
 {

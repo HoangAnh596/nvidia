@@ -124,7 +124,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="card-body">
+            <div class="card-body" style="padding: 12px;">
                 <div class="table table-img">
                     <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                         <thead>

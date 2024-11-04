@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helpers\Helper;
 use App\Http\Requests\InforFormRequest;
 use App\Models\Infor;
 use Illuminate\Http\Request;

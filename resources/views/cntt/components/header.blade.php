@@ -56,11 +56,9 @@
                 @endforeach
                 <li class="nav-item nav-item-mobile">
                     <a aria-current="page" href="{{ asset('/gia-list?key=') }}"><i class="fa-solid fa-list-check"></i> Check Giá</a>
-                    <!-- <a aria-current="page" href="{{ asset('/shop') }}" target="_blank">Shop</a> -->
                 </li>
                 <li class="nav-item nav-item-mobile">
                     <a aria-current="page" href="javascript:void(0)">Driviers</a>
-                    <!-- <a aria-current="page" href="{{ asset('/download') }}" target="_blank">Driviers</a> -->
                 </li>
                 <li class="nav-item nav-item-mobile">
                     <a aria-current="page" href="{{ asset('/lien-he') }}"><i class="fa-solid fa-headset"></i> Liên hệ</a>
@@ -114,11 +112,9 @@
                 <ul class="navbar-nav main-nav-link">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{ asset('/gia-list?key=') }}"><i class="fa-solid fa-list-check"></i> Check Giá</a>
-                        <!-- <a class="nav-link" aria-current="page" href="{{ asset('/shop') }}" target="_blank">Shop</a> -->
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="javascript:void(0)">Driviers</a>
-                        <!-- <a class="nav-link" aria-current="page" href="{{ asset('/download') }}" target="_blank">Driviers</a> -->
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{ asset('/lien-he') }}"><i class="fa-solid fa-headset"></i> Liên hệ</a>

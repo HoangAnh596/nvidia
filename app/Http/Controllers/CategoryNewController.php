@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helpers\Helper;
 use App\Http\Requests\CategoryNewFormRequest;
 use App\Models\CategoryNew;
 use App\Models\News;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class CategoryNewController extends Controller
 {

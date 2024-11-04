@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FilterProductRequest;
 use App\Models\Category;
 use App\Models\Filter;
 use App\Models\Product;

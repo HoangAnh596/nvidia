@@ -2,20 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helpers\Helper;
 use App\Http\Requests\ProductFormRequest;
+use App\Models\Attributes;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Comment;
-use App\Models\Maker;
 use App\Models\ProductImages;
 use App\Models\ProductTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
-use Intervention\Image\ImageManagerStatic as Image;
 
 class ProductController extends Controller
 {
@@ -55,8 +50,8 @@ class ProductController extends Controller
         $products = $products->with('category')->latest()->paginate(config('common.default_page_size'))->appends($request->except('page'));
 
         $categories = Category::where('parent_id', 0)
-        ->with('children')
-        ->get();
+            ->with('children')
+            ->get();
 
         return view('admin.product.index', compact('products', 'keyword', 'categories'));
     }
@@ -69,8 +64,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::where('parent_id', 0)
-        ->with('children')
-        ->get();
+            ->with('children')
+            ->get();
 
         return view('admin.product.add', compact('categories'));
     }
@@ -191,7 +186,7 @@ class ProductController extends Controller
         $product->keyword_seo = (isset($request->keyword_seo)) ? $request->keyword_seo : $request->name;
         $product->des_seo = (isset($request->des_seo)) ? $request->des_seo : $request->name;
         $product->user_id = Auth::id();
-        
+
         // Thêm mới images con vào bảng Product_Images 
         $images = $request->input('image', []);
         $main_imgs = $request->input('main_img', []);

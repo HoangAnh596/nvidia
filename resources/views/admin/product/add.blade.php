@@ -105,7 +105,7 @@
 
         if (!/^\d+$/.test(value) || parseInt(value) > 100) {
             discountError.textContent = 'Vui lòng chỉ nhập số nguyên từ 0 đến 100.';
-            
+
             // Loại bỏ các ký tự không hợp lệ và giới hạn giá trị từ 0-100
             e.target.value = value.replace(/[^0-9]/g, ''); // Chỉ cho phép số
             if (parseInt(e.target.value) > 100) {
@@ -323,31 +323,7 @@
         // Lưu đường dẫn ảnh đã tải lên
         let uploadedImages = [];
         $('#current_url').val(window.location.href);
-        // $("#uploadButtonPr").click(function(e) {
-        //     e.preventDefault();
-        //     let data = new FormData();
-        //     data.append('uploadImg', $('#prImages')[0].files[0]);
-        //     data.append('current_url', window.location.href);
 
-        //     $.ajax({
-        //         url: "{{ route('upload.image') }}",
-        //         method: "POST",
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         data: data,
-        //         processData: false,
-        //         contentType: false,
-        //         success: function(response) {
-        //             // uploadedImages.push(response.image_name); // Thêm vào danh sách ảnh đã upload
-        //             addImageToTable(response.image_name);
-        //             resetInputs();
-        //         },
-        //         error: function(response) {
-        //             alert("An error occurred. Please try again.");
-        //         }
-        //     });
-        // });
         // Xử lý sự kiện khi ảnh được chọn từ trình quản lý file
         $('#lfm-prImages').on('click', function() {
             var dataPreview = $(this).data('preview');
@@ -360,6 +336,11 @@
                 addImageToTable(imagePath);
             };
         });
+        if ($('#productImgTable tbody').is(':empty')) {
+            console.log("Tbody is empty");
+        } else {
+            console.log("Tbody is not empty");
+        }
         // Function to add image to the table
         function addImageToTable(imagePath) {
             uploadedImages.push(imagePath); // Lưu đường dẫn ảnh vào mảng

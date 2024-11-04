@@ -6,7 +6,6 @@ use App\Http\Requests\CateMenuFormRequest;
 use App\Models\CateMenu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class CateMenuController extends Controller
 {

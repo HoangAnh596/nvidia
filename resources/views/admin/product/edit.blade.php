@@ -286,35 +286,7 @@
         });
 
         $('#current_url').val(window.location.href);
-        // $("#uploadButtonPr").click(function(e) {
-        //     e.preventDefault();
-        //     let data = new FormData();
-        //     console.log(data);
-        //     data.append('uploadImg', $('#prImages')[0].files[0]);
-        //     data.append('current_url', window.location.href);
 
-        //     $.ajax({
-        //         url: "{{ route('upload.image') }}",
-        //         method: "POST",
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         data: data,
-        //         processData: false,
-        //         contentType: false,
-        //         success: function(response) {
-        //             addImageToTable(response.image_name);
-        //             resetInputs();
-        //         },
-        //         error: function(response) {
-        //             alert("An error occurred. Please try again.");
-        //         }
-        //     });
-        // });
-        // $('table#dataTable').on('click', '.delete-filter', function() {
-        //     $(this).closest('tr').remove();
-        //     updateIndex();
-        // });
          // Xử lý sự kiện khi ảnh được chọn từ trình quản lý file
          $('#lfm-prImages').on('click', function() {
             var dataPreview = $(this).data('preview');
@@ -327,6 +299,12 @@
                 addImageToTable(imagePath);
             };
         });
+
+        if ($('.productImgTable tbody').is(':empty')) {
+            console.log("Tbody is empty");
+        } else {
+            console.log("Tbody is not empty");
+        }
         // Function to add image to the table
         function addImageToTable(imagePath) {
             let title = $('#title_pr_images').val() || $('#name').val();

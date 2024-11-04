@@ -2,7 +2,7 @@
 <?php $countMenu = 0?>
 @foreach($subcategories as $subcategory)
 <?php $countMenu++; $countMenu?>
-<div class="col-2 dropdown-submenu">
+<div class="col-2 dropdown-submenu submenu-{{ $count }}">
     @if ($count == 1)
     <div class="dropdown-sub menu-title-{{ $count }} @if($countMenu == 1) active @endif menu-title-{{ $count }}" data-default="true">
         <ul class="title-sub">

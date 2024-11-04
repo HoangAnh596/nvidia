@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helpers\Helper;
 use App\Http\Requests\PermissionFormRequest;
 use App\Models\Permission;
 use Illuminate\Http\Request;

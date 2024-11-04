@@ -40,52 +40,50 @@
                 @endcan
             </div>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th class="">No.</th>
-                            <th class="col-sm-5">Tên bài viết</th>
-                            <th class="col-sm-2">Hình ảnh</th>
-                            <th class="col-sm-1 text-center">Nổi bật</th>
-                            <th class="col-sm-1 text-center">Lượt xem</th>
-                            <th class="col-sm-2 text-center">Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if($news->isEmpty())
-                        <tr>
-                            <td colspan="6" class="text-center">Không có bản ghi nào phù hợp !...</td>
-                        </tr>
-                        @else
-                        @foreach ($news as $new)
-                        <tr>
-                            <td>{{ (($news->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
-                            <td>{{ $new->name }}</td>
-                            <td>
-                                <img src="{{ \App\Http\Helpers\Helper::getPath($new->image) }}" class="img-fluid">
-                            </td>
-                            <td class="text-center">
-                                <input type="checkbox" class="active-checkbox" data-id="{{ $new->id }}" data-field="is_outstand" {{ ($new->is_outstand == 1) ? 'checked' : '' }}>
-                            </td>
-                            <td class="text-center">{{ $new->view_count }}</td>
-                            <td class="action">
-                                @can('new-edit')
-                                <a href="{{ asset('admin/news/'.$new->id.'/edit') }}">Chỉnh sửa</a> |
-                                @endcan
-                                <a href="{{ asset('admin/news') }}">Xóa cache</a> |
-                                <a href="{{ asset('admin/news') }}">Nhân bản</a>
-                            </td>
-                        </tr>
-                        @endforeach
-                        @endif
-                    </tbody>
-                </table>
-                <nav class="float-right">
-                    {{ $news->links() }}
-                </nav>
-            </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="">No.</th>
+                        <th class="col-sm-5">Tên bài viết</th>
+                        <th class="col-sm-2">Hình ảnh</th>
+                        <th class="col-sm-1 text-center">Nổi bật</th>
+                        <th class="col-sm-1 text-center">Lượt xem</th>
+                        <th class="col-sm-2 text-center">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if($news->isEmpty())
+                    <tr>
+                        <td colspan="6" class="text-center">Không có bản ghi nào phù hợp !...</td>
+                    </tr>
+                    @else
+                    @foreach ($news as $new)
+                    <tr>
+                        <td>{{ (($news->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
+                        <td>{{ $new->name }}</td>
+                        <td>
+                            <img src="{{ \App\Http\Helpers\Helper::getPath($new->image) }}" class="img-fluid">
+                        </td>
+                        <td class="text-center">
+                            <input type="checkbox" class="active-checkbox" data-id="{{ $new->id }}" data-field="is_outstand" {{ ($new->is_outstand == 1) ? 'checked' : '' }}>
+                        </td>
+                        <td class="text-center">{{ $new->view_count }}</td>
+                        <td class="action">
+                            @can('new-edit')
+                            <a href="{{ asset('admin/news/'.$new->id.'/edit') }}">Chỉnh sửa</a> |
+                            @endcan
+                            <a href="{{ asset('admin/news') }}">Xóa cache</a> |
+                            <a href="{{ asset('admin/news') }}">Nhân bản</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @endif
+                </tbody>
+            </table>
+            <nav class="float-right">
+                {{ $news->links() }}
+            </nav>
         </div>
     </div>
 </div>

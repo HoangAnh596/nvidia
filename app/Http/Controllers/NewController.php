@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
-use App\Http\Helpers\Helper;
 use App\Http\Requests\NewFormRequest;
 use App\Models\CategoryNew;
 use App\Models\CmtNew;

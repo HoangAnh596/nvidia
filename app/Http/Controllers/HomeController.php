@@ -59,7 +59,7 @@ class HomeController extends Controller
 
         // Lấy tất cả các danh mục có parent_id = 0
         $categories = Category::where('is_public', 1)
-            ->select('id', 'name', 'slug', 'image', 'title_img', 'alt_img', 'is_serve')
+            ->select('id', 'name', 'slug', 'image', 'title_img', 'alt_img', 'is_outstand')
             ->orderBy('stt_cate', 'ASC')
             ->limit(5)->get();
         // Đối tác
@@ -67,8 +67,8 @@ class HomeController extends Controller
             ->select('title', 'image', 'url', 'stt', 'is_tab')
             ->orderBy('stt', 'ASC')->get();
 
-        // Lấy danh mục có is_serve = 1 có stt_cate từ nhỏ tới lớn 
-        $cate = $categories->where('is_serve', 1);
+        // Lấy danh mục có is_outstand = 1 có stt_cate từ nhỏ tới lớn 
+        $cate = $categories->where('is_outstand', 1);
         $ids = $cate->pluck('id');
         if ($ids->isEmpty()) {
 
@@ -893,13 +893,5 @@ class HomeController extends Controller
             'titleSeo', 'keywordSeo', 'descriptionSeo',
             'contacts'
         ));
-    }
-
-    // chính sách bảo hành
-    public function policy($slug)
-    {
-        dd($slug);
-        // Seo Website
-        
     }
 }

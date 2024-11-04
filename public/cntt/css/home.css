@@ -115,7 +115,9 @@ a:hover {
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Đổ bóng */
     z-index: 1; /* Độ sâu z-index để đảm bảo hiển thị phía trên các phần tử khác */
 }
-
+/* .dropdown-content .container {
+    padding: 0 12px 0 0;
+} */
 .dropdown-sub .list-sub {
     display: none;
 }
@@ -268,7 +270,11 @@ hr {
     font-size: 14px !important;
     line-height: 1.25em;
 }
-
+.submenu-4 {
+    flex: 1 1 auto; /* Cho phép submenu-4 chiếm không gian cần thiết */
+    width: auto;    /* Loại bỏ chiều rộng 16.6666666667% */
+    display: flex;  /* Sử dụng flex để các mục con nằm chung một hàng */
+}
 .menu-title-4 {
     color: #666;
     cursor: pointer;

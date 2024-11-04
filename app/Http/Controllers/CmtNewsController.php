@@ -6,7 +6,6 @@ use App\Http\Helpers\Helper;
 use App\Http\Requests\CmtNewsFormRequest;
 use App\Models\CmtNew;
 use App\Models\News;
-use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helpers\Helper;
 use App\Models\HeaderTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

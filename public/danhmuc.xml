@@ -8,9 +8,15 @@
 		<changefreq>daily</changefreq>
 	</url>
 	<url>
+	<loc>http://localhost:8000/nividia</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-11-01T15:05:59+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 	<loc>http://localhost:8000/dien-thoai-iphone-ram-256gb</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-10-22T17:31:47+07:00</lastmod>
+		<lastmod>2024-11-01T15:05:48+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -34,7 +40,7 @@
 	<url>
 	<loc>http://localhost:8000/phu-kien</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-19T09:03:54+07:00</lastmod>
+		<lastmod>2024-11-01T14:26:19+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -52,55 +58,55 @@
 	<url>
 	<loc>http://localhost:8000/dtdd-iphone-ram-64-gb</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-10-22T17:31:46+07:00</lastmod>
+		<lastmod>2024-11-01T15:05:45+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/dtdd-iphone-ram-128gb</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-10-22T17:32:05+07:00</lastmod>
+		<lastmod>2024-11-01T15:05:46+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/dtdd-samsung</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-09T10:16:58+07:00</lastmod>
+		<lastmod>2024-11-01T14:18:45+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/dtdd-iphone</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-09T10:15:21+07:00</lastmod>
+		<lastmod>2024-11-01T14:18:45+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/geforce-now-cloud</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-10-22T09:26:58+07:00</lastmod>
+		<lastmod>2024-11-01T14:26:19+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/rtx-ai-pcs</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-10-16T13:53:03+07:00</lastmod>
+		<lastmod>2024-11-01T14:26:20+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/dien-thoai-thong-minh</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-10-24T10:45:26+07:00</lastmod>
+		<lastmod>2024-11-01T14:27:17+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-	<loc>http://localhost:8000/laptops</loc>
+	<loc>http://localhost:8000/server</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-10-22T17:03:03+07:00</lastmod>
+		<lastmod>2024-11-01T15:05:01+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/dtdd</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-10-22T17:03:02+07:00</lastmod>
+		<lastmod>2024-11-01T15:04:59+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 </urlset>

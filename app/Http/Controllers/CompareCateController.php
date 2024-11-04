@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Compare;
 use App\Models\CompareCate;
-use App\Models\CompareProduct;
 use Illuminate\Http\Request;
 
 class CompareCateController extends Controller
