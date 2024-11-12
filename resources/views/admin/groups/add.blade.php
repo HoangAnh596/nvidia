@@ -64,6 +64,16 @@
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
+                <div class="row mt-3">
+                    <div class="col-2 d-flex flex-row-reverse align-items-center">Kiểu chọn :</div>
+                    <div class="col-2 d-flex align-items-center">
+                        <select class="form-control" aria-label="Default" name="is_type">
+                            <option value="0">Option</option>
+                            <option value="1">Select</option>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
+                </div>
             </div>
             <div class="mt-4 pb-4 mr-4 float-right">
                 <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>

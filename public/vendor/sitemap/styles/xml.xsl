@@ -118,8 +118,6 @@ footer
 	        <!-- <td><xsl:value-of select="count(xhtml:link)"/></td>	
 	        <td><xsl:value-of select="count(image:image)"/></td>
 	        <td><xsl:value-of select="count(video:video)"/></td> -->
-	        <td><xsl:value-of select="concat(s:priority*100,'%')"/></td>
-	        <td><xsl:value-of select="s:changefreq"/></td>
 	        <td><xsl:value-of select="concat(substring(s:lastmod,0,11),concat(' ', substring(s:lastmod,12,5)))"/></td>
 	      </tr>
 	      </xsl:for-each>

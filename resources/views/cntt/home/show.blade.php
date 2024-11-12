@@ -70,14 +70,14 @@
                             <i class="fa-solid fa-comments"></i>
                             <div class="title-spec">
                                 <a href="#comment-box" class="scrollToRateBox">
-                                   @if($totalCommentsCount != 0) Có {{ $totalCommentsCount }} @else Thêm @endif bình luận. </a>
+                                    @if($totalCommentsCount != 0) Có {{ $totalCommentsCount }} @else Thêm @endif bình luận. </a>
                             </div>
                         </div>
                         <div class="col-viewmore-item">
                             <i class="fa-solid fa-star"></i>
                             <div class="title-spec">
                                 <a href="#comment-box" class="scrollToRateBox">
-                                @if($totalStarCount != 0) Có {{ $totalStarCount }} @else Thêm @endif đánh giá. </a>
+                                    @if($totalStarCount != 0) Có {{ $totalStarCount }} @else Thêm @endif đánh giá. </a>
                             </div>
                         </div>
                     </div>
@@ -159,14 +159,14 @@
                     <p><span style="font-weight: bold;">✓</span> Giao Hàng Trên Toàn Quốc</p>
                     <p><span style="font-weight: bold;">✓</span> Hỗ Trợ Kỹ Thuật Chuyên Nghiệp, Nhiệt Tình</p>
                     <p><span style="font-weight: bold;">✓</span> Chăm Sóc Khách Hàng Trước, Trong và Sau Khi Mua Hàng Tận Tâm.</p>
-                    <p class="uytin-10"><b>CNTTShop.vn</b> - 19 năm Uy tín cung cấp Thiết bị mạng &amp; Dịch vụ Mạng trên toàn quốc.</p>
+                    <p class="uytin-10"><b>Nvidiavn.vn</b> - 19 năm Uy tín cung cấp Thiết bị mạng &amp; Dịch vụ Mạng trên toàn quốc.</p>
                     <span class="addhn">
                         <i class="fa-solid fa-location-dot"></i> NTT03, Thống Nhất Complex, Thanh Xuân, <b>Hà Nội</b>.
-                        <a title="Chỉ đường đến CNTTShop.vn" href="https://www.google.com/maps/dir//C%C3%B4ng+ty+Vi%E1%BB%87t+Th%C3%A1i+D%C6%B0%C6%A1ng+-+CNTTShop.vn+-+Ph%C3%A2n+ph%E1%BB%91i+Cisco,+NTT+03,+Line+1,+Th%E1%BB%91ng+Nh%E1%BA%A5t+Complex,+%C4%90%C6%B0%E1%BB%9Dng+Nguy%E1%BB%85n+Tu%C3%A2n,+Thanh+Xu%C3%A2n,+H%C3%A0+N%E1%BB%99i,+Vi%E1%BB%87t+Nam/@21.0017807,105.808972,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3135ac8d687d3479:0x863cceda2da3be36!2m2!1d105.8049987!2d20.9977409?hl=vi" target="_blank" rel="noopener noreferrer"><i class="directions"></i></a>
+                        <a title="Chỉ đường đến Nvidiavn.vn" href="https://www.google.com/maps/dir//C%C3%B4ng+ty+Vi%E1%BB%87t+Th%C3%A1i+D%C6%B0%C6%A1ng+-+CNTTShop.vn+-+Ph%C3%A2n+ph%E1%BB%91i+Cisco,+NTT+03,+Line+1,+Th%E1%BB%91ng+Nh%E1%BA%A5t+Complex,+%C4%90%C6%B0%E1%BB%9Dng+Nguy%E1%BB%85n+Tu%C3%A2n,+Thanh+Xu%C3%A2n,+H%C3%A0+N%E1%BB%99i,+Vi%E1%BB%87t+Nam/@21.0017807,105.808972,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3135ac8d687d3479:0x863cceda2da3be36!2m2!1d105.8049987!2d20.9977409?hl=vi" target="_blank" rel="noopener noreferrer"><i class="directions"></i></a>
                     </span>
                     <span class="addhnhcm">
                         <i class="fa-solid fa-location-dot"></i> Số 31B, Đường 1, Phường An Phú, Quận 2 (Thủ Đức), <b>TP HCM</b>.
-                        <a title="Chỉ đường đến CNTTShop.vn" href="https://www.google.com/maps/dir//31b+%C4%90%C6%B0%E1%BB%9Dng+s%E1%BB%91+1,+An+Ph%C3%BA,+Qu%E1%BA%ADn+2,+Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh,+Vietnam/@10.8088314,106.7506978,17z/data=!4m8!4m7!1m0!1m5!1m1!1s0x31752641f7cf5b8b:0x5573c2cda7b199cb!2m2!1d106.7528865!2d10.8088261?hl=vi" target="_blank" rel="noopener noreferrer"><i class="directions"></i></a>
+                        <a title="Chỉ đường đến Nvidiavn.vn" href="https://www.google.com/maps/dir//31b+%C4%90%C6%B0%E1%BB%9Dng+s%E1%BB%91+1,+An+Ph%C3%BA,+Qu%E1%BA%ADn+2,+Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh,+Vietnam/@10.8088314,106.7506978,17z/data=!4m8!4m7!1m0!1m5!1m1!1s0x31752641f7cf5b8b:0x5573c2cda7b199cb!2m2!1d106.7528865!2d10.8088261?hl=vi" target="_blank" rel="noopener noreferrer"><i class="directions"></i></a>
                     </span>
                 </div>
             </div>
@@ -252,40 +252,57 @@
                 </div>
                 @endif
                 <!-- Nhóm sản phẩm đi kèm -->
-                @if(!empty($product->group_ids))
-                <h3 class="mt-4 panel-heading">Các sản phẩm mua kèm sử dụng cho {{ $product->code }}</h3>
+                @if($groupProducts->isNotEmpty())
+                <h3 class="mt-4 panel-heading">
+                    {{ $parentCate->is_serve == 1 ? "Cấu hình tùy biến cho $product->code" : "Các sản phẩm mua kèm sử dụng cho $product->code" }}
+                </h3>
+                @endif
+
                 @foreach($groupProducts as $group)
-                <div class="pricing prd_di_kem group-prod">
-                    <div class="panel-subheading">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
-                            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"></path>
-                        </svg>
-                        <h4>{{ $group->name }}</h4>
-                    </div>
-                    <ul>
-                        @foreach($group->products as $index => $grPro)
-                        <li class="{{ $loop->index % 2 == 0 ? 'mg-r4' : 'mg-r' }}">
-                            @if($grPro->getMainImage())
-                            <img width="76" height="54" src="{{ asset($grPro->getMainImage()->image) }}" data-src="{{ asset($grPro->getMainImage()->image) }}" data-srcset="{{ asset($grPro->getMainImage()->image) }}" alt="{{ asset($grPro->getMainImage()->alt) }}" title="{{ asset($grPro->getMainImage()->title) }}" srcset="{{ asset($grPro->getMainImage()->image) }}">
-                            @else
-                            <img width="76" height="54" src="{{ asset('storage/images/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" width="206" height="206" alt="Image Coming Soon" title="Image Coming Soon">
-                            @endif
-                            <a href="{{ asset($grPro->slug) }}">
-                                <h4>{{ $grPro->name }}</h4>
-                            </a>
+                @if($parentCate->is_serve == 1)
+                <div class="panel-subheading">
+                    <h4>{{ $group->name }}</h4>
+                    <ul class="conf-section__list">
+                        @foreach($group->products as $grPro)
+                        @if($group->is_type == 0)
+                        <li class="conf-section__item specify is-checked">
+                            <label class="radio">
+                                <input class="radio__default js-option-item item-{{ $group->name }}" type="radio" id="{{ $group->name }}-{{ $grPro->id }}" name="{{ $group->name }}" data-item="{{ $grPro->id }}" @if($grPro->pivot->is_checked == 1) checked @endif>
+                                <span class="radio__custom"></span>
+                                <span class="radio__label">
+                                    <span class="js-item-name">{{ $grPro->name }}</span>
+                                </span>
+                            </label>
+                            <!-- <div class="item-price item-price--specify"><span class="item-price__value2">$ 400</span></div> -->
+                            <div class="item-price item-price--specify"><span class="item-price__value2">Liên hệ</span></div>
                         </li>
+                        @else
+                        <li class="conf-section__item with-quantity">
+                            <label class="checkbox">
+                                <input class="checkbox__default js-option-item item-sled" type="checkbox" id="{{ $group->name }}-{{ $grPro->id }}" name="{{ $group->name }}" data-item="{{ $grPro->id }}">
+                                <span class="checkbox__custom"></span>
+                                <span class="checkbox__label">
+                                    <span class="js-item-name">{{ $grPro->name }}</span>
+                                </span>
+                            </label>
+                            <div class="item-price item-price--quantity">
+                                <span class="item-price__quantity">
+                                    <span class="price__quantity-block">
+                                        <span class="js-item-counter-minus"></span>
+                                        <input aria-label="count" class="js-item-counter item-sled-counter" type="number" step="1" max="10" min="1" value="1">
+                                        <span class="js-item-counter-plus"></span>
+                                    </span>
+                                    <span>ea.</span>
+                                </span>
+                                <!-- <span class="item-price__value">$ 2 / ea.</span> -->
+                                <span class="item-price__value">Liên hệ</span>
+                            </div>
+                        </li>
+                        @endif
                         @endforeach
                     </ul>
-                    <div class="align-items-center justify-content-center nav-mb group-show-more pb-4">
-                        <button class="btn-group-prod">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
-                    </div>
                 </div>
-                @endforeach
                 @else
-                @if(!empty($groupProducts->count() != 0))
-                <h3 class="mt-4 panel-heading">Các sản phẩm mua kèm sử dụng cho {{ $product->code }}</h3>
-                @endif
-                @foreach($groupProducts as $group)
                 <div class="pricing prd_di_kem group-prod">
                     <div class="panel-subheading">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
@@ -311,8 +328,9 @@
                         <button class="btn-group-prod">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
-                @endforeach
                 @endif
+                @endforeach
+
                 <!-- Bình luận -->
                 <div class="wrap-tab-comments mt-4" id="comment-box">
                     <div class="comment-write" id="rate-box">
@@ -327,7 +345,7 @@
                                     <textarea title="Nhập nội dung bình luận / nhận xét" name="content" id="comment-content" placeholder="Nhập câu hỏi / bình luận / nhận xét tại đây..." class="info-form-comment"></textarea>
                                     <span id="content-error" style="color: red;"></span>
                                     <span>
-                                        Bạn đang cần tư vấn về sản phẩm {{ $product->code }} và giải pháp mạng? Vui lòng để lại số điện thoại hoặc lời nhắn, nhân viên cnttshop.vn sẽ liên hệ trả lời bạn sớm nhất.
+                                        Bạn đang cần tư vấn về sản phẩm {{ $product->code }} và giải pháp mạng? Vui lòng để lại số điện thoại hoặc lời nhắn, nhân viên Nvidiavn.vn sẽ liên hệ trả lời bạn sớm nhất.
                                     </span>
                                 </div>
                                 <div class="input-account-form" id="review-info-pad">
@@ -619,8 +637,7 @@
                     top: rateBoxPosition,
                     behavior: 'smooth'
                 });
-                setTimeout(function() {
-                }, 500); // Thời gian đợi có thể điều chỉnh
+                setTimeout(function() {}, 500); // Thời gian đợi có thể điều chỉnh
             }
         });
     });
@@ -897,61 +914,69 @@
         bindCommentFormEvents(); // Lắng nghe sự kiện cho form bình luận
     });
 
+    let typingTimer; // Biến để lưu trữ thời gian chờ
+    const typingDelay = 1000; // Đặt thời gian chờ là 3 giây
+
     function fetchProducts() {
-        let searchText = $('#searchSggCP').val();
-        let productId = $('#productId').val();
-        let slugPro = $('#slugPro').val();
+        clearTimeout(typingTimer); // Xóa bộ đếm thời gian cũ khi người dùng nhập lại
 
-        // Kiểm tra nếu không có giá trị nhập thì không thực hiện tìm kiếm
-        if (searchText.trim() === '') {
-            $('#compareResults').html(''); // Xóa kết quả nếu không có từ khóa tìm kiếm
-            return;
-        }
+        // Bắt đầu bộ đếm mới chỉ sau khi người dùng ngừng nhập 3 giây
+        typingTimer = setTimeout(function() {
+            let searchText = $('#searchSggCP').val();
+            let productId = $('#productId').val();
+            let slugPro = $('#slugPro').val();
 
-        $.ajax({
-            url: '{{ route("home.compareProduct") }}', // Đường dẫn tới API tìm kiếm sản phẩm
-            method: 'GET',
-            data: {
-                query: searchText,
-                id: productId
-            },
-            success: function(response) {
-                let results = '';
+            // Kiểm tra nếu không có giá trị nhập hoặc độ dài nhỏ hơn 1 ký tự
+            if (searchText.trim().length < 1) {
+                $('#compareResults').html(''); // Xóa kết quả nếu không có từ khóa tìm kiếm
+                return;
+            }
 
-                // Nếu có dữ liệu trả về
-                if (response.length > 0) {
-                    response.forEach(function(product) {
-                        results += `<div class="compare-outer">
-                                    <div class="compare-row">
-                                        <div class="compare-title">
-                                            <a href="so-sanh-${slugPro}-vs-${product.slug}">
-                                                <strong style="color:#ff0000;">${product.code}</strong> ${product.name}
-                                            </a>
+            $.ajax({
+                url: '{{ route("home.compareProduct") }}', // Đường dẫn tới API tìm kiếm sản phẩm
+                method: 'GET',
+                data: {
+                    query: searchText,
+                    id: productId
+                },
+                success: function(response) {
+                    let results = '';
+
+                    // Nếu có dữ liệu trả về
+                    if (response.length > 0) {
+                        response.forEach(function(product) {
+                            results += `<div class="compare-outer">
+                                        <div class="compare-row">
+                                            <div class="compare-title">
+                                                <a href="so-sanh-${slugPro}-vs-${product.slug}">
+                                                    <strong style="color:#ff0000;">${product.code}</strong> ${product.name}
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>`;
-                    });
-                    // Hiển thị kết quả tìm kiếm
-                    $('#compareResults').html(results).show();
-                } else {
-                    results += `<div class="compare-outer">
+                                    </div>`;
+                        });
+                    } else {
+                        results = `<div class="compare-outer">
                                     <div class="compare-row">
                                         <div class="compare-title">
                                             Không tìm thấy sản phẩm 
                                         </div>
                                     </div>
                                 </div>`;
+                    }
+                    // Hiển thị kết quả tìm kiếm
                     $('#compareResults').html(results).show();
+                },
+                error: function() {
+                    $('#compareResults').html('<div class="search-item">Lỗi khi tìm kiếm sản phẩm</div>');
                 }
-
-                // Hiển thị kết quả tìm kiếm
-                $('#compareResults').html(results);
-            },
-            error: function() {
-                $('#compareResults').html('<div class="search-item">Lỗi khi tìm kiếm sản phẩm</div>');
-            }
-        });
+            });
+        }, typingDelay); // Thời gian chờ 3 giây
     }
+
+    // Gán sự kiện vào input
+    $('#searchSggCP').on('keyup', fetchProducts);
+
 
     // Lấy phần tử modal và nút pop-gallery
     const modal = document.getElementById("imageModal");

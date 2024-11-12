@@ -26,6 +26,11 @@ $(document).ready(function() {
         $(this).css('display', 'none'); // Ẩn nút show-more
         $('.content-product').css('max-height', '10000px');
     });
+    // Xử lý sự kiện khi bấm vào mục trong mục lục
+    $('.seo-item-container a').on('click', function() {
+        $('.show-more').css('display', 'none'); // Ẩn tất cả nút show-more
+        $('.content-product').css('max-height', '10000px'); // Mở rộng chiều cao của .content-product
+    });
 
     // Khi nhấn vào .gallery-trigger img, hiển thị modal và cuộn tới vị trí ảnh đã nhấp
     $('.gallery-trigger img').on('click', function(e) {

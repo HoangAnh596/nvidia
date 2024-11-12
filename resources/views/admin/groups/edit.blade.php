@@ -76,6 +76,22 @@
                     </div>
                     <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
                 </div>
+                <div class="row mt-3 mb-3">
+                    <div class="col-2 d-flex flex-row-reverse align-items-center">Hiển thị :</div>
+                    <div class="col-2 d-flex align-items-center">
+                        <select class="form-control" aria-label="Default" name="is_type">
+                            <option value="0"
+                                @if(!empty($group) && $group->is_type == 0) selected @endif>
+                                Option
+                            </option>
+                            <option value="1"
+                                @if(!empty($group) && $group->is_type == 1) selected @endif>
+                                Select
+                            </option>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center" style="height: 38px; color: red;"><i class="fa-solid fa-circle-info"></i></div>
+                </div>
             </div>
 
             <div class="mt-4 pb-4 mr-4 float-right">

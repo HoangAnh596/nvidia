@@ -7,8 +7,8 @@
             <h1>THÔNG TIN LIÊN HỆ HỢP TÁC</h1>
             <h2>CÔNG TY TNHH CÔNG NGHỆ VIỆT THÁI DƯƠNG</h2>
             <div class="detail-company">
-                <p><strong><i class="fa-solid fa-location-dot"></i> Văn phòng Hà Nội:</strong> NTT03, Line 1, Thống Nhất Complex, 82 Nguyễn Tuân, Thanh Xuân, <b>Hà Nội</b>.<a title="Chỉ đường đến CNTTShop.vn" href="https://maps.app.goo.gl/SxF2f77WJn847cZt6" target="_blank" rel="noopener noreferrer"><i class="directions"></i></a></p>
-                <p><strong><i class="fa-solid fa-location-dot"></i> Văn phòng HCM:</strong> <i class="maphcm"></i> Số 31B, Đường 1, Phường An Phú, Quận 2 (Thủ Đức), <b>TP HCM</b>.<a title="Chỉ đường đến CNTTShop.vn" href="https://maps.app.goo.gl/WW9YF3BVn5okoRfT6" target="_blank" rel="noopener noreferrer"><i class="directions"></i></a></p>
+                <p><strong><i class="fa-solid fa-location-dot"></i> Văn phòng Hà Nội:</strong> NTT03, Line 1, Thống Nhất Complex, 82 Nguyễn Tuân, Thanh Xuân, <b>Hà Nội</b>.<a title="Chỉ đường đến Nvidiavn.vn" href="https://maps.app.goo.gl/SxF2f77WJn847cZt6" target="_blank" rel="noopener noreferrer"><i class="directions"></i></a></p>
+                <p><strong><i class="fa-solid fa-location-dot"></i> Văn phòng HCM:</strong> <i class="maphcm"></i> Số 31B, Đường 1, Phường An Phú, Quận 2 (Thủ Đức), <b>TP HCM</b>.<a title="Chỉ đường đến Nvidiavn.vn" href="https://maps.app.goo.gl/WW9YF3BVn5okoRfT6" target="_blank" rel="noopener noreferrer"><i class="directions"></i></a></p>
                 <p><strong><i class="fa-solid fa-phone-volume"></i> Điện thoại:</strong> (024) 62592244</p>
                 <p><strong><i class="fa fa-envelope" aria-hidden="true"></i> Email: </strong>kd@cnttshop.vn</p>
                 <p><strong>Mã số thuế:</strong> 0101590267</p>

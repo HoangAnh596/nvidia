@@ -62,10 +62,6 @@ class HomeController extends Controller
             ->select('id', 'name', 'slug', 'image', 'title_img', 'alt_img', 'is_outstand')
             ->orderBy('stt_cate', 'ASC')
             ->limit(5)->get();
-        // Đối tác
-        $partners = Partner::where('is_public', 1)
-            ->select('title', 'image', 'url', 'stt', 'is_tab')
-            ->orderBy('stt', 'ASC')->get();
 
         // Lấy danh mục có is_outstand = 1 có stt_cate từ nhỏ tới lớn 
         $cate = $categories->where('is_outstand', 1);
@@ -75,7 +71,7 @@ class HomeController extends Controller
             return view('cntt.home.index', compact(
                 'titleSeo', 'keywordSeo', 'descriptionSeo',
                 'categories', 'blogs', 'cateBlogs',
-                'sliders', 'partners'));
+                'sliders'));
         } else {
             $categoriesWithProducts = collect();
             foreach ($ids as $idCate) {
@@ -89,7 +85,7 @@ class HomeController extends Controller
                     // Lấy tất cả sản phẩm thuộc các danh mục đó
                     $products = Product::whereHas('category', function ($query) use ($allCategoryIds) {
                         $query->whereIn('product_categories.category_id', $allCategoryIds);
-                    })->select('id', 'name', 'slug', 'price', 'image_ids', 'discount', 'status')
+                    })->select('id', 'name', 'slug', 'price', 'image_ids', 'status')
                         ->where('is_outstand', 1)
                         ->orderBy('created_at', 'DESC')->get();
                     
@@ -126,7 +122,7 @@ class HomeController extends Controller
             return view('cntt.home.index', compact(
                 'titleSeo', 'keywordSeo', 'descriptionSeo',
                 'categories', 'blogs', 'cateBlogs',
-                'categoriesWithProducts', 'sliders', 'partners'
+                'categoriesWithProducts', 'sliders'
             ));
         }
     }
@@ -186,7 +182,7 @@ class HomeController extends Controller
             $categoryIds = $mainCate->getAllChildrenIds();
             array_unshift($categoryIds, $mainCate->id); // Thêm ID danh mục chính vào danh sách
             
-            $prOutstand = Product::select('id', 'name', 'slug', 'price', 'image_ids', 'discount')
+            $prOutstand = Product::select('id', 'name', 'slug', 'price', 'image_ids')
                 ->where('is_outstand', 1)
                 ->whereHas('category', function ($query) use ($categoryIds) {
                     $query->whereIn('category_id', $categoryIds);
@@ -202,7 +198,7 @@ class HomeController extends Controller
             // Loại bỏ 'page' khỏi bộ lọc nếu tồn tại
             unset($filters['page']);
             if (!empty($filters)) {
-                $products = Product::query()->select('id', 'name', 'slug', 'price', 'image_ids', 'discount', 'status');
+                $products = Product::query()->select('id', 'name', 'slug', 'price', 'image_ids', 'status');
                 $filterConditions = [];
 
                 foreach ($filters as $key => $value) {
@@ -280,7 +276,7 @@ class HomeController extends Controller
                 ));
             }
 
-            $products = Product::select('id', 'name', 'slug', 'price', 'image_ids', 'discount', 'status')
+            $products = Product::select('id', 'name', 'slug', 'price', 'image_ids', 'status')
                 ->where(function ($query) use ($categoryIds) {
                     // Truy vấn các sản phẩm thuộc danh mục chính
                     $query->whereHas('category', function ($query) use ($categoryIds) {
@@ -409,15 +405,21 @@ class HomeController extends Controller
             // Lấy các bản ghi từ bảng Group có id nằm trong groupIds
             $groupProducts = Group::with(['products' => function ($query) {
                 $query->select('products.id', 'products.name', 'products.slug', 'products.image_ids');
-            }])->select('id', 'name')->whereIn('id', $groupIds)->get();
+            }])->select('id', 'name', 'is_type')
+                ->where('is_public', 1)
+                ->whereIn('id', $groupIds)
+                ->orderBy('stt', 'DESC')->get();
         } else {
             // Xử lý id category cha con
             $cateIds = $parent->getAllParentIds();
             $groupProducts = Group::with(['products' => function ($query) {
                 $query->select('products.id', 'products.name', 'products.slug', 'products.image_ids');
-            }])->select('id', 'name')->whereIn('cate_id', $cateIds)->get();
+            }])->select('id', 'name', 'is_type')
+                ->where('is_public', 1)
+                ->whereIn('cate_id', $cateIds)
+                ->orderBy('stt', 'DESC')->get();
         }
-
+        // dd($groupProducts);
         // Lấy ảnh chính cho từng sản phẩm
         $product->main_image = $product->getMainImage();
         // Chuyển chuỗi JSON thành mảng
@@ -667,7 +669,7 @@ class HomeController extends Controller
         }
         $category = Category::findOrFail($cateId);
         if (!empty($category->compare_ids)) {
-            $allCategoryIds = array_merge([$categoryIds], $category->getAllChildrenIds());
+            $allCategoryIds = array_merge([$cateId], $category->getAllChildrenIds());
             
             // Lấy danh sách sản phẩm dựa trên từ khóa (tìm theo tên hoặc mã)
             $products = Product::whereHas('category', function ($query) use ($allCategoryIds) {
@@ -741,11 +743,11 @@ class HomeController extends Controller
             $prod_3 = count($products) === 3 ? trim($products[2]) : null; // Nếu có 3 phần tử, lấy phần tử thứ ba
 
             // Debug để kiểm tra kết quả
-            $product1 = Product::select('id', 'name', 'slug', 'code', 'price', 'discount', 'image_ids')
+            $product1 = Product::select('id', 'name', 'slug', 'code', 'price', 'image_ids')
                 ->where('slug', $prod_1)->firstOrFail();
-            $product2 = Product::select('id', 'name', 'slug', 'code', 'price', 'discount', 'image_ids')
+            $product2 = Product::select('id', 'name', 'slug', 'code', 'price', 'image_ids')
                 ->where('slug', $prod_2)->firstOrFail();
-            $product3 = $prod_3 ? Product::select('id', 'name', 'slug', 'code', 'price', 'discount', 'image_ids')
+            $product3 = $prod_3 ? Product::select('id', 'name', 'slug', 'code', 'price', 'image_ids')
                 ->where('slug', $prod_3)->first() : null;
             
             // Lấy ID của categories

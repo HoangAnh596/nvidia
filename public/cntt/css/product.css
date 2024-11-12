@@ -221,10 +221,10 @@ button.pop-gallery {
 .price-modal .price-code {
     color: #76b900;
 }
-.price-modal .btn-primary {
+/* .price-modal .btn-primary {
     background-color: #76b900;
     border-color: #76b900;
-}
+} */
 
 .check-list-btn svg {
     position: absolute;
@@ -355,6 +355,389 @@ button.pop-gallery {
     border-radius: 5px;
     margin-top: 0;
 }
+/* cấu hình sản phẩm serve */
+.conf-section__list {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15), 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 16px;
+    border-radius: 0;
+    list-style: none;
+}
+.conf-section__item {
+    margin-bottom: 8px;
+}
+.conf-section__item {
+    position: relative;
+    margin-bottom: 6px;
+}
+.conf-section__item .radio {
+    position: relative;
+    display: block;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.radio__default {
+    position: absolute;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+.conf-section__item .radio__default:checked + .radio__custom {
+    background: transparent;
+}
+.conf-section__item.specify .radio__custom, .conf-section__item.with-quantity .radio__custom {
+    top: 10px;
+    left: 10px;
+    -webkit-transform: none;
+    transform: none;
+}
+.radio__default:checked + .radio__custom {
+    border-color: #fff;
+    background-color: #fff;
+}
+.radio__custom {
+    display: block;
+    width: 12px;
+    height: 12px;
+    left: 10px;
+    top: 10px;
+    border: 1px solid #999999;
+    border-radius: 100%;
+    position: absolute;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    z-index: 2;
+}
+.radio__default:checked + .radio__custom::before {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 100%;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.radio__default:checked ~ .radio__label, .checkbox__default:checked ~ .checkbox__label, .conf-widget .cw-footer__price, .conf-section__item .checkbox__default:checked ~ .checkbox__label {
+    background-color: #76b900;
+}
+.conf-section__item .radio:hover .radio__label, .conf-section__item .checkbox:hover .checkbox__label {
+    background-color: #76b900;
+}
+.conf-section__item .radio__default:checked ~ .radio__label {
+    color: #fff;
+}
+.conf-section__item .radio:hover .radio__label {
+    color: #fff;
+}
+.radio:hover .radio__custom {
+    border-color: #fff;
+}
+.conf-section__item.specify .checkbox__label, .conf-section__item.specify .radio__label {
+    padding-right: 140px;
+}
+.radio__label {
+    position: relative;
+    display: block;
+    font-size: 13px;
+    line-height: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: #F5F6F6;
+    padding: 8px 8px 8px 32px;
+    border-radius: 2px;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+.conf-section__item .item-price {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 80px;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.conf-section__item .item-price--specify {
+    width: 140px;
+}
+.conf-section__item .item-price__value2 {
+    font-size: 12px;
+    line-height: 16px;
+    -webkit-transition: color .2s ease;
+    transition: color .2s ease;
+}
+.checkbox {
+    position: relative;
+    display: block;
+    border-radius: 2px;
+}
+.common-form__input input.checkbox__default, .checkbox__default {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+.conf-section__item.specify .checkbox__custom, .conf-section__item.with-quantity .checkbox__custom {
+    -webkit-transform: none;
+    transform: none;
+}
+.conf-section__item .checkbox__custom {
+    left: 10px;
+}
+.checkbox__custom {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    border: 1px solid #999999;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    z-index: 2;
+}
+.conf-section__item .checkbox__label {
+    background-color: #F5F6F6;
+    color: #606060;
+    white-space: normal;
+    padding: 8px 100px 8px 32px;
+}
+.checkbox__label {
+    position: relative;
+    display: block;
+    font-weight: 400;
+    font-family: 'IBM Plex Mono', sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: #EDF0F2;
+    padding: 8px 8px 8px 32px;
+    border-radius: 2px;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+.ratio-configurator .conf-section__item.with-quantity .checkbox__label, .ratio-configurator .conf-section__item.with-quantity .radio__label {
+    padding-right: 220px;
+}
+.checkbox__default:checked + .checkbox__custom {
+    border-color: #fff;
+    background: none;
+}
+.conf-section__item .checkbox__default:checked ~ .checkbox__label {
+    background-color: #76b900;
+    color: #fff;
+}
+.conf-section__item .checkbox:hover .checkbox__label {
+    background-color: #76b900;
+    color: #fff;
+}
+.checkbox:hover .checkbox__custom {
+    border-color: #fff;
+    /* background-color: #fff; */
+}
+.checkbox__default:checked + .checkbox__custom::before {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 4px;
+    border-left: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+
+.conf-section__item.is-checked .item-price--quantity {
+    justify-content: space-between;
+}
+.conf-section__item .item-price {
+    white-space: nowrap;
+}
+.conf-section__item .item-price--quantity {
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    justify-content: flex-end;
+    width: 200px;
+}
+.conf-section__item .item-price {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 80px;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.conf-section__item .item-price--quantity {
+    width: 195px;
+    justify-content: space-between !important;
+}
+.conf-section__item .item-price__quantity input[type="number"] {
+    width: 20px;
+}
+
+.conf-section__item.is-checked .item-price__quantity {
+    display: -webkit-box;
+    display: flex;
+}
+.conf-section__item .item-price__quantity {
+    display: -webkit-box;
+    display: flex;
+    /* display: none; */
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.conf-section__item.is-checked .item-price__quantity span {
+    color: #fff;
+}
+.conf-section__item .item-price__quantity span {
+    font-size: 10px;
+    line-height: 16px;
+    color: #869CAC;
+    -webkit-transition: color 0.2s ease;
+    transition: color 0.2s ease;
+}
+.price__quantity-block {
+    position: relative;
+    display: inline-flex;
+    border-radius: 2px;
+    background: white;
+    height: 20px;
+    min-width: 56px;
+    margin-right: 8px;
+    white-space: nowrap;
+}
+.conf-section__item.is-checked .item-price input, .conf-section__item.is-checked .item-price .js-item-counter-minus, .conf-section__item.is-checked .item-price .js-item-counter-plus {
+    pointer-events: auto;
+}
+.conf-section__item.is-checked .item-price__quantity span {
+    color: #fff;
+}
+.conf-section__item.is-checked .js-item-counter-minus, .conf-section__item.is-checked .js-item-counter-plus {
+    opacity: 1;
+}
+.conf-section__item .item-price__quantity span {
+    font-size: 10px;
+    line-height: 16px;
+    color: #869CAC;
+    -webkit-transition: color 0.2s ease;
+    transition: color 0.2s ease;
+}
+.js-item-counter-minus, .js-item-counter-plus {
+    display: inline-block;
+    position: relative;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    opacity: 0.2;
+}
+.js-item-counter-minus:before, .js-item-counter-plus:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 1px;
+    width: 6px;
+    background: black;
+    border-radius: 1px;
+}
+.js-item-counter-plus:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 6px;
+    width: 1px;
+    background: black;
+    border-radius: 1px;
+}
+.item-price__quantity input[type="number"] {
+    width: 24px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    margin-right: 0;
+}
+.conf-section__item.is-checked .item-price__quantity input[type="number"] {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    margin-right: 0;
+    width: 40px;
+}
+.conf-section__item .item-price__quantity input[type="number"] {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: none;
+    border: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: #18304C;
+    color: white;
+    text-align: center;
+    -webkit-transition: color 0.2s ease;
+    transition: color 0.2s ease;
+}
+
+.conf-section__item .item-price__value {
+    font-size: 12px;
+    line-height: 16px;
+    color: #22446B;
+}
+/* .item-price .item-price__value, .item-price .item-price__value2 {
+    color: #fff;
+    font-weight: bold;
+} */
+/* cấu hình sản phẩm serve */
 
 /* sản phẩm đi kèm */
 .pricing {

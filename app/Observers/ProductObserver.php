@@ -15,7 +15,7 @@ class ProductObserver
      */
     public function created(Product $product)
     {
-        Artisan::call('sitemap:create');
+        \Artisan::call('sitemap:create');
     }
 
     /**
@@ -26,7 +26,7 @@ class ProductObserver
      */
     public function updated(Product $product)
     {
-        Artisan::call('sitemap:create');
+        \Artisan::call('sitemap:create');
     }
 
     /**
@@ -37,7 +37,7 @@ class ProductObserver
      */
     public function deleted(Product $product)
     {
-        Artisan::call('sitemap:create');
+        \Artisan::call('sitemap:create');
     }
 
     /**

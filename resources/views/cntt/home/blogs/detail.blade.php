@@ -56,7 +56,7 @@
                                     <textarea title="Nhập nội dung bình luận / nhận xét" name="content" id="comment-content" placeholder="Nhập câu hỏi / bình luận / nhận xét tại đây..." class="info-form-comment"></textarea>
                                     <span id="content-error" style="color: red;"></span>
                                     <span>
-                                        Bạn đang băn khoăn cần tư vấn? Vui lòng để lại số điện thoại hoặc lời nhắn, nhân viên cnttshop.vn sẽ liên hệ trả lời bạn sớm nhất.
+                                        Bạn đang băn khoăn cần tư vấn? Vui lòng để lại số điện thoại hoặc lời nhắn, nhân viên Nvidiavn.vn sẽ liên hệ trả lời bạn sớm nhất.
                                     </span>
                                 </div>
                                 <div class="input-account-form mt-2" id="review-info-pad">

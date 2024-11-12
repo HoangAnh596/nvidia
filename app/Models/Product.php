@@ -133,7 +133,8 @@ class Product extends Model
     // Thiết lập mối quan hệ với groups
     public function groups()
     {
-        return $this->belongsToMany('App\Models\Group', 'group_products', 'product_id', 'group_id');
+        return $this->belongsToMany('App\Models\Group', 'group_products', 'product_id', 'group_id')
+                    ->withPivot('is_checked');
     }
 
     public function images()

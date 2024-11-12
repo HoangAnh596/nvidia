@@ -158,7 +158,8 @@
                         @endif
                         <ul class="list-unstyled d-flex">
                             @if($product->price == 0)
-                            <li><span class="lien-he-price"><i class="fa-solid fa-phone-volume"></i> Liên hệ</span></li>
+                            <li><span class="lien-he-price"> Liên hệ</span></li>
+                            <!-- <li><span class="lien-he-price"><i class="fa-solid fa-phone-volume"></i> Liên hệ</span></li> -->
                             @else
                             @if($product->discount != 0)
                             <li>
@@ -333,24 +334,6 @@
     </div>
 </section>
 <!-- End service -->
-
-<!-- Begin service -->
-<section class="partner-section">
-    <div class="container">
-        <div class="section-title text-center">
-            <h2>Đối tác của chúng tôi</h2>
-            <span class="decor"></span>
-        </div>
-        <div class="partner-autoplay">
-            @foreach($partners as $partner)
-            <a href="{{ asset($partner->url) }}" class="img-partner" target="@if($partner->is_tab == 1) _blank @endif">
-                <img src="{{ asset($partner->image) }}" alt="{{ $partner->title }}">
-            </a>
-            @endforeach
-        </div>
-    </div>
-</section>
-<!-- End service -->
 @endsection
 
 @section('css')
@@ -450,36 +433,6 @@
             autoplaySpeed: 4000,
             arrows: false,
             infinite: true
-        });
-        $('.partner-autoplay').slick({
-            slidesToShow: 8,
-            slidesToScroll: 3,
-            autoplay: true,
-            autoplaySpeed: 2000,
-            arrows: false,
-            infinite: true,
-            responsive: [{
-                    breakpoint: 1200, // Khi kích thước màn hình <= 480px
-                    settings: {
-                        slidesToShow: 7, // Hiển thị 3 slide
-                        slidesToScroll: 1 // Scroll 1 slide mỗi lần
-                    }
-                },
-                {
-                    breakpoint: 1024, // Khi kích thước màn hình <= 480px
-                    settings: {
-                        slidesToShow: 5, // Hiển thị 3 slide
-                        slidesToScroll: 1 // Scroll 1 slide mỗi lần
-                    }
-                },
-                {
-                    breakpoint: 768, // Khi kích thước màn hình <= 480px
-                    settings: {
-                        slidesToShow: 3, // Hiển thị 3 slide
-                        slidesToScroll: 1 // Scroll 1 slide mỗi lần
-                    }
-                }
-            ]
         });
         $(".owl-carousel").owlCarousel({
             items: 4, // Số lượng item hiển thị

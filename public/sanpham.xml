@@ -8,6 +8,18 @@
 		<changefreq>daily</changefreq>
 	</url>
 	<url>
+	<loc>http://localhost:8000/may-chu-dell-poweredge-r650-8x2-5-basic</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-11-04T09:34:24+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/dell-poweredge-r640-8sff</loc>
+		<priority>0.8</priority>
+		<lastmod>2024-11-04T09:25:00+07:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 	<loc>http://localhost:8000/dien-thoai-xiaomi-redmi-note-13-pro-8gb-128gb</loc>
 		<priority>0.8</priority>
 		<lastmod>2024-10-18T11:02:01+07:00</lastmod>
@@ -22,7 +34,7 @@
 	<url>
 	<loc>http://localhost:8000/dien-thoai-samsung-galaxy-m15-5g-6gb-128gb</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-10-29T16:26:13+07:00</lastmod>
+		<lastmod>2024-11-05T16:51:47+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -82,7 +94,7 @@
 	<url>
 	<loc>http://localhost:8000/dien-thoai-samsung-galaxy-z-flip6-5g-12gb-256gb</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-26T16:19:07+07:00</lastmod>
+		<lastmod>2024-11-05T09:26:54+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -112,7 +124,7 @@
 	<url>
 	<loc>http://localhost:8000/iphone-11-ram-128gb</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-09-25T15:20:26+07:00</lastmod>
+		<lastmod>2024-11-04T09:56:50+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>

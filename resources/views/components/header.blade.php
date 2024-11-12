@@ -148,10 +148,6 @@ $totalComments = $commentGlobal->count() + $cmtNewGlobal->count();
                     @can('footer-add')
                     <a class="collapse-item" href="{{ route('cateFooter.create') }}">Thêm mới Footer</a>
                     @endcan
-                    <a class="collapse-item" href="{{ route('partners.index') }}">Danh sách đối tác</a>
-                    @can('partner-add')
-                    <a class="collapse-item" href="{{ route('partners.create') }}">Thêm mới đối tác</a>
-                    @endcan
                     <a class="collapse-item" href="{{ route('bottoms.index') }}">Danh sách chân trang</a>
                     @can('bottom-add')
                     <a class="collapse-item" href="{{ route('bottoms.create') }}">Thêm mới chân trang</a>

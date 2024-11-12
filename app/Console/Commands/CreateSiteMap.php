@@ -61,10 +61,10 @@ class CreateSiteMap extends Command
     {
         $sitemap = App::make('sitemap');
         // add home pages mặc định
-        // $sitemap->add((env('APP_URL'). "/sitemap.xml"), Carbon::now('Asia/Ho_Chi_Minh'), '1.0', 'daily');
-        $sitemap->add((env('APP_URL'). "/danhmuc.xml"), Carbon::now('Asia/Ho_Chi_Minh'), '0.9', 'daily');
-        $sitemap->add((env('APP_URL'). "/sanpham.xml"), Carbon::now('Asia/Ho_Chi_Minh'), '0.9', 'daily');
-        $sitemap->add((env('APP_URL'). "/tintuc.xml"), Carbon::now('Asia/Ho_Chi_Minh'), '0.9', 'daily');
+        // $sitemap->add((config('app.url'). "/sitemap.xml"), Carbon::now('Asia/Ho_Chi_Minh'), '1.0', 'daily');
+        $sitemap->add((config('app.url'). "/danhmuc.xml"), Carbon::now('Asia/Ho_Chi_Minh'), '0.9', 'daily');
+        $sitemap->add((config('app.url'). "/sanpham.xml"), Carbon::now('Asia/Ho_Chi_Minh'), '0.9', 'daily');
+        $sitemap->add((config('app.url'). "/tintuc.xml"), Carbon::now('Asia/Ho_Chi_Minh'), '0.9', 'daily');
 
         $sitemap->store('xml', 'sitemap', public_path(), null, null, false);
         // File::copy(public_path('sitemap.xml'), base_path('sitemap.xml'));
@@ -76,10 +76,10 @@ class CreateSiteMap extends Command
     {
         $sitemap = App::make('sitemap');
 
-        $sitemap->add(env('APP_URL'), '', '1.0', 'daily');
+        $sitemap->add(config('app.url'), '', '1.0', 'daily');
         $categories = Category::orderBy('id', 'DESC')->paginate(500);
         foreach ($categories as $category) {
-            $sitemap->add(env('APP_URL'). "/{$category->slug}", $category->updated_at, '0.8', 'weekly');
+            $sitemap->add(config('app.url'). "/{$category->slug}", $category->updated_at, '0.8', 'weekly');
         }
         // Lưu file sitemap danh mục
         $sitemap->store('xml', 'danhmuc', public_path(), null, null, false);
@@ -92,10 +92,10 @@ class CreateSiteMap extends Command
     {
         $sitemap = App::make('sitemap');
 
-        $sitemap->add(env('APP_URL'), '', '1.0', 'daily');
+        $sitemap->add(config('app.url'), '', '1.0', 'daily');
         $products = Product::orderBy('id', 'DESC')->paginate(500);
         foreach ($products as $pro) {
-            $sitemap->add(env('APP_URL'). "/{$pro->slug}", $pro->updated_at, '0.8', 'weekly');
+            $sitemap->add(config('app.url'). "/{$pro->slug}", $pro->updated_at, '0.8', 'weekly');
         }
         // Lưu file sitemap danh mục
         $sitemap->store('xml', 'sanpham', public_path(), null, null, false);
@@ -108,10 +108,10 @@ class CreateSiteMap extends Command
     {
         $sitemap = App::make('sitemap');
 
-        $sitemap->add(env('APP_URL'), '', '1.0', 'daily');
+        $sitemap->add(config('app.url'), '', '1.0', 'daily');
         $news = News::orderBy('id', 'DESC')->paginate(500);
         foreach ($news as $new) {
-            $sitemap->add(env('APP_URL'). "/{$new->slug}", $new->updated_at, '0.8', 'weekly');
+            $sitemap->add(config('app.url'). "/{$new->slug}", $new->updated_at, '0.8', 'weekly');
         }
         // Lưu file sitemap danh mục
         $sitemap->store('xml', 'tintuc', public_path(), null, null, false);

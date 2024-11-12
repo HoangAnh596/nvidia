@@ -215,7 +215,7 @@
                                     <ul class="list-unstyled d-flex justify-content-between align-items-center total-review-home infor-outs">
                                         <li>
                                             @if($data->price == 0)
-                                            <span class="lien-he-price"><i class="fa-solid fa-phone-volume"></i> Liên hệ</span>
+                                            <span class="lien-he-price">Liên hệ</span>
                                             @else
                                             <a href="{{ $data->slug }}" class="text-decoration-none text-danger">
                                                 {{ number_format($data->discount != 0 ? $data->price * (1 - $data->discount / 100) : $data->price, 0, ',', '.') }}₫

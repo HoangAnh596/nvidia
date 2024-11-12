@@ -66,7 +66,7 @@ class BlogController extends Controller
             $keywordSeo = (!empty($newArt->keyword_seo)) ? $newArt->keyword_seo : config('common.keyword_seo_blog');
             $descriptionSeo = (!empty($newArt->des_seo)) ? $newArt->des_seo : config('common.des_seo_blog');
             // Thêm số lượt xem bài viết vào bảng news
-            $newArt->view_count = $newArt->view_count + 1;
+            $newArt->view_count = ($newArt->view_count ?? 0) + 1;
             $newArt->save();
 
             $sameCate = News::select('name', 'slug', 'image', 'alt_img', 'title_img')
@@ -136,7 +136,7 @@ class BlogController extends Controller
             return view('cntt.home.blogs.detail', compact(
                 'titleSeo', 'keywordSeo', 'descriptionSeo',
                 'cateMenu', 'newArt', 'allParents',
-                'sameCate', 'titleCate', 'relatedPro',
+                'sameCate', 'titleCate',
                 'comments', 'totalCommentsCount', 'user'
             ));
         }

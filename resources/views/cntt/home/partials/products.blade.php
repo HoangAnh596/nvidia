@@ -46,7 +46,7 @@
             @endif
             <ul class="list-unstyled d-flex">
                 @if($product->price == 0)
-                <li><span class="lien-he-price"><i class="fa-solid fa-phone-volume"></i> Liên hệ</span></li>
+                <li><span class="lien-he-price">Liên hệ</span></li>
                 @else
                 @if($product->discount != 0)
                 <li>

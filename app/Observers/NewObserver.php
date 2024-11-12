@@ -15,7 +15,7 @@ class NewObserver
      */
     public function created(News $new)
     {
-        Artisan::call('sitemap:create');
+        \Artisan::call('sitemap:create');
     }
 
     /**
@@ -26,7 +26,7 @@ class NewObserver
      */
     public function updated(News $new)
     {
-        Artisan::call('sitemap:create');
+        \Artisan::call('sitemap:create');
     }
 
     /**
@@ -37,7 +37,7 @@ class NewObserver
      */
     public function deleted(News $new)
     {
-        Artisan::call('sitemap:create');
+        \Artisan::call('sitemap:create');
     }
 
     /**

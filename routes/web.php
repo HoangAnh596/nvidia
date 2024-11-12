@@ -23,7 +23,6 @@ use App\Http\Controllers\GroupProductController;
 use App\Http\Controllers\HeaderTagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InforController;
-use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImagesController;
@@ -245,16 +244,6 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
     Route::delete('cateFooter/{id}', [CateFooterController::class, 'destroy'])->name('cateFooter.destroy')->middleware('can:footer-delete');
     Route::post('cateFooter/checkStt', [CateFooterController::class, 'checkStt'])->name('cateFooter.checkStt')->middleware('can:footer-checkStt');
     Route::post('cateFooter/checkbox', [CateFooterController::class, 'isCheckbox'])->name('cateFooter.isCheckbox')->middleware('can:footer-checkbox');
-
-    // Quản lý partner
-    Route::get('/partners', [PartnerController::class, 'index'])->name('partners.index');
-    Route::get('/partners/create', [PartnerController::class, 'create'])->name('partners.create')->middleware('can:partner-add');
-    Route::post('/partners', [PartnerController::class, 'store'])->name('partners.store');
-    Route::get('/partners/{id}/edit', [PartnerController::class, 'edit'])->name('partners.edit')->middleware('can:partner-edit');
-    Route::put('partners/{id}', [PartnerController::class, 'update'])->name('partners.update');
-    Route::delete('partners/{id}', [PartnerController::class, 'destroy'])->name('partners.destroy')->middleware('can:partner-delete');
-    Route::post('partners/checkStt', [PartnerController::class, 'checkStt'])->name('partners.checkStt')->middleware('can:partner-checkStt');
-    Route::post('partners/checkbox', [PartnerController::class, 'isCheckbox'])->name('partners.isCheckbox')->middleware('can:partner-checkbox');
 
     // Quản lý chân trang bottom
     Route::get('/bottoms', [BottomController::class, 'index'])->name('bottoms.index');

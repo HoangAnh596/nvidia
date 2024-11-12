@@ -75,11 +75,14 @@
                                         Updating...
                                     </td>
                                     <td class="desc">
-                                        Giá List của sản phẩm <strong>{{ $product->code }}</strong> được cập nhật liên tục. Hãy liên hệ tới CNTTShop.vn theo thông tin trên website để nhận được báo giá bán sản phẩm mới nhất, rẻ nhất thị trường.
+                                        Giá List của sản phẩm <strong>{{ $product->code }}</strong> được cập nhật liên tục. Hãy liên hệ tới Nvidiavn.vn theo thông tin trên website để nhận được báo giá bán sản phẩm mới nhất, rẻ nhất thị trường.
                                     </td>
 
                                     <td class="buttom-check-list">
-                                        <a title="Liên hệ để được báo giá tốt sản phẩm CBS110-16T-EU" class="btn-best-price-check" data-bs-toggle="modal" data-bs-target="#priceModal">Giá tốt</a>
+                                        <a title="Liên hệ để được báo giá tốt sản phẩm CBS110-16T-EU" class="btn-best-price-check" data-bs-toggle="modal" data-bs-target="#priceModal" data-bs-target="#priceModal"
+                                            data-code="{{ $product->code }}" data-slug="{{ $product->slug }}">
+                                            Giá tốt
+                                        </a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -99,7 +102,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Yêu cầu nhận giá tốt về sản phẩm <span class="price-code">@if (!empty($products)){{ $product->code }} @endif</span></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Yêu cầu nhận giá tốt về sản phẩm <span class="price-code"></span></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -129,8 +132,8 @@
                     </div>
                 </div>
                 @if (!empty($products))
-                <input type="hidden" name="code" id="code" value="{{ $product->code }}">
-                <input type="hidden" name="slug" id="slug" value="{{ $product->slug }}">
+                <input type="hidden" name="code" id="code">
+                <input type="hidden" name="slug" id="slug">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 @endif
                 <div class="modal-footer">
@@ -158,8 +161,14 @@
         width: 100%;
         z-index: 999;
     }
+    .modal-header h5 {
+        font-size: 16px;
+    }
     .price-modal .hide {
         display: none;
+    }
+    .price-code {
+        color: #76b900;
     }
 </style>
 @endsection
@@ -283,6 +292,22 @@
                 document.getElementById('price-error').classList.remove('hide');
                 submitButton.disabled = false; // Kích hoạt lại nút submit nếu xảy ra lỗi
             });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const priceModal = document.getElementById('priceModal');
+        priceModal.addEventListener('show.bs.modal', function (event) {
+            // Lấy nút kích hoạt modal
+            const button = event.relatedTarget;
+            // Lấy dữ liệu từ các thuộc tính data của nút
+            const code = button.getAttribute('data-code');
+            const slug = button.getAttribute('data-slug');
+
+            // Gán dữ liệu vào các thành phần trong modal
+            priceModal.querySelector('.price-code').textContent = code;
+            priceModal.querySelector('#code').value = code;
+            priceModal.querySelector('#slug').value = slug;
+        });
     });
 </script>
 @endsection

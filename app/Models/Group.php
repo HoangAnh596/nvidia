@@ -12,7 +12,7 @@ class Group extends Model
     protected $table = 'groups';
 
     protected $fillable = [
-        'name', 'parent_id',
+        'name', 'parent_id', 'is_type',
         'cate_id', 'is_public', 'stt',
     ];
 
@@ -25,6 +25,7 @@ class Group extends Model
     // Thiết lập mối quan hệ với groupProduct
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'group_products', 'group_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'group_products', 'group_id', 'product_id')
+                    ->withPivot('is_checked');
     }
 }

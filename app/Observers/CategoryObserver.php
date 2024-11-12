@@ -15,7 +15,7 @@ class CategoryObserver
      */
     public function created(Category $category)
     {
-        Artisan::call('sitemap:create');
+        \Artisan::call('sitemap:create');
     }
 
     /**
@@ -26,7 +26,7 @@ class CategoryObserver
      */
     public function updated(Category $category)
     {
-        Artisan::call('sitemap:create');
+        \Artisan::call('sitemap:create');
     }
 
     /**
@@ -37,7 +37,7 @@ class CategoryObserver
      */
     public function deleted(Category $category)
     {
-        Artisan::call('sitemap:create');
+        \Artisan::call('sitemap:create');
     }
 
     /**

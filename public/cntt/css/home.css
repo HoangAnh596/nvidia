@@ -30,7 +30,13 @@ h4 {
 .bg-gr {
     background-color: #76b900;
 }
-
+.price-modal .btn-primary {
+    background-color: #76b900;
+    border-color: #76b900;
+}
+.sku-check-list a {
+    color: #76b900;
+}
 #add-cart {
     display: inline-block;
     position: relative;
@@ -53,12 +59,11 @@ a {
     color: #666;
     text-decoration: none;
 }
-a:hover {
+
+a:hover, .breadcrumb-item a:hover, .dropdown-content li a:hover, .text-menu-3 a:hover, .hp-category a:hover {
     color: #76b900;
 }
-.breadcrumb-item a:hover {
-    color: #76b900;
-}
+
 /* Begin Menu */
 .f-h2 {
     font-size: 35px !important;
@@ -72,22 +77,18 @@ a:hover {
     align-items: center;
     box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
 }
-
 .navbar-brand {
     margin-right: 1rem;
 }
-
 .navbar-content {
     display: flex;
     flex-grow: 1;
     justify-content: flex-start;
     color: #666;
 }
-
 .nav-item {
     position: static;
 }
-
 .nav-link {
     text-decoration: none;
     padding: 8px 10px;
@@ -100,11 +101,9 @@ a:hover {
 .underline-green {
     border-bottom: 3px solid greenyellow;
 }
-
 .nav-link:hover {
     background-color: #fff;
 }
-
 .dropdown-content {
     display: none;
     position: fixed;
@@ -115,9 +114,6 @@ a:hover {
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Đổ bóng */
     z-index: 1; /* Độ sâu z-index để đảm bảo hiển thị phía trên các phần tử khác */
 }
-/* .dropdown-content .container {
-    padding: 0 12px 0 0;
-} */
 .dropdown-sub .list-sub {
     display: none;
 }
@@ -169,11 +165,6 @@ a:hover {
 .dropdown-link:hover {
     color: #ddd;
 }
-
-.dropdown-content li a:hover, .text-menu-3 a:hover {
-    color: #76b900;
-}
-
 .menu-title-1 {
     float: left;
     color: #666;
@@ -200,10 +191,7 @@ a:hover {
     border: 0px !important;
     font-size: 14px !important;
 }
-.menu-lg-item:hover {
-    color: #000;
-}
-.menu-lg-item:active {
+.menu-lg-item:hover, .menu-lg-item:active {
     color: #000;
 }
 .menu-lg-child {
@@ -235,14 +223,12 @@ a:hover {
 }
 .menu-item {
     padding: 0 !important;
-    /* min-height: 40px; */
     background-color: #eee !important;
     border: 0px !important;
     font-size: 14px !important;
     font-weight: 700 !important;
 }
 .menu-item-child {
-    padding: 0 !important;
     background-color: #eee !important;
     border: 0px !important;
     color: #666;
@@ -290,11 +276,6 @@ hr {
     background-color: #eee !important;
     border: 0px !important;
     font-size: 14px !important;
-}
-
-.n24-icon {
-    height: 24px;
-    width: 24px;
 }
 
 /* search navbar */
@@ -447,9 +428,6 @@ hr {
 .hp-category a {
     color: black;
     font-weight: 700 !important;
-}
-.hp-category a:hover {
-    color: #76b900;
 }
 .filter-cate h1, .show-prod-cate h2, .text-cate h2{
     font-size: 22px;
@@ -668,14 +646,11 @@ button:focus {
     border: 2px solid #76b900 !important;
 }
 
-.show-filter:active {
+.show-filter:active, .show-filter-mb:active {
     border: 2px solid #76b900;
 }
 .show-filter-mb {
     position: relative;
-}
-.show-filter-mb:active {
-    border: 2px solid #76b900;
 }
 .filter-total {
     width: 20% !important;
@@ -849,7 +824,7 @@ button:focus {
     text-decoration: none;
     color: black;
 }
-.btn-link:hover, .btn-link h3:hover, .text-dark h4:hover {
+.btn-link:hover, .btn-link h3:hover, .text-dark h4:hover, .icon-heart, .top-heading i, .sp-online i {
     color: #76b900;
 }
 .card {
@@ -863,9 +838,6 @@ button:focus {
 .card-body ul {
     margin-top: 0.25rem;
     margin-bottom: 0;
-}
-.icon-heart {
-    color: #76b900;
 }
 
 /* Begin css categories */
@@ -999,9 +971,6 @@ button:focus {
 
 .sp-online {
     margin-top: 4px;
-}
-.top-heading i, .sp-online i {
-    color: #76b900;
 }
 .i-skype {
     background: url(../img/skype-icon-min.png) no-repeat 0px 0 / 33px;
@@ -1254,9 +1223,8 @@ button:focus {
     background-color: #76b900;
     border-radius: 3px;
     color: #fff;
-    cursor: pointer;
     text-align: center;
-    padding: 5px 16px;
+    padding: 3px 10px;
     line-height: 28px;
 }
 .review-row {
@@ -1308,7 +1276,7 @@ button:focus {
 .relate-comment {
     margin-left: 25px;
 }
-.relate-com-item.rep-comment {
+.relate-com-item.rep-comment, .user-normal-thumb {
     display: none;
 }
 .relate-com-item, .relate-com-item~label {
@@ -1327,9 +1295,6 @@ button:focus {
     border-radius: 5px;
 }
 
-.user-normal-thumb {
-    display: none;
-}
 .img-member-thumb {
     width: 20px;
     height: 20px;
@@ -2083,15 +2048,6 @@ aside.hasprod-mb-pr {
 /* End Service */
 
 /* Begin Partner */
-.partner-section {
-    padding: 20px 0;
-}
-.partner-section h2 {
-    font-size: 26px;
-    padding-bottom: 10px;
-    margin-bottom: 0;
-    font-weight: bold;
-}
 .section-title {
     margin-bottom: 20px;
 }
@@ -2112,10 +2068,6 @@ aside.hasprod-mb-pr {
     width: 100%;
     height: 100%;
     background: #76b900;
-}
-.partner-autoplay img {
-    border: 1px solid #dedede;
-    border-radius: 7px;
 }
 
 /* End Partner */
@@ -2145,9 +2097,6 @@ aside.hasprod-mb-pr {
     .col-s-3 {
         flex: 0 0 auto;
         width: 25%;
-    }
-    .partner-autoplay img {
-        padding: 6px;
     }
 }
 
@@ -2190,19 +2139,6 @@ aside.hasprod-mb-pr {
     }
 }
 @media (max-width: 1023px) {
-    .page-footer__subscribe {
-        float: none;
-        margin-bottom: 50px;
-        width: 100%;
-    }
-    .page-footer__social {
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        float: none;
-        justify-content: center;
-        text-align: center;
-        width: 100%;
-    }
     .carousel-inner h1 {
         font-size: 28px !important;
         font-weight: bold;
@@ -2382,9 +2318,6 @@ aside.hasprod-mb-pr {
 }
 
 @media (max-width: 639px) {
-    .ft-black {
-        padding: 15px;
-    }
     .hp-category {
         margin: 1rem -12px;
     }
@@ -2392,20 +2325,6 @@ aside.hasprod-mb-pr {
         font-size: 11px !important;
         padding: 9px 11px;
     }
-    .page-footer__social {
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    }
-    .page-footer__social__label {
-        display: block;
-        float: none;
-        height: auto;
-        margin-bottom: 15px;
-        margin-right: 0;
-        text-align: center;
-        width: 100%;
-    }
-
     .global-footer {
         padding: 15px;
     }
@@ -2457,23 +2376,6 @@ aside.hasprod-mb-pr {
 }
 
 @media screen and (min-width: 320px) and (max-width: 639px) {
-    .subscribe-logo {
-        position: relative;
-        top: 7px;
-        float: none;
-        margin-bottom: 10px;
-    }
-    .subscribe-text {
-        float: none;
-        margin-left: 0px;
-        display: block;
-    }
-    .subscribe-container .button {
-        margin-top: 33px;
-        display: inline-block;
-        float: none;
-        margin-left: 0px;
-    }
     .custom-row .col-sm-6 {
         flex: 0 0 auto;
         width: 50%;

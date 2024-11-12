@@ -142,7 +142,7 @@ class AppServiceProvider extends ServiceProvider
             $ft_bottom = $this->app->make('bottom');
             $globalSetting = $this->app->make('setting');
             $contactIconGlobal = $this->app->make('contact-icons');
-            // dd($globalMenus);
+
             $view->with('globalMenus', $globalMenus)->with('globalFooters', $globalFooters)
                 ->with('searchCate', $searchCate)
                 ->with('globalHeaderTags', $globalHeaderTags)
