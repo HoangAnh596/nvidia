@@ -30,6 +30,7 @@ Table of contents
 @font-face {
   font-family: 'OpenSans';
   src: url('/fonts/OpenSans.ttf') format('truetype');
+  font-display: swap;
   font-weight: normal;
   font-style: normal;
 }

@@ -92,20 +92,20 @@ class AppServiceProvider extends ServiceProvider
 
         // Thẻ tiếp thị
         $this->app->singleton('headerTags', function () {
-            return HeaderTag::where('is_public', 1)->select('id', 'content')->get();
+            return HeaderTag::select('id', 'content')->where('is_public', 1)->get();
         });
         // Chân trang dưới footer
         $this->app->singleton('bottom', function () {
-            return Bottom::where('is_public', 1)->orderBy('stt', 'ASC')->select('id', 'name', 'url')->get();
+            return Bottom::select('id', 'name', 'url')->where('is_public', 1)->orderBy('stt', 'ASC')->get();
         });
         // Cấu hình icon liên hệ
         $this->app->singleton('contact-icons', function () {
-            return ContactIcon::where('is_public', 1)->orderBy('stt', 'ASC')->select('id', 'url', 'name', 'image', 'animation')->get();
+            return ContactIcon::select('id', 'url', 'name', 'image', 'animation')->where('is_public', 1)->orderBy('stt', 'ASC')->get();
         });
 
         // Setting
         $this->app->singleton('setting', function () {
-            return Setting::where('id', 1)->select('title_seo', 'keyword_seo', 'des_seo', 'image', 'facebook', 'twitter', 'youtube', 'tiktok', 'pinterest')->first();
+            return Setting::select('title_seo', 'keyword_seo', 'des_seo', 'image', 'facebook', 'twitter', 'youtube', 'tiktok', 'pinterest')->where('id', 1)->first();
         });
     }
 
@@ -124,7 +124,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         // Cấu hình gửi mail báo
-        $settings = Setting::where('id', 1)->select('id', 'mail_name', 'mail_pass', 'mail_text')->first();
+        $settings = Setting::select('id', 'mail_name', 'mail_pass', 'mail_text')->where('id', 1)->first();
         if ($settings) {
             // Cập nhật config với các giá trị từ bản ghi settings
             Config::set('mail.mailers.smtp.username', $settings->mail_name);

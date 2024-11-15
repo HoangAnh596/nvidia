@@ -32,9 +32,9 @@ class AdminServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('quotes', function () {
-            return Quote::where('status', 0)
+            return Quote::select('id', 'name', 'product', 'created_at')
+                ->where('status', 0)
                 ->orderBy('created_at', 'DESC')
-                ->select('id', 'name', 'product', 'created_at')
                 ->get();
         });
     }

@@ -57,7 +57,7 @@
                     <div class="col-md-5">
                         <div class="media-left">
                             <a href="{{ asset('blogs/'.$item->slug) }}">
-                                <img class="lazyload" src="{{ asset($item->image) }}" data-src="{{ asset($item->image) }}" alt="{{ $item->alt_img }}" title="{{ $item->title_img }}">
+                                <img loading="lazy" width="320" height="190" src="{{ asset(str_replace('bai-viet/', 'bai-viet/medium/', $item->image)) }}" data-src="{{ asset(str_replace('bai-viet/', 'bai-viet/medium/', $item->image)) }}" srcset="{{ asset(str_replace('bai-viet/', 'bai-viet/medium/', $item->image)) }}" alt="{{ $item->alt_img }}" title="{{ $item->title_img }}">
                             </a>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                     <div class="media">
                         <div class="media-left img-border">
                             <a href="{{ asset('blogs/'.$val->slug) }}">
-                                <img class="lazyload" src="{{ asset($val->image) }}" data-src="{{ asset($val->image) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
+                                <img loading="lazy" width="146" height="99" src="{{ asset(str_replace('bai-viet/', 'bai-viet/small/', $val->image)) }}"data-src="{{ asset(str_replace('bai-viet/', 'bai-viet/small/', $val->image)) }}" srcset="{{ asset(str_replace('bai-viet/', 'bai-viet/small/', $val->image)) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
                             </a>
                         </div>
                         <div class="media-right">
@@ -140,10 +140,10 @@
                         <div class="media-left img-border">
                             <a href="{{ asset('/'.$value->slug) }}">
                                 @if($value->main_image)
-                                <img class="thumb ls-is-cached lazyloaded" data-src="{{ asset($value->main_image->image) }}"
-                                    alt="{{ $value->main_image->alt }}" title="{{ $value->main_image->title }}" src="{{ asset($value->main_image->image) }}">
+                                <img loading="lazy" width="138" height="104" data-src="{{ asset(str_replace('san-pham/', 'san-pham/small/', $value->main_image->image)) }}"
+                                    alt="{{ $value->main_image->alt }}" title="{{ $value->main_image->title }}" src="{{ asset(str_replace('san-pham/', 'san-pham/small/', $value->main_image->image)) }}">
                                 @else
-                                <img class="thumb ls-is-cached lazyloaded"
+                                <img loading="lazy" width="138" height="104"
                                     data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" alt="Image Coming Soon" title="Image Coming Soon"
                                     src="{{ asset('storage/images/image-coming-soon.jpg') }}">
                                 @endif

@@ -31,7 +31,7 @@
             @foreach($contacts[0] as $val) <!-- Nhóm role = 0 -->
             <div class="col-md-3">
                 <div class="box-contact-list">
-                    <img src="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
+                    <img loading="lazy" width="284" height="284" data-src="{{ asset($val->image) }}" src="{{ asset($val->image) }}" srcset="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
                     <div class="caption">
                         <p class="title-caption">{{ $val->desc_role }}</p>
                         <p class="name-caption"><strong>{{ $val->name }}</strong> @if(!empty($val->title)) ({{ $val->title }}) @endif</p>
@@ -59,7 +59,7 @@
             @foreach($contacts[3] as $val) <!-- Nhóm role = 0 -->
             <div class="col-md-3">
                 <div class="box-contact-list">
-                    <img src="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
+                    <img loading="lazy" width="284" height="284" data-src="{{ asset($val->image) }}" src="{{ asset($val->image) }}" srcset="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
                     <div class="caption">
                         <p class="title-caption">{{ $val->desc_role }}</p>
                         <p class="name-caption"><strong>{{ $val->name }}</strong> @if(!empty($val->title)) ({{ $val->title }}) @endif</p>
@@ -87,7 +87,7 @@
             @foreach($contacts[2] as $val) <!-- Nhóm role = 0 -->
             <div class="col-md-3">
                 <div class="box-contact-list">
-                    <img src="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
+                    <img loading="lazy" width="284" height="284" data-src="{{ asset($val->image) }}" src="{{ asset($val->image) }}" srcset="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
                     <div class="caption">
                         <p class="title-caption">{{ $val->desc_role }}</p>
                         <p class="name-caption"><strong>{{ $val->name }}</strong> @if(!empty($val->title)) ({{ $val->title }}) @endif</p>
@@ -116,7 +116,7 @@
             @foreach($contacts[1] as $val) <!-- Nhóm role = 1 -->
             <div class="col-md-3">
                 <div class="box-contact-list">
-                    <img src="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
+                    <img loading="lazy" width="284" height="284" data-src="{{ asset($val->image) }}" src="{{ asset($val->image) }}" srcset="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
                     <div class="caption">
                         <p class="title-caption">{{ $val->desc_role }}</p>
                         <p class="name-caption"><strong>{{ $val->name }}</strong> @if(!empty($val->title)) ({{ $val->title }}) @endif</p>
@@ -145,7 +145,7 @@
             @foreach($contacts[4] as $val) <!-- Nhóm role = 4 -->
             <div class="col-md-3">
                 <div class="box-contact-list">
-                    <img src="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
+                    <img loading="lazy" width="284" height="284" data-src="{{ asset($val->image) }}" src="{{ asset($val->image) }}" srcset="{{ asset($val->image) }}" alt="Hình ảnh của {{ $val->name }}" title="Hình ảnh của {{ $val->name }}">
                     <div class="caption">
                         <p class="title-caption">{{ $val->desc_role }}</p>
                         <p class="name-caption"><strong>{{ $val->name }}</strong> @if(!empty($val->title)) ({{ $val->title }}) @endif</p>

@@ -245,6 +245,7 @@ $isMobile = $agent->isMobile(); // Kiểm tra thiết bị di động
 @endsection
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('cntt/css/compare.css') }}">
 <style>
     .modal-header {
         padding: 15px;

@@ -10,13 +10,13 @@
 	<url>
 	<loc>http://localhost:8000/nvidia-blackwell-la-gi-gpu-manh-me-voi-cong-nghe-dot-pha-cho-ai-va-hpc</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-11-07T16:45:50+07:00</lastmod>
+		<lastmod>2024-11-15T11:03:37+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
 	<loc>http://localhost:8000/huong-dan-cau-hinh-raid-tren-cac-dong-server</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-10-09T09:38:21+07:00</lastmod>
+		<lastmod>2024-11-14T16:07:28+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -58,7 +58,7 @@
 	<url>
 	<loc>http://localhost:8000/tets-thu-1-cai-tin-tuc</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-11-05T10:23:16+07:00</lastmod>
+		<lastmod>2024-11-13T14:25:46+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
@@ -70,7 +70,7 @@
 	<url>
 	<loc>http://localhost:8000/gioi-thieu-dong-server-dell-poweredge-r7515</loc>
 		<priority>0.8</priority>
-		<lastmod>2024-10-17T16:00:22+07:00</lastmod>
+		<lastmod>2024-11-15T11:03:18+07:00</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 </urlset>

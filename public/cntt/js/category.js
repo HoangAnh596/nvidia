@@ -34,21 +34,6 @@ $(document).ready(function() {
         $('.outstand-prod').css('max-height', '10000px');
     });
 
-    // Css reponsive mobile nav
-    $('.nav-link-mb').click(function(e){
-        e.preventDefault();
-        var $this = $(this);
-        var id = $this.data('id');
-        var $dropdownContent = $('#dropdown-content-' + id);
-        // Ẩn tất cả các danh sách thả xuống ngoại trừ danh sách được nhấp
-        $this.closest('li').siblings().find('.dropdown-content-mobile').hide();
-
-        // Chuyển đổi nội dung và icon thả xuống
-        $this.find('.icon-down').toggle();
-        $this.find('.icon-up').toggle();
-        $dropdownContent.toggle();
-    });
-
     // bộ lọc filter
     $(window).on('scroll', function() {
         if ($(this).scrollTop() > 100) {

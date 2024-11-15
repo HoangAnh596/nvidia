@@ -26,3 +26,7 @@
     </div>
 </div>
 @endsection
+
+@section('css')
+<link rel="stylesheet" href="{{asset('cntt/css/support-policy.css')}}">
+@endsection

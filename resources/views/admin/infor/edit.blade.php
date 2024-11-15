@@ -100,7 +100,7 @@
                             <img id="out_img" src="{{ \App\Http\Helpers\Helper::getPath($infor->image) }}">
                         </div>
                     </div>
-                    <div class="col-3 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 292 x 292 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
+                    <div class="col-3 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 284 x 284 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
                 </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Vai trò :</div>

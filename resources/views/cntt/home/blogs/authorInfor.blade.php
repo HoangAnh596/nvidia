@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="d-flex align-items-center justify-content-center col-lg-2 col-md-3 col-sm-3 col-xs-4 padding-img">
                             <a href="{{ asset('/blogs/author/' . $user->slug) }}" title="Author {{ $user->name }}">
-                                <img src="{{ asset($user->image) }}" alt="{{ $user->alt_img }}">
+                                <img loading="lazy" width="134" height="134" src="{{ asset($user->image) }}" data-src="{{ asset($user->image) }}" srcset="{{ asset($user->image) }}" alt="{{ $user->alt_img }}">
                             </a>
                         </div>
                         <div class="col-lg-10 col-md-9 col-sm-9 col-xs-8">
@@ -73,7 +73,7 @@
                     <div class="col-md-5">
                         <div class="media-left">
                             <a href="{{ asset('blogs/'.$item->slug) }}">
-                                <img class="lazyload" src="{{ asset($item->image) }}" data-src="{{ asset($item->image) }}" alt="{{ $item->alt_img }}" title="{{ $item->title_img }}">
+                                <img loading="lazy" width="320" height="190" src="{{ asset(str_replace('bai-viet/', 'bai-viet/medium/', $item->image)) }}" data-src="{{ asset(str_replace('bai-viet/', 'bai-viet/medium/', $item->image)) }}" srcset="{{ asset(str_replace('bai-viet/', 'bai-viet/medium/', $item->image)) }}" alt="{{ $item->alt_img }}" title="{{ $item->title_img }}">
                             </a>
                         </div>
                     </div>
@@ -130,9 +130,9 @@
                 <div class="hot-news">
                     @foreach($outstand as $val)
                     <div class="media">
-                        <div class="media-left">
+                        <div class="media-left img-border">
                             <a href="{{ asset('blogs/'.$val->slug) }}">
-                                <img class="lazyload" src="{{ asset($val->image) }}" data-src="{{ asset($val->image) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
+                                <img loading="lazy" width="146" height="99" src="{{ asset(str_replace('bai-viet/', 'bai-viet/small/', $val->image)) }}" data-src="{{ asset(str_replace('bai-viet/', 'bai-viet/small/', $val->image)) }}" srcset="{{ asset(str_replace('bai-viet/', 'bai-viet/small/', $val->image)) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
                             </a>
                         </div>
                         <div class="media-right">

@@ -1,5 +1,6 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('cntt/css/blog.css') }}">
+<link rel="stylesheet" href="{{asset('cntt/css/content.css')}}">
 @endsection
 
 @extends('cntt.layouts.app')
@@ -161,7 +162,7 @@
                     <div class="media">
                         <div class="media-left img-border">
                             <a href="{{ asset('blogs/'.$val->slug) }}">
-                                <img class="lazyload" src="{{ asset($val->image) }}" data-src="{{ asset($val->image) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
+                                <img loading="lazy" width="146" height="99" src="{{ asset(str_replace('bai-viet/', 'bai-viet/small/', $val->image)) }}" data-src="{{ asset(str_replace('bai-viet/', 'bai-viet/small/', $val->image)) }}" srcset="{{ asset(str_replace('bai-viet/', 'bai-viet/small/', $val->image)) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
                             </a>
                         </div>
                         <div class="media-right">

@@ -85,52 +85,46 @@ class BlogController extends Controller
                     $productImg->main_image = $productImg->getMainImage(); // Thêm ảnh chính vào đối tượng sản phẩm
                 });
             }
-            // Comments 
-            $commentsQuery = CmtNew::query(); // Khởi tạo query builder cho bảng comments
+            // Comments
+            $commentsQuery = CmtNew::select('id', 'content', 'parent_id', 'new_id', 'user_id', 'name', 'slugNew', 'star', 'created_at')
+                ->where('cmt_news.new_id', $newArt->id)
+                ->where('cmt_news.parent_id', 0)
+                ->orderBy('cmt_news.created_at', 'DESC');
 
-            if (Auth::check() && Auth::user()->role == 1) {
-                // Nếu role = 1, lấy tất cả các comments cho sản phẩm này
-                $commentsQuery->where('cmt_news.new_id', $newArt->id)
-                    ->where('cmt_news.parent_id', 0)
-                    ->with('replies') // Load các bình luận con
-                    ->orderBy('cmt_news.created_at', 'DESC');
+            if (Auth::check() && Auth::user()->hasPermission('replay_cmtnew')) {
+                $commentsQuery->with([
+                    'replies' => function ($query) {
+                        $query->select('id', 'content', 'parent_id', 'new_id', 'user_id', 'name', 'slugNew', 'star', 'email', 'is_public', 'created_at');
+                    }
+                ]);
             } else {
-                // Nếu role khác 1, lấy các bình luận public hoặc bình luận của chính người dùng đó
-                $commentsQuery->where('cmt_news.new_id', $newArt->id)
-                    ->where('cmt_news.parent_id', 0)
-                    ->where(function ($query) {
-                        $query->where('cmt_news.is_public', 1) // Hiển thị bình luận công khai
-                            ->orWhere(function ($query) {
-                                // Nếu bình luận của chính người dùng hiện tại, hiển thị nó bất kể is_public là gì
-                                $query->whereNotNull('cmt_news.user_id')->where('cmt_news.user_id', Auth::id());
-                            });
-                    })
-                    ->with('cmtChild') // Load các bình luận con
-                    ->orderBy('cmt_news.created_at', 'DESC');
+                $commentsQuery->where(function($query) {
+                    $query->where('cmt_news.is_public', 1) // Hiển thị bình luận công khai
+                        ->orWhere(function($query) {
+                            $query->whereNotNull('cmt_news.user_id')->where('cmt_news.user_id', Auth::id());
+                        });
+                })->with([
+                    'cmtChild' => function ($query) {
+                        $query->select('id', 'content', 'parent_id', 'new_id', 'user_id', 'name', 'slugNew', 'star', 'email', 'is_public', 'created_at');
+                    }
+                ]);
             }
-
-            $comments = $commentsQuery->orderBy('created_at', 'DESC')->paginate(5);
+    
+            $comments = $commentsQuery->paginate(5);
             if ($request->ajax()) {
                 return view('cntt.home.blogs.partials.comment', compact('comments'))->render(); // Trả về view khi gọi bằng AJAX
             }
             // Tính tổng số bình luận (cha + con)
             $totalCommentsCount = CmtNew::where('new_id', $newArt->id)
-                ->where(function ($query) {
-                    $query->where('parent_id', 0) // Bình luận cha
-                        ->orWhere(function ($query) {
-                            $query->where('parent_id', '>', 0); // Bình luận con
-                        });
-                })
-                ->where(function ($query) {
-                    if (!Auth::check() || Auth::user()->role != 1) {
+                ->when(!Auth::check() || !Auth::user()->hasPermission('replay_cmtnew'), function($query) {
+                    $query->where(function($query) {
                         $query->where('is_public', 1) // Hiển thị bình luận công khai
-                            ->orWhere(function ($query) {
-                                $query->whereNotNull('user_id')
-                                    ->where('user_id', Auth::id());
+                            ->orWhere(function($query) {
+                                $query->where('user_id', Auth::id())
+                                    ->whereNotNull('user_id'); // Chỉ hiển thị của user hiện tại
                             });
-                    }
-                })
-                ->count();
+                    });
+                })->count();
             $user = Auth::user();
             
             return view('cntt.home.blogs.detail', compact(

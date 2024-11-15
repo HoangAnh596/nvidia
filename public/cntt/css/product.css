@@ -111,7 +111,6 @@ button.pop-gallery {
 .col-viewmore-item {
     display: inline-block;
     margin-top: 10px;
-    padding: 5px 10px;
     text-align: center;
     vertical-align: middle;
 }
@@ -886,13 +885,6 @@ button.pop-gallery {
 }
 
 /* Số điện thoại liên hệ */
-.new-prod {
-    position: sticky;
-    top: 54px;
-    left: 0;
-    width: 100%;
-    z-index: 999;
-}
 
 .check-list-btn {
     padding: 5px 40px;
@@ -925,6 +917,11 @@ button.pop-gallery {
         width: 100%;
     }
 }
+@media (min-width: 375px) {
+    .col-viewmore-item {
+        padding: 5px 10px;
+    }
+}
 @media (min-width: 567px) {
     .datasheet-prd svg {
         left: 20%;
@@ -942,6 +939,9 @@ button.pop-gallery {
 }
 
 @media (max-width: 567px) {
+    .scrollToRateBox {
+        font-size: 14px;
+    }
     .prd_di_kem ul li {
         width: 100%;
         margin-bottom: 10px;
@@ -967,29 +967,6 @@ button.pop-gallery {
 }
 
 @media (min-width: 1200px) {
-    /* .description-prd {
-        border: 1px solid #ddd;
-        padding: 10px;
-        position: relative;
-        border-radius: 5px;
-    } */
-
-    /* .description-prd:after {
-        height: 100%;
-        display: block;
-        width: 1px;
-        border-right: 1px solid #eee;
-        content: '';
-        position: absolute;
-        z-index: 4;
-        top: 0;
-        right: 25%;
-    } */
-
-    .col-viewmore-item {
-        padding: 5px 10px;
-    }
-
     .contact-price {
         padding: 5px 20px 7px 40px;
     }

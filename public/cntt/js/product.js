@@ -96,6 +96,21 @@ $(document).ready(function() {
             });
         }
     });
+
+    // Câu hỏi sản phẩm 
+    document.querySelectorAll('.button__show-faq').forEach((button, index) => {
+        button.addEventListener('click', () => {
+            const accordionContent = button.nextElementSibling;
+            accordionContent.classList.toggle('active');
+    
+            // Điều chỉnh max-height cho accordion__content
+            if (accordionContent.classList.contains('active')) {
+                accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+            } else {
+                accordionContent.style.maxHeight = '0';
+            }
+        });
+    });
 });
 document.addEventListener('DOMContentLoaded', function() {
     var toggler = document.getElementsByClassName("caret");
@@ -107,21 +122,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-$('.filtering').slick({
-    slidesToShow: 4,
-    slidesToScroll: 4
-});
+// $('.filtering').slick({
+//     slidesToShow: 4,
+//     slidesToScroll: 4
+// });
 
-var filtered = false;
+// var filtered = false;
 
-$('.js-filter').on('click', function() {
-    if (filtered === false) {
-        $('.filtering').slick('slickFilter', ':even');
-        $(this).text('Unfilter Slides');
-        filtered = true;
-    } else {
-        $('.filtering').slick('slickUnfilter');
-        $(this).text('Filter Slides');
-        filtered = false;
-    }
-});
+// $('.js-filter').on('click', function() {
+//     if (filtered === false) {
+//         $('.filtering').slick('slickFilter', ':even');
+//         $(this).text('Unfilter Slides');
+//         filtered = true;
+//     } else {
+//         $('.filtering').slick('slickUnfilter');
+//         $(this).text('Filter Slides');
+//         filtered = false;
+//     }
+// });

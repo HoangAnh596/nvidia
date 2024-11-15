@@ -26,7 +26,7 @@
         </div>
         <div class="col-md-3 mt-4 res-dnone">
             <!-- Hotline -->
-            <div class="support-prod src-fixed mb-4">
+            <div class="support-prod src-fixed mb-4 mb-custom">
                 <div class="bg-prod d-flex align-items-center">
                     <h2><i class="fa-solid fa-file-invoice-dollar"></i> Bạn cần báo giá tốt nhất</h2>
                 </div>
@@ -84,6 +84,7 @@
 @endsection
 
 @section('css')
+<link rel="stylesheet" href="{{asset('cntt/css/catePro.css')}}">
 <style>
     .search-h2 {
         font-size: 1rem;

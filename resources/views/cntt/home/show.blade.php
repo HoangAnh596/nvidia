@@ -1,7 +1,10 @@
 @section('css')
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <link rel="stylesheet" href="{{ asset('cntt/css/product.css') }}">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="{{asset('cntt/css/content.css')}}">
+<link rel="stylesheet" href="{{asset('cntt/css/catePro.css')}}">
+<link rel="stylesheet" href="{{ asset('cntt/css/compare.css') }}">
 @endsection
 @extends('cntt.layouts.app')
 
@@ -70,14 +73,14 @@
                             <i class="fa-solid fa-comments"></i>
                             <div class="title-spec">
                                 <a href="#comment-box" class="scrollToRateBox">
-                                    @if($totalCommentsCount != 0) Có {{ $totalCommentsCount }} @else Thêm @endif bình luận. </a>
+                                    @if($totalCommentsCount != 0) {{ $totalCommentsCount }} @else Thêm @endif bình luận</a>
                             </div>
                         </div>
                         <div class="col-viewmore-item">
                             <i class="fa-solid fa-star"></i>
                             <div class="title-spec">
                                 <a href="#comment-box" class="scrollToRateBox">
-                                    @if($totalStarCount != 0) Có {{ $totalStarCount }} @else Thêm @endif đánh giá. </a>
+                                    @if($totalStarCount != 0) {{ $totalStarCount }} @else Thêm @endif đánh giá</a>
                             </div>
                         </div>
                     </div>
@@ -172,7 +175,272 @@
             </div>
         </div>
     </div>
+
+    <div class="row mb-4">
+        <div class="col-lg-9 mt-4">
+            <div class="content-product mb-3">
+                <div id="chi-tiet">{!! $product->content !!}</div>
+                <div class="align-items-center justify-content-center btn-show-more show-more pb-3">
+                    <button class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+            </div>
+            @if ($product->questionProduct->isNotEmpty())
+            <div class="box-question mb-3" id="boxFAQ">
+                <p class="title">Câu hỏi thường gặp</p>
+                <div class="accordion">
+                    @foreach($product->questionProduct as $question)
+                    <div class="mb-1">
+                        <div class="b-button button__show-faq">
+                            <p>{{ $question->title }}</p>
+                            <div class="icon"><svg height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                                    <path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"></path>
+                                </svg></div>
+                        </div>
+                        <div class="accordion__content">
+                            <div class="content-wrapper">{!! $question->content !!}</div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+            <!-- Nhóm sản phẩm đi kèm -->
+            @if($groupProducts->isNotEmpty())
+            <h3 class="mt-4 panel-heading">
+                {{ $parentCate->is_serve == 1 ? "Cấu hình tùy biến cho $product->code" : "Các sản phẩm mua kèm sử dụng cho $product->code" }}
+            </h3>
+            @endif
+
+            @foreach($groupProducts as $group)
+            @if($parentCate->is_serve == 1)
+            <div class="panel-subheading">
+                <h4>{{ $group->name }}</h4>
+                <ul class="conf-section__list">
+                    @foreach($group->products as $grPro)
+                    @if($group->is_type == 0)
+                    <li class="conf-section__item specify is-checked">
+                        <label class="radio">
+                            <input class="radio__default js-option-item item-{{ $group->name }}" type="radio" id="{{ $group->name }}-{{ $grPro->id }}" name="{{ $group->name }}" data-item="{{ $grPro->id }}" @if($grPro->pivot->is_checked == 1) checked @endif>
+                            <span class="radio__custom"></span>
+                            <span class="radio__label">
+                                <span class="js-item-name">{{ $grPro->name }}</span>
+                            </span>
+                        </label>
+                        <!-- <div class="item-price item-price--specify"><span class="item-price__value2">$ 400</span></div> -->
+                        <div class="item-price item-price--specify"><span class="item-price__value2">Liên hệ</span></div>
+                    </li>
+                    @else
+                    <li class="conf-section__item with-quantity">
+                        <label class="checkbox">
+                            <input class="checkbox__default js-option-item item-sled" type="checkbox" id="{{ $group->name }}-{{ $grPro->id }}" name="{{ $group->name }}" data-item="{{ $grPro->id }}">
+                            <span class="checkbox__custom"></span>
+                            <span class="checkbox__label">
+                                <span class="js-item-name">{{ $grPro->name }}</span>
+                            </span>
+                        </label>
+                        <div class="item-price item-price--quantity">
+                            <span class="item-price__quantity">
+                                <span class="price__quantity-block">
+                                    <span class="js-item-counter-minus"></span>
+                                    <input aria-label="count" class="js-item-counter item-sled-counter" type="number" step="1" max="10" min="1" value="1">
+                                    <span class="js-item-counter-plus"></span>
+                                </span>
+                                <span>ea.</span>
+                            </span>
+                            <!-- <span class="item-price__value">$ 2 / ea.</span> -->
+                            <span class="item-price__value">Liên hệ</span>
+                        </div>
+                    </li>
+                    @endif
+                    @endforeach
+                </ul>
+            </div>
+            @else
+            <div class="pricing prd_di_kem group-prod">
+                <div class="panel-subheading">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"></path>
+                    </svg>
+                    <h4>{{ $group->name }}</h4>
+                </div>
+                <ul>
+                    @foreach($group->products as $index => $grPro)
+                    <li class="{{ $loop->index % 2 == 0 ? 'mg-r4' : 'mg-r' }}">
+                        @if($grPro->getMainImage())
+                        <img width="76" height="54" src="{{ asset($grPro->getMainImage()->image) }}" data-src="{{ asset($grPro->getMainImage()->image) }}" data-srcset="{{ asset($grPro->getMainImage()->image) }}" alt="{{ asset($grPro->getMainImage()->alt) }}" title="{{ asset($grPro->getMainImage()->title) }}" srcset="{{ asset($grPro->getMainImage()->image) }}">
+                        @else
+                        <img width="76" height="54" src="{{ asset('storage/images/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" alt="Image Coming Soon" title="Image Coming Soon">
+                        @endif
+                        <a href="{{ asset($grPro->slug) }}">
+                            <h4>{{ $grPro->name }}</h4>
+                        </a>
+                    </li>
+                    @endforeach
+                </ul>
+                <div class="align-items-center justify-content-center nav-mb group-show-more pb-4">
+                    <button class="btn-group-prod">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+            </div>
+            @endif
+            @endforeach
+
+            <!-- Bình luận -->
+            <div class="wrap-tab-comments mt-4" id="comment-box">
+                <div class="comment-write" id="rate-box">
+                    <h3>Bạn đang cần tư vấn về sản phẩm: {{ $product->code }} ?</h3>
+                    <div class="form-comment">
+                        <form id="rate-form" method="post">
+                            @csrf
+                            <input type="hidden" id="idUser" name="user_id" value="{{ Auth::id() }}">
+                            <input type="hidden" id="idprd" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" id="slugPrd" name="slugPrd" value="{{ $product->slug }}">
+                            <div class="input-account-form cmt-content-form">
+                                <textarea title="Nhập nội dung bình luận / nhận xét" name="content" id="comment-content" placeholder="Nhập câu hỏi / bình luận / nhận xét tại đây..." class="info-form-comment"></textarea>
+                                <span id="content-error" style="color: red;"></span>
+                                <span>
+                                    Bạn đang cần tư vấn về sản phẩm {{ $product->code }} và giải pháp mạng? Vui lòng để lại số điện thoại hoặc lời nhắn, nhân viên Nvidiavn.vn sẽ liên hệ trả lời bạn sớm nhất.
+                                </span>
+                            </div>
+                            <div class="input-account-form" id="review-info-pad">
+                                <div id="review-info" style="display: none">
+                                    <p>Cung cấp thông tin cá nhân</p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Họ và tên:</label>
+                                                <input type="text" name="name" id="comment-name" class="form-control" value="{{ old('name') }}" placeholder="Nhập họ và tên">
+                                                <span id="name-error" style="color: red;"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Email:</label>
+                                                <input type="text" name="email" id="comment-email" class="form-control" value="{{ old('email') }}" placeholder="Nhập Email (nhận thông báo phản hồi)">
+                                                <span id="email-error" style="color: red;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rate-stars-row">
+                                    <span class="form-item-title">Đánh giá:</span>
+                                    <div class="prod-rate">
+                                        <fieldset class="rating">
+                                            <input type="radio" class="rate-poin-rdo" data-point="1" id="star1" name="rating" value="1">
+                                            <label class="full" for="star1" title="Thất vọng: cho 1 sao">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                                </svg>
+                                            </label>
+                                            <input type="radio" class="rate-poin-rdo" data-point="2" id="star2" name="rating" value="2">
+                                            <label class="full" for="star2" title="Trung bình: cho 2 sao">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                                </svg>
+                                            </label>
+                                            <input type="radio" class="rate-poin-rdo" data-point="3" id="star3" name="rating" value="3">
+                                            <label class="full" for="star3" title="Bình thường: cho 3 sao">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                                </svg>
+                                            </label>
+                                            <input type="radio" class="rate-poin-rdo" data-point="4" id="star4" name="rating" value="4">
+                                            <label class="full" for="star4" title="Hài lòng: cho 4 sao">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                                </svg>
+                                            </label>
+                                            <input type="radio" class="rate-poin-rdo" data-point="5" id="star5" name="rating" value="5">
+                                            <label class="full" for="star5" title="Rất hài lòng: cho 5 sao">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                                </svg>
+                                            </label>
+                                        </fieldset>
+                                        <div class="rate-stars">
+                                            <input type="hidden" id="rate-record" name="rate-record" value="0">
+                                            <input type="text" id="rate-point" name="rate-point" style="position: absolute; left: -2000px" title="Bạn cho sản phẩm này bao nhiêu ★">
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="p-close"><button id="send-comment" class="link-close">Gửi bình luận</button></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="rate-reviews" class="box-view-comments">
+                    <span class="countcomments">Có {{ $totalCommentsCount }} bình luận:</span>
+                    <div id="rate-reviews-list">
+                        @if(!empty($sendCmt))
+                        @include('cntt.home.partials.cmt', ['sendCmt' => $sendCmt])
+                        @endif
+                    </div>
+                    <div id="comments-list">
+                        @include('cntt.home.partials.comment', ['comments' => $comments, 'user' => $user])
+                    </div>
+                    <nav class="d-flex justify-content-center mt-2 paginate-cmt">
+                        {{ $comments->links() }}
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hotline -->
+        <div class="col-lg-3 mt-4">
+            <div class="support-prod new-prod">
+                <div class="bg-prod d-flex align-items-center">
+                    <h2><i class="fa-solid fa-users"></i> Thông tin liên hệ</h2>
+                </div>
+                <div class="title-outstand-prod">
+                    <div class="row mt-3">
+                        <div><span class="top-heading">Hỗ trợ kinh doanh <i class="fa-solid fa-money-check-dollar"></i></span></div>
+                        @foreach($phoneInfors as $val)
+                        @if($val->role == 0)
+                        <div class="contact-infor">
+                            <span class="user-heading"><i class="fa-solid fa-user-check"></i> {{ $val->name }}</span>
+                            <div class="sp-online">
+                                <span title="Mobile"><i class="fa-solid fa-headset"></i> {{ $val->phone }}</span>
+
+                                <a href="{{ $val->skype }} " title="Chat với {{ $val->name }} qua Skype">
+                                    <i class="i-skype"></i>
+                                </a>
+                                <a href="https://zalo.me/{{ $val->zalo }}" title="Chat {{ $val->name }} qua Zalo">
+                                    <i class="i-zalo"></i>
+                                </a>
+                                <a target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $val->gmail }} " title="Gửi mail tới: {{ $val->name }} ">
+                                    <i class="i-gmail"></i>
+                                </a>
+                            </div>
+                        </div>
+                        @endif
+                        @endforeach
+                        <div class="mt-3"><span class="top-heading">Hỗ trợ kỹ thuật <i class="fa-solid fa-gear"></i></span></div>
+                        @foreach($phoneInfors as $val)
+                        @if($val->role == 1)
+                        <div class="contact-infor">
+                            <span class="user-heading"><i class="fa-solid fa-user-check"></i> {{ $val->name }}</span>
+                            <div class="sp-online">
+                                <span title="Mobile"><i class="fa-solid fa-headset"></i> {{ $val->phone }}</span>
+
+                                <a href="{{ $val->skype }} " title="Chat với {{ $val->name }} qua Skype">
+                                    <i class="i-skype"></i>
+                                </a>
+                                <a href="https://zalo.me/{{ $val->zalo }} " title="Chat {{ $val->name }} qua Zalo">
+                                    <i class="i-zalo"></i>
+                                </a>
+                                <a target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $val->gmail }} " title="Gửi mail tới: {{ $val->name }} ">
+                                    <i class="i-gmail"></i>
+                                </a>
+                            </div>
+                        </div>
+                        @endif
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 <div class="price-modal">
     <!-- Modal -->
     <div class="modal fade" id="priceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -221,277 +489,10 @@
         </div>
     </div>
 </div>
-<section id="pr-detail">
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-lg-9 mt-4">
-                <div class="content-product mb-3">
-                    <div id="chi-tiet">{!! $product->content !!}</div>
-                    <div class="align-items-center justify-content-center btn-show-more show-more pb-3">
-                        <button class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
-                    </div>
-                </div>
-                @if ($product->questionProduct->isNotEmpty())
-                <div class="box-question mb-3" id="boxFAQ">
-                    <p class="title">Câu hỏi thường gặp</p>
-                    <div class="accordion">
-                        @foreach($product->questionProduct as $question)
-                        <div class="mb-1">
-                            <div class="b-button button__show-faq">
-                                <p>{{ $question->title }}</p>
-                                <div class="icon"><svg height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-                                        <path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"></path>
-                                    </svg></div>
-                            </div>
-                            <div class="accordion__content">
-                                <div class="content-wrapper">{!! $question->content !!}</div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-                @endif
-                <!-- Nhóm sản phẩm đi kèm -->
-                @if($groupProducts->isNotEmpty())
-                <h3 class="mt-4 panel-heading">
-                    {{ $parentCate->is_serve == 1 ? "Cấu hình tùy biến cho $product->code" : "Các sản phẩm mua kèm sử dụng cho $product->code" }}
-                </h3>
-                @endif
-
-                @foreach($groupProducts as $group)
-                @if($parentCate->is_serve == 1)
-                <div class="panel-subheading">
-                    <h4>{{ $group->name }}</h4>
-                    <ul class="conf-section__list">
-                        @foreach($group->products as $grPro)
-                        @if($group->is_type == 0)
-                        <li class="conf-section__item specify is-checked">
-                            <label class="radio">
-                                <input class="radio__default js-option-item item-{{ $group->name }}" type="radio" id="{{ $group->name }}-{{ $grPro->id }}" name="{{ $group->name }}" data-item="{{ $grPro->id }}" @if($grPro->pivot->is_checked == 1) checked @endif>
-                                <span class="radio__custom"></span>
-                                <span class="radio__label">
-                                    <span class="js-item-name">{{ $grPro->name }}</span>
-                                </span>
-                            </label>
-                            <!-- <div class="item-price item-price--specify"><span class="item-price__value2">$ 400</span></div> -->
-                            <div class="item-price item-price--specify"><span class="item-price__value2">Liên hệ</span></div>
-                        </li>
-                        @else
-                        <li class="conf-section__item with-quantity">
-                            <label class="checkbox">
-                                <input class="checkbox__default js-option-item item-sled" type="checkbox" id="{{ $group->name }}-{{ $grPro->id }}" name="{{ $group->name }}" data-item="{{ $grPro->id }}">
-                                <span class="checkbox__custom"></span>
-                                <span class="checkbox__label">
-                                    <span class="js-item-name">{{ $grPro->name }}</span>
-                                </span>
-                            </label>
-                            <div class="item-price item-price--quantity">
-                                <span class="item-price__quantity">
-                                    <span class="price__quantity-block">
-                                        <span class="js-item-counter-minus"></span>
-                                        <input aria-label="count" class="js-item-counter item-sled-counter" type="number" step="1" max="10" min="1" value="1">
-                                        <span class="js-item-counter-plus"></span>
-                                    </span>
-                                    <span>ea.</span>
-                                </span>
-                                <!-- <span class="item-price__value">$ 2 / ea.</span> -->
-                                <span class="item-price__value">Liên hệ</span>
-                            </div>
-                        </li>
-                        @endif
-                        @endforeach
-                    </ul>
-                </div>
-                @else
-                <div class="pricing prd_di_kem group-prod">
-                    <div class="panel-subheading">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
-                            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"></path>
-                        </svg>
-                        <h4>{{ $group->name }}</h4>
-                    </div>
-                    <ul>
-                        @foreach($group->products as $index => $grPro)
-                        <li class="{{ $loop->index % 2 == 0 ? 'mg-r4' : 'mg-r' }}">
-                            @if($grPro->getMainImage())
-                            <img width="76" height="54" src="{{ asset($grPro->getMainImage()->image) }}" data-src="{{ asset($grPro->getMainImage()->image) }}" data-srcset="{{ asset($grPro->getMainImage()->image) }}" alt="{{ asset($grPro->getMainImage()->alt) }}" title="{{ asset($grPro->getMainImage()->title) }}" srcset="{{ asset($grPro->getMainImage()->image) }}">
-                            @else
-                            <img width="76" height="54" src="{{ asset('storage/images/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" width="206" height="206" alt="Image Coming Soon" title="Image Coming Soon">
-                            @endif
-                            <a href="{{ asset($grPro->slug) }}">
-                                <h4>{{ $grPro->name }}</h4>
-                            </a>
-                        </li>
-                        @endforeach
-                    </ul>
-                    <div class="align-items-center justify-content-center nav-mb group-show-more pb-4">
-                        <button class="btn-group-prod">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
-                    </div>
-                </div>
-                @endif
-                @endforeach
-
-                <!-- Bình luận -->
-                <div class="wrap-tab-comments mt-4" id="comment-box">
-                    <div class="comment-write" id="rate-box">
-                        <h3>Bạn đang cần tư vấn về sản phẩm: {{ $product->code }} ?</h3>
-                        <div class="form-comment">
-                            <form id="rate-form" method="post">
-                                @csrf
-                                <input type="hidden" id="idUser" name="user_id" value="{{ Auth::id() }}">
-                                <input type="hidden" id="idprd" name="product_id" value="{{ $product->id }}">
-                                <input type="hidden" id="slugPrd" name="slugPrd" value="{{ $product->slug }}">
-                                <div class="input-account-form cmt-content-form">
-                                    <textarea title="Nhập nội dung bình luận / nhận xét" name="content" id="comment-content" placeholder="Nhập câu hỏi / bình luận / nhận xét tại đây..." class="info-form-comment"></textarea>
-                                    <span id="content-error" style="color: red;"></span>
-                                    <span>
-                                        Bạn đang cần tư vấn về sản phẩm {{ $product->code }} và giải pháp mạng? Vui lòng để lại số điện thoại hoặc lời nhắn, nhân viên Nvidiavn.vn sẽ liên hệ trả lời bạn sớm nhất.
-                                    </span>
-                                </div>
-                                <div class="input-account-form" id="review-info-pad">
-                                    <div id="review-info" style="display: none">
-                                        <p>Cung cấp thông tin cá nhân</p>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Họ và tên:</label>
-                                                    <input type="text" name="name" id="comment-name" class="form-control" value="{{ old('name') }}" placeholder="Nhập họ và tên">
-                                                    <span id="name-error" style="color: red;"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Email:</label>
-                                                    <input type="text" name="email" id="comment-email" class="form-control" value="{{ old('email') }}" placeholder="Nhập Email (nhận thông báo phản hồi)">
-                                                    <span id="email-error" style="color: red;"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="rate-stars-row">
-                                        <span class="form-item-title">Đánh giá:</span>
-                                        <div class="prod-rate">
-                                            <fieldset class="rating">
-                                                <input type="radio" class="rate-poin-rdo" data-point="1" id="star1" name="rating" value="1">
-                                                <label class="full" for="star1" title="Thất vọng: cho 1 sao">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
-                                                    </svg>
-                                                </label>
-                                                <input type="radio" class="rate-poin-rdo" data-point="2" id="star2" name="rating" value="2">
-                                                <label class="full" for="star2" title="Trung bình: cho 2 sao">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
-                                                    </svg>
-                                                </label>
-                                                <input type="radio" class="rate-poin-rdo" data-point="3" id="star3" name="rating" value="3">
-                                                <label class="full" for="star3" title="Bình thường: cho 3 sao">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
-                                                    </svg>
-                                                </label>
-                                                <input type="radio" class="rate-poin-rdo" data-point="4" id="star4" name="rating" value="4">
-                                                <label class="full" for="star4" title="Hài lòng: cho 4 sao">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
-                                                    </svg>
-                                                </label>
-                                                <input type="radio" class="rate-poin-rdo" data-point="5" id="star5" name="rating" value="5">
-                                                <label class="full" for="star5" title="Rất hài lòng: cho 5 sao">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
-                                                    </svg>
-                                                </label>
-                                            </fieldset>
-                                            <div class="rate-stars">
-                                                <input type="hidden" id="rate-record" name="rate-record" value="0">
-                                                <input type="text" id="rate-point" name="rate-point" style="position: absolute; left: -2000px" title="Bạn cho sản phẩm này bao nhiêu ★">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="p-close"><button id="send-comment" class="link-close">Gửi bình luận</button></p>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div id="rate-reviews" class="box-view-comments">
-                        <span class="countcomments">Có {{ $totalCommentsCount }} bình luận:</span>
-                        <div id="rate-reviews-list">
-                            @if(!empty($sendCmt))
-                            @include('cntt.home.partials.cmt', ['sendCmt' => $sendCmt])
-                            @endif
-                        </div>
-                        <div id="comments-list">
-                            @include('cntt.home.partials.comment', ['comments' => $comments, 'user' => $user])
-                        </div>
-                        <nav class="d-flex justify-content-center mt-2 paginate-cmt">
-                            {{ $comments->links() }}
-                        </nav>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hotline -->
-            <div class="col-lg-3 mt-4">
-                <div class="support-prod new-prod">
-                    <div class="bg-prod d-flex align-items-center">
-                        <h2><i class="fa-solid fa-users"></i> Thông tin liên hệ</h2>
-                    </div>
-                    <div class="title-outstand-prod">
-                        <div class="row mt-3">
-                            <div><span class="top-heading">Hỗ trợ kinh doanh <i class="fa-solid fa-money-check-dollar"></i></span></div>
-                            @foreach($phoneInfors as $val)
-                            @if($val->role == 0)
-                            <div class="contact-infor">
-                                <span class="user-heading"><i class="fa-solid fa-user-check"></i> {{ $val->name }}</span>
-                                <div class="sp-online">
-                                    <span title="Mobile"><i class="fa-solid fa-headset"></i> {{ $val->phone }}</span>
-
-                                    <a href="{{ $val->skype }} " title="Chat với {{ $val->name }} qua Skype">
-                                        <i class="i-skype"></i>
-                                    </a>
-                                    <a href="https://zalo.me/{{ $val->zalo }}" title="Chat {{ $val->name }} qua Zalo">
-                                        <i class="i-zalo"></i>
-                                    </a>
-                                    <a target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $val->gmail }} " title="Gửi mail tới: {{ $val->name }} ">
-                                        <i class="i-gmail"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            @endif
-                            @endforeach
-                            <div class="mt-3"><span class="top-heading">Hỗ trợ kỹ thuật <i class="fa-solid fa-gear"></i></span></div>
-                            @foreach($phoneInfors as $val)
-                            @if($val->role == 1)
-                            <div class="contact-infor">
-                                <span class="user-heading"><i class="fa-solid fa-user-check"></i> {{ $val->name }}</span>
-                                <div class="sp-online">
-                                    <span title="Mobile"><i class="fa-solid fa-headset"></i> {{ $val->phone }}</span>
-
-                                    <a href="{{ $val->skype }} " title="Chat với {{ $val->name }} qua Skype">
-                                        <i class="i-skype"></i>
-                                    </a>
-                                    <a href="https://zalo.me/{{ $val->zalo }} " title="Chat {{ $val->name }} qua Zalo">
-                                        <i class="i-zalo"></i>
-                                    </a>
-                                    <a target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $val->gmail }} " title="Gửi mail tới: {{ $val->name }} ">
-                                        <i class="i-gmail"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            @endif
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 @endsection
 
 @section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- Link to Swiper's JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="{{asset('cntt/js/product.js')}}"></script>

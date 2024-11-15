@@ -23,7 +23,7 @@
                 <div class="row author-header {{ $loop->index % 2 == 0 ? '' : 'bg-white' }}">
                     <div class="d-flex align-items-center justify-content-center col-lg-2 col-md-3 col-sm-3 col-xs-4 padding-img">
                         <a href="{{ asset('/blogs/author/' . $user->slug) }}" title="Author {{ $user->name }}">
-                            <img src="{{ asset($user->image) }}" alt="{{ $user->alt_img }}">
+                            <img loading="lazy" width="139" height="139" src="{{ asset($user->image) }}" data-src="{{ asset($user->image) }}" srcset="{{ asset($user->image) }}" alt="{{ $user->alt_img }}">
                         </a>
                     </div>
                     <div class="col-lg-10 col-md-9 col-sm-9 col-xs-8">

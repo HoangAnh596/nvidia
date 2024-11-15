@@ -163,11 +163,19 @@ class HomeController extends Controller
             ->where('is_public', 1)
             ->orderBy('stt', 'ASC')->get();
         $slugs = explode('-', $slug);
-        $mainCate = Category::where('slug', $slug)->with(['children', 'questionCate' => function ($query) {
-            $query->select('cate_id', 'title', 'content')
-                ->where('is_public', 1) // Lọc theo is_public == 1
-                ->orderBy('stt', 'ASC'); // Sắp xếp theo stt
-        }])->first(); // Lấy ra danh mục chính
+        $mainCate = Category::select('id', 'name', 'slug', 'parent_id', 'filter_ids', 'content',
+            'title_img', 'alt_img', 'title_seo', 'keyword_seo', 'des_seo', 'created_at')
+            ->where('slug', $slug)->with([
+                'children' => function ($query){
+                    $query->select('categories.id', 'categories.name', 'categories.slug', 'categories.parent_id', 'categories.filter_ids', 'categories.content',
+                    'categories.title_img', 'categories.alt_img', 'categories.title_seo', 'categories.keyword_seo', 'categories.des_seo', 'categories.created_at');
+                },
+                'questionCate' => function ($query) {
+                    $query->select('questions.cate_id', 'questions.title', 'questions.content')
+                        ->where('is_public', 1) // Lọc theo is_public == 1
+                        ->orderBy('stt', 'ASC'); // Sắp xếp theo stt
+                }
+            ])->first(); // Lấy ra danh mục chính
         
         if (!empty($mainCate)) {
             // Seo Website
@@ -332,14 +340,20 @@ class HomeController extends Controller
         }
 
         $idPro = Product::where('slug', $slug)->value('id');
-        $product = Product::with(['category', 'questionProduct' => function ($query) {
-            $query->select('product_id', 'title', 'content')
-                ->where('is_public', 1) // Lọc theo is_public == 1
-                ->orderBy('stt', 'asc'); // Sắp xếp theo stt
-        }])->findOrFail($idPro);
+        $product = Product::with([
+            'category' => function ($query) {
+                $query->select('categories.id', 'categories.name', 'categories.slug', 'categories.parent_id');
+            },
+            'questionProduct' => function ($query) {
+                $query->select('questions.product_id', 'questions.title', 'questions.content')
+                    ->where('is_public', 1) // Lọc theo is_public == 1
+                    ->orderBy('stt', 'asc'); // Sắp xếp theo stt
+            }
+        ])->findOrFail($idPro);
 
         $categoryId = $product->category->pluck('id')->first();
-        $parent = Category::where('id', $categoryId)->first();
+        $parent = Category::select('id', 'name', 'slug', 'parent_id', 'compare_ids')
+            ->where('id', $categoryId)->first();
         $allParents = $parent->getAllParents();
         $parentCate = $parent->topLevelParent();
 
@@ -348,44 +362,43 @@ class HomeController extends Controller
         $keywordSeo = (!empty($product->keyword_seo)) ? $product->keyword_seo : $globalSeo->keyword_seo;
         $descriptionSeo = (!empty($product->des_seo)) ? $product->des_seo : $globalSeo->des_seo;
 
-        $relatedProducts = $product->getRelatedProducts();
+        // $relatedProducts = $product->getRelatedProducts();
         $images = $product->getProductImages();
 
         // Comments 
-        $commentsQuery = Comment::query(); // Khởi tạo query builder cho bảng comments
-        
-        if (Auth::check() && Auth::user()->role == 1) {
-            // Nếu role = 1, lấy tất cả các comments cho sản phẩm này
-            $commentsQuery->where('comments.product_id', $idPro)
-                        ->where('comments.parent_id', 0)
-                        ->with('replies') // Load các bình luận con
-                        ->orderBy('comments.created_at', 'DESC');
+        $commentsQuery = Comment::select('id', 'content', 'parent_id', 'product_id', 'user_id', 'name', 'slugProduct', 'created_at')
+            ->where('comments.product_id', $idPro)
+            ->where('comments.parent_id', 0)
+            ->orderBy('comments.created_at', 'DESC');
+
+        if (Auth::check() && Auth::user()->hasPermission('replay_comment')) {
+            $commentsQuery->with([
+                'replies' => function ($query) {
+                    $query->select('id', 'content', 'parent_id', 'product_id', 'user_id', 'name', 'slugProduct', 'email', 'is_public', 'created_at');
+                }
+            ]);
         } else {
-            // Nếu role khác 1, lấy các bình luận public hoặc bình luận của chính người dùng đó
-            $commentsQuery->where('comments.product_id', $idPro)
-                          ->where('comments.parent_id', 0)
-                          ->where(function($query) {
-                                $query->where('comments.is_public', 1) // Hiển thị bình luận công khai
-                                    ->orWhere(function($query) {
-                                    // Nếu bình luận của chính người dùng hiện tại, hiển thị nó bất kể is_public là gì
-                                        $query->whereNotNull('comments.user_id')->where('comments.user_id', Auth::id());
-                                    });
-                            })
-                          ->with('cmtChild');
+            $commentsQuery->where(function($query) {
+                $query->where('comments.is_public', 1) // Hiển thị bình luận công khai
+                    ->orWhere(function($query) {
+                        $query->whereNotNull('comments.user_id')
+                            ->where('comments.user_id', Auth::id()); // Hiển thị của user hiện tại
+                    });
+            })->with([
+                'cmtChild' => function ($query) {
+                    $query->select('id', 'content', 'parent_id', 'product_id', 'user_id', 'name', 'slugProduct', 'email', 'is_public', 'created_at');
+                }
+            ]);
         }
 
-        $comments = $commentsQuery->orderBy('created_at', 'DESC')->paginate(5);
+        $comments = $commentsQuery->paginate(5);
         if ($request->ajax()) {
             return view('cntt.home.partials.comment', compact('comments'))->render(); // Trả về view khi gọi bằng AJAX
         }
 
         // Tính tổng số bình luận (cha + con)
         $totalCommentsCount = Comment::where('product_id', $idPro)
-            ->where(function ($query) {
-                $query->where('parent_id', 0) // Bình luận cha
-                    ->orWhere('parent_id', '>', 0); // Bình luận con
-            })
-            ->when(!Auth::check() || Auth::user()->role != 1, function($query) {
+            ->when(!Auth::check() || !Auth::user()->hasPermission('replay_comment'), function($query) {
                 $query->where(function($query) {
                     $query->where('is_public', 1) // Hiển thị bình luận công khai
                         ->orWhere(function($query) {
@@ -393,33 +406,39 @@ class HomeController extends Controller
                                 ->whereNotNull('user_id'); // Chỉ hiển thị của user hiện tại
                         });
                 });
-            })
-            ->count();
+            })->count();
         $totalStarCount = Comment::where('product_id', $idPro)->sum('star');
         $user = Auth::user();
 
         $groupProducts = [];
         if (!empty($product->group_ids)) {
-            // Chuyển đổi JSON thành mảng
-            $groupIds = json_decode($product->group_ids, true);
-            // Lấy các bản ghi từ bảng Group có id nằm trong groupIds
-            $groupProducts = Group::with(['products' => function ($query) {
-                $query->select('products.id', 'products.name', 'products.slug', 'products.image_ids');
-            }])->select('id', 'name', 'is_type')
+            // Chuyển đổi JSON thành mảng nếu group_ids không rỗng
+            $groupIds = json_decode($product->group_ids, true) ?? [];
+
+            // Chỉ thực hiện truy vấn nếu $groupIds không rỗng
+            if (!empty($groupIds)) {
+                $groupProducts = Group::with(['products' => function ($query) {
+                    $query->select('products.id', 'products.name', 'products.slug', 'products.image_ids');
+                }])
+                ->select('id', 'name', 'is_type')
                 ->where('is_public', 1)
                 ->whereIn('id', $groupIds)
-                ->orderBy('stt', 'DESC')->get();
+                ->orderBy('stt', 'DESC')
+                ->get();
+            }
         } else {
-            // Xử lý id category cha con
+            // Xử lý id category cha con khi không có group_ids
             $cateIds = $parent->getAllParentIds();
             $groupProducts = Group::with(['products' => function ($query) {
                 $query->select('products.id', 'products.name', 'products.slug', 'products.image_ids');
-            }])->select('id', 'name', 'is_type')
-                ->where('is_public', 1)
-                ->whereIn('cate_id', $cateIds)
-                ->orderBy('stt', 'DESC')->get();
+            }])
+            ->select('id', 'name', 'is_type')
+            ->where('is_public', 1)
+            ->whereIn('cate_id', $cateIds)
+            ->orderBy('stt', 'DESC')
+            ->get();
         }
-        // dd($groupProducts);
+
         // Lấy ảnh chính cho từng sản phẩm
         $product->main_image = $product->getMainImage();
         // Chuyển chuỗi JSON thành mảng
@@ -428,8 +447,7 @@ class HomeController extends Controller
         return view('cntt.home.show', compact(
             'titleSeo', 'keywordSeo', 'descriptionSeo',
             'phoneInfors', 'product', 'allParents',
-            'parent', 'images', 'relatedProducts',
-            'comments', 'user',
+            'parent', 'images', 'comments', 'user',
             'totalCommentsCount', 'totalStarCount',
             'groupProducts', 'totalImgCount', 'parentCate'
         ));
@@ -811,8 +829,6 @@ class HomeController extends Controller
             $saleProducts->each(function ($product) {
                 $product->main_image = $product->getMainImage(); // Thêm ảnh chính vào đối tượng sản phẩm
             });
-            
-            // Hiển thị kết quả để kiểm tra
             
             return view('cntt.home.compare', compact(
                 'titleSeo', 'keywordSeo', 'descriptionSeo',

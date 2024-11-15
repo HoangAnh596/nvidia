@@ -93,7 +93,7 @@
                         </div>
                         <div id="holder"><img src="{{ old('filepath') }}"></div>
                     </div>
-                    <div class="col-3 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 600 x 600 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
+                    <div class="col-3 d-flex flex-row align-items-center" style="height: 38px;">(Kích thước đề nghị 636 x 334 px) <i class="fa-solid fa-circle-info" style="margin-left: 6px; color: red;"></i></div>
                 </div>
                 <div class="row mt-3 mb-3">
                     <div class="col-2 d-flex flex-row-reverse align-items-center">Màu nền Slider :</div>

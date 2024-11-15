@@ -21,18 +21,15 @@
         @foreach($sliders as $index => $slider)
         <div class="carousel-item {{ $index == 0 ? 'active' : '' }} {{ $slider->is_color == 1 ? 'wh-carousel' : 'bl-carousel' }}">
             <div class="container">
-                <div class="h-90"></div>
-                <div class="row">
+                <div class="row mt-70">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="{{ asset($slider->image) }}" alt="{{ $slider->name }}">
+                        <img class="img-fluid" loading="lazy" width="636" height="334" data-src="{{ asset($slider->image) }}" src="{{ asset($slider->image) }}" srcset="{{ asset($slider->image) }}" alt="{{ $slider->name }}">
                     </div>
-                    <div class="col-lg-6 mb-0 d-flex align-items-center">
-                        <div class="text-align-left align-self-center">
-                            <h1>{{ $slider->name }}</h1>
-                            <h3>{{ $slider->title }}</h3>
-                            <p class="p-25">{{ $slider->description }}</p>
-                            <a class="btn-carousel" href="{{ asset($slider->url) }}">{{ $slider->url_text }}</a>
-                        </div>
+                    <div class="col-lg-6 mb-0">
+                        <h1>{{ $slider->name }}</h1>
+                        <h3>{{ $slider->title }}</h3>
+                        <p class="p-25">{{ $slider->description }}</p>
+                        <a class="btn-carousel" href="{{ asset($slider->url) }}">{{ $slider->url_text }}</a>
                     </div>
                 </div>
             </div>
@@ -50,8 +47,8 @@
 <!-- End Banner Hero -->
 
 <!-- Start Featured Product -->
-<!-- Begin Danh mục sản phẩm -->
-<section class="container">
+<div class="container">
+    <!-- Begin Danh mục sản phẩm -->
     <div class="row hp-category justify-content-center">
         @php
         $agent = new Jenssegers\Agent\Agent();
@@ -59,39 +56,35 @@
         <!-- Header -->
         <!-- begin navbar mobile -->
         @if(!empty($categories))
-            @if($agent->isMobile())
-            <div class="cate-autoplay">
-                @foreach($categories as $item)
-                <div>
-                    <a class="img-partner" href="{{ asset($item->slug) }}" title="{{ $item->name }}">
-                        <img class="rounded-circle img-fluid border lazyload" src="{{ asset($item->image) }}" data-src="{{ asset($item->image) }}" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
-                    </a>
-                    <h2 class="mt-3 mb-3 d-flex flex-fill justify-content-center">
-                        <a href="{{ asset($item->slug) }}" title="{{ $item->name }}">{{ $item->name }}</a>
-                    </h2>
-                </div>
-                @endforeach
-            </div>
-            @else
+        @if($agent->isMobile())
+        <div class="cate-autoplay">
             @foreach($categories as $item)
-            <div class="col-lg-5 col-xs-6 col-md-4 col-sm-6">
-                <a class="d-flex justify-content-center flex-fill mt-3" href="{{ asset($item->slug) }}" title="{{ $item->name }}">
-                    <img class="rounded-circle img-fluid border lazyload" src="{{ asset($item->image) }}" data-src="{{ asset($item->image) }}" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
+            <div>
+                <a class="img-partner" href="{{ asset($item->slug) }}" title="{{ $item->name }}">
+                    <img class="rounded-circle img-fluid border" loading="lazy" width="234" height="234" src="{{ asset($item->image) }}" data-src="{{ asset($item->image) }}" srcset="{{ asset($item->image) }}" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
                 </a>
                 <h2 class="mt-3 mb-3 d-flex flex-fill justify-content-center">
                     <a href="{{ asset($item->slug) }}" title="{{ $item->name }}">{{ $item->name }}</a>
                 </h2>
             </div>
             @endforeach
-            @endif
+        </div>
+        @else
+        @foreach($categories as $item)
+        <div class="col-lg-5 col-xs-6 col-md-4 col-sm-6">
+            <a class="d-flex justify-content-center flex-fill mt-3" href="{{ asset($item->slug) }}" title="{{ $item->name }}">
+                <img class="rounded-circle img-fluid border" loading="lazy" width="234" height="234" src="{{ asset($item->image) }}" data-src="{{ asset($item->image) }}" srcset="{{ asset($item->image) }}" title="{{ $item->title_img }}" alt="{{ $item->alt_img }}">
+            </a>
+            <h2 class="mt-3 mb-3 d-flex flex-fill justify-content-center">
+                <a href="{{ asset($item->slug) }}" title="{{ $item->name }}">{{ $item->name }}</a>
+            </h2>
+        </div>
+        @endforeach
+        @endif
         @endif
     </div>
-</section>
-<!-- End Danh mục sản phẩm -->
-
-<!-- Begin Sản phẩm nổi bật -->
-<section class="product-categories">
-    <div class="container">
+    <!-- Begin Sản phẩm -->
+    <div class="product-categories">
         @if(!empty($categoriesWithProducts))
         @foreach ($categoriesWithProducts as $data)
         <div class="row bg-cate mb-3">
@@ -135,31 +128,20 @@
                     $newImagePath = $newDirectory . '/' . $filename;
                     @endphp
                     <a class="btn-img" href="{{ asset('/' . $product->slug) }}">
-                        <img class="card-img-top img-size" src="{{ asset($newImagePath) }}" alt="{{ $mainImage->alt }}" title="{{ $mainImage->title }}">
+                        <img class="img-size" loading="lazy" width="240" height="180" data-src="{{ asset($newImagePath) }}" src="{{ asset($newImagePath) }}" srcset="{{ asset($newImagePath) }}" alt="{{ $mainImage->alt }}" title="{{ $mainImage->title }}">
                     </a>
-                    <!-- srcset="/uploads/200_image.jpg 200w, /uploads/400_image.jpg 400w, /uploads/800_image.jpg 800w" -->
                     @else
                     <a class="btn-img" href="{{ asset('/' . $product->slug) }}">
-                        <img class="card-img-top lazyload img-size" src="{{ asset('storage/images/small/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" width="206" height="206" alt="Image Coming Soon" title="Image Coming Soon">
+                        <img class="img-size" loading="lazy" width="240" height="180" src="{{ asset('storage/images/small/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" srcset="{{ asset('storage/images/image-coming-soon.jpg') }}" alt="Image Coming Soon" title="Image Coming Soon">
                     </a>
                     @endif
                     <div class="card-body">
-                        <div class="text-dark">
-                            <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none btn-link">
-                                <h3>{{ $product->name }}</h3>
-                            </a>
-                        </div>
-                        @if($product->discount != 0)
-                        <div class="prd-sale">
-                            <p class="prd-sale-detail">
-                                Giảm {{ $product->discount }}%
-                            </p>
-                        </div>
-                        @endif
+                        <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none btn-link">
+                            <h3>{{ $product->name }}</h3>
+                        </a>
                         <ul class="list-unstyled d-flex">
                             @if($product->price == 0)
                             <li><span class="lien-he-price"> Liên hệ</span></li>
-                            <!-- <li><span class="lien-he-price"><i class="fa-solid fa-phone-volume"></i> Liên hệ</span></li> -->
                             @else
                             @if($product->discount != 0)
                             <li>
@@ -205,53 +187,46 @@
         @endforeach
         @endif
     </div>
-</section>
-<!-- End Sản phẩm nổi bật -->
-
-<!-- Begin Tin tức bài viết -->
-<section>
-    <div class="container">
-        <div class="row bg-cate mt-2">
-            <div class="col-md-3 text-cate" style="padding-left: 0;">
-                <a class="btn-link ft-sw" href="{{ asset('/blogs') }}">Tin Tức Công Nghệ</a>
-            </div>
-            <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
-                <ul class="nav nav-mb">
-                    @foreach($cateBlogs as $child)
-                    <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="{{ asset('/blogs/' . $child->slug) }}">{{ $child->name }}</a>
-                    </li>
-                    @endforeach
-                    <li class="nav-item">
-                        <a class="btn-link" aria-current="page" href="{{ asset('/blogs') }}">Xem thêm</a>
-                    </li>
-                </ul>
-            </div>
+    <!-- Begin Tin tức bài viết -->
+    <div class="row bg-cate mt-2">
+        <div class="col-md-3 text-cate" style="padding-left: 0;">
+            <a class="btn-link ft-sw" href="{{ asset('/blogs') }}">Tin Tức Công Nghệ</a>
         </div>
-        <div class="container-fluid px-0 mt-4">
-            <div class="owl-carousel owl-theme">
-                @if(!empty($blogs))
-                @foreach($blogs as $val)
-                <div class="item">
-                    <div class="card h-100 card-new">
-                        <a class="btn-img-new" href="{{ asset('/blogs/' . $val->slug) }}">
-                            <img class="card-img-top lazyload img-size" src="{{ asset($val->image) }}" data-src="{{ asset($val->image) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
-                        </a>
-                        <div class="new-body">
-                            <a href="{{ asset('/blogs/' . $val->slug) }}" class="text-decoration-none text-dark">
-                                <h4>{{ $val->name }}</h4>
-                            </a>
-                        </div>
-                        <p>{{ $val->desc }}</p>
-                    </div>
-                </div>
+        <div class="col-md-9 d-flex align-items-center justify-content-end" style="padding-right: 0;">
+            <ul class="nav nav-mb">
+                @foreach($cateBlogs as $child)
+                <li class="nav-item">
+                    <a class="btn-link" aria-current="page" href="{{ asset('/blogs/' . $child->slug) }}">{{ $child->name }}</a>
+                </li>
                 @endforeach
-                @endif
-            </div>
+                <li class="nav-item">
+                    <a class="btn-link" aria-current="page" href="{{ asset('/blogs') }}">Xem thêm</a>
+                </li>
+            </ul>
         </div>
     </div>
-</section>
-<!-- End Tin tức bài viết -->
+    <div class="container-fluid px-0 mt-4">
+        <div class="owl-carousel owl-theme">
+            @if(!empty($blogs))
+            @foreach($blogs as $val)
+            <div class="item">
+                <div class="card h-100 card-new">
+                    <a class="btn-img-new" href="{{ asset('/blogs/' . $val->slug) }}">
+                        <img class="img-size" loading="lazy" width="294" height="200" src="{{ asset(str_replace('bai-viet/', 'bai-viet/medium/', $val->image)) }}" data-src="{{ asset(str_replace('bai-viet/', 'bai-viet/medium/', $val->image)) }}" srcset="{{ asset(str_replace('bai-viet/', 'bai-viet/medium/', $val->image)) }}" alt="{{ $val->alt_img }}" title="{{ $val->title_img }}">
+                    </a>
+                    <div class="new-body">
+                        <a href="{{ asset('/blogs/' . $val->slug) }}" class="text-decoration-none text-dark">
+                            <h4>{{ $val->name }}</h4>
+                        </a>
+                    </div>
+                    <p>{{ $val->desc }}</p>
+                </div>
+            </div>
+            @endforeach
+            @endif
+        </div>
+    </div>
+</div>
 
 <!-- Begin service -->
 <section class="service-section">
@@ -262,72 +237,57 @@
         </div>
         <div class="row">
             <div class="service-item col-lg-4 col-md-4 sm-6">
-                <div class="inner-box">
-                    <div class="icon_box">
-                        <img width="40" height="40" src="{{ asset('storage/images/ui_images/icon-san-pham.png') }}" alt="sản phẩm chính hãng">
-                    </div>
-                    <p class="why_us">Sản phẩm chính hãng</p>
-                    <div class="text">
-                        <p>Sản phẩm chính hãng từ nhà sản xuất</p>
-                    </div>
+                <div class="icon_box">
+                    <img loading="lazy" width="40" height="40" data-src="{{ asset('storage/images/ui_images/icon-san-pham.png') }}" src="{{ asset('storage/images/ui_images/icon-san-pham.png') }}" srcset="{{ asset('storage/images/ui_images/icon-san-pham.png') }}" alt="sản phẩm chính hãng">
+                </div>
+                <p class="why_us">Sản phẩm chính hãng</p>
+                <div class="text">
+                    <p>Sản phẩm chính hãng từ nhà sản xuất</p>
                 </div>
             </div>
             <div class="service-item col-lg-4 col-md-4 sm-6">
-                <div class="inner-box">
-                    <div class="icon_box">
-                        <img width="40" height="40" src="{{ asset('storage/images/ui_images/icon-bao-hanh.png') }}" alt="Bảo hành chính hãng">
-                    </div>
-                    <p class="why_us">Bảo hành chính hãng</p>
-                    <div class="text">
-                        <p>Bảo hành sản phẩm chính hãng</p>
-                    </div>
+                <div class="icon_box">
+                    <img loading="lazy" width="40" height="40" data-src="{{ asset('storage/images/ui_images/icon-bao-hanh.png') }}" src="{{ asset('storage/images/ui_images/icon-bao-hanh.png') }}" srcset="{{ asset('storage/images/ui_images/icon-bao-hanh.png') }}" alt="Bảo hành chính hãng">
+                </div>
+                <p class="why_us">Bảo hành chính hãng</p>
+                <div class="text">
+                    <p>Bảo hành sản phẩm chính hãng</p>
                 </div>
             </div>
             <div class="service-item col-lg-4 col-md-4 sm-6">
-                <div class="inner-box">
-                    <div class="icon_box">
-                        <img width="40" height="40" alt="Tư vấn tin cậy" src="{{ asset('storage/images/ui_images/icon-tu-van.png') }}">
-                    </div>
-                    <p class="why_us">Tư vấn tin cậy</p>
-                    <div class="text">
-                        <p>Tư vấn, giải đáp mọi thắc mắc</p>
-                    </div>
+                <div class="icon_box">
+                    <img loading="lazy" width="40" height="40" data-src="{{ asset('storage/images/ui_images/icon-tu-van.png') }}" alt="Tư vấn tin cậy" src="{{ asset('storage/images/ui_images/icon-tu-van.png') }}" srcset="{{ asset('storage/images/ui_images/icon-tu-van.png') }}">
+                </div>
+                <p class="why_us">Tư vấn tin cậy</p>
+                <div class="text">
+                    <p>Tư vấn, giải đáp mọi thắc mắc</p>
                 </div>
             </div>
-
             <div class="service-item col-lg-4 col-md-4 sm-6">
-                <div class="inner-box">
-                    <div class="icon_box">
-                        <img width="40" height="40" alt="Giá cạnh tranh" src="{{ asset('storage/images/ui_images/icon-gia.png') }}">
-                    </div>
-                    <p class="why_us">Giá cả cạnh tranh</p>
-                    <div class="text">
-                        <p>Giá cạnh tranh, thấp nhất thị trường</p>
-                    </div>
+                <div class="icon_box">
+                    <img loading="lazy" width="40" height="40" data-src="{{ asset('storage/images/ui_images/icon-gia.png') }}" alt="Giá cạnh tranh" src="{{ asset('storage/images/ui_images/icon-gia.png') }}" srcset="{{ asset('storage/images/ui_images/icon-gia.png') }}">
+                </div>
+                <p class="why_us">Giá cả cạnh tranh</p>
+                <div class="text">
+                    <p>Giá cạnh tranh, thấp nhất thị trường</p>
                 </div>
             </div>
-
             <div class="service-item col-lg-4 col-md-4 sm-6">
-                <div class="inner-box">
-                    <div class="icon_box">
-                        <img width="40" height="40" alt="Phục vụ chu đáo" src="{{ asset('storage/images/ui_images/icon-phuc-vu.png') }}">
-                    </div>
-                    <p class="why_us">Phục vụ chu đáo</p>
-                    <div class="text">
-                        <p>Đem đến sự hài lòng cho quý khách</p>
-                    </div>
+                <div class="icon_box">
+                    <img loading="lazy" width="40" height="40" data-src="{{ asset('storage/images/ui_images/icon-phuc-vu.png') }}" alt="Phục vụ chu đáo" src="{{ asset('storage/images/ui_images/icon-phuc-vu.png') }}" srcset="{{ asset('storage/images/ui_images/icon-phuc-vu.png') }}">
+                </div>
+                <p class="why_us">Phục vụ chu đáo</p>
+                <div class="text">
+                    <p>Đem đến sự hài lòng cho quý khách</p>
                 </div>
             </div>
-
             <div class="service-item col-lg-4 col-md-4 sm-6">
-                <div class="inner-box">
-                    <div class="icon_box">
-                        <img width="40" height="40" alt="Dịch vụ hoàn hảo" src="{{ asset('storage/images/ui_images/icon-dich-vu.png') }}">
-                    </div>
-                    <p class="why_us">Dịch vụ hoàn hảo</p>
-                    <div class="text">
-                        <p>Dịch vụ hoàn hảo từ A-Z</p>
-                    </div>
+                <div class="icon_box">
+                    <img loading="lazy" width="40" height="40" data-src="{{ asset('storage/images/ui_images/icon-dich-vu.png') }}" alt="Dịch vụ hoàn hảo" src="{{ asset('storage/images/ui_images/icon-dich-vu.png') }}" srcset="{{ asset('storage/images/ui_images/icon-dich-vu.png') }}">
+                </div>
+                <p class="why_us">Dịch vụ hoàn hảo</p>
+                <div class="text">
+                    <p>Dịch vụ hoàn hảo từ A-Z</p>
                 </div>
             </div>
         </div>
@@ -340,6 +300,7 @@
 <!-- Owl Carousel CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+<link rel="stylesheet" href="{{asset('cntt/css/slick.min.css')}}">
 <style>
     .container-fluid {
         padding-left: 0;
@@ -424,6 +385,7 @@
 @section('js')
 <!-- Owl Carousel JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="{{ asset('cntt/js/slick.min.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('.cate-autoplay').slick({

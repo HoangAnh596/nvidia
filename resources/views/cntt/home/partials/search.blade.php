@@ -14,11 +14,11 @@
         $newImagePath = $newDirectory . '/' . $filename;
         @endphp
         <a class="btn-img" href="{{ $product->slug }}">
-            <img class="card-img-top img-size" src="{{ asset($newImagePath) }}" alt="{{ $mainImage->alt }}" title="{{ $mainImage->title }}">
+            <img class="img-size" loading="lazy" width="214" height="160" src="{{ asset($newImagePath) }}" data-src="{{ asset($newImagePath) }}" srcset="{{ asset($newImagePath) }}" alt="{{ $mainImage->alt }}" title="{{ $mainImage->title }}">
         </a>
         @else
         <a class="btn-img" href="{{ $product->slug }}">
-            <img class="card-img-top lazyload img-size" src="{{ asset('storage/images/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" width="206" height="206" alt="Image Coming Soon" title="Image Coming Soon">
+            <img class="img-size" loading="lazy" width="214" height="160" src="{{ asset('storage/images/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" alt="Image Coming Soon" title="Image Coming Soon">
         </a>
         @endif
         <div class="card-body">
@@ -27,13 +27,6 @@
                     <h3>{{ $product->name }}</h3>
                 </a>
             </div>
-            @if($product->discount != 0)
-            <div class="prd-sale">
-                <p class="prd-sale-detail">
-                    Giảm {{ $product->discount }}%
-                </p>
-            </div>
-            @endif
             <ul class="list-unstyled d-flex">
                 @if($product->price == 0)
                 <li><span class="lien-he-price">Liên hệ</span></li>

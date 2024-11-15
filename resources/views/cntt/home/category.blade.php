@@ -59,10 +59,8 @@
         @endif
         @else
         @if(!empty($filterCate))
-        <div class="row mt-3">
-            <h1>Chọn theo tiêu chí</h1>
-        </div>
         <div class="row web-filter mt-3" data-url="{{ route('home.filters') }}">
+            <h1 class="mb-3">Chọn theo tiêu chí</h1>
             <ul class="nav nav-filter ft-fixed">
                 <div class="container cont-fixed">
                     <?php $countFilter = 0 ?>
@@ -128,9 +126,9 @@
             </li>
             @endforeach
         </div>
+        @endif
+        @endif
     </div>
-    @endif
-    @endif
 </div>
 
 <div class="container">
@@ -199,11 +197,11 @@
                                 $newImagePath = $newDirectory . '/' . $filename;
                                 @endphp
                                 <a class="btn-img-outs" href="{{ $data->slug }}">
-                                    <img class="card-img-top img-size" src="{{ asset($newImagePath) }}" alt="{{ $mainImage->alt }}" title="{{ $mainImage->title }}">
+                                    <img class="img-size" loading="lazy" width="100" height="75" src="{{ asset($newImagePath) }}" alt="{{ $mainImage->alt }}" title="{{ $mainImage->title }}">
                                 </a>
                                 @else
                                 <a class="btn-img-outs" href="{{ $data->slug }}">
-                                    <img class="card-img-top lazyload img-size" src="{{ asset('storage/images/small/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" width="206" height="206" alt="Image Coming Soon" title="Image Coming Soon">
+                                    <img class="img-size" loading="lazy" width="100" height="75" src="{{ asset('storage/images/small/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" alt="Image Coming Soon" title="Image Coming Soon">
                                 </a>
                                 @endif
                             </div>
@@ -301,18 +299,12 @@
 
 @section('css')
 <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
-
-<style>
-    .new-prod {
-        position: sticky;
-        top: 55px;
-        left: 0;
-        width: 100%;
-        z-index: 999;
-    }
-</style>
+<link rel="stylesheet" href="{{asset('cntt/css/category.css')}}">
+<link rel="stylesheet" href="{{asset('cntt/css/content.css')}}">
+<link rel="stylesheet" href="{{asset('cntt/css/catePro.css')}}">
 @endsection
 @section('js')
+<script src="{{ asset('cntt/js/category.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 <script type="text/javascript">
     // Nhúng danh sách slugs từ backend vào frontend

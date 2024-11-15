@@ -18,9 +18,9 @@
     left: 24px;
     border-radius: 5px;
     width: auto;
-    z-index: 150;
     bottom: 50px;
     padding-top: 10px;
+    z-index: 9999;
 }
 .contact-icon ul {
     list-style: none;
@@ -343,7 +343,7 @@
 /* --------------------End Css Footer------------------------ */
 
 /* Begin Contact */
-.contact-us h1, h2 {
+.contact-us h1, .contact-us h2 {
     font-size: 1.5rem;
     font-weight: 600;
 }

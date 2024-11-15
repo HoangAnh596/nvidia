@@ -1,9 +1,8 @@
-<div class="header">
+
     @php
     $agent = new Jenssegers\Agent\Agent();
     @endphp
     <!-- Header -->
-    <!-- begin navbar mobile -->
     @if($agent->isMobile())
     <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-mobile">
         <!-- css mobilde if fixed add class nav-fixed -->
@@ -167,4 +166,3 @@
         </div>
     </div>
     <!-- Close Header -->
-</div>

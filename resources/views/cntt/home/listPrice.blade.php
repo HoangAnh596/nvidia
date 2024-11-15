@@ -18,7 +18,7 @@
                         <h1>Giá mã sản phẩm: {{ $key }}</h1>
                         <div id="checklistnumber">
                             <form action="{{ route('home.listPrice') }}" accept-charset="utf-8" method="get" id="checklist">
-                                <button class="search-submit" onclick="document.getElementById('checklist').submit()">CHECK GIÁ LIST</button>
+                                <button class="search-submit" onclick="document.getElementById('checklist').submit()">CHECK GIÁ</button>
                                 <button class="search-submit1" onclick="document.getElementById('checklist').submit()"><i class="fa fa-search"></i></button>
                                 <input type="text" name="key" value="{{ $key }}" id="partvalue" placeholder="Mã sản phẩm...">
                             </form>
@@ -58,11 +58,11 @@
                                     $newImagePath = $newDirectory . '/' . $filename;
                                     @endphp
                                     <td class="img-check-list">
-                                        <img class="card-img-top img-size" src="{{ asset($newImagePath) }}" alt="{{ $mainImage->alt }}" title="{{ $mainImage->title }}">
+                                        <img class="img-size" src="{{ asset($newImagePath) }}" alt="{{ $mainImage->alt }}" title="{{ $mainImage->title }}">
                                     </td>
                                     @else
                                     <td class="img-check-list">
-                                        <img class="card-img-top lazyload img-size" src="{{ asset('storage/images/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" width="206" height="206" alt="Image Coming Soon" title="Image Coming Soon">
+                                        <img class="lazyload img-size" src="{{ asset('storage/images/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" width="206" height="206" alt="Image Coming Soon" title="Image Coming Soon">
                                     </td>
                                     @endif
                                     <td class="sku-check-list">
@@ -148,6 +148,7 @@
 @endsection
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('cntt/css/listprice.css') }}">
 <style>
     .search-h2 {
         font-size: 1rem;
