@@ -1,7 +1,7 @@
 @extends('cntt.layouts.app')
 
 @section('content')
-<div class="pt-44" id="breadcrumb">
+<div class="bgeee" id="breadcrumb">
     <div class="container">
         <nav style="--bs-breadcrumb-divider: '»';" aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -14,6 +14,50 @@
         </nav>
     </div>
 </div>
+
+<div class="container">
+    <div class="header-server">
+        <div class="title-may-chu-server">
+            <h1>Máy Chủ</h1>
+        </div>
+        <ul id="brands_server_carousel" class="brand-server owl-carousel owl-loaded owl-drag">
+            <div class="owl-stage-outer">
+                <div class="owl-stage">
+                    <div class="owl-item">
+                        <li><a href="{{ asset('server-cisco') }}" title="Máy Chủ Cisco"><img src="{{ asset('cntt/img/server/may-chu-hang-cisco.png') }}" alt="Máy chủ thương hiệu Cisco"></a></li>
+                    </div>
+                    <div class="owl-item">
+                        <li><a href="{{ asset('server-lenovo') }}" title="Máy Chủ Lenovo ThinkSystem"><img src="{{ asset('cntt/img/server/may-chu-hang-lenovo-thinksystem.png') }}" alt="Máy chủ thương hiệu Lenovo ThinkSystem"></a></li>
+                    </div>
+                    <div class="owl-item">
+                        <li><a href="{{ asset('server-supermicro') }}" title="Máy Chủ Supermicro"><img src="{{ asset('cntt/img/server/may-chu-hang-supermicro.png') }}" alt="Máy chủ thương hiệu Supermicro"></a></li>
+                    </div>
+                    <div class="owl-item">
+                        <li><a href="{{ asset('server-nvidia') }}" title="Máy Chủ NVIDIA"><img src="{{ asset('cntt/img/server/may-chu-hang-nvidia.png') }}" alt="Máy chủ thương hiệu NVIDIA"></a></li>
+                    </div>
+                    <div class="owl-item">
+                        <li><a href="{{ asset('server-intel') }}" title="Máy Chủ Intel"><img src="{{ asset('cntt/img/server/may-chu-hang-intel.png') }}" alt="Máy chủ thương hiệu intel"></a></li>
+                    </div>
+                    <div class="owl-item">
+                        <li><a href="{{ asset('server-fujitsu') }}" title="Máy Chủ Fujitsu"><img src="{{ asset('cntt/img/server/may-chu-hang-fujitsu.png') }}" alt="Máy chủ thương hiệu fujitsu"></a></li>
+                    </div>
+                    <div class="owl-item">
+                        <li><a href="{{ asset('server-dell') }}" title="Máy Chủ Dell"><img src="{{ asset('cntt/img/server/may-chu-hang-dell-emc.png') }}" alt="Máy chủ thương hiệu Dell"></a></li>
+                    </div>
+                    <div class="owl-item">
+                        <li><a href="{{ asset('server-hpe') }}" title="Máy Chủ HPE"><img src="{{ asset('cntt/img/server/may-chu-hang-hpe.png') }}" alt="Máy chủ thương hiệu HP"></a></li>
+                    </div>
+                    <div class="owl-item">
+                        <li><a href="{{ asset('server-h3c') }}" title="Máy Chủ H3C"><img src="{{ asset('cntt/img/server/may-chu-hang-h3c.png') }}" alt="Máy chủ thương hiệu H3C"></a></li>
+                    </div>
+                </div>
+            </div>
+            <div class="owl-nav"><span class="owl-prev"><i class="arrow left"></i></span><span class="owl-next"><i class="arrow right"></i></span></div>
+            <div class="owl-dots disabled"></div>
+        </ul>
+    </div>
+</div>
+
 <div class="filter">
     <div class="container">
         @php
@@ -23,14 +67,19 @@
         <!-- begin navbar mobile -->
         @if($agent->isMobile())
         @if(!empty($filterCate))
-        <div class="row mt-3">
-            <h1>Chọn theo tiêu chí</h1>
-        </div>
         <div class="mobile-filter ft-fixed mt-3" data-url="{{ route('home.filters') }}">
             <div class="container" style="padding: 0;">
                 <div class="splide">
                     <div class="splide__track">
                         <div class="splide__list">
+                            <div class="splide__slide">
+                                <button class="filter-item show-filter-mb" name="bộ lọc" aria-current="page">
+                                    Bộ lọc
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="13.2" height="15.2" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                                        <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2z"></path>
+                                    </svg>
+                                </button>
+                            </div>
                             @foreach ($filterCate as $filter)
                             <div class="splide__slide">
                                 <button class="filter-item show-filter-mb" name="{{ $filter->slug }}" data-filter-id="{{ $filter->id }}" aria-current="page">{{ $filter->name }} <i class="fa-solid fa-chevron-down"></i></button>
@@ -60,9 +109,16 @@
         @else
         @if(!empty($filterCate))
         <div class="row web-filter mt-3" data-url="{{ route('home.filters') }}">
-            <h1 class="mb-3">Chọn theo tiêu chí</h1>
-            <ul class="nav nav-filter ft-fixed">
+            <ul class="nav nav-filter">
                 <div class="container cont-fixed">
+                    <li class="nav-item">
+                        <button class="filter-item show-filter top-filter" name="bộ lọc" aria-current="page">
+                            Bộ lọc
+                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14.4" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                                <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2z"></path>
+                            </svg>
+                        </button>
+                    </li>
                     <?php $countFilter = 0 ?>
                     @foreach ($filterCate as $fil)
                     <?php $countFilter++;
@@ -132,18 +188,32 @@
 </div>
 
 <div class="container">
-    <div class="show-prod-cate">
-        <h2 class="mt-3">{{ $mainCate->name }}</h2>
-        <div class="row custom-row mt-3" id="product-data">
-            @include('cntt.home.partials.products', ['products' => $products])
-        </div>
-        <nav class="d-flex justify-content-center mt-3">
-            {{ $products->links() }}
-        </nav>
+    @if(!empty($productFilters))
+    <div class="row custom-row mt-3" id="product-data">
+        @include('cntt.home.partials.products', ['products' => $productFilters])
     </div>
+    <nav class="d-flex justify-content-center mt-3">
+        {{ $productFilters->links() }}
+    </nav>
+    @else
+    <div class="row custom-row" id="product-data">
+        @foreach ($dataPro as $parentId => $group)
+        <div class="mt-3 d-flex justify-content-between align-items-center">
+            <a href="{{ asset($group['category_slug']) }}">
+                <h2>{{ $group['category_name'] }}</h2>
+            </a>
+            <a class="btn-all" href="{{ asset($group['category_slug']) }}">Xem tất cả</a>
+        </div>
+        @include('cntt.home.partials.pro', ['gr' => $group])
+        @endforeach
+    </div>
+    <nav class="d-flex justify-content-center mt-3">
+        {{ $childCategories->links() }}
+    </nav>
+    @endif
     <div class="cate-prod mt-3">
         <div class="row">
-            <div class="col-md-9 res-w100">
+            <div class="col-lg-8">
                 <div class="content-cate mb-3">
                     <div>
                         {!! $mainCate->content !!}
@@ -174,117 +244,76 @@
                 </div>
                 @endif
             </div>
-            <div class="col-md-3 res-dnone">
-                @if(!$prOutstand->isEmpty())
+            <!-- res-w100, res-dnone, outstand-prod -->
+            <div class="col-lg-4">
+                @if(!$newsQuery->isEmpty())
                 <div class="outstand-prod mb-3">
-                    <div class="bg-prod d-flex align-items-center">
-                        <h2><i class="fa-brands fa-gripfire"></i> Sản phẩm nổi bật</h2>
+                    <div class="head-blog mb-3">
+                        <span>Tin tức, dịch vụ & giải pháp máy chủ</span>
                     </div>
                     <div class="title-outstand-prod">
-                        @foreach($prOutstand as $data)
-                        <div class="row mt-3">
-                            <div class="col-md-4 col-4" style="padding:0;">
-                                @php
-                                $mainImage = $data->product_images->firstWhere('main_img', 1);
-                                @endphp
-
-                                @if($mainImage)
-                                @php
-                                $imagePath = $mainImage->image;
-                                $directory = dirname($imagePath);
-                                $filename = basename($imagePath);
-                                $newDirectory = $directory . '/small';
-                                $newImagePath = $newDirectory . '/' . $filename;
-                                @endphp
-                                <a class="btn-img-outs" href="{{ $data->slug }}">
-                                    <img class="img-size" loading="lazy" width="100" height="75" src="{{ asset($newImagePath) }}" alt="{{ $mainImage->alt }}" title="{{ $mainImage->title }}">
+                        @foreach($newsQuery as $data)
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <a class="btn-img-outs" href="{{ asset('/blogs/' . $data->slug) }}">
+                                    <img class="img-size" loading="lazy" src="{{ asset($data->image) }}" alt="{{ $data->alt_img }}" title="{{ $data->title_img }}">
                                 </a>
-                                @else
-                                <a class="btn-img-outs" href="{{ $data->slug }}">
-                                    <img class="img-size" loading="lazy" width="100" height="75" src="{{ asset('storage/images/small/image-coming-soon.jpg') }}" data-src="{{ asset('storage/images/image-coming-soon.jpg') }}" alt="Image Coming Soon" title="Image Coming Soon">
-                                </a>
-                                @endif
                             </div>
-                            <div class="col-md-8 col-8 d-flex flex-column bd-highlight text-outstand">
-                                <div class="bd-highlight r-2">
-                                    <a class="btn-link" href="{{ $data->slug }}">{{ $data->name }}</a>
-                                </div>
-                                <div class="mt-auto bd-highlight">
-                                    <ul class="list-unstyled d-flex justify-content-between align-items-center total-review-home infor-outs">
-                                        <li>
-                                            @if($data->price == 0)
-                                            <span class="lien-he-price">Liên hệ</span>
-                                            @else
-                                            <a href="{{ $data->slug }}" class="text-decoration-none text-danger">
-                                                {{ number_format($data->discount != 0 ? $data->price * (1 - $data->discount / 100) : $data->price, 0, ',', '.') }}₫
-                                            </a>
-                                            @endif
-                                        </li>
-                                        <li class="text-muted text-right">
-                                            <i class="text-warning fa fa-star"></i>
-                                            <span>
-                                                @if ($data->totalCmt > 0)
-                                                {{ number_format($data->average_star, 1) }} ({{ $data->totalCmt }})
-                                                @endif
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <div class="col-md-8 mb-3 text-outstand">
+                                <a class="btn-link" href="{{ asset('/blogs/' . $data->slug) }}">{{ $data->name }}</a>
                             </div>
                         </div>
                         @endforeach
-                        <div class="align-items-center justify-content-center nav-mb outstand-show-more btn-show-more pb-3">
-                            <button class="btn-link">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
-                        </div>
+                        <p class="see-more-news text-center">
+                            <a target="_black" title="Xem thêm các tin tức, dịch vụ và giải pháp máy chủ tại Nvidia" href="{{ asset('/blogs/' . $newsQuery->first()->cateNews->slug) }}">Xem thêm các bài viết</a>
+                        </p>
                     </div>
                 </div>
                 @endif
                 <!-- Hotline -->
                 <div class="support-prod new-prod mb-3">
                     <div class="bg-prod d-flex align-items-center">
-                        <h2><i class="fa-solid fa-file-invoice-dollar"></i> Bạn cần báo giá tốt nhất</h2>
+                        <h2>Thông tin liên hệ</h2>
                     </div>
                     <div class="title-outstand-prod">
-                        <div class="row mt-3">
-                            <div><span class="top-heading">Hỗ trợ kinh doanh <i class="fa-solid fa-money-check-dollar"></i></span></div>
+                        <div class="top-heading">Hỗ trợ kinh doanh <i class="fa-solid fa-money-check-dollar"></i></div>
+                        <div class="contact-infor">
                             @foreach($phoneInfors as $val)
                             @if($val->role == 0)
-                            <div class="contact-infor">
-                                <span class="user-heading"><i class="fa-solid fa-user-check"></i> {{ $val->name }}</span>
-                                <div class="sp-online">
-                                    <span title="Mobile"><i class="fa-solid fa-headset"></i> {{ $val->phone }}</span>
+                            <span class="user-heading"><i class="fa-solid fa-user-check"></i> {{ $val->name }}</span>
+                            <div class="sp-online">
+                                <span title="Mobile"><i class="fa-solid fa-headset"></i> {{ $val->phone }}</span>
 
-                                    <a href="{{ $val->skype }} " title="Chat với {{ $val->name }} qua Skype">
-                                        <i class="i-skype"></i>
-                                    </a>
-                                    <a href="https://zalo.me/{{ $val->zalo }} " title="Chat {{ $val->name }} qua Zalo">
-                                        <i class="i-zalo"></i>
-                                    </a>
-                                    <a target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $val->gmail }} " title="Gửi mail tới: {{ $val->name }} ">
-                                        <i class="i-gmail"></i>
-                                    </a>
-                                </div>
+                                <a href="{{ $val->skype }}" title="Chat với {{ $val->name }} qua Skype">
+                                    <span class="i-skype"></span>
+                                </a>
+                                <a href="https://zalo.me/{{ $val->zalo }}" title="Chat {{ $val->name }} qua Zalo">
+                                    <span class="i-zalo"></span>
+                                </a>
+                                <a target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $val->gmail }}" title="Gửi mail tới: {{ $val->name }}">
+                                    <span class="i-gmail"></span>
+                                </a>
                             </div>
                             @endif
                             @endforeach
-                            <div class="mt-3"><span class="top-heading">Hỗ trợ kỹ thuật <i class="fa-solid fa-gear"></i></span></div>
+                        </div>
+                        <div class="mt-3 top-heading">Hỗ trợ kỹ thuật <i class="fa-solid fa-gear"></i></div>
+                        <div class="contact-infor">
                             @foreach($phoneInfors as $val)
                             @if($val->role == 1)
-                            <div class="contact-infor">
-                                <span class="user-heading"><i class="fa-solid fa-user-check"></i> {{ $val->name }}</span>
-                                <div class="sp-online">
-                                    <span title="Mobile"><i class="fa-solid fa-headset"></i> {{ $val->phone }}</span>
+                            <span class="user-heading"><i class="fa-solid fa-user-check"></i> {{ $val->name }}</span>
+                            <div class="sp-online">
+                                <span title="Mobile"><i class="fa-solid fa-headset"></i> {{ $val->phone }}</span>
 
-                                    <a href="{{ $val->skype }} " title="Chat với {{ $val->name }} qua Skype">
-                                        <i class="i-skype"></i>
-                                    </a>
-                                    <a href="https://zalo.me/{{ $val->zalo }} " title="Chat {{ $val->name }} qua Zalo">
-                                        <i class="i-zalo"></i>
-                                    </a>
-                                    <a target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $val->gmail }} " title="Gửi mail tới: {{ $val->name }} ">
-                                        <i class="i-gmail"></i>
-                                    </a>
-                                </div>
+                                <a href="{{ $val->skype }}" title="Chat với {{ $val->name }} qua Skype">
+                                    <span class="i-skype"></span>
+                                </a>
+                                <a href="https://zalo.me/{{ $val->zalo }}" title="Chat {{ $val->name }} qua Zalo">
+                                    <span class="i-zalo"></span>
+                                </a>
+                                <a target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $val->gmail }}" title="Gửi mail tới: {{ $val->name }}">
+                                    <span class="i-gmail"></span>
+                                </a>
                             </div>
                             @endif
                             @endforeach
@@ -302,11 +331,47 @@
 <link rel="stylesheet" href="{{asset('cntt/css/category.css')}}">
 <link rel="stylesheet" href="{{asset('cntt/css/content.css')}}">
 <link rel="stylesheet" href="{{asset('cntt/css/catePro.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+<style>
+    .owl-carousel {
+        z-index: unset;
+    }
+
+    .owl-nav,
+    .owl-dots {
+        display: none;
+    }
+</style>
 @endsection
 @section('js')
 <script src="{{ asset('cntt/js/category.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 <script type="text/javascript">
+    $(".owl-carousel").owlCarousel({
+        items: 6, // Số lượng item hiển thị
+        loop: true,
+        margin: 15,
+        nav: true,
+        autoplay: true, // Bật tự động chạy slide
+        autoplayTimeout: 3000, // Chuyển slide mỗi 3 giây
+        autoplayHoverPause: true, // Tạm dừng khi di chuột vào
+        responsive: {
+            0: {
+                items: 2
+            },
+            600: {
+                items: 3
+            },
+            800: {
+                items: 4
+            },
+            1100: {
+                items: 6
+            }
+        }
+    });
     // Nhúng danh sách slugs từ backend vào frontend
     var validSlugs = <?php echo json_encode($slugs); ?>;
 

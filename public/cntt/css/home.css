@@ -15,7 +15,7 @@ body {
 /* Typography */
 ul, li, p, a, label, input, div {
     font-family: 'OpenSans', sans-serif;
-    font-size: 1rem;
+    font-size: .95rem;
     font-weight: 400;
 }
 #template-mo-zay-hero-carousel .carousel-control-next i, #template-mo-zay-hero-carousel .carousel-control-prev i {
@@ -77,7 +77,7 @@ h4 {
 }
 
 a {
-    color: #666;
+    color: #333;
     text-decoration: none;
 }
 
@@ -482,8 +482,7 @@ button:focus {
     margin-top: 12px;
 }
 .img-size {
-    width: auto; /* or a relative size like 100% */
-    height: auto;
+    width: auto;
     max-width: 100%;
     border-radius: 5px;
 }
@@ -561,7 +560,7 @@ button:focus {
     height: 25px;
 }
 .lien-he-price {
-    font-size: 15px;
+    font-size: .8rem;
     border-radius: 3px;
     color: #76b900;
     display: inline-block;
@@ -575,7 +574,7 @@ button:focus {
 .nav-mb li {
     padding-left: 15px;
 }
-.nav-mb a {
+.nav-mb a, .btn-all {
     padding: 5px 10px;
     border: 1px solid #e5e7eb;
     border-radius: 7px;
@@ -697,6 +696,32 @@ button:focus {
 }
 /* End Service */
 
+/* config server */
+.config-outstand {
+    height: 96px;
+}
+.config-outstand p {
+    font-size: 12px;
+    margin-bottom: .4rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
+.config-outstand p span {
+    background-color: #eee;
+    color: black;
+    font-size: 14px;
+    padding: 5px 8px;
+    border-radius: 3px;
+}
+.config-outstand img {
+    display: inline-block !important;
+    width: 16px !important;
+    height: auto; /* Đảm bảo tỉ lệ ảnh */
+}
+/* End config server */
 /* -------------------Begin Responsive ------------------- */
 @media (min-width: 1200px) {
     .col-w-5 {

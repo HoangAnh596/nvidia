@@ -444,9 +444,11 @@ button.pop-gallery {
 .conf-section__item.specify .checkbox__label, .conf-section__item.specify .radio__label {
     padding-right: 140px;
 }
-.radio__label {
+.radio__label, .checkbox__label {
     position: relative;
     display: block;
+    font-weight: 400;
+    font-family: 'IBM Plex Mono', sans-serif;
     font-size: 13px;
     line-height: 16px;
     -webkit-user-select: none;
@@ -529,25 +531,7 @@ button.pop-gallery {
     white-space: normal;
     padding: 8px 100px 8px 32px;
 }
-.checkbox__label {
-    position: relative;
-    display: block;
-    font-weight: 400;
-    font-family: 'IBM Plex Mono', sans-serif;
-    font-size: 12px;
-    line-height: 16px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    white-space: nowrap;
-    overflow: hidden;
-    background-color: #EDF0F2;
-    padding: 8px 8px 8px 32px;
-    border-radius: 2px;
-    -webkit-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-}
+
 .ratio-configurator .conf-section__item.with-quantity .checkbox__label, .ratio-configurator .conf-section__item.with-quantity .radio__label {
     padding-right: 220px;
 }
@@ -948,6 +932,12 @@ button.pop-gallery {
     }
 }
 
+@media (max-width: 767px) {
+    .price__quantity-block, .price__quantity-ea {
+        display: none;
+    }
+}
+
 @media (min-width: 992px) {
     .compare .tcpr {
         position: relative;
@@ -1013,12 +1003,6 @@ button.pop-gallery {
         display: block;
     }
 }
-
-/* @media (max-width: 1200px) {
-    #chi-tiet img {
-        width: 100%;
-    }
-} */
 
 @media (min-width: 1400px) {
     .col-viewmore-item {

@@ -12,18 +12,35 @@
                 <span id="code-error" style="color: red;"></span>
             </div>
             <div class="mb-3">
-                <label for="price" class="form-label">Giá sản phẩm</label>
-                <input class="form-control" id="price" type="text" name="price" oninput="validatePrice()" value="{{ old('price', $product->price ?? '') }}">
-                <span class="font-italic text-danger" id="priceError"></span>
-            </div>
-            <div class="mb-3">
-                <label for="status" class="form-label">Tình trạng :</label>
+                <label for="status" class="form-label">Tình trạng sản phẩm:</label>
                 <select class="form-control" aria-label="Default" name="status">
                     <option value="1" @if(!empty($product) && $product->status == 1) selected @endif>
                         Còn hàng
                     </option>
                     <option value="0" @if(!empty($product) && $product->status == 0) selected @endif>
                         Hết hàng
+                    </option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="is_outstand" class="form-label">Sản phẩm nổi bật :</label>
+                <select class="form-control" aria-label="Default" name="is_outstand">
+                    <option value="1" @if(!empty($product) && $product->is_outstand == 1) selected @endif>
+                        Có
+                    </option>
+                    <option value="0" @if(!empty($product) && $product->is_outstand == 0) selected @endif>
+                        Không
+                    </option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="is_public" class="form-label">Ẩn/Hiện sản phẩm :</label>
+                <select class="form-control" aria-label="Default" name="is_public">
+                    <option value="1" @if(!empty($product) && $product->is_public == 1) selected @endif>
+                        Hiển thị
+                    </option>
+                    <option value="0" @if(!empty($product) && $product->is_public == 0) selected @endif>
+                        Ẩn
                     </option>
                 </select>
             </div>
@@ -68,6 +85,11 @@
                 </select>
             </div>
             <div class="mb-3">
+                <label for="price" class="form-label">Giá sản phẩm</label>
+                <input class="form-control" id="price" type="text" name="price" oninput="validatePrice()" value="{{ old('price', $product->price ?? '') }}">
+                <span class="font-italic text-danger" id="priceError"></span>
+            </div>
+            <div class="mb-3">
                 <label for="discount" class="form-label">Giảm giá %</label>
                 <input class="form-control" id="discount" type="text" name="discount" oninput="validateDiscount()" value="{{ old('discount', $product->discount ?? '') }}">
                 <span class="font-italic text-danger" id="discountError"></span>
@@ -76,7 +98,7 @@
                 <label for="category">Danh mục phụ</label>
                 <ul id="category" class="subCate">
                     @foreach($categories as $val)
-                        @include('admin.product.partials.subCategory_edit', ['category' => $val, 'selectedCategories' => $product->subCategory])
+                        @include('admin.product.partials.subCategory_edit', ['category' => $val, 'selectedCategories' => $product->subCate])
                     @endforeach
                 </ul>
             </div>

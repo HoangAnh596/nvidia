@@ -139,9 +139,31 @@
                         <a href="{{ asset('/' . $product->slug) }}" class="text-decoration-none btn-link">
                             <h3>{{ $product->name }}</h3>
                         </a>
-                        <ul class="list-unstyled d-flex">
+                        <div class="config-outstand mt-2 mb-2">
+                            @if(!empty($product->config_pr))
+                            <p>
+                                <span>Cấu hình: {{ $product->config_pr }}</span>
+                            </p>
+                            @endif
+                            @if(!empty($product->cpu_pr))
+                            <p title="Hỗ trợ CPU">
+                                <img src="{{ asset('cntt/img/cpu.png') }}"> {{ $product->cpu_pr }}
+                            </p>
+                            @endif
+                            @if(!empty($product->ram_pr))
+                            <p title="Hỗ trợ RAM">
+                                <img src="{{ asset('cntt/img/ram.png') }}"> {{ $product->ram_pr }}
+                            </p>
+                            @endif
+                            @if(!empty($product->hdd_pr))
+                            <p title="Ổ đĩa">
+                                <img src="{{ asset('cntt/img/hdd.png') }}"> {{ $product->hdd_pr }}
+                            </p>
+                            @endif
+                        </div>
+                        <ul class="list-unstyled d-flex justify-content-between align-items-center total-review-home">
                             @if($product->price == 0)
-                            <li><span class="lien-he-price"> Liên hệ</span></li>
+                            <li><span class="lien-he-price">Liên hệ</span></li>
                             @else
                             @if($product->discount != 0)
                             <li>
@@ -162,8 +184,6 @@
                             </li>
                             @endif
                             @endif
-                        </ul>
-                        <ul class="list-unstyled d-flex justify-content-between align-items-center total-review-home">
                             <li class="text-muted text-right">
                                 <i class="text-warning fa fa-star"></i>
                                 <span>
@@ -172,11 +192,6 @@
                                     @endif
                                 </span>
                             </li>
-                            @if($product->status == 1)
-                            <li><span class="lien-he-price"><i class="fa-solid fa-check"></i> Còn hàng</span></li>
-                            @else
-                            <li></li>
-                            @endif
                         </ul>
                     </div>
                 </div>

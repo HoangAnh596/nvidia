@@ -26,7 +26,8 @@ class Category extends Model
         'name', 'slug', 'parent_id', 'filter_ids',
         'image', 'title_img', 'alt_img', 'content',
         'title_seo', 'keyword_seo', 'des_seo', 'stt_cate', 'is_home',
-        'is_serve', 'is_parent', 'is_menu', 'is_outstand', 'is_public'
+        'infor_server', 'is_serve', 'is_parent',
+        'is_menu', 'is_outstand', 'is_public'
     ];
 
     public function products()
@@ -59,9 +60,9 @@ class Category extends Model
     // Lấy ra id của cha có parent_id = 0
     public function topLevelParent()
     {
-        $category = $this->select('id', 'parent_id', 'name', 'slug', 'filter_ids')->where('id', $this->id)->first();
+        $category = $this->select('id', 'parent_id', 'name', 'slug', 'filter_ids', 'is_serve')->where('id', $this->id)->first();
         while ($category->parent_id != 0) {
-            $category = $category->parent()->select('id', 'parent_id', 'name', 'slug', 'filter_ids')->first();
+            $category = $category->parent()->select('id', 'parent_id', 'name', 'slug', 'filter_ids', 'is_serve')->first();
         }
         return $category;
     }

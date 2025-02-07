@@ -42,7 +42,7 @@ class ProductController extends Controller
             });
             $query->orWhere(function ($query) use ($categoryIds) {
                 foreach ($categoryIds as $categoryId) {
-                    $query->orWhereJsonContains('subCategory', (string)$categoryId);
+                    $query->orWhereJsonContains('subCate', (string)$categoryId);
                 }
             });
         });

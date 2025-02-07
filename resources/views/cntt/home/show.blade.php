@@ -5,6 +5,12 @@
 <link rel="stylesheet" href="{{asset('cntt/css/content.css')}}">
 <link rel="stylesheet" href="{{asset('cntt/css/catePro.css')}}">
 <link rel="stylesheet" href="{{ asset('cntt/css/compare.css') }}">
+
+<style>
+    .modal-header h5 {
+        font-size: 16px;
+    }
+</style>
 @endsection
 @extends('cntt.layouts.app')
 
@@ -226,7 +232,6 @@
                                 <span class="js-item-name">{{ $grPro->name }}</span>
                             </span>
                         </label>
-                        <!-- <div class="item-price item-price--specify"><span class="item-price__value2">$ 400</span></div> -->
                         <div class="item-price item-price--specify"><span class="item-price__value2">Liên hệ</span></div>
                     </li>
                     @else
@@ -245,9 +250,8 @@
                                     <input aria-label="count" class="js-item-counter item-sled-counter" type="number" step="1" max="10" min="1" value="1">
                                     <span class="js-item-counter-plus"></span>
                                 </span>
-                                <span>ea.</span>
+                                <span class="price__quantity-ea">ea.</span>
                             </span>
-                            <!-- <span class="item-price__value">$ 2 / ea.</span> -->
                             <span class="item-price__value">Liên hệ</span>
                         </div>
                     </li>

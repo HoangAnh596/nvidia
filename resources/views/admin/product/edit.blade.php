@@ -33,6 +33,12 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#info-tab" type="button" role="tab">
                             <i class="bi bi-info-circle-fill"></i>
+                            Thông tin sản phẩm
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#server-tab" type="button" role="tab">
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
                             Cấu hình sản phẩm
                         </button>
                     </li>
@@ -46,6 +52,9 @@
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="info-tab" role="tabpanel">
                         @include("admin.product.shared.edit-config")
+                    </div>
+                    <div class="tab-pane fade" id="server-tab" role="tabpanel">
+                        @include("admin.product.shared.edit-server")
                     </div>
                     <div class="tab-pane fade" id="wallet-tab" role="tabpanel">
                         @include("admin.product.shared.edit-seo")
@@ -352,6 +361,8 @@
 
             var id = $(this).data('id'); // Lấy ID từ thuộc tính data-id
             var url = $(this).attr('href'); // Lấy URL từ href
+            console.log(url);
+            
 
             confirmDeleteImg(id, url); // Gọi hàm confirmDelete
         });
@@ -378,14 +389,16 @@
                             url: url,
                             type: 'DELETE',
                             data: {
-                                _token: '{{ csrf_token() }}'
+                                _token: $('meta[name="csrf-token"]').attr('content') // Lấy token từ meta tag
                             },
                             success: function(result) {
                                 // Xóa hàng khỏi bảng nếu xóa thành công
                                 $('a[data-id="' + id + '"]').closest('tr').remove();
+                                toastr.success('Xóa thành công.');
                             },
                             error: function(xhr) {
-                                alert('Có lỗi xảy ra, vui lòng thử lại.');
+                                toastr.error('Có lỗi xảy ra, vui lòng thử lại.');
+                                console.error(xhr.responseText); // In lỗi ra console để kiểm tra
                             }
                         });
                     });

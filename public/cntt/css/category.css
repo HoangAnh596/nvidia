@@ -1,4 +1,66 @@
+/* Begin thương hiệu máy chủ */
+.header-server {
+    display: block;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    float: left;
+    width: 100%;
+    margin: 1rem 0;
+}
+.title-may-chu-server {
+    background-color: #e0e0e0;
+    float: left;
+    padding: 9px 5px 9px 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 15%;
+}
+.header-server h1 {
+    font-size: 18px;
+    background: linear-gradient(90deg, #1D6CBE 0%, #2692ff 75%);
+    color: #fff;
+    padding: 7px 14px 7px;
+    border-radius: 34px;
+    margin-bottom: 0;
+    text-align: center;
+}
+#brands_server_carousel {
+    width: 85%;
+    overflow: hidden;
+    list-style: none;
+}
+ul.brand-server {
+    background-color: #e0e0e0;
+    padding: 10px 15px;
+    float: left;
+    border-radius: 10px;
+    margin-bottom: 0;
+}
+#brands_server_carousel .owl-stage-outer .owl-item {
+    text-align: center;
+}
+ul.brand-server li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 34px;
+    height: 36px;
+    background-color: #fff;
+    padding: 5px 15px;
+    border: 2px solid #fff;
+}
+ul.brand-server a img {
+    height: 16px;
+}
+/* End thương hiệu máy chủ */
+
 /* Bộ lọc */
+.custom-row h2{
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
 .filter h1{
     font-size: 22px;
     font-weight: 700;
